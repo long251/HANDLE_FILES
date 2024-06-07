@@ -1,0 +1,38 @@
+TRICK_NOTE_TO_PORTAL
+--------------------
+- Breadcrumb_New	->	đang đi đúng hướng là tạo ra 1 Home/path và title bên dưới
+	- type Props: định nghĩa kiểu dữ lieu cho props nhận. Vd: title: string, path...
+	- const BreadcrumbNew = (props: Props) => { : func nhận props có kiểu dữ liệu Props
+	- Link: monochrome: bỏ đổi màu khi nhấn vào
+-------------------------------------------------------------------------------------------
+MÀN 10
+------
+- filteredRows: lưu trữ danh sách các hàng đã được lọc dựa trên tìm kiếm -> tập hợp mảng
+- hàm handleSearchChange: cập nhật giá trị SreachValue mới
+- useCallback: Hook này giúp tạo ra một hàm ghi nhớ, chỉ thay đổi khi rows thay đổi, nhằm tránh việc tạo hàm mới mỗi khi component render lại.
+- rows.filter: Lọc các hàng dựa trên giá trị tìm kiếm.
+- Filter condition: Kiểm tra xem giá trị tìm kiếm có xuất hiện trong cột đầu tiên (row[0]) hoặc cột thứ ba (row[2]) của mỗi hàng không (không phân biệt chữ hoa chữ thường).
+- setFilteredRows(filtered): Cập nhật filteredRows với các hàng đã được lọc.
+- Debounce Function:
+	const delayedFilterRows = useCallback(debounce(filterRows, 1000), []);
+  - useCallback: Hook này giúp tạo ra một hàm ghi nhớ, chỉ thay đổi khi filterRows thay đổi.
+  - debounce: Được sử dụng từ thư viện lodash, hàm này trì hoãn việc thực thi filterRows cho đến khi một khoảng thời gian cụ thể (ở đây là 1000ms) đã trôi qua kể từ lần gọi cuối cùng.
+  - 1000: Độ trễ (debounce delay) là 1000ms (1 giây).
+  - Empty dependency array []: Hàm delayedFilterRows sẽ chỉ được tạo một lần khi component mount.
+- Effect Hook:
+	useEffect(() => {
+  delayedFilterRows(searchValue);
+  return delayedFilterRows.cancel;
+}, [searchValue, delayedFilterRows]);
+  - delayedFilterRows(searchValue): Gọi hàm delayedFilterRows mỗi khi searchValue hoặc delayedFilterRows thay đổi.
+  - Cleanup: Trả về hàm delayedFilterRows.cancel để hủy bỏ bất kỳ cuộc gọi nào còn lại khi component unmount hoặc trước khi gọi lại delayedFilterRows.
+-----------------------
+- const startIndex = (currentPage - 1) * itemsPerPage;
+startIndex: Chỉ số bắt đầu của mục đầu tiên trên trang hiện tại. Được tính bằng công thức (currentPage - 1) * itemsPerPage.
+Ví dụ: Nếu đang ở trang 2 và mỗi trang có 15 mục, startIndex sẽ là (2 - 1) * 15 = 15.
+- const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+endIndex: Chỉ số kết thúc của mục cuối cùng trên trang hiện tại. Được tính bằng công thức Math.min(startIndex + itemsPerPage, totalItems) để đảm bảo không vượt quá tổng số mục.
+Ví dụ: Nếu startIndex là 15 và itemsPerPage là 15, endIndex sẽ là Math.min(15 + 15, totalItems).
+- const paginatedRows = filteredRows.slice(startIndex, endIndex);
+paginatedRows: Mảng chứa các mục sẽ được hiển thị trên trang hiện tại. Được lấy bằng cách sử dụng slice trên mảng filteredRows từ startIndex đến endIndex.
+- 

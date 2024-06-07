@@ -1,0 +1,44 @@
+CTY_PCS
+-------
+Ngày cập nhật: 06/06/2024
+-------------------------
+
+- hộp bánh danisa -> hết bánh -> Mang -> những gói đậu phộng mỡ lên
+- Cốc thuốc:
+	- xịt mũi x1 -> 50%
+	- nhỏ mũi x1 -> 80%
+	- kéo nhỏ x1 -> OK
+	- âu gâu nhỏ x5 -> OK
+	- thuốc đỏ nhỏ x1 -> 30%, hơi bẩn -> THAY MỚI
+- chai nước -> OK
+- case máy tính -> hơi lỏng dây -> OK
+- gối cong -> nằm hơi đau đầu -> THAY GỐI MỚI
+- balo -> check ở nhà
+- kẹo xilytol x1 hộp vừa -> 20%, 1 hộp 55k -> hơi đắt ko bt nên mua tiếp ko?
+- giấy ăn x2 bịch nhỏ -> nhiều, nhà còn nhiều có thể cung cấp được
+- tai nghe có dây -> ổn -> nó không bị hỏng, gạt nhầm chức năng S-N
+- bút bi x3
+- sổ tay -> note: tip, issue cần làm, sửa
+- Màn PC (PCS) x2 -> dùng được, 2 màn hơi khác màu do điều chỉnh
+- iphone -> check ở nhà
+- nhỏ mắt -> 30% -> THAY MỚI
+- giấy note -> nhiều
+*PC (PCS):
+ - [TRANSONLINE-PORTAL] -> làm giao diện thiết kế UI, React, fix lỗi ITSM...
+ - [PO] -> tham khảo
+ - [HANDLE_FILE] -> học tập, note code, lưu ảnh, CHECK_DAY_LIST_PCS...
+ - [Pictures] -> [Screenshots] -> xóa ảnh chụp 1 tuần / lần
+ - Skype -> check tin nhắn của các anh, trao đổi thông tin
+ - figma -> làm theo thiết kế UI
+ - Cốc cốc:
+	- [alagod] -> check giá bán thường + cập nhật hàng mới hằng ngày
+	- [CNTT] -> tích hợp file này vào trong [HANDLE_FILE]
+	- [ITSM] -> check hằng ngày để kiểm tra lỗi và cập nhật
+	- [gitlab] -> a Khánh check hằng ngày xem cập nhật gì rồi?
+----------------------------------------------------------------------------
+*TRIỂN KHAI:
+ - MANG -> thêm bánh kẹo lên cty				-> chưa có
+ - THAY -> thuốc đỏ nhỏ						-> THAY	
+ - THAY -> gối mới						-> THAY	
+ - THAY -> nhỏ mắt					-> 07/06/2024
+ - ĐỒ CÁ -> check hằng ngày + làm bảng giá thườngg		-> CHECK

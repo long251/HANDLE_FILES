@@ -1,0 +1,119 @@
+import React, { useState, useEffect } from 'react';
+
+const YourComponent = () => {
+  // State for editing address
+  const [editAddress, setEditAddress] = useState({
+    id: 0,
+    fullName: '',
+    phone: '',
+    email: '',
+    provinceId: 0,
+    districtId: 0,
+    wardId: 0,
+    address: '',
+    addressType: 'HOME',
+    statusAddress: '',
+  });
+
+  // State for radio button value
+  const [addressTypeEdit, setAddressTypeEdit] = useState('HOME');
+
+  // Effect to set initial radio button value when editing address changes
+  useEffect(() => {
+    setAddressTypeEdit(editAddress.addressType);
+  }, [editAddress]);
+
+  // Function to handle radio button change
+  const handleAddressTypeEditChange = (event) => {
+    setAddressTypeEdit(event.target.value);
+  };
+
+  // Function to handle saving edited address
+  const handleSaveEditAdd = () => {
+    // Logic to save edited address
+  };
+
+  // Render
+  return (
+    <div>
+      {/* Other fields in Modal */}
+      {/* Radio buttons */}
+      <div>
+        <label htmlFor=''>Loại địa chỉ</label>
+        <div>
+          <input 
+            type='radio' 
+            id='home' 
+            name='addressTypeEdit' 
+            value='HOME' 
+            checked={addressTypeEdit === 'HOME'} 
+            onChange={handleAddressTypeEditChange}
+          />
+          <label htmlFor='home'>HOME</label>
+        </div>
+        <div>
+          <input 
+            type='radio' 
+            id='office' 
+            name='addressTypeEdit' 
+            value='OFFICE' 
+            checked={addressTypeEdit === 'OFFICE'} 
+            onChange={handleAddressTypeEditChange}
+          />
+          <label htmlFor='office'>OFFICE</label>
+        </div>
+      </div>
+      {/* Button to save edited address */}
+      <button onClick={handleSaveEditAdd}>LƯU CHỈNH SỬA</button>
+    </div>
+  );
+};
+
+export default YourComponent;
+-------------------------------------------------------------------------------
+// Function to handle saving edited address
+const handleSaveEditAdd = () => {
+  // Tạo một bản sao của đối tượng địa chỉ đang chỉnh sửa
+  const updatedAddress = { ...editAddress };
+  // Cập nhật trường addressType với giá trị mới
+  updatedAddress.addressType = addressTypeEdit;
+  // Tìm địa chỉ cần chỉnh sửa trong danh sách địa chỉ và cập nhật nó
+  const updatedAddresses = addresses.map((address) =>
+    address.id === updatedAddress.id ? updatedAddress : address
+  );
+  // Cập nhật danh sách địa chỉ với địa chỉ đã được cập nhật
+  setAddresses(updatedAddresses);
+  // Đóng modal sau khi lưu chỉnh sửa
+  toggleModalE();
+};
+-----------------------------------------------------------------------------
+// Hiển thị checkbox "Chọn làm mặc định" và điều chỉnh trạng thái dựa trên trạng thái mặc định của địa chỉ
+<div>
+  <label htmlFor='defaultAddress'>Chọn làm mặc định</label>
+  <input
+    type='checkbox'
+    id='defaultAddress'
+    checked={isDefault}
+    onChange={() => setIsDefault(!isDefault)}
+    disabled={!isDefaultAddress(editAddress.id)} // Disable checkbox nếu địa chỉ hiện tại đã là mặc định
+  />
+</div>
+---------------------------------
+const isDefaultAddress = (addressId) => {
+  // Lặp qua danh sách địa chỉ để kiểm tra xem địa chỉ hiện tại có phải là địa chỉ mặc định không
+  for (const address of addresses) {
+    if (address.id === addressId && address.statusAddress === 'mặc định') {
+      return true; // Nếu địa chỉ là địa chỉ mặc định, trả về true
+    }
+  }
+  return false; // Nếu không tìm thấy địa chỉ mặc định, trả về false
+};
+
+-----------------------------------
+<input
+  type='checkbox'
+  id='defaultAddress'
+  checked={isDefault}
+  onChange={() => setIsDefault(!isDefault)}
+  disabled={!isDefaultAddress(editAddress.id)} // Disable checkbox nếu địa chỉ hiện tại đã là mặc định
+/>

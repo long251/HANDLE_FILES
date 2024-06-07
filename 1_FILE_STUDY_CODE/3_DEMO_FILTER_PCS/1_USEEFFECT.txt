@@ -1,0 +1,130 @@
+USEEFFECT
+---------
+- quản lý vòng đời của 1 component
+- sd trong function component (X class)
+- mảng phụ thuộc làm hạn chế gọi API nhiều lần, 
+
+import React, {useEffect, useState} from 'react';
+
+export const EffectDemo = () => {
+    //State
+    const [fullName, setFullName] = useState({name: 'name', familyName: 'family'});
+    const [title,setTitle] = useState('useEffect() in Hooks');
+
+    //useEffect
+    useEffect(() => {
+        console.log('useEffect has been called!');
+        setFullName({name:'TrungHC',familyName: 'HCT'});
+    });
+
+    return(
+        <div>
+            <h1>Title: {title}</h1>
+            <h3>Name: {fullName.name}</h3>
+            <h3>Family Name: {fullName.familyName}</h3>
+        </div>
+    );
+};
+-----------------------------
+useEffect:
+- tại sao sử dụng
+- khi nào sử dụng
+-----------------------------
+useEffect() hook:
+- Side effects: những thứ tác động chạy ngoài lấy API (ko cần clean up)
+- thực thi sau mỗi lần reRender
+- func useEffect(callback, depen){}
+- MOUNTING: 2 lần
+	- chạy rendering trước (return)
+	- run useEffect()
+- TH dependencies:
+	1. ko có mảng
+	2. mảng rỗng
+	3. có dữ liệu
+1. ko có mảng: luôn luôn đc thực hiện
+luôn đc chạy sau mỗi lần render
+2. mảng rỗng: chạy đúng 1 lần (sau lần render đầu tiên)
+3. lần đầu tiên lúc nào cx render, nếu dữ liệu thay đổi thì useEffect mới gọi
+-------
+gọi useEffect với API
+--------------------
+React hooks: 09 - useEffect search có debounce
+-----------
+- đợi user nhập xong rồi mới gọi APi (sử dụng debounce đơn giản)
+1. tạo useState biến search:
+- let [search, setSearch] = useState('');
+2. file input nhập:
+- value = search
+- onChange = {handleChange}
+-> viết lên trên:
+ let handleChange=(e)=>{
+ 	setSearch(e.target.value);}
+- đây đang truyền 1 cấp
+- e.target.value -> truyền liên tục
+---------
+tạo biến tạm ko bị thay đổi
+- hook useRef
+const typingTimeoutRef = useRef(null);
+
+if(typingTimeoutRef.current){
+	clearTimeout(typingTimeputRef.current);};
+
+typingTimeoutRef.current = setTimeout(()=>{
+code value nhập
+}, (timeout)=300);
+
+// ng p xoá đi cái timeout trc đó viết lên trên typingTimeoutRef
+-----------------------GPT----------------------
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { actionFetchListAccountAPI } from "../Redux/Action/AccountAction";
+
+function AccountLogic() {
+  const [search, setSearch] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [gender, setGender] = useState<string>("");
+  const [createdDate, setCreatedDate] = useState<string>("");
+  const [minDate, setMinDate] = useState<string>("2020-01-01");
+  const [maxDate, setMaxDate] = useState<string>(formatDateToYYYYMMDD(new Date()));
+
+  const dispatchRedux = useDispatch();
+  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleSearchInputChange = (value: string) => {
+    setSearch(value);
+
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+
+    typingTimeoutRef.current = setTimeout(() => {
+      setCurrentPage(1); // Đặt trang hiện tại về 1 khi thực hiện tìm kiếm mới
+      dispatchRedux(actionFetchListAccountAPI(currentPage, value, gender, createdDate, minDate, maxDate));
+    }, 1000); // Thay đổi khoảng thời gian ở đây (1000ms = 1 giây)
+  };
+
+  useEffect(() => {
+    return () => {
+      // Đảm bảo clear timeout khi component unmount để tránh memory leak
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Các phần còn lại của component
+  return (
+    <div>
+      <input
+        type="text"
+        value={search}
+        onChange={(e) => handleSearchInputChange(e.target.value)}
+        placeholder="Search"
+      />
+      {/* Các thành phần khác của component */}
+    </div>
+  );
+}
+
+export default AccountLogic;
+

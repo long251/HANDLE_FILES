@@ -1,0 +1,35 @@
+Auth
+----
+Phân biệt Authentication vs Authorization
+-----------------------------------------
+Authen: who are you? -> bạn là ai
+Author: Are you allowed to do that? -> bạn đc phép làm quyền đó?
+-------
+Authen:
+- username + password
+- vân tay
+- nhận diện gương mặt
+- Social network
+- OTP
+- PIN
+- Two-factor authentication (2FA)
+- Multi-factor authentication (MFA)
+
+-> trả ra token để biết là ai và có quyền gì luôn
+---------------------------------------------------------------------
+So sánh giữa cookie vs token authentication
+-------------------------------------------
+- Token:
+*sơ đồ logic: từ Browser gửi username+password lên Server -> tạo ra token gửi ngc về trình duyệt; ở trình duyệt lưu token ở local store; mỗi lần gửi Request mà trong local có token nó sẽ đc đính kèm và gửi lên server -> server check hợp lệ ko? nếu hợp lệ -> trả về luôn dữ liệu
+--------------------------------------------------------------------
+JWT (Json web token)
+--------------------
+- chuẩn giúp tạo ra chuỗi mã hoá trao đổi dữ liệu
+- payload ~ data
+- refresh token (Vd: 1h lưu trữ)
+--------------------------------------------------------------------
+Chức năng đăng nhập với FirebaseUI siêu đơn giản
+------------------------------------------------
+- Firebase (ứng dụng demo dự án)
+- vào Authentication -> demo: google -> Enabled
+-> đoạn này đang demo trên 1 cái code github có sẵn ko thực tiễn -> X

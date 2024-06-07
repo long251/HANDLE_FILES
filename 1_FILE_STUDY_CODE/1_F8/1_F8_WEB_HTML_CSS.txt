@@ -1,0 +1,306 @@
+KHOÁ HỌC FRONTEND TẠI F8
+-------------------------
+*HTML, CSS từ zero đến hero (miễn phí):
+-----------------------------
+BÀI 1: bạn sẽ làm được gì sau khoá học?
+- xây dựng được giao diện website
+- phân tích, đặt tên class, layout với flexbox, hiệu ứng, thích nghi,...
+--------------------------------------------------------------------------------
+BÀI 2: Tìm hiểu HTML, CSS
+- HTML ngôn ngữ đánh dấu văn bản -> tạo khung
+- CSS ngôn ngữ tạo style	-> tạo màu, định kiểu
+--------------------------------------------------------------------------------
+BÀI 3: Làm quen với Dev tools
+- tại trình duyệt -> chuột phải -> f12 -> mục kiểm tra
+-> Elements chứa tất cả thẻ html, phần tử
+-> Style chứa tất cả CSS
+--------------------------------------------------------------------------------
+BÀI 4: Cài đặt VS Code, Page Ruler extension
+- download VS code + cài đặt Live server extension
+- tại chrome tải page ruler extension
+--------------------------------------------------------------------------------
+BÀI 5: Khắc phục lỗi cài đặt Page Ruler Redux
+- quay trở lại BÀI 4 có link hướng dẫn cài lại -> tại đây -> 
+- ! thay đổi trình duyệt hiển thị demo?
+--------------------------------------------------------------------------------
+BÀI 6: Lưu ý khi học lập trình tại F8
+--------------------------------------------------------------------------------
+BÀI 7: Mua áo F8 | Đăng ký học Offline
+--------------------------------------------------------------------------------
+BÀI 8: Cấu trúc của 1 file HTML:
+- từ VS code tự tạo ra folder, tạo file
+- file demo: index.html -> hosting tự động vào index
+- khai báo DOCTYPE; thẻ (Tag);
+- 2 thẻ <head> <body>
+- <head> định nghĩa tiêu đề, token,...
+- <body> tất cả thành phần hiển thị lên trình duyệt
+- Ctrl + S: lưu lại (refresh)
+--------------------------------------------------------------------------------
+BÀI 9: Làm quen với màn thử thách:
+--------------------------------------------------------------------------------
+BÀI 10: Ví dụ cấu trúc file HTML:
+--------------------------------------------------------------------------------
+BÀI 11: Comments trong HTML:
+- Ctrl + / -> comment câu lệnh
+--------------------------------------------------------------------------------
+BÀI 12: Ví dụ comments trong HTML:
+--------------------------------------------------------------------------------
+BÀI 13: Các thẻ HTML thông dụng:
+- h1->h6 (heading): thẻ tiêu đề h1>>h6
+- p (văn bản): viết 1 đoạn văn bản
+- img (ảnh): src -> copy nguồn ảnh,  alt -> phát huy tác dụng bị lỗi xuất văn bản
+- a (mỏ neo): đặt liên kết href -> đưa link vào đây
+- ul, li: hiển thị dạng danh sách; 1 danh sách sd 1 thẻ ul và trong đó chứa n thẻ li
+- table: thead -> th: tiêu đề cột; tbody -> tr: dòng
+- input: type: checkbox, text, radio...
+- button: nút đăng kí
+- div: khối bao quanh các phần tử khác
+--------------------------------------------------------------------------------
+BÀI 14: Ví dụ thẻ HTML thông dụng
+--------------------------------------------------------------------------------
+BÀI 15: Bài tập thẻ HTML thông dụng #1
+--------------------------------------------------------------------------------
+BÀI 16: Bài tập thẻ HTML thông dụng #2
+--------------------------------------------------------------------------------
+BÀI 17: Bài tập thẻ HTML thông dụng #3
+--------------------------------------------------------------------------------
+BÀI 18: Attribute trong HTML là gì?
+- thuộc tính: viết trực tiếp trong 1 thẻ vd: title: tiêu đề
+--------------------------------------------------------------------------------
+BÀI 19: Bài tập sử dụng Attribute #1
+--------------------------------------------------------------------------------
+BÀI 20: Cách quản lý thư mục dự án
+- tạo dự án 1 cách quy luật
+--------------------------------------------------------------------------------
+BÀI 21: Sử dụng CSS trong HTML
+- có 3 cách Internal, External, Inline
+- cách 1: internal -> viết trực tiếp lên vùng thẻ head
+	<style> h1 {color: red;} </style> {cặp thuộc tính}
+- cách 2: External -> tạo 1 thẻ link ra bên ngoài và add thuộc tính css file vào
+	- kiểm tra link thành công -> f12-> src
+- cách 3: viết trực tiếp vào thẻ html
+--------------------------------------------------------------------------------
+BÀI 22: Thực hành sử dụng CSS internal:
+--------------------------------------------------------------------------------
+BÀI 23: ID và Class:
+- CSS selectors? -> lựa chọn để đặt CSS
+- id -> # (riêng)
+- class -> . (chung)
+--------------------------------------------------------------------------------
+BÀI 24: Thực hành sử dụng CSS external
+--------------------------------------------------------------------------------
+BÀI 25: CSS selectors cơ bản #1
+- CSS selectors: bộ chọn từng thẻ
+- .class1.class2: ko có dấu cách -> cứ ghi xong CSS tự hiểu
+- .class1 .class2: có dấu cách -> class 2 là con của class 1
+- *: chọn tất cả các thẻ
+- element chọn trực tiếp tên thẻ vd: h2 {}
+- ! -> giữ ALT + click kiểu viết giống nhau cùng cấp
+- vd: div > p -> con trực tiếp
+- nên viết class khác nhau để mà nhỡ quên ko bị lỗi CSS
+--------------------------------------------------------------------------------
+BÀI 26: CSS selectors cơ bản #2
+- Bảng tra cứu CSS selectors cơ bản
+--------------------------------------------------------------------------------
+BÀI 27: Ví dụ sử dụng CSS selectors cơ bản
+--------------------------------------------------------------------------------
+BÀI 28: Thực hành CSS selectors #1
+--------------------------------------------------------------------------------
+BÀI 29: Độ ưu tiên trong CSS
+- Internal, External? = nhau; gọi sau thì ưu tiên
+- Inline - 1000
+- #id - 100
+- .class - 10
+- tag - 1
+- Equal specificity?
+- Universal selector and inherited?
+- important -> sd: !important
+--------------------------------------------------------------------------------
+BÀI 30: Thực hành độ ưu tiên trong CSS #1
+- tagName.class
+- tagName#id
+- #id.class
+- .class#id
+--------------------------------------------------------------------------------
+BÀI 31: Sử dụng biến trong CSS
+- đặt biến trong CSS
+- vd: khai :root{ --text-color: red;} -> h1 {color: var(--text-color);}
+- tại sao phải đặt biến -> vì có nhiều chỗ sử dụng
+--------------------------------------------------------------------------------
+BÀI 32: Vấn đề khi không sử dụng biến CSS
+- xuất hiện p sửa màu nhiều chỗ
+--------------------------------------------------------------------------------
+BÀI 33: Giải quyết vấn đề với biến CSS
+--------------------------------------------------------------------------------
+BÀI 34: Các đơn vị trong CSS
+- absolute units -> px; khi thay đổi ko bị dịch
+- relative units -> % thay đổi theo trình duyệt; rem, em: kiểu gán
+- viewportWidth, Height: khung nhìn ; 1vw ~ 1% (phụ thuộc thẻ chứa nó)
+--------------------------------------------------------------------------------
+BÀI 35: Ví dụ sử dụng đơn vị % #1
+--------------------------------------------------------------------------------
+BÀI 36: Reset margin được đặt mặc định
+- do các thẻ mặc định có margin nên phải reset nó:
+	* {
+	    margin: 0;
+	    padding: 0;}
+--------------------------------------------------------------------------------
+BÀI 37: Thực hành reset CSS
+--------------------------------------------------------------------------------
+BÀI 38: Ví dụ sử dụng đơn vị % #2
+--------------------------------------------------------------------------------
+BÀI 39: Ví dụ sử dụng đơn vị rem #1
+--------------------------------------------------------------------------------
+BÀI 40: Vấn đề khi sử dụng px cho font-size
+--------------------------------------------------------------------------------
+BÀI 41: Ưu điểm khi sử dụng rem cho font-size
+--------------------------------------------------------------------------------
+BÀI 42: Một số hàm trong CSS
+- rgb(): màu theo số 3 tham số
+- calc(): tính toán
+- ! -> lớp giả
+--------------------------------------------------------------------------------
+BÀI 43: Thực hành dùng hàm var()
+--------------------------------------------------------------------------------
+BÀI 44: Thực hành dùng hàm rgba()
+--------------------------------------------------------------------------------
+BÀI 45: Pseudo classes trong CSS
+- tìm kiếm theo Google
+- :root	-> lớp giả tham chiếu đến chính p tử gốc của html
+- :hover -> vd: h1: hover -> định nghĩa khi di chuột vào
+- :active -> bấm giữ -> kích hoạt
+- :first-child -> từ tập hợp lấy ra thg đầu
+- :last-child -> từ tập hợp lấy ra thg cuối
+--------------------------------------------------------------------------------
+BÀI 46: Thực hành sử dụng :hover
+- text-decoration: none; -> bỏ gạch chân mặc định của thẻ a
+- viết .class:hover và thêm màu chẳng hạn
+--------------------------------------------------------------------------------
+BÀI 47: Pseudo elements trong CSS
+- lớp giả tại phần tử luôn
+- ::before
+- ::after
+- ::first-letter
+- ::first-line
+- ::selection -> được chọn
+- vd: .box::before{
+		content: ""; //phần tử ko thể thiếu trong lớp giả p.tử
+		display: block; //do div có sẵn nhưng lớp giả này ko có}
+chỉ tạo ra 2 p.tử giả trên cái div gốc
+--------------------------------------------------------------------------------
+BÀI 48: Thực hành sử dụng pseudo elements
+- áp dụng BÀI 47 viết theo ví dụ cần cả content và display:block
+--------------------------------------------------------------------------------
+BÀI 49: Học thêm qua các câu hỏi
+--------------------------------------------------------------------------------
+BÀI 50: Thuộc tính padding (đệm)
+- styles -> computed
+- padding (lớp đệm):
+	- đệm dày lên; vd: padding-top: 10px tăng lên 10px
+	- 4 hướng; viết tắt: chiều kim đồng hồ (trên phải dưới trái)
+--------------------------------------------------------------------------------
+BÀI 51: Thực hành sử dụng padding #1
+--------------------------------------------------------------------------------
+BÀI 52: Thực hành sử dụng padding #2 -> Vd: padding (8 16) -> trên dưới / trái phải
+--------------------------------------------------------------------------------
+BÀI 53: Thuộc tính border (đường viền)
+- lớp vỏ, viền liền ôm 1 element
+- thuộc tính: độ dài, rộng; style nét; màu
+- border và padding đều làm tăng tổng kích thước element
+- viết tắt: border: 10px solid #333 (size, kiểu viền, color)
+--------------------------------------------------------------------------------
+BÀI 54: Thực hành sử dụng border #1
+--------------------------------------------------------------------------------
+BÀI 55: Thuộc tính margin (khoảng cách lề)
+- đẩy các box xa nhau , Vd: margin-left: 20px đẩy box sang trái 20px
+- ko liên quan đến khối; ko làm tăng kt khối
+--------------------------------------------------------------------------------
+BÀI 56: Thực hành sử dụng margin #1
+--------------------------------------------------------------------------------
+BÀI 57: Thuộc tính box-sizing
+- khi mà nội dung trong 1 box ko đều trong phần content -> khắc phục
+- box-sizing: border-box; box-sizing: unset -> huỷ đi box-sizing
+--------------------------------------------------------------------------------
+BÀI 58: Thực hành sử dụng box-sizing
+--------------------------------------------------------------------------------
+BÀI 59: Thuộc tính background-image
+- đặt ảnh nền: background-image: url(link ảnh);
+- do ảnh lớn: background-size: 100px auto; (thg 1 giá trị theo width, cao = auto
+- thuộc tính lặp lại -> background-repeat: no-repeat
+- background-image: linear-gradient(rải màu chuyển)(90deg, #333, #ccc)
+- màu trong suốt rgba(a=0 hoặc 0.25) thêm 2 mã màu chuyển -> cầu vồng
+--------------------------------------------------------------------------------
+BÀI 60: Sử dụng thuộc tính background-image
+--------------------------------------------------------------------------------
+BÀI 61: Thuộc tính background-size với cover, contain
+- background-size: contain, cover: lấy chiều dài hơn chấp nhận che khuất
+--------------------------------------------------------------------------------
+BÀI 62: Sử dụng thuộc tính background-size
+--------------------------------------------------------------------------------
+BÀI 63: Thuộc tính background-origin
+- background-origin: content-box (ngắn hơn), border-box (tràn viền)
+--------------------------------------------------------------------------------
+BÀI 63: Sử dụng thuộc tính background-origin
+--------------------------------------------------------------------------------
+BÀI 64: Thuộc tính background-position
+- background-position: bottom center... hoặc top -20px bottom -20px
+--------------------------------------------------------------------------------
+BÀI 65: Sử dụng thuộc tính background-position
+--------------------------------------------------------------------------------
+BÀI 66: Cú pháp "shorthand" cho background
+- background: url(image.png) center/contain no-repeat
+--------------------------------------------------------------------------------
+BÀI 67: Tìm hiểu về các giá trị màu sắc trong CSS
+--------------------------------------------------------------------------------
+BÀI 70: CSS position relative
+- giao diện đè lên nhau
+- Relative: tương đối
+- Absolute
+- Fixed
+- Sticky
+- Relative: tương đối ko bị thay đổi khi mà trình duyệt thay đổi nó dựa vào chính vị trí của nó để làm gốc
+ -> position: relative; top: 100px; ! top, left các thứ phụ thuộc vào position
+- sử dụng để thiết kế đè lên website
+-> ứng dụng trong dự án
+--------------------------------------------------------------------------------
+BÀI 71: Thực hành CSS position relative
+--------------------------------------------------------------------------------
+BÀI 72: CSS position absolute
+- absolute: tuyệt đối -> coi thẻ cha gần nhất có position làm gốc toạ độ
+--------------------------------------------------------------------------------
+BÀI 73: Thực hành CSS position absolute
+--------------------------------------------------------------------------------
+BÀI 74: CSS position fixed
+- header -> position: fixed
+	-> sử dụng: position: fixed; bottom: 0; -> footer
+- phân biệt:
+1. absolute: khi thấy 1 obj phụ thuộc 1 vào obj khác thì dùng dùng
+2. fixed: phụ thuộc cửa sổ trình duyệt -> fixed
+--------------------------------------------------------------------------------
+BÀI 75: Thực hành CSS position fixed
+- thêm top=0 là đc + position: fixed
+--------------------------------------------------------------------------------
+BÀI 76: CSS position sticky
+- bám dính, thử nghiệm
+--------------------------------------------------------------------------------
+BÀI 77: Thực hành CSS position sticky
+--------------------------------------------------------------------------------
+BÀI 78: Giới thiệu dự án
+- xây dựng giao diện website
+b1: phân tích giao diện, từ designer
+b2: dựng nền móng
+b3: xây dựng
+b4: review
+--------------------------------------------------------------------------------
+BÀI 79: Phân biệt & gọi tên các thành phần
+- gọi tên thành phần & nhận diện đc nó
+Những thành phần thg gặp trên giao diện web
+- header (đầu trang)
+- navigation (thanh điều hướng)
+- breadcrumb (Vd: khoá học > kiến thức chung)
+- sidebar (thanh phía trái, phải) -> menu chọn lúc thu nhỏ còn icon; phóng to lên sẽ hiển thị cả tên và đề mục
+- Slider (màn trình diễn nội dung chạy): thường là hình ảnh lướt lướt
+- footer (phần chân trang): 
+*content (nội dung giữa trang): 
+--------------------------------------------------------------------------------
+! Đang không biết tài khoản nào đăng nhập vào để học tiếp tại web F8

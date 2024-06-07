@@ -1,0 +1,54 @@
+import React, { useState } from 'react';
+
+// Trong hàm component:
+interface HoveredImagesState {
+  [productId: string]: boolean;
+}
+
+const [hoveredImages, setHoveredImages] = useState<HoveredImagesState>({});
+
+// Khi di chuột vào hình ảnh
+const handleMouseEnter = (productId: string) => {
+  setHoveredImages(prevState => ({
+    ...prevState,
+    [productId]: true
+  }));
+};
+
+// Khi di chuột ra khỏi hình ảnh
+const handleMouseLeave = (productId: string) => {
+  setHoveredImages(prevState => ({
+    ...prevState,
+    [productId]: false
+  }));
+};
+
+// Trong phần render:
+{outstandingProducts.map((product) => (
+  <div
+    key={product.id}
+    onMouseEnter={() => handleMouseEnter(product.id)}
+    onMouseLeave={() => handleMouseLeave(product.id)}
+  >
+    {/* img */}
+    {product.img}
+    {/* Biểu tượng chỉ hiển thị khi hover */}
+    {hoveredImages[product.id] && (
+      <div
+        style={{
+          position: 'absolute',
+          top: '16px',
+          left: '236px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '8px',
+        }}
+      >
+        <IconLike />
+        <IconZoom />
+        <IconCompare />
+      </div>
+    )}
+  </div>
+))}
+

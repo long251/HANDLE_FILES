@@ -1,0 +1,898 @@
+import { Autocomplete, Button, FormLayout, Icon, Layout, LegacyCard, Page, PolarisIcons, TextField } from 'pcs-polaris';
+import React, { useState } from 'react';
+import BreadcrumbTrackingList from './BreadcrumbTrackingList';
+import { AnyAction } from '@reduxjs/toolkit';
+import PickedDateRange from '../DeliveryBill/PickedDateRange';
+import { IconMagnifyingGlass } from '../Website/Icon';
+import { IconArrowDrop, IconColumns, IconFilter } from '../DeliveryBill/IconDeliveryBill';
+import { IconV } from './IconTrackingList';
+
+const TrackingList = () => {
+  const [codeTracking, setCodeTracking] = useState('');
+  const [codeOrders, setCodeOrders] = useState('');
+  const [codeBillOfLading, setCodeBillOfLading] = useState('');
+  const [searchValue, setSearchValue] = useState('');
+
+  const [status, setStatus] = useState<string[]>([]);
+  const [searchStatus, setSearchStatus] = useState('');
+  const debounceSearchStatusFun = (value: any) => {
+    console.log('Search status:', value);
+  };
+  //--------------fake data tracking list------------
+  const fakeDataTrackingList = [
+    {
+      id: 1,
+      codeTracking: '1001901732290009722000786018868555555555555555555555357',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Crocs Mens and Womens Shoes - Classic Clogs, Slip On Water Shoes, Sandals',
+      status: 'Kho quốc tế',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 2,
+      codeTracking: '1001901732290009722000786018868358',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Đang giao hàng',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 3,
+      codeTracking: '1001901732290009722000786018868358',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Đã giao hàng',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 4,
+      codeTracking: '1001901732290009722000786018868358',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Kho nội địa',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 5,
+      codeTracking: '1001901732290009722000786018868357',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Kho quốc tế',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 6,
+      codeTracking: '1001901732290009722000786018868358',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Đang giao hàng',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 7,
+      codeTracking: '1001901732290009722000786018868358',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Đã giao hàng',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 8,
+      codeTracking: '1001901732290009722000786018868358',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Kho nội địa',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 9,
+      codeTracking: '1001901732290009722000786018868357',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Kho quốc tế',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 10,
+      codeTracking: '1001901732290009722000786018868358',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Đang giao hàng',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 11,
+      codeTracking: '1001901732290009722000786018868358',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Đã giao hàng',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 12,
+      codeTracking: '1001901732290009722000786018868358',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Kho nội địa',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 13,
+      codeTracking: '1001901732290009722000786018868357',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Kho quốc tế',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 14,
+      codeTracking: '1001901732290009722000786018868358',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Đang giao hàng',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 15,
+      codeTracking: '1001901732290009722000786018868358',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Đã giao hàng',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 16,
+      codeTracking: '1001901732290009722000786018868358',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Kho nội địa',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 17,
+      codeTracking: '1001901732290009722000786018868357',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Kho quốc tế',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 18,
+      codeTracking: '1001901732290009722000786018868358',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Đang giao hàng',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 19,
+      codeTracking: '1001901732290009722000786018868358',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Đã giao hàng',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 20,
+      codeTracking: '1001901732290009722000786018868358',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Kho nội địa',
+      time: '20/07/2021 16:16:51',
+    },
+    {
+      id: 21,
+      codeTracking: '1001901732290009722000786018868358',
+      codeOrders: 'JPV230819318132',
+      billOfLadingCode: 'PP500139896',
+      weight: '4.00 kg',
+      itemName: 'Túi xách',
+      status: 'Kho nội địa',
+      time: '20/07/2021 16:16:51',
+    },
+  ];
+  //--------------Button Arrow Drop/Up---------------
+  const [expandedItems, setExpandedItems] = useState<any[]>([]);
+  const handleExpandItem = (itemId: any) => {
+    setExpandedItems((prevItems) => {
+      if (prevItems.includes(itemId)) {
+        // Remove item ID from expanded list if already expanded
+        return prevItems.filter((id) => id !== itemId);
+      } else {
+        // Add item ID to expanded list if not expanded
+        return [...prevItems, itemId];
+      }
+    });
+  };
+
+  const getStatusStyle = (status: string) => {
+    let backgroundColor;
+    switch (status) {
+      case 'Kho quốc tế':
+        backgroundColor = '#FFB703';
+        break;
+      case 'Đang giao hàng':
+        backgroundColor = '#0050A6';
+        break;
+      case 'Đã giao hàng':
+        backgroundColor = '#238832';
+        break;
+      case 'Kho nội địa':
+        backgroundColor = '#219EBC';
+        break;
+      default:
+        backgroundColor = '#6C757D';
+    }
+    return {
+      padding: '4px 12px',
+      color: '#FFFFFF',
+      borderRadius: '4px',
+      fontWeight: 400,
+      fontSize: '10px',
+      lineHeight: '12.71px',
+      backgroundColor,
+    };
+  };
+  //---------Phân trang------------------
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 4;
+  const totalItems = fakeDataTrackingList.length;
+  const total = Math.ceil(totalItems / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+  const paginatedRows = fakeDataTrackingList.slice(startIndex, endIndex);
+  return (
+    <div className='Polaris-Custom'>
+      <Page
+        //@ts-ignore
+        title={<BreadcrumbTrackingList breadcrumbs={[{ title: 'Danh sách tracking', url: '' }]} />}
+        primaryAction={
+          <div className='Wrapper_More_Options'>
+            <div className='More_Options'>More options</div>
+            <div>
+              <IconArrowDrop />
+            </div>
+          </div>
+        }
+      >
+        <Layout>
+          <Layout.Section>
+            <LegacyCard>
+              <LegacyCard.Section>
+                <FormLayout>
+                  <FormLayout.Group>
+                    <TextField
+                      label='Mã Tracking'
+                      value={codeTracking}
+                      onChange={(value) => setCodeTracking(value)}
+                      autoComplete='off'
+                    />
+                    <TextField
+                      label='Mã đơn hàng'
+                      value={codeOrders}
+                      onChange={(value) => setCodeOrders(value)}
+                      autoComplete='off'
+                    />
+                    <TextField
+                      label='Mã vận đơn'
+                      value={codeBillOfLading}
+                      onChange={(value) => setCodeBillOfLading(value)}
+                      autoComplete='off'
+                    />
+                    <Autocomplete
+                      options={[]}
+                      selected={status}
+                      textField={
+                        <Autocomplete.TextField
+                          suffix={<Icon source={PolarisIcons.CaretDownMinor} />}
+                          onClearButtonClick={() => {
+                            setStatus([]);
+                            setSearchStatus('');
+                            debounceSearchStatusFun('');
+                          }}
+                          onChange={(value) => {
+                            setSearchStatus(value);
+                            if (value) {
+                              debounceSearchStatusFun(value);
+                            } else {
+                              setStatus([]);
+                              debounceSearchStatusFun(value);
+                            }
+                          }}
+                          label='Trạng thái'
+                          value={searchStatus}
+                          autoComplete='off'
+                        />
+                      }
+                      onSelect={(selected) => {
+                        const selectedText = selected.map((selectedItem) => {
+                          return selectedItem;
+                        });
+                        setStatus(selected);
+                        setSearchStatus(selectedText[0] || '');
+                      }}
+                    />
+                    <PickedDateRange />
+                  </FormLayout.Group>
+                </FormLayout>
+              </LegacyCard.Section>
+            </LegacyCard>
+          </Layout.Section>
+
+          {/* Layout 2 */}
+          <Layout.Section>
+            <LegacyCard>
+              <LegacyCard.Section>
+                <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '20px' }}>
+                  <div className='TrackingList_Search'>
+                    <TextField
+                      label=''
+                      value={searchValue}
+                      onChange={(value) => setSearchValue(value)}
+                      placeholder='Nhập nội dung tìm kiếm'
+                      autoComplete='off'
+                      prefix={<Icon source={IconMagnifyingGlass} />}
+                    />
+                  </div>
+
+                  <div className='TrackingList_Feature'>
+                    <div className='Icon_Filter'>
+                      <IconFilter />
+                      Filters
+                    </div>
+                    <div className='Icon_Filter'>
+                      <IconColumns />
+                      Columns
+                      <div className='Icon_Columns_Number'>26</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className='TrackingList_Table_Container' style={{ overflowX: 'auto', maxWidth: '100%' }}>
+                  <div className='TrackingList_Table' style={{ minWidth: '1680px', width: 'fit-content' }}>
+                    <div
+                      className='Table_Header'
+                      style={{
+                        display: 'flex',
+                        fontWeight: 'bold',
+                        borderBottom: '1px solid #D1D5DB',
+                        backgroundColor: '#0B3558',
+                        color: '#FFFFFF',
+                      }}
+                    >
+                      <div style={{ flex: '0 0 360px', padding: '12px', textAlign: 'left', wordBreak: 'break-all' }}>
+                        Mã tracking
+                      </div>
+                      <div style={{ flex: '0 0 200px', padding: '12px', textAlign: 'center', wordBreak: 'break-all' }}>
+                        Mã đơn hàng
+                      </div>
+                      <div style={{ flex: '0 0 200px', padding: '12px', textAlign: 'center', wordBreak: 'break-all' }}>
+                        Mã vận đơn
+                      </div>
+                      <div style={{ flex: '0 0 120px', padding: '12px', textAlign: 'center', wordBreak: 'break-all' }}>
+                        Trọng lượng
+                      </div>
+                      <div style={{ flex: '0 0 206px', padding: '12px', textAlign: 'center', wordBreak: 'break-all' }}>
+                        Tên hàng
+                      </div>
+                      <div style={{ flex: '0 0 160px', padding: '12px', textAlign: 'center', wordBreak: 'break-all' }}>
+                        Trạng thái
+                      </div>
+                      <div style={{ flex: '0 0 180px', padding: '12px', textAlign: 'center', wordBreak: 'break-all' }}>
+                        Thời gian
+                      </div>
+                      <div style={{ flex: '0 0 54px', padding: '12px', textAlign: 'right' }}></div>
+                    </div>
+                    {paginatedRows.map((item) => (
+                      <React.Fragment key={item.id}>
+                        <div
+                          className='Table_Row'
+                          style={{ display: 'flex', borderBottom: '1px solid #D1D5DB', backgroundColor: '#FFFFFF' }}
+                        >
+                          <div
+                            id={`codeTracking-${item.id}`}
+                            style={{
+                              flex: '0 0 360px',
+                              padding: '12px',
+                              textAlign: 'left',
+                              wordBreak: 'break-all',
+                            }}
+                          >
+                            {item.codeTracking}
+                          </div>
+                          <div
+                            style={{ flex: '0 0 200px', padding: '12px', textAlign: 'center', wordBreak: 'break-all' }}
+                          >
+                            {item.codeOrders}
+                          </div>
+                          <div
+                            style={{ flex: '0 0 200px', padding: '12px', textAlign: 'center', wordBreak: 'break-all' }}
+                          >
+                            {item.billOfLadingCode}
+                          </div>
+                          <div
+                            style={{ flex: '0 0 120px', padding: '12px', textAlign: 'center', wordBreak: 'break-all' }}
+                          >
+                            {item.weight}
+                          </div>
+                          <div
+                            style={{ flex: '0 0 206px', padding: '12px', textAlign: 'center', wordBreak: 'break-all' }}
+                          >
+                            {item.itemName}
+                          </div>
+                          <div
+                            style={{ flex: '0 0 160px', padding: '12px', textAlign: 'center', wordBreak: 'break-all' }}
+                          >
+                            <span style={getStatusStyle(item.status)}>{item.status}</span>
+                          </div>
+                          <div
+                            style={{ flex: '0 0 180px', padding: '12px', textAlign: 'center', wordBreak: 'break-all' }}
+                          >
+                            {item.time}
+                          </div>
+                          <div style={{ flex: '0 0 54px', padding: '12px', textAlign: 'right' }}>
+                            <button
+                              onClick={() => handleExpandItem(item.id)}
+                              style={{ cursor: 'pointer', border: 'none', backgroundColor: 'transparent' }}
+                            >
+                              {expandedItems.includes(item.id) ? '˄' : '˅'} Mở rộng
+                            </button>
+                          </div>
+                        </div>
+                        {expandedItems.includes(item.id) && (
+                          <div
+                            style={{
+                              width: '100%',
+                              borderBottom: '1px dashed #D1D5DB',
+                              padding: '40px 228px',
+                            }}
+                          >
+                            <div>
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', gap: '20px' }}>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      gap: '2px',
+                                    }}
+                                  >
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                      <div style={{
+                                        width: '20px',
+                                        height: '20px',
+                                        border: '3px solid #B6D9FF',
+                                        backgroundColor: '#0050A6',
+                                        borderRadius: '50%',      
+                                      }}>
+
+                                      </div>
+                                    </div>
+                                    <div style={{ borderLeft: '4px dotted #D1D5DB', height: '44px' }}></div>
+                                  </div>
+                                  <div>
+                                    <div>Giao hàng thành công</div>
+                                    <div style={{ color: '#A0ACBE' }}>Đơn hàng JPV230819318132</div>
+                                  </div>
+                                </div>
+                                <div>06/07/2023 09:10</div>
+                              </div>
+
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', gap: '20px' }}>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      gap: '2px',
+                                    }}
+                                  >
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                      <div
+                                        style={{
+                                          position: 'relative',
+                                          width: '20px',
+                                          height: '20px',
+                                          backgroundColor: '#B6D9FF',
+                                          borderRadius: '50%',
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                          }}
+                                        >
+                                          <IconV />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div style={{ borderLeft: '4px dotted #D1D5DB', height: '44px' }}></div>
+                                  </div>
+                                  <div>
+                                    <div style={{ color: '#A0ACBE' }}>Đang giao hàng</div>
+                                    <div style={{ color: '#A0ACBE' }}>
+                                      Phiếu xuất KRBC230817092317 - Mã vận đơn PP700082132
+                                    </div>
+                                  </div>
+                                </div>
+                                <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                              </div>
+
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', gap: '20px' }}>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      gap: '2px',
+                                    }}
+                                  >
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                      <div
+                                        style={{
+                                          position: 'relative',
+                                          width: '20px',
+                                          height: '20px',
+                                          backgroundColor: '#B6D9FF',
+                                          borderRadius: '50%',
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                          }}
+                                        >
+                                          <IconV />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div style={{ borderLeft: '4px dotted #D1D5DB', height: '44px' }}></div>
+                                  </div>
+                                  <div>
+                                    <div style={{ color: '#A0ACBE' }}>Nhận tại Kho hàng nội địa</div>
+                                    <div style={{ color: '#A0ACBE' }}>Đang khai thách tại kho hàng nội địa</div>
+                                  </div>
+                                </div>
+                                <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                              </div>
+
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', gap: '20px' }}>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      gap: '2px',
+                                    }}
+                                  >
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                      <div
+                                        style={{
+                                          position: 'relative',
+                                          width: '20px',
+                                          height: '20px',
+                                          backgroundColor: '#B6D9FF',
+                                          borderRadius: '50%',
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                          }}
+                                        >
+                                          <IconV />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div style={{ borderLeft: '4px dotted #D1D5DB', height: '44px' }}></div>
+                                  </div>
+                                  <div>
+                                    <div style={{ color: '#A0ACBE' }}>Đang vận chuyển về Việt Nam</div>
+                                    <div style={{ color: '#A0ACBE' }}>Đang trên đường vận chuyển về Việt Nam</div>
+                                  </div>
+                                </div>
+                                <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                              </div>
+
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', gap: '20px' }}>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      gap: '2px',
+                                    }}
+                                  >
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <div
+                                        style={{
+                                          position: 'relative',
+                                          width: '20px',
+                                          height: '20px',
+                                          backgroundColor: '#B6D9FF',
+                                          borderRadius: '50%',
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                          }}
+                                        >
+                                          <IconV />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div style={{ borderLeft: '4px dotted #D1D5DB', height: '44px' }}></div>
+                                  </div>
+                                  <div>
+                                    <div style={{ color: '#A0ACBE' }}>Nhận tại Kho hàng quốc tế</div>
+                                    <div style={{ color: '#A0ACBE' }}>Đang khai thác tại kho hàng quốc tế</div>
+                                  </div>
+                                </div>
+                                <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                              </div>
+
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', gap: '20px' }}>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      gap: '2px',
+                                    }}
+                                  >
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <div
+                                        style={{
+                                          position: 'relative',
+                                          width: '20px',
+                                          height: '20px',
+                                          backgroundColor: '#B6D9FF',
+                                          borderRadius: '50%',
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                          }}
+                                        >
+                                          <IconV />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div style={{ borderLeft: '4px dotted #D1D5DB', height: '44px' }}></div>
+                                  </div>
+                                  <div>
+                                    <div style={{ color: '#A0ACBE' }}>Tạo đơn</div>
+                                    <div style={{ color: '#A0ACBE' }}>Order no. JPV230819318132</div>
+                                  </div>
+                                </div>
+                                <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                              </div>
+
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', gap: '20px' }}>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      gap: '2px',
+                                    }}
+                                  >
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <div
+                                        style={{
+                                          position: 'relative',
+                                          width: '20px',
+                                          height: '20px',
+                                          backgroundColor: '#B6D9FF',
+                                          borderRadius: '50%',
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                          }}
+                                        >
+                                          <IconV />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div style={{ borderLeft: '4px dotted #D1D5DB', height: '44px' }}></div>
+                                  </div>
+                                  <div>
+                                    <div style={{ color: '#A0ACBE' }}>Đang vận chuyển về VN</div>
+                                    <div style={{ color: '#A0ACBE' }}>Đang trên đường vận chuyển về Việt Nam</div>
+                                  </div>
+                                </div>
+                                <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                              </div>
+
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', gap: '20px' }}>
+                                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <div
+                                        style={{
+                                          position: 'relative',
+                                          width: '20px',
+                                          height: '20px',
+                                          backgroundColor: '#B6D9FF',
+                                          borderRadius: '50%',
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                          }}
+                                        >
+                                          <IconV />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div>
+                                    <div style={{ color: '#A0ACBE' }}>Nhận tại Kho hàng quốc tế</div>
+                                    <div style={{ color: '#A0ACBE' }}>
+                                      Tracking no. HMDE000002627243HMDE000002627243
+                                    </div>
+                                  </div>
+                                </div>
+                                <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Pagination */}
+                <div className='TrackingList_Pagination'>
+                  {/* nút trờ về trước */}
+                  <div className='div1'>
+                    <div className='Button-Custom--PaginationPrevNext'>
+                      <Button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>
+                        Prev
+                      </Button>
+                    </div>
+                  </div>
+                  {/* từ CP = 3 mới hiện nút trang 1 - div2, set mặc định luôn hiển thị trang 1 */}
+                  {currentPage > 2 ? (
+                    <div className={`div2`}>
+                      <div className='Button-Custom--PaginationCurrent'>
+                        <Button onClick={() => setCurrentPage(1)}>1</Button>
+                      </div>
+                    </div>
+                  ) : null}
+                  {/* CP=2,3,4,... hiển thị div3 với cp-1 */}
+                  {currentPage > 1 ? (
+                    <div className={`div3`}>
+                      <div className='Button-Custom--PaginationCurrent'>
+                        <Button onClick={() => setCurrentPage(currentPage - 1)}>{`${currentPage - 1}`}</Button>
+                      </div>
+                    </div>
+                  ) : null}
+                  {/* CP=page hiển thị trang hiện tại */}
+                  <div className={`div4`}>
+                    <div className='Button-Custom--PaginationCurrentPage'>
+                      <Button>{`${currentPage}`}</Button>
+                    </div>
+                  </div>
+                  {/* hiển thị các trang nhỏ hơn tổng -1 vì số cuối của tổng sẽ là disabled */}
+                  {currentPage < total - 1 ? (
+                    <div className='div5'>
+                      <div className='Button-Custom--PaginationCurrent'>
+                        <Button onClick={() => setCurrentPage(currentPage + 1)}>{`${currentPage + 1}`}</Button>
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {currentPage < total - 2 ? (
+                    <div className='div6' style={{ padding: '10px 10px' }}>
+                      ...
+                    </div>
+                  ) : null}
+
+                  {currentPage < total ? (
+                    <div className='div7'>
+                      <div className='Button-Custom--PaginationCurrent'>
+                        <Button onClick={() => setCurrentPage(total)}>{`${total}`}</Button>
+                      </div>
+                    </div>
+                  ) : null}
+
+                  <div className={`div8`}>
+                    <div className='Button-Custom--PaginationPrevNext'>
+                      <Button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === total}>
+                        Next
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </LegacyCard.Section>
+            </LegacyCard>
+          </Layout.Section>
+        </Layout>
+      </Page>
+    </div>
+  );
+};
+
+export default TrackingList;

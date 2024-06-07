@@ -1,0 +1,104 @@
+import React, { useState, useCallback } from 'react';
+import { Select } from '@shopify/polaris';
+
+function DateBirthday() {
+  const [selectedDay, setSelectedDay] = useState<string>('');
+  const [selectedMonth, setSelectedMonth] = useState<string>('');
+  const [selectedYear, setSelectedYear] = useState<string>('');
+
+  const handleDayChange = useCallback(
+    (value: string) => setSelectedDay(value),
+    []
+  );
+
+  const handleMonthChange = useCallback(
+    (value: string) => {
+      setSelectedMonth(value);
+      // Xác định số ngày trong tháng mới
+      const daysInMonth = getDaysInMonth(parseInt(value), parseInt(selectedYear));
+      // Nếu ngày đã chọn vượt quá số ngày mới, cần phải cập nhật lại ngày
+      if (parseInt(selectedDay) > daysInMonth) {
+        setSelectedDay('');
+      }
+    },
+    [selectedYear]
+  );
+
+  const handleYearChange = useCallback(
+    (value: string) => {
+      setSelectedYear(value);
+      // Xác định số ngày trong tháng mới
+      const daysInMonth = getDaysInMonth(parseInt(selectedMonth), parseInt(value));
+      // Nếu ngày đã chọn vượt quá số ngày mới, cần phải cập nhật lại ngày
+      if (parseInt(selectedDay) > daysInMonth) {
+        setSelectedDay('');
+      }
+    },
+    [selectedMonth]
+  );
+
+  // Hàm để xác định số ngày trong một tháng
+  const getDaysInMonth = (month: number, year: number) => {
+    switch (month) {
+      case 2:
+        return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0) ? 29 : 28;
+      case 4:
+      case 6:
+      case 9:
+      case 11:
+        return 30;
+      default:
+        return 31;
+    }
+  };
+
+  // Tạo danh sách tùy chọn cho Ngày dựa trên tháng và năm hiện tại
+  const renderDayOptions = () => {
+    const daysInMonth = getDaysInMonth(parseInt(selectedMonth), parseInt(selectedYear));
+    const days = Array.from({ length: daysInMonth }, (_, index) => index + 1);
+    return days.map((day) => ({ label: day.toString(), value: day.toString() }));
+  };
+
+  // Tạo danh sách tùy chọn cho Tháng và Năm
+  const renderMonthOptions = () => {
+    const months = Array.from({ length: 12 }, (_, index) => index + 1);
+    return months.map((month) => ({ label: month.toString(), value: month.toString() }));
+  };
+
+  const renderYearOptions = () => {
+    const currentYear = new Date().getFullYear();
+    const years = Array.from({ length: 50 }, (_, index) => currentYear - index);
+    return years.map((year) => ({ label: year.toString(), value: year.toString() }));
+  };
+
+  return (
+    <div style={{display: 'flex'}}>
+        <div >
+      <Select
+        label=""
+        options={renderDayOptions()}
+        onChange={handleDayChange}
+        value={selectedDay}
+      />
+      </div>
+      <div style={{width: '191px', height: '50px' ,paddingLeft: '20px'}}>
+      <Select
+        label=""
+        options={renderMonthOptions()}
+        onChange={handleMonthChange}
+        value={selectedMonth}
+      />
+      </div>
+      <div style={{width: '191px', height: '50px' ,paddingLeft: '20px'}}>
+      <Select
+        label=""
+        options={renderYearOptions()}
+        onChange={handleYearChange}
+        value={selectedYear}
+      />
+      </div>
+    </div>
+  );
+}
+
+export default DateBirthday;

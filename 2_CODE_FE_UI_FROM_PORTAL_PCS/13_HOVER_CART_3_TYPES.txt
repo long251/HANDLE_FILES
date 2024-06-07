@@ -1,0 +1,15 @@
+const [hoveredId, setHoveredId] = useState<number | null>(null);
+
+// Trong hàm onMouseEnter và onMouseLeave, bạn phải đặt hoveredId là một số hoặc null
+<div
+  className='icon_cart'
+  onMouseEnter={() => product.outOfStock === 1 && setHoveredId(product.id)}
+  onMouseLeave={() => product.outOfStock === 1 && setHoveredId(null)}
+  style={{ cursor: product.outOfStock === 1 ? 'pointer' : 'not-allowed' }}
+>
+  {product.outOfStock === 1 ? (
+    hoveredId === product.id ? <IconCart /> : <IconCart2 />
+  ) : (
+    <IconCart3 />
+  )}
+</div>

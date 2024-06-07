@@ -1,0 +1,339 @@
+{expandedItems.includes(item.id) && (
+                          <div
+                            style={{
+                              width: '100%',
+                              borderBottom: '1px dashed #D1D5DB',
+                              padding: '40px 228px',
+                            }}
+                          >
+                            <div>
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', gap: '20px' }}>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      gap: '2px',
+                                    }}
+                                  >
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                      <div
+                                        style={{
+                                          width: '20px',
+                                          height: '20px',
+                                          border: '3px solid #B6D9FF',
+                                          backgroundColor: '#0050A6',
+                                          borderRadius: '50%',
+                                        }}
+                                      ></div>
+                                    </div>
+                                    <div style={{ borderLeft: '4px dotted #D1D5DB', height: '44px' }}></div>
+                                  </div>
+                                  <div>
+                                    <div>Giao hàng thành công</div>
+                                    <div style={{ color: '#A0ACBE' }}>Đơn hàng JPV230819318132</div>
+                                  </div>
+                                </div>
+                                <div>06/07/2023 09:10</div>
+                              </div>
+
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', gap: '20px' }}>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      gap: '2px',
+                                    }}
+                                  >
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                      <div
+                                        style={{
+                                          position: 'relative',
+                                          width: '20px',
+                                          height: '20px',
+                                          backgroundColor: '#B6D9FF',
+                                          borderRadius: '50%',
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                          }}
+                                        >
+                                          <IconV />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div style={{ borderLeft: '4px dotted #D1D5DB', height: '44px' }}></div>
+                                  </div>
+                                  <div>
+                                    <div style={{ color: '#A0ACBE' }}>Đang giao hàng</div>
+                                    <div style={{ color: '#A0ACBE' }}>
+                                      Phiếu xuất KRBC230817092317 - Mã vận đơn PP700082132
+                                    </div>
+                                  </div>
+                                </div>
+                                <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                              </div>
+
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', gap: '20px' }}>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      gap: '2px',
+                                    }}
+                                  >
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                      <div
+                                        style={{
+                                          position: 'relative',
+                                          width: '20px',
+                                          height: '20px',
+                                          backgroundColor: '#B6D9FF',
+                                          borderRadius: '50%',
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                          }}
+                                        >
+                                          <IconV />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div style={{ borderLeft: '4px dotted #D1D5DB', height: '44px' }}></div>
+                                  </div>
+                                  <div>
+                                    <div style={{ color: '#A0ACBE' }}>Nhận tại Kho hàng nội địa</div>
+                                    <div style={{ color: '#A0ACBE' }}>Đang khai thách tại kho hàng nội địa</div>
+                                  </div>
+                                </div>
+                                <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                              </div>
+
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', gap: '20px' }}>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      gap: '2px',
+                                    }}
+                                  >
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                      <div
+                                        style={{
+                                          position: 'relative',
+                                          width: '20px',
+                                          height: '20px',
+                                          backgroundColor: '#B6D9FF',
+                                          borderRadius: '50%',
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                          }}
+                                        >
+                                          <IconV />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div style={{ borderLeft: '4px dotted #D1D5DB', height: '44px' }}></div>
+                                  </div>
+                                  <div>
+                                    <div style={{ color: '#A0ACBE' }}>Đang vận chuyển về Việt Nam</div>
+                                    <div style={{ color: '#A0ACBE' }}>Đang trên đường vận chuyển về Việt Nam</div>
+                                  </div>
+                                </div>
+                                <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                              </div>
+
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', gap: '20px' }}>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      gap: '2px',
+                                    }}
+                                  >
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                      <div
+                                        style={{
+                                          position: 'relative',
+                                          width: '20px',
+                                          height: '20px',
+                                          backgroundColor: '#B6D9FF',
+                                          borderRadius: '50%',
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                          }}
+                                        >
+                                          <IconV />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div style={{ borderLeft: '4px dotted #D1D5DB', height: '44px' }}></div>
+                                  </div>
+                                  <div>
+                                    <div style={{ color: '#A0ACBE' }}>Nhận tại Kho hàng quốc tế</div>
+                                    <div style={{ color: '#A0ACBE' }}>Đang khai thác tại kho hàng quốc tế</div>
+                                  </div>
+                                </div>
+                                <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                              </div>
+
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', gap: '20px' }}>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      gap: '2px',
+                                    }}
+                                  >
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                      <div
+                                        style={{
+                                          position: 'relative',
+                                          width: '20px',
+                                          height: '20px',
+                                          backgroundColor: '#B6D9FF',
+                                          borderRadius: '50%',
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                          }}
+                                        >
+                                          <IconV />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div style={{ borderLeft: '4px dotted #D1D5DB', height: '44px' }}></div>
+                                  </div>
+                                  <div>
+                                    <div style={{ color: '#A0ACBE' }}>Tạo đơn</div>
+                                    <div style={{ color: '#A0ACBE' }}>Order no. JPV230819318132</div>
+                                  </div>
+                                </div>
+                                <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                              </div>
+
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', gap: '20px' }}>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      gap: '2px',
+                                    }}
+                                  >
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                      <div
+                                        style={{
+                                          position: 'relative',
+                                          width: '20px',
+                                          height: '20px',
+                                          backgroundColor: '#B6D9FF',
+                                          borderRadius: '50%',
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                          }}
+                                        >
+                                          <IconV />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div style={{ borderLeft: '4px dotted #D1D5DB', height: '44px' }}></div>
+                                  </div>
+                                  <div>
+                                    <div style={{ color: '#A0ACBE' }}>Đang vận chuyển về VN</div>
+                                    <div style={{ color: '#A0ACBE' }}>Đang trên đường vận chuyển về Việt Nam</div>
+                                  </div>
+                                </div>
+                                <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                              </div>
+
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', gap: '20px' }}>
+                                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                      <div
+                                        style={{
+                                          position: 'relative',
+                                          width: '20px',
+                                          height: '20px',
+                                          backgroundColor: '#B6D9FF',
+                                          borderRadius: '50%',
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                          }}
+                                        >
+                                          <IconV />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div>
+                                    <div style={{ color: '#A0ACBE' }}>Nhận tại Kho hàng quốc tế</div>
+                                    <div style={{ color: '#A0ACBE' }}>
+                                      Tracking no. HMDE000002627243HMDE000002627243
+                                    </div>
+                                  </div>
+                                </div>
+                                <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                              </div>
+                            </div>
+                          </div>
+                        )}

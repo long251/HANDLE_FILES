@@ -1,0 +1,159 @@
+JAVA CORE
+---------
+* download Intellij IDEA: Next -> bảng option -> tích chọn: create desktop shortcut, Add "bin", .java
+
+* new project:
+	- tạo 1 thư mục để lưu (vd: ổ D, folder ở desktop)
+	- download JDK -> v11
+	- Đổi:	name; language: java; build: maven
+	- ko tích Add Sample code
+	-> Create
+
+- sout = System.out.println(); (+chuỗi) -> in ra hoặc xuất, tìm lỗi
+
+- Vd: 	Date date = new Date();
+	sout(date);
+	-> in ra tương đương hàm now SQL
+
+- ENUM: tạo ra 1 class ENUM riêng
+	vd: public enum Gender{ MALE, FEMALE}
+	khai: Gender gender = Gender.MALE; sout(gender);
+
+- Mảng bắt đầu từ 0,1,2,...n
+
+- Naming rules (quy tắc đặt tên):
+	- thuộc tính là N (age, username,...)
+	- từ, biến, phương thức viết kiểu con lạc đà
+	- kiểu boolean có is đầu tên
+	- ENUM: viết full in hoa
+	- hằng số: viết full in hoa, cách nhau bằng _
+	- lớp(class): viết hoa chữ đầu
+	- gói(package): viết thường, cách nhau bằng .
+	- biến đơn vị, tham số phương thức: ~lạc đà
+
+- Array: tập hợp các giá trị có cùng kiểu dữ liệu
+
+- demo:
+  tạo Program class -> main ->
+	- chạy chương trình: Ctrl+Shift+F10 -> Terminal bên dưới
+
+- toString() -> thông qua p.thức @Override: ghi đè; chuyển hashcode về dạng chuỗi
+
+* Câu điều kiện:
+	- If-esle
+	- toán tử 3 ngôi: (đk) ? (giá trị đúng) : (giá trị sai)
+	- switch-case
+	- for: fori và foreach
+	- while (đk) {code}
+	- do-while (khác với while là thực hiện câu lệnh trước rồi mới set điều kiện)
+	- break: đk ngắt; continue: đk bỏ qua rồi tiếp tục
+	- return: trả về gì đó; sử dụng cho function, method,...
+
+- i++: thực thi sau khi ++; là in ra i trước rồi mới ++
+- ++i: ngược lại
+- +=: gán giá trị
+- &&(và) ; || (hoặc) ; ! (phủ định)
+
+- chuyển ngày giờ
+
+- Các kiểu sout:
+	- println(): xuống dòng
+	- print(): không xuống dòng
+	- printf(): các kiểu vd: %d...
+
+- Random number (ngẫu nhiên):
+	- nextInt(n) hoặc nextInt(n) +- (n') tham số đầu vào 0<x<n
+
+- nhận giá trị người dùng nhập vào từ console:
+*Scanner:
+	Scanner scanner = new Scanner(System.in);
+	int age	= scanner.nextInt();
+- hasnextInt() -> số nguyên
+- nextLine() -> đọc chuỗi
+- nextInt() -> 
+
+- Narrowing: ép kiểu (double -> float -> long -> int -> short -> byte)
+- widening
+
+* kiểu nguyên thuỷ (Primitive): int, long, byte...
+* Wrapper class ~Object: 
+	- khởi tạo đối tượng
+	- so sánh: equals
+	- Vd: String a  = new String("nguyen")
+		- a: biến lưu ở stack, lưu địa chỉ
+		- đoạn sau =: lưu ở heap
+
+- Box & UnBoxing: chuyển từ Primitive -> obj và Unbox là ngược lại
+
+- String:
+	- toString
+	- hashCode() -> 1 hàm chuyển thành số
+	- equals()
+
+- đếm chuỗi, sd split -> bỏ qua dấu cách
+- toUpperCase: chuyển chuỗi thành viết hoa
+
+* Constructor:
+	- constructor ko tham số sd để khởi tạo 1 đối tượng với giá trị mặc định
+	- constructor có tham số khởi tạo đối tượng được cung cấp
+
+* Access Modifier (phạm vi truy cập) của: class, constructor, method, property
+
+* OOP (lập trình hướng đối tượng):
+	- 1 đối tượng gồm có các thuộc tính: id, name; p.thức: đi làm, đi học
+	- 4 tính chất: đóng gói, kế thừa, trìu tượng, đa hình
+ 1. đóng gói:
+	- phạm vi: Private -> bảo mật dữ liệu
+	- lấy dữ liệu: getter/setter
+ 2. kế thừa:
+	- cha truyền con nối
+	Vd: Person(cha): id, name, hometown
+	    Student(con): gpa
+	    Teacher(con): salary
+	=> Student extends Person; Teacher extends Person
+	- khai getter/setter ở Person thì Student , Teacher vẫn có thể lấy (get) dữ liệu -> tái sử dụng code
+	- ko có đa kế thừa chỉ có kế thừa cấp bậc
+	- constructor inherit
+ 3. trìu tượng: chỉ biết tên, biết cách gọi thôi
+	- Abstract class và interface
+	Vd: Máy pha cafe: đầu vào là những hạt cafe, đầu ra là nước cafe VẬY ở giữa làm, triển khai ntn ko thể biết được, ng ta chỉ biết đầu vào và kết quả
+	3.1.1. Abstract class:
+		- ~class bth nhưng chưa hoàn thiện (chờ triển khai)
+		- các class con: phương thức có thể @Override triển khai lại từ cha có thể khác
+	3.1.2. Abstract method:
+		Vd: p.thức tại Person chỉ viết ra tên, con kế thừa viết trong p.thức
+		- trìu tượng ko hoàn toàn vì còn có các method khác
+	3.2. Interface:
+		- ko là 1 Obj; tất cả method trong interface = pub abstract method
+		- trìu tượng hoá hoàn toàn
+		- đặt tên I(tên) -> Vd: pub interface IStudy();
+		- hàm triển khai ko có body -> Vd: pub abstract(ko cần cx đc vì mặc định có sẵn rồi) | void homework(); 
+		- Sử dụng: Vd: Student implement IStudy{
+				// chỉ triển khai vì ko có gì để kế thừa}
+		Vd cụ thể: DeSer implement IDeSer để triển khai các hàm đã nêu
+		- vừa có thể extend vừa implement được
+	3.3. so sánh Abstract và Interface
+4. Đa hình:
+	- cùng 1 hàm mà có 2 kiểu cho phương thức
+	- điển hình: Overloading(nạp chồng p.thức) & Overriding(ghi đè p.thức)
+	- Overloading: khai báo nhiều p.thức cùng tên trong 1 class nhưng với danh sách tham số khác nhau
+	- Overriding: ghi đè (override) p.thức của lớp cha
+	Vd: overloading:
+		pub int sum(int a, int b){
+			return a+b;
+		pub int sum(int a, int b, int c){
+			return a+b+c;
+		=> giống tên nhưng khác tham số
+	Vd: override: toString ghi đè p.thức từ thg cha có thể sửa lại
+	- this: tham chiếu đến đối tượng ở lớp hiện tại (con <-> con)
+	- super: tham chiếu đến lớp cha của lớp hiện tại (con <-> cha)
+- Debug
+- Handling exception: try/catch
+- Static
+- Collection; sắp xếp: Collection.sort
+- ArrayList; Linked List
+- Stack; Queue
+- Map
+- so sánh: equals(); hashcode();
+- JDBC
+- 

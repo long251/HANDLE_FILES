@@ -1,0 +1,92 @@
+DATABASE BASIC
+--------------
+* tài liệu -> Google Drive
+
+* download -> MySQL Workbench:
+	- tải MySQL community
+	- tải MySQL Workbench
+
+* MySQL Workbench:
+ - Setting -> viết hoa -> use UPPERCASE
+
+ - tạo database(db):
+	drop db if exists tên;
+	create db tên;
+	use tên;
+
+ - tạo bảng:
+	create table `tên` (
+	 cột 1 datatype(dt) ràng buộc,
+	 cột 2 dt	ràn buộc );
+
+ - Datatype:
+	- các loại INT (tiny, small,...)
+	- UNSIGNED: luôn dương; AUTO_INCREMENT: tự động tăng (id)
+	- STRING: char vs varChar
+	- DATE: yyyy-mm-dd; TIME: hh:mm:ss
+	- ENUM: liệt kê trong khoảng đã chọn
+
+ - Ràng buộc (Constraints):
+	- Primary key (PK): khoá chính
+	- Foreign key (FK): khoá phụ - lấy thêm dữ liệu và liên kết với khoá chính
+		-> FOREIGN KEY (khoá phụ) REFERENCES bảng cần t.tin(khoá chính)
+		!  thêm ON DELETE CASCADE: khi xoá con thì xoá cả cha
+	- Unique key (U): ko trùng, có 1 cột giá trị null đc
+	- Default: lấy giá trị mặc định nếu không nhập
+		-> DATE DEFAULT now()
+	- NOT NULL: không để trống giá trị (khác với 0)
+	- CHECK: kiểm tra dữ liệu
+
+- thứ tự ưu tiên: (8)SELECT, (1)FROM, (2)JOIN, (3)WHERE, (4)GROUP BY, (5)HAVING, (6)ORDER BY, (7)LIMIT
+
+- INSERT INTO (tên bảng) (cột 1, cột 2,...)
+	VALUES		 (v1 , v2, ...)
+
+- SELECT -> điều kiện WHERE:
+	and/or - between_and - in/not in - like/not like(_%) - is NULL/ is not NULL
+	=, >, <, >=, <=, !=, <>
+
+- lọc tên từ họ tên: SELECT substring_index("họ tên", ".", 1);
+
+- DISTINCT: loại bỏ trùng lặp -> SELECT DISTINCT cột;
+
+- ORDER BY: ORDER BY cột 1, cột 2 ASC/DESC --- Default: ASC tăng dần
+
+- hàm tính toán:
+	- COUNT(): COUNT(tên cột)(*)(1)
+	- SUM(), MIN(), MAX(), MIN(), AVG(), length, không sử dụng cho null
+
+- GROUP BY/ HAVING: sử dụng để nhóm; HAVING: là điều kiện đi kèm
+
+- GROUP_CONCAT(): cột, nối các giá trị theo cột
+
+- AS: đặt tên
+
+- LIMIT: giới hạn số bản ghi in ra
+
+* Modify data statement (CRUD MySQL):
+- INSERT INTO
+
+- UPDATE:
+	UPDATE 	tên bảng
+	SET	cột 1 =v1
+		cột 2 =v2
+		...
+	WHERE	đk;
+	(tắt SAFE UPDATE hoặc thêm câu lệnh SET SQL_SAFE_UPDATES = 0)
+
+- DELETE:
+	DELETE
+	from	tên bảng
+	where	đk;
+	(thêm vào khoá ngoại: ON DELETE CASCADE)
+
+- JOIN: thêm nội dung bảng
+- UNION: nối các bảng với nhau
+- VIEW: lưu logic của bảng, k lưu data kiểu dùng nhiều lần
+- CTE: tạo ra 1 bảng chung, ~VIEW nhưng chỉ dùng cho 1 câu lệnh duy nhất sd lệnh ngay bên dưới và khi kt -> biến mất
+- Store Procedure: ~phương thức, vd: cho người dùng nhập dữ liệu db; ko nhất thiết trả về giá trị
+- Function: ~Procedure; khác: luôn trả về giá trị
+- Trigger:
+- Câu hỏi trắc nghiệm, phỏng vấn MySQL
+----------------------------------------------------------------------------------------------------------

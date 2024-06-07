@@ -1,0 +1,16 @@
+CODE_HIDE
+---------
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const handleCreateRequest = () => {
+    // Xử lý logic tạo yêu cầu ở đây
+    // Sau khi tạo yêu cầu thành công, hiển thị thông báo và đặt timeout để tự động thu gọn
+    setShowSuccessMessage(true);
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 2000); // 2000ms = 2 giây
+  };
+-------------------------------------------------------------------------
+<div>
+                                <button onClick={handleCreateRequest}>Tạo yêu cầu</button>
+                                {showSuccessMessage && <div>Tạo yêu cầu thành công</div>}
+                              </div>

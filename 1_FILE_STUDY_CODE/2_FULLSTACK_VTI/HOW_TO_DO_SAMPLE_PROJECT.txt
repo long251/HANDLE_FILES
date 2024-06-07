@@ -1,0 +1,59 @@
+KHỞI TẠO DỰ ÁN ĐƠN GIẢN account management
+------------------------------------------
+1. create-react-app accountmanagement -> khởi tạo
+2. cd accountmanagement -> npm start -> khởi chạy
+3. xoá các file ko cần thiết
+4. xây dựng khung tạo mới account: nút create, form ds, từng p.tử ds
+5. npm install reactstrap react react-dom -> cài đặt React-trap
+6. cài xong -> import bootstrap vào index.html:
+	<link
+     	 rel="stylesheet"
+      	href="https://cdn.jsdelivr.net/npm/bootstrap@	5.1.0/dist/css/bootstrap.min.css"
+    	/>
+7. tạo folder quản lý: Page, Components, Container(logic)
+	thiết kế dự án theo: App > Page > Logic > Components
+8. Components > Account:
+  - ResultForm.js -> form bảng lưu nhiều kết quả ResultFormItem
+  - ResultFormItem.js -> chi tiết từng kết quả
+  - CreateButton -> lưu nút nhấn tạo account
+9. Logic > AccountLogic.js: tạo file xử lý sự kiện: bọc nút, result form
+10. Page > AccountPage.js: tạo file hứng chương trình: Logic
+11. App.js gọi <AccountPage/>
+12. Khi nhấn nút CreateNewAccount -> hiển thị form tạo mới:
+  - Components > Account > CreateNewAccount > InputForm.js: lưu form nhập
+  - Components > Account > CreateNewAccount > ModalCreateNewAccount.js:
+	-> thư viện modal React cung cấp, lưu InputForm
+  - AccountContainer.js -> lưu ModalCreateNewAccount
+13. tiến trình xử lý logic: Components(Account) < Container cùng lắm là đến Page
+14. khi nhấn nút Create giờ mới hiện modal:
+  - sửa CreateButton.js gọi hàm callback xử lý (Lab20.4):
+	B1: gọi hàm onClick tại nút
+	B2: trên return viết hàm arrow gọi dữ liệu onHandle
+	B3: đẩy dữ liệu onHandle đó lên props
+  - đồng thời trong ModalCreateNewAccount thì sửa lại:
+	B1: thay đổi trạng thái isOpen thành 1 biến để thay đổi
+	B2: đẩy cái biến đó lên props
+  - trên là 2 hàm, biến(callback) thì giờ sẽ đẩy tất cả lên Container để xử lý chung
+	B1: tạo ra 1 useState để lưu trữ sự thay đổi của showForm
+	B2: chú ý nếu dưới đẩy hàm, data gì thì trên gọi tương tự
+  - xử lý khi nhấn nút Close sẽ đóng form:
+	B1: khai hàm onClick tại nút Close; viết hàm và có data đẩy data đó lên xử lý
+	B2: copy data đó viết nó thành hàm và thay đổi setShowForm={false}
+15. Khai báo State lưu trữ dữ liệu các ô nhập liệu trong InputForm:
+  - Ví dụ khai báo ô nhập liệu Email:
+	B1: khai báo State để lưu trữ ô nhập liệu
+	B2: dưới return(UI) đoạn Email thêm value: email và onChange mỗi khi thay đổi
+  - Có nút Create sẽ tạo ra 1 đối tượng accountNew thông qua hàm onClick -> handleCreate:
+	B1: khai 1 obj trong hàm handleCreate: let accountNew={email: Email,} email của BE, Email của FE; onHandleCreateNewAccount(accountNew); đẩy lên
+	B2: do InputForm < Modal -> truyền lên từ Modal đẩy lên tiếp vì ko xử lý ở đây
+	B3: lên Container xử lý hàm và thêm tham số create (accountNew)
+	B4: trong hàm tạo biến listAccount để lưu trữ mảng account tạo vào
+	B5: 	listAccount.push(accountNew);
+		setListAccount(listAccount);
+		localStorage.setItem("listAccount", JSON.stringify(listAccount));
+		//tắt form: setShowForm(false);
+16. Xử lý nút Reset, set lại các giá trị nhập về "":
+	->	let handleReset=()=>{
+		SetEmail("");
+		SetUsername("");
+		SetFullname("");
