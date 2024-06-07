@@ -91,6 +91,8 @@ CÁC MÀN GIAO DIỆN HIỂN THỊ DỮ LIỆU + ITSM
 cái đoạn phân trang CSS đang ở đâu ấy :)
 	- overflowX: auto
 	- đang xóa cái cột của bảng dữ liệu -> ko đc phải chia lại thôi
+	- đoạn bảng ở CreateOrderWallet.tsx đang sai vì 2 bảng dài = nhau -> wrap lại
+	- 
 ----------------------------------------------------------------------------------------------------------
 *Màn 9: Payment Request (lịch sử giao dịch):
  - 184 -> chưa tích hợp dữ liệu API								-> ITSM
