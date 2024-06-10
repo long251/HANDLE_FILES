@@ -1,0 +1,44 @@
+RIÊNG ITSM
+----------
+Ngày cập nhật: 10/06/2024
+-------------------------
+SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT		K.LUẬN
+1-175 -> 2.Dashboard	-> khoảng cách Footer cách nhiều hơn khoảng cách giữa các bảng	-> ko sửa 	-> 	100%
+5-162 -> 2.Dashboard	-> dữ liệu tỷ giá ngoại tệ định dạng sai			-> đã sửa	-> 	100%
+19-183 -> 10.Website	-> thiếu ô nhập tìm kiếm -> đã điền vào các tab khác		-> đã sửa	-> 	100%
+21-185 -> 9.Pay_Request	-> click vào Rút tiền ko có sự kiện				-> đã sửa	-> 	100%
+22-186 -> 9.Pay_Request	-> click vào Nạp tiền ko có sự kiện				-> đã sửa	-> 	100%
+23-187 -> 9.Pay_Request	-> ko đóng điều kiện lọc khi nhấn ra ngoài			-> đã sửa	-> 	100%
+24-167 -> 4.Ecommerce	-> tab trạng thái sửa theo yêu cầu trên ITSM			-> sửa được	-> đã sửa
+25-193 -> 6.Tracking	-> tiêu đề bảng chữ đang bị đậm -> đã fix nhỏ = PO		-> đã sửa	-> 	100%
+26-194 -> 6.Tracking	-> lựa chọn More Options 1 vài chỗ đang ko có			-> sửa được	-> 6. 7. 
+29-197 -> 4.Ecommerce	-> thừa 2 trường dữ liệu lọc dữ liệu khách hàng và nhân viên	-> sửa được	-> 
+30-198 -> 5.ShippingOrde-> thừa 2 trường dữ liệu lọc dữ liệu khách hàng và nhân viên	-> sửa được	-> 
+31-200 -> 5.ShippingOrde-> sai tiêu đề Breadcrumb					-> sửa được	->
+32-201 -> 4. 5.		-> sai tiêu đề Breadcrumb					-> sửa được	-> 
+---------------------------------------------------------------------------------------------------------------------------
+MỤC SAU:
+9-165 -> Header		-> phần avatar: avatar nằm trái, bổ sung mũi tên sổ xuống	-> sau		-> 	SAU
+10-166 -> Header	-> thiếu icon giỏ hàng						-> sau		-> 	SAU
+*cần API:
+2-158 -> 2.Dashboard	-> truyền API							-> cần API 	->	SAU
+
+18-182 -> 10.Website	-> truyền API							-> cần API	-> 	SAU
+20-184 -> 9.Pay_Request	-> truyền API							-> cần API	->	SAU
+*chờ figma:
+7-163 -> Footer		-> chưa có link: câu hỏi thường gặp				-> sau		-> chờ figma
+8-164 -> Footer		-> chưa có link: điều khoản quy định				-> sau		-> chờ figma
+27-195 -> 6.Tracking	-> click vào button column chưa có hiểu thị giao diện -> chờ	-> chờ figma	-> chờ figma
+28-196 -> 6.Tracking	-> click vào button filter chưa có hiển thị giao diện -> chờ	-> chờ figma	-> chờ figma
+---------------------------------------------------------------------------------------------------------------------------
+MỤC KHÁC:
+3-159 -> 3.Shopping	-> truyền API							-> cần API	->	SAU
+4-160 -> 3.Shopping	-> lề trái/phải danh mục sản phẩm				-> đã khác	-> chuyển a Khánh
+6-161 -> 3.Shopping	-> hover giỏ hàng cùng lúc					-> đã sửa	-> chuyển a Khánh
+11-168 -> 3.Shopping	-> ko có icon giỏ hàng khi bị responsive			-> đã sửa	-> chuyển a Khánh
+12-170 -> 3.Shopping	-> ảnh chi tiết sản phẩm bị thiếu, sai cách bố trí		-> 		-> chuyển a Khánh
+13-171 -> 3.Shopping	-> tab ghi chú của chi tiết sản phẩm bị vênh			-> đã sửa	-> chuyển a Khánh
+14-172 -> 3.Shopping	-> chi tiết sản phâm, ko có hiệu ứng hover button		-> đã sửa	-> chuyển a Khánh
+15-169 -> 3.Shopping	-> chi tiết sản phẩm, Breadcrumb dài sẽ được ẩn đi		-> a Khánh tạo	-> chuyển a Khánh
+16-173 -> 3.Shopping	-> danh mục chính, đang lệch nút next/back			-> đã sửa	-> chuyển a Khánh
+17-174 -> 3.Shopping	-> chi tiết sản phẩm, sai font chữ thương hiệu			-> đã sửa	-> chuyển a Khánh
