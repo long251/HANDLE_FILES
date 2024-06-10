@@ -37,8 +37,6 @@ Ngày cập nhật: 06/06/2024
 	- [gitlab] -> a Khánh check hằng ngày xem cập nhật gì rồi?
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
- - MANG -> thêm bánh kẹo lên cty				-> chưa có
- - THAY -> thuốc đỏ nhỏ						-> THAY	
- - THAY -> gối mới						-> THAY	
+ - MANG -> thêm bánh kẹo lên cty			-> chưa có
+ - THAY -> thuốc đỏ nhỏ					-> THAY	
  - THAY -> nhỏ mắt					-> 07/06/2024
- - ĐỒ CÁ -> check hằng ngày + làm bảng giá thườngg		-> CHECK

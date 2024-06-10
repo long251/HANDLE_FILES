@@ -94,6 +94,10 @@ cái đoạn phân trang CSS đang ở đâu ấy :)
 	- đoạn bảng ở CreateOrderWallet.tsx đang sai vì 2 bảng dài = nhau -> wrap lại
 	- 
 ----------------------------------------------------------------------------------------------------------
+*Màn 6: danh sách tracking:
+ - thanh search ở DataTable căn giữa, bỏ outline khi active					-> CHƯA BỎ ĐƯỢC
+ - Neo cột cuối đổi popover ngày lên trước và căn trái
+----------------------------------------------------------------------------------------------------------
 *Màn 9: Payment Request (lịch sử giao dịch):
  - 184 -> chưa tích hợp dữ liệu API								-> ITSM
  - 185 -> thêm chức năng Rút tiền do figma để trống nhưng p thêm tính năng			-> ITSM
@@ -103,8 +107,5 @@ cái đoạn phân trang CSS đang ở đâu ấy :)
 *Màn 10: Website mua hàng:
  - 183 -> thiếu ô nhập tìm kiếm nội dung -> để ở tuyến nào cũng có				-> ITSM
 ----------------------------------------------------------------------------------------------------------
-*Màn 6: danh sách tracking:
- - thanh search ở DataTable căn giữa, bỏ outline khi active
- - Neo cột cuối đổi popover ngày lên trước và căn trái
-----------------------------------------------------------------------------------------------------------
+
 *Màn
