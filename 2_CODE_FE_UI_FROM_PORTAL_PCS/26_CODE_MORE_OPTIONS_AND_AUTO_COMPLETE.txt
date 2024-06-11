@@ -1,0 +1,114 @@
+  const [showOptions, setShowOptions] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const toggleOptions = () => {
+    setShowOptions(!showOptions);
+  };
+  const handleClickOutside = (event: MouseEvent) => {
+    if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+      setShowOptions(false);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+--------------------------------------------------------------------
+<Page //@ts-ignore
+        title={<BreadcrumbEcommerceDetail breadcrumbs={[{ title: 'Chi tiết đơn hàng', url: '' }]} />}
+        primaryAction={
+          <div className='Wrapper_More_Options_Ecommerce' ref={wrapperRef} onClick={toggleOptions}>
+            <div className='More_Options_Ecommerce'>More options</div>
+            <div>
+              <IconArrowDrop />
+            </div>
+            {showOptions && (
+              <div className='Options_Dropdown'>
+                <div className='Option_Item'>
+                  <IconPrint />
+                  In đơn hàng
+                </div>
+                <div className='Option_Item'>
+                  <IconPhoto />
+                  Copy đơn hàng
+                </div>
+              </div>
+            )}
+          </div>
+        }
+      >
+=========================================================================================================================
+ const [customer, setCustomer] = useState<string[]>([]);
+  const [searchCustomer, setSearchCustomer] = useState('');
+  const debounceSearchCustomerFun = () => {};
+  const [staff, setStaff] = useState<string[]>([]);
+  const [searchStaff, setSearchStaff] = useState('');
+  const debounceSearchStaffFun = () => {};
+------------------------------------------
+<Autocomplete
+                      options={[]}
+                      selected={customer}
+                      textField={
+                        <Autocomplete.TextField
+                          suffix={<Icon source={PolarisIcons.CaretDownMinor} />}
+                          onClearButtonClick={() => {
+                            setCustomer([]);
+                            setSearchCustomer('');
+                            debounceSearchCustomerFun();
+                          }}
+                          onChange={(value) => {
+                            setSearchCustomer(value);
+                            if (value) {
+                              debounceSearchCustomerFun();
+                            } else {
+                              setCustomer([]);
+                              debounceSearchCustomerFun();
+                            }
+                          }}
+                          label='Khách hàng'
+                          value={searchCustomer}
+                          autoComplete='off'
+                        />
+                      }
+                      onSelect={(selected) => {
+                        const selectedText = selected.map((selectedItem) => {
+                          return selectedItem;
+                        });
+                        setCustomer(selected);
+                        setSearchCustomer(selectedText[0] || '');
+                      }}
+                    />
+                    <Autocomplete
+                      options={[]}
+                      selected={staff}
+                      textField={
+                        <Autocomplete.TextField
+                          suffix={<Icon source={PolarisIcons.CaretDownMinor} />}
+                          onClearButtonClick={() => {
+                            setStaff([]);
+                            setSearchStaff('');
+                            debounceSearchStaffFun();
+                          }}
+                          onChange={(value) => {
+                            setSearchStaff(value);
+                            if (value) {
+                              debounceSearchStaffFun();
+                            } else {
+                              setStaff([]);
+                              debounceSearchStaffFun();
+                            }
+                          }}
+                          label='Nhân viên mua hàng'
+                          value={searchStaff}
+                          autoComplete='off'
+                        />
+                      }
+                      onSelect={(selected) => {
+                        const selectedText = selected.map((selectedItem) => {
+                          return selectedItem;
+                        });
+                        setStaff(selected);
+                        setSearchStaff(selectedText[0] || '');
+                      }}
+                    />

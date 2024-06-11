@@ -1,0 +1,81 @@
+Trong đoạn mã này, các thành phần từ thư viện Polaris được sử dụng để xây dựng một giao diện người dùng. Dưới đây là giải thích chi tiết về từng thành phần và sự khác nhau giữa chúng:
+
+Khung của Component
+jsx
+Sao chép mã
+import { Layout, LegacyCard, Page } from 'pcs-polaris';
+import React from 'react';
+
+const SQTExtension = () => {
+    return (
+        <div className='Polaris-Custom'>
+            <Page>
+                <Layout>
+                    <Layout.Section>
+                        <LegacyCard>
+                            <LegacyCard.Section>
+                                {/* Content */}
+                            </LegacyCard.Section>
+                        </LegacyCard>
+                    </Layout.Section>
+                </Layout>
+            </Page>
+        </div>
+    );
+}
+
+export default SQTExtension;
+Giải thích từng thành phần
+<Page>:
+
+Mục đích: Page là một thành phần bao quanh toàn bộ nội dung của trang và cung cấp cấu trúc và bố cục cơ bản cho trang. Nó thường được sử dụng để định nghĩa tiêu đề trang, breadcrumbs, và các hành động chính của trang.
+Ví dụ sử dụng: Để hiển thị tiêu đề trang và chứa toàn bộ nội dung bên trong trang.
+jsx
+Sao chép mã
+<Page title="My Page">
+    {/* Nội dung của trang */}
+</Page>
+<Layout> và <Layout.Section>:
+-----------------------------------------------------------------------------------------------------------
+Mục đích của Layout: Layout là thành phần cung cấp cấu trúc lưới cho trang, cho phép chia trang thành các hàng và cột. Nó giúp dễ dàng sắp xếp và bố trí các phần tử trong trang theo cách có tổ chức.
+Layout.Section: Layout.Section là thành phần con của Layout dùng để xác định các khu vực (sections) trong lưới. Các sections này có thể được sử dụng để sắp xếp nội dung theo hàng ngang.
+Sự khác biệt: Layout là bố cục tổng thể của trang, còn Layout.Section là các phần nhỏ bên trong Layout.
+jsx
+Sao chép mã
+<Layout>
+    <Layout.Section>
+        {/* Nội dung của phần */}
+    </Layout.Section>
+</Layout>
+----------------------------------------------------------------------------------------------------------
+
+<LegacyCard> và <LegacyCard.Section>:
+
+Mục đích của LegacyCard: LegacyCard là thành phần dùng để hiển thị nội dung dưới dạng thẻ (card), thường được sử dụng để nhóm các thông tin liên quan lại với nhau.
+LegacyCard.Section: LegacyCard.Section là thành phần con của LegacyCard, dùng để chia nội dung của thẻ thành các phần nhỏ.
+Sự khác biệt: LegacyCard là thẻ chứa tổng thể, còn LegacyCard.Section là các phần nhỏ bên trong thẻ.
+<LegacyCard>
+    <LegacyCard.Section>
+        {/* Nội dung của phần trong thẻ */}
+    </LegacyCard.Section>
+</LegacyCard>
+----------------------------------------------------------------------------------------------------------
+So sánh sự khác nhau
+Page vs. Layout:
+
+Page là thành phần bao quanh toàn bộ trang, định nghĩa cấu trúc và bố cục cơ bản của trang.
+Layout được sử dụng bên trong Page để chia trang thành các hàng và cột, giúp sắp xếp nội dung một cách có tổ chức hơn.
+Layout vs. Layout.Section:
+
+Layout là thành phần tổng thể định nghĩa lưới của trang.
+Layout.Section là các khu vực nhỏ bên trong Layout, dùng để tổ chức nội dung trong lưới.
+Layout vs. LegacyCard:
+
+Layout là thành phần dùng để chia trang thành các khu vực, hàng và cột.
+LegacyCard là thẻ dùng để nhóm các thông tin liên quan lại với nhau, thường được đặt bên trong Layout.Section để hiển thị nội dung cụ thể.
+LegacyCard vs. LegacyCard.Section:
+
+LegacyCard là thẻ chứa tổng thể, dùng để nhóm thông tin.
+LegacyCard.Section là các phần nhỏ bên trong LegacyCard, dùng để chia nội dung của thẻ thành các phần nhỏ hơn.
+Tổng kết
+Cấu trúc này giúp bạn tổ chức và sắp xếp nội dung một cách rõ ràng và có tổ chức, từ cấu trúc tổng thể của trang (Page), đến việc chia nhỏ nội dung thành các khu vực (Layout và Layout.Section), và cuối cùng là nhóm các thông tin liên quan lại với nhau trong các thẻ (LegacyCard và LegacyCard.Section).

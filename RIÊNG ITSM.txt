@@ -11,11 +11,11 @@ SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT		K.LUẬN
 23-187 -> 9.Pay_Request	-> ko đóng điều kiện lọc khi nhấn ra ngoài			-> đã sửa	-> 	100%
 24-167 -> 4.Ecommerce	-> tab trạng thái sửa theo yêu cầu trên ITSM			-> sửa được	-> đã sửa
 25-193 -> 6.Tracking	-> tiêu đề bảng chữ đang bị đậm -> đã fix nhỏ = PO		-> đã sửa	-> 	100%
-26-194 -> 6.Tracking	-> lựa chọn More Options 1 vài chỗ đang ko có			-> sửa được	-> 6. 7. 
-29-197 -> 4.Ecommerce	-> thừa 2 trường dữ liệu lọc dữ liệu khách hàng và nhân viên	-> sửa được	-> 
-30-198 -> 5.ShippingOrde-> thừa 2 trường dữ liệu lọc dữ liệu khách hàng và nhân viên	-> sửa được	-> 
-31-200 -> 5.ShippingOrde-> sai tiêu đề Breadcrumb					-> sửa được	->
-32-201 -> 4. 5.		-> sai tiêu đề Breadcrumb					-> sửa được	-> 
+26-194 -> 6.Tracking	-> lựa chọn More Options 1 vài chỗ đang ko có			-> sửa được	-> đã sửa full
+29-197 -> 4.Ecommerce	-> thừa 2 trường dữ liệu lọc dữ liệu khách hàng và nhân viên	-> sửa được	-> đã sửa
+30-198 -> 5.ShippingOrde-> thừa 2 trường dữ liệu lọc dữ liệu khách hàng và nhân viên	-> sửa được	-> đã sửa
+31-200 -> 5.ShippingOrde-> sai tiêu đề Breadcrumb					-> sửa được	-> c.sửa ko theo
+32-201 -> 4. 5.		-> sai tiêu đề Breadcrumb					-> sửa được	-> c.sửa ko theo
 ---------------------------------------------------------------------------------------------------------------------------
 MỤC SAU:
 9-165 -> Header		-> phần avatar: avatar nằm trái, bổ sung mũi tên sổ xuống	-> sau		-> 	SAU
@@ -32,7 +32,7 @@ MỤC SAU:
 28-196 -> 6.Tracking	-> click vào button filter chưa có hiển thị giao diện -> chờ	-> chờ figma	-> chờ figma
 ---------------------------------------------------------------------------------------------------------------------------
 MỤC KHÁC:
-3-159 -> 3.Shopping	-> truyền API							-> cần API	->	SAU
+3-159 -> 3.Shopping	-> truyền API							-> cần API	-> chuyển a Khánh
 4-160 -> 3.Shopping	-> lề trái/phải danh mục sản phẩm				-> đã khác	-> chuyển a Khánh
 6-161 -> 3.Shopping	-> hover giỏ hàng cùng lúc					-> đã sửa	-> chuyển a Khánh
 11-168 -> 3.Shopping	-> ko có icon giỏ hàng khi bị responsive			-> đã sửa	-> chuyển a Khánh
