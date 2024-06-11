@@ -2,7 +2,7 @@ RIÊNG ITSM
 ----------
 Ngày cập nhật: 10/06/2024
 -------------------------
-SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT		K.LUẬN
+SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT	    K.LUẬN 14/15
 1-175 -> 2.Dashboard	-> khoảng cách Footer cách nhiều hơn khoảng cách giữa các bảng	-> ko sửa 	-> 	100%
 5-162 -> 2.Dashboard	-> dữ liệu tỷ giá ngoại tệ định dạng sai			-> đã sửa	-> 	100%
 19-183 -> 10.Website	-> thiếu ô nhập tìm kiếm -> đã điền vào các tab khác		-> đã sửa	-> 	100%
@@ -16,8 +16,11 @@ SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT		K.LUẬN
 30-198 -> 5.ShippingOrde-> thừa 2 trường dữ liệu lọc dữ liệu khách hàng và nhân viên	-> sửa được	-> đã sửa
 31-200 -> 5.ShippingOrde-> sai tiêu đề Breadcrumb					-> sửa được	-> c.sửa ko theo
 32-201 -> 4. 5.		-> sai tiêu đề Breadcrumb					-> sửa được	-> c.sửa ko theo
+33-202 -> 4.Ecommerce	-> Click vào Reset -> reset lại toàn bộ giá trị nhập		-> sửa được	-> đã sửa
+34-203 -> 5.ShippingOrde-> thiếu combobox lựa chọn cột Action				-> sửa được	-> __
+
 ---------------------------------------------------------------------------------------------------------------------------
-MỤC SAU:
+MỤC SAU: header (2) - API (3) - figma (4)
 9-165 -> Header		-> phần avatar: avatar nằm trái, bổ sung mũi tên sổ xuống	-> sau		-> 	SAU
 10-166 -> Header	-> thiếu icon giỏ hàng						-> sau		-> 	SAU
 *cần API:
@@ -31,7 +34,7 @@ MỤC SAU:
 27-195 -> 6.Tracking	-> click vào button column chưa có hiểu thị giao diện -> chờ	-> chờ figma	-> chờ figma
 28-196 -> 6.Tracking	-> click vào button filter chưa có hiển thị giao diện -> chờ	-> chờ figma	-> chờ figma
 ---------------------------------------------------------------------------------------------------------------------------
-MỤC KHÁC:
+MỤC KHÁC: Shopping (10)
 3-159 -> 3.Shopping	-> truyền API							-> cần API	-> chuyển a Khánh
 4-160 -> 3.Shopping	-> lề trái/phải danh mục sản phẩm				-> đã khác	-> chuyển a Khánh
 6-161 -> 3.Shopping	-> hover giỏ hàng cùng lúc					-> đã sửa	-> chuyển a Khánh
@@ -42,3 +45,32 @@ MỤC KHÁC:
 15-169 -> 3.Shopping	-> chi tiết sản phẩm, Breadcrumb dài sẽ được ẩn đi		-> a Khánh tạo	-> chuyển a Khánh
 16-173 -> 3.Shopping	-> danh mục chính, đang lệch nút next/back			-> đã sửa	-> chuyển a Khánh
 17-174 -> 3.Shopping	-> chi tiết sản phẩm, sai font chữ thương hiệu			-> đã sửa	-> chuyển a Khánh
+_________________________________________________________________________________________________________________________
+ISSUE FROM MR KHÁNH
+-------------------
+truyền API: https://portal.shipquocte.com/tracking -> màn 6.
+_________________________________________________________________________________________________________________________
+CẬP NHẬT UI
+-----------
+Ngày cập nhật: 11/06/2024
+-------------------------
+*Tổng quan:
+2.Dashboard:
+ - chỉnh sửa lại khoảng cách giữa các cột, các bảng đồng đều lẫn responsive (32px)
+ - căn chỉnh lại giao dịch gần nhất
+3.Shopping:
+4.Ecommerce:
+ - Breadcrumb theo thiết kế a Khánh
+ - Xóa bỏ More Options
+ - TẠO ĐƠN -> trỏ xuống Tạo đơn mới và nên đặt url tương đồng
+ - Xóa bỏ mục Khách hàng và nhân viên mua hàng
+ - Tab chỉnh sửa theo yêu cầu trên ITSM
+ - Chưa có tính năng Filter và Column
+ - bỏ divider tab theo yêu cầu a Khánh
+ - Khi ấn vào checkbox chưa có 'Đã chọn 6' chẳng hạn 					-> SỬA
+ - Khi ấn vào 1 item bị tích vào checkbox						-> SỬA
+ - Chưa có tạo phím sắp xếp / nhưng ở trên có button Filter				-> HỎI LẠI
+ - Ở phần tổng tiền có tạo input nhận đơn giá -> thay thế bằng text -> sau
+ - Chưa có nút ở IconArrowDrop để hiển thị ra các mục chức năng				-> SỬA
+ - Chuyển nó về 1 Page									-> SỬA LUÔN
+ - 
