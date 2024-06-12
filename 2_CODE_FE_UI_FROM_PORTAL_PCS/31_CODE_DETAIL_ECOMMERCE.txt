@@ -1,0 +1,164 @@
+                    {/* div_3 */}
+                    <div className='Ecommerce_Detail_Div_3'>
+                      <div className='Header'>Lịch sử đơn hàng</div>
+                      <div className='Extended_Table_Data'>
+                        <div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div style={{ display: 'flex', gap: '20px' }}>
+                              <div className='Data_Table_Style'>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                  <div className='Data_Table_Icon'></div>
+                                </div>
+                                <div className='Data_Table_Dotted'></div>
+                              </div>
+                              <div>
+                                <div>Giao hàng thành công</div>
+                                <div style={{ color: '#A0ACBE' }}>Đơn hàng JPV230819318132</div>
+                              </div>
+                            </div>
+                            <div>06/07/2023 09:10</div>
+                          </div>
+
+                          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div style={{ display: 'flex', gap: '20px' }}>
+                              <div className='Data_Table_Style'>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                  <div className='Data_Table_IconV'>
+                                    <div className='Data_Table_Icon_V'>
+                                      <IconV />
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className='Data_Table_Dotted'></div>
+                              </div>
+                              <div>
+                                <div style={{ color: '#A0ACBE' }}>Đang giao hàng</div>
+                                <div style={{ color: '#A0ACBE' }}>
+                                  Phiếu xuất KRBC230817092317 - Mã vận đơn PP700082132
+                                </div>
+                              </div>
+                            </div>
+                            <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                          </div>
+
+                          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div style={{ display: 'flex', gap: '20px' }}>
+                              <div className='Data_Table_Style'>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                  <div className='Data_Table_IconV'>
+                                    <div className='Data_Table_Icon_V'>
+                                      <IconV />
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className='Data_Table_Dotted'></div>
+                              </div>
+                              <div>
+                                <div style={{ color: '#A0ACBE' }}>Nhận tại Kho hàng nội địa</div>
+                                <div style={{ color: '#A0ACBE' }}>Đang khai thách tại kho hàng nội địa</div>
+                              </div>
+                            </div>
+                            <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                          </div>
+
+                          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div style={{ display: 'flex', gap: '20px' }}>
+                              <div className='Data_Table_Style'>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                  <div className='Data_Table_IconV'>
+                                    <div className='Data_Table_Icon_V'>
+                                      <IconV />
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className='Data_Table_Dotted'></div>
+                              </div>
+                              <div>
+                                <div style={{ color: '#A0ACBE' }}>Đang vận chuyển về Việt Nam</div>
+                                <div style={{ color: '#A0ACBE' }}>Đang trên đường vận chuyển về Việt Nam</div>
+                              </div>
+                            </div>
+                            <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                          </div>
+
+                          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div style={{ display: 'flex', gap: '20px' }}>
+                              <div className='Data_Table_Style'>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                  <div className='Data_Table_IconV'>
+                                    <div className='Data_Table_Icon_V'>
+                                      <IconV />
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className='Data_Table_Dotted'></div>
+                              </div>
+                              <div>
+                                <div style={{ color: '#A0ACBE' }}>Nhận tại Kho hàng quốc tế</div>
+                                <div style={{ color: '#A0ACBE' }}>Đang khai thác tại kho hàng quốc tế</div>
+                              </div>
+                            </div>
+                            <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                          </div>
+
+                          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div style={{ display: 'flex', gap: '20px' }}>
+                              <div className='Data_Table_Style'>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                  <div className='Data_Table_IconV'>
+                                    <div className='Data_Table_Icon_V'>
+                                      <IconV />
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className='Data_Table_Dotted'></div>
+                              </div>
+                              <div>
+                                <div style={{ color: '#A0ACBE' }}>Tạo đơn</div>
+                                <div style={{ color: '#A0ACBE' }}>Order no. JPV230819318132</div>
+                              </div>
+                            </div>
+                            <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                          </div>
+
+                          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div style={{ display: 'flex', gap: '20px' }}>
+                              <div className='Data_Table_Style'>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                  <div className='Data_Table_IconV'>
+                                    <div className='Data_Table_Icon_V'>
+                                      <IconV />
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className='Data_Table_Dotted'></div>
+                              </div>
+                              <div>
+                                <div style={{ color: '#A0ACBE' }}>Đang vận chuyển về VN</div>
+                                <div style={{ color: '#A0ACBE' }}>Đang trên đường vận chuyển về Việt Nam</div>
+                              </div>
+                            </div>
+                            <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                          </div>
+
+                          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div style={{ display: 'flex', gap: '20px' }}>
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                  <div className='Data_Table_IconV'>
+                                    <div className='Data_Table_Icon_V'>
+                                      <IconV />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div>
+                                <div style={{ color: '#A0ACBE' }}>Nhận tại Kho hàng quốc tế</div>
+                                <div style={{ color: '#A0ACBE' }}>Tracking no. HMDE000002627243HMDE000002627243</div>
+                              </div>
+                            </div>
+                            <div style={{ color: '#A0ACBE' }}>06/07/2023 09:10</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>

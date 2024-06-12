@@ -1,0 +1,49 @@
+                    {/* div_2 */}
+                    <div style={{ overflow: 'auto' }}>
+                      {/* <div style={{ minWidth: '1500px', marginTop: '20px' }}>
+                       */}
+                       <div>
+                        <div className='Header_Information_Line'>Thông tin thanh toán</div>
+                        <div style={{ display: 'table', width: '100%' }}>
+                          <div
+                            style={{ display: 'table-header-group', fontWeight: 'bold', backgroundColor: '#f1f1f1' }}
+                          >
+                            <div style={{ display: 'table-row', border: '1px solid #D1D5DB' }}>
+                              <div className='Title_Header_Information_Line'>#</div>
+                              <div className='Title_Header_Information_Line'>Mã thanh toán</div>
+                              <div className='Title_Header_Information_Line'>Số tiền</div>
+                              <div className='Title_Header_Information_Line'>Nội dung</div>
+                              <div className='Title_Header_Information_Line'>Ngày tạo</div>
+                              <div className='Title_Header_Information_Line'>Ngày xử lý</div>
+                              <div className='Title_Header_Information_Line'>Trạng thái</div>
+                              <div className='Title_Header_Information_Line'>QR</div>
+                            </div>
+                          </div>
+                          <div style={{ display: 'table-row-group' }}>
+                            {fakeDataBillingInformation.map((data) => (
+                              <div key={data.id} style={{ display: 'table-row', borderBottom: '1px solid #ccc' }}>
+                                <div className='Data_Header_Information_Line'>{data.id}</div>
+                                <div className='Data_Header_Information_Line'>{data.paymentCode}</div>
+                                <div className='Data_Header_Information_Line'>{data.totalMoney}</div>
+                                <div className='Data_Header_Information_Line'>{data.content}</div>
+                                <div className='Data_Header_Information_Line'>{data.createdDate}</div>
+                                <div className='Data_Header_Information_Line'>{data.processingDate}</div>
+                                <div
+                                  className='Data_Header_Information_Line'
+                                  style={getStatusBackgroundColor(data.status)}
+                                >
+                                  <span>{data.status}</span>
+                                </div>
+                                <div className='Data_Header_Information_Line'>
+                                    {data.status === 'Đã thanh toán' ? (
+                                      <IconQRPaid />
+                                    ) : data.status === 'Chờ thanh toán' ? (
+                                      <IconQRWaitForPay />
+                                    ) : null}
+                                  </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>

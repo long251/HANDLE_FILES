@@ -17,7 +17,7 @@ SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT	    K.LUẬN 14/15
 31-200 -> 5.ShippingOrde-> sai tiêu đề Breadcrumb					-> sửa được	-> c.sửa ko theo
 32-201 -> 4. 5.		-> sai tiêu đề Breadcrumb					-> sửa được	-> c.sửa ko theo
 33-202 -> 4.Ecommerce	-> Click vào Reset -> reset lại toàn bộ giá trị nhập		-> sửa được	-> đã sửa
-34-203 -> 5.ShippingOrde-> thiếu combobox lựa chọn cột Action				-> sửa được	-> __
+34-203 -> 5.ShippingOrde-> thiếu combobox lựa chọn cột Action				-> 50/50	-> __
 
 ---------------------------------------------------------------------------------------------------------------------------
 MỤC SAU: header (2) - API (3) - figma (4)
@@ -25,7 +25,6 @@ MỤC SAU: header (2) - API (3) - figma (4)
 10-166 -> Header	-> thiếu icon giỏ hàng						-> sau		-> 	SAU
 *cần API:
 2-158 -> 2.Dashboard	-> truyền API							-> cần API 	->	SAU
-
 18-182 -> 10.Website	-> truyền API							-> cần API	-> 	SAU
 20-184 -> 9.Pay_Request	-> truyền API							-> cần API	->	SAU
 *chờ figma:
@@ -52,25 +51,74 @@ truyền API: https://portal.shipquocte.com/tracking -> màn 6.
 _________________________________________________________________________________________________________________________
 CẬP NHẬT UI
 -----------
-Ngày cập nhật: 11/06/2024
+Ngày cập nhật: 12/06/2024
 -------------------------
 *Tổng quan:
+*Lỗi chung:
+ - src > component > Breadcrumb > a Khánh đã cập nhật lại
+ - src > component > icon > tách nhỏ ra file đang nặng quá; a Khánh đã sửa
+ - có phân trang chung -> nhưng hình như a Khánh đã xóa
+ - switch > nút checkbox này để làm gì?
+ - data > fake data dữ liệu từng màn truyền qua props nhưng ở đây ko dùng props
+*Header:
+ - nút cuộn navbar chưa có nét đứt và đổ bóng
+ - thanh search thiết kế lại kính lúp và màu viền
+ - sửa -> icon chuông
+*Navbar_Left:
+ - khi active vào 1 mục nào đó thì icon sẽ đỏ và thanh đỏ từ trái chuyển sang phải
+ - phần ngăn giữa ở cuối trang với footer thêm các icon dịch vụ hỗ trợ, cài đặt...
+*Footer:
+ - những câu chữ có chứa link
+---------------------------------------------------------------------------------------------------------------------------
 2.Dashboard:
- - chỉnh sửa lại khoảng cách giữa các cột, các bảng đồng đều lẫn responsive (32px)
- - căn chỉnh lại giao dịch gần nhất
+ ! lưu ý: file scss của home là dashboard; từ đây lấy Icon hoặc CSS tính từ thằng đầu tiên!
+ - đã chỉnh sửa lại khoảng cách giữa các cột, các bảng đồng đều lẫn responsive (32px)
+ - đã căn chỉnh lại giao dịch gần nhất
+------------------------------------------------------------------------------------------
 3.Shopping:
+------------------------------------------------------------------------------------------
 4.Ecommerce:
- - Breadcrumb theo thiết kế a Khánh
+ *Ecommerce:
+ - navbar_left -> Icon cart đổi màu sang đỏ và có mũi tên mở lên xuống				-> sau, đợi a Khánh
+ - breadcrum -> sửa lại toàn bộ tên, file thành [Breadcrumb] mọi cái đang thiếu chữ b ở cuối	-> ĐANG DÙNG BREADCRUMB CHUNG
+ - Breadcrumb theo thiết kế a Khánh								-> ĐANG DÙNG BREADCRUMB CHUNG
+ - chỉnh sửa các Icon về đúng nơi nó thuộc về, vd: Ecommerce -> phải về IconEcommerce		-> MERGE VÀO NHAU R NÊN THÔI
  - Xóa bỏ More Options
- - TẠO ĐƠN -> trỏ xuống Tạo đơn mới và nên đặt url tương đồng
+ - TẠO ĐƠN -> trỏ xuống Tạo đơn mới và nên đặt url tương đồng			
  - Xóa bỏ mục Khách hàng và nhân viên mua hàng
- - Tab chỉnh sửa theo yêu cầu trên ITSM
- - Chưa có tính năng Filter và Column
+ - Đã Tab chỉnh sửa theo yêu cầu trên ITSM
  - bỏ divider tab theo yêu cầu a Khánh
- - Khi ấn vào checkbox chưa có 'Đã chọn 6' chẳng hạn 					-> SỬA
- - Khi ấn vào 1 item bị tích vào checkbox						-> SỬA
- - Chưa có tạo phím sắp xếp / nhưng ở trên có button Filter				-> HỎI LẠI
+ - Chưa có tính năng Filter và Column
+ - Khi ấn vào checkbox chưa có 'Đã chọn 6' chẳng hạn 					-> SỬA SAU
+ - Khi ấn vào 1 item bị tích vào checkbox						-> SỬA SAU	-> SAU ĐI VÌ HƠI KHÓ
+ - Chưa có tạo phím sắp xếp / nhưng ở trên có button Filter -> hỏi lại
  - Ở phần tổng tiền có tạo input nhận đơn giá -> thay thế bằng text -> sau
  - Chưa có nút ở IconArrowDrop để hiển thị ra các mục chức năng				-> SỬA
- - Chuyển nó về 1 Page									-> SỬA LUÔN
+ *Ecommerce Detail:
+ - chỉnh sửa lại responsive								-> SỬA SAU
+ *Ecommerce Create:
+ - C1 -> xong
+ - C2 -> note lại đang sửa							-> tạm
+ - C3 -> đẹp rồi
+----------------------------------------------------------------------------------------
+5.ShippingOrders:
+ *ShippingOrders:
+ - sử dụng Breadcrumb a Khánh tạo ra
+ - xóa 2 filter Khách hàng và nhân viên
+ - Khi ấn vào checkbox chưa có 'Đã chọn 6' chẳng hạn 					-> SỬA SAU
+ - Khi ấn vào 1 item bị tích vào checkbox						-> SỬA SAU	-> SAU ĐI VÌ HƠI KHÓ
+ - Ở phần tổng tiền có tạo input nhận đơn giá -> thay thế bằng text -> sau
+ - Chưa có nút ở IconArrowDrop để hiển thị ra các mục chức năng				-> SỬA
+ *ShippingOrdersDetail:
+ - chỉnh sửa lại responsive								-> SỬA SAU
+ *CreateShippingOrders:
+ - C1 -> tạm
+ - C2 -> responsive khá ok nhưng còn phần dịch vụ cộng thêm;				-> SỬA
+ - C3 -> ok
+ - C4 -> ok
+---------------------------------------------------------------------------------------
+6. Danh sách tracking (TrackingList):
+ - thanh search ở DataTable căn giữa, bỏ outline khi active	-> chưa bỏ được
+ - Neo cột cuối đổi popover ngày lên trước và căn trái
+ - cái đoạn mở rộng làm nó sao cho ở giữa nhất có thể
  - 

@@ -1,6 +1,6 @@
 CTY_PCS
 -------
-Ngày cập nhật: 06/06/2024
+Ngày cập nhật: 12/06/2024
 -------------------------
 
 - hộp bánh danisa -> hết bánh -> Mang -> những gói đậu phộng mỡ lên
@@ -37,6 +37,9 @@ Ngày cập nhật: 06/06/2024
 	- [gitlab] -> a Khánh check hằng ngày xem cập nhật gì rồi?
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
- - MANG -> thêm bánh kẹo lên cty			-> chưa có
- - THAY -> thuốc đỏ nhỏ					-> THAY	
- - THAY -> nhỏ mắt					-> 07/06/2024
+- Mang	-> bánh ăn vặt
+- Mang	-> thuốc đỏ nhỏ	-> M
+- Mang	-> kẹo xylitol	-> M
+- CHECK	-> vở, files
+- cập nhật LOL 14.12
+
