@@ -1,0 +1,192 @@
+<div className='Ecommerce_Detail_Wrapper'>
+                    {/* div_1 */}
+                    <div className='Ecommerce_Detail_Div_1'>
+                      {/* Info_Left */}
+                      <div className='Info_Left' >
+                        {/* Info_1 */}
+                        <div>
+                          <table className='Info_Table'>
+                            <thead>
+                              <tr>
+                                <th className='Header' colSpan={2}>
+                                  <div className='Header_Style'>
+                                    <div>Thông tin người nhận</div>
+                                    <div className='Icon_Edit'>
+                                      <IconEdit />
+                                    </div>
+                                  </div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Người nhận</td>
+                                <td>Lê Tuấn Anh</td>
+                              </tr>
+                              <tr>
+                                <td>Địa chỉ</td>
+                                <td>Số 17 Quang Tiến, Đại Mỗ, Nam Từ Liêm, Hà Nội</td>
+                              </tr>
+                              <tr>
+                                <td>Điện thoại</td>
+                                <td>0974497237</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        {/* Info_2 */}
+                        <div>
+                          <table className='Info_Table' style={{ width: '100%', flex: 1 }}>
+                            <thead>
+                              <tr>
+                                <th className='Header' colSpan={2} style={{ padding: '14px 8px' }}>
+                                  Thông tin vận chuyển
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Tracking No.</td>
+                                <td>HMDE000002627243HMDE000002627243</td>
+                              </tr>
+                              <tr>
+                                <td>DIM</td>
+                                <td>12cm x 12cm x 12cm</td>
+                              </tr>
+                              <tr>
+                                <td>Trọng lượng thực</td>
+                                <td>12.5 kg</td>
+                              </tr>
+                              <tr>
+                                <td>Trọng lượng tính giá</td>
+                                <td>12.5 kg</td>
+                              </tr>
+                              <tr>
+                                <td>Chênh lệch CK</td>
+                                <td>1.0 kg</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        {/* Info_3 */}
+                        <div>
+                          <table className='Info_Table' style={{ width: '100%', flex: 1 }}>
+                            <thead>
+                              <tr>
+                                <th className='Header' colSpan={3} style={{ padding: '14px 8px' }}>
+                                  Dịch vụ cộng thêm
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1</td>
+                                <td>Gom hàng tách vỏ</td>
+                                <td>20,000/kg</td>
+                              </tr>
+                              <tr>
+                                <td>2</td>
+                                <td>Check hàng & Chụp ảnh</td>
+                                <td>500,000đ/lần</td>
+                              </tr>
+                              <tr>
+                                <td>3</td>
+                                <td>Kiểm đếm</td>
+                                <td>100,000đ/lần </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                      {/* Info_Right */}
+ <div className='Info_Right'  style={{ overflowX: 'auto'}}>
+                        <table className='Info_Table_Right' style={{minWidth: '800px'}}>
+                          <thead>
+                            <tr>
+                              <th className='Header' colSpan={4}>
+                                Thông tin đơn hàng
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>
+                                <div style={{ display: 'flex', gap: '32px' }}>
+                                  <div style={{ padding: '40px 20px' }}>
+                                    <img src='/images/ecommerce/ImgSkinCareDetail.png' className='Img' />
+                                  </div>
+                                  <div className='Img_Info'>
+                                    <div>
+                                      1번째 리스트2번째 리스트3번째 리스트4번째 리스트5번째 리스트6번째 리스트7번째
+                                      리스트 엘플렉스 C 제로컷 기모 레깅스 ve...
+                                    </div>
+                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                      <div>Size: front case only</div>
+                                      <div>Color: Black</div>
+                                      <div>Barcode: 0123456789</div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td className='Info_Detail_1'>$21.00</td>
+                              <td className='Info_Detail_2'>2</td>
+                              <td className='Info_Detail_3'>1,929,624đ</td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <div className='Grid_Note_Product'>
+                          <div style={{ padding: '20px', borderRight: '1px solid #D1D5DB' }}>
+                            <div>Ghi chú</div>
+                            <div>
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                              ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                              ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                              reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                              sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+                              est laborum.
+                            </div>
+                          </div>
+                          <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <div className='Fee_Product'>
+                              <div className='Fee_Name'>Phí vận chuyển quốc tế</div>
+                              <div className='Fee_Price'>1,929,624 đ</div>
+                            </div>
+                            <div className='Fee_Product'>
+                              <div className='Fee_Name'>Phụ phí</div>
+                              <div className='Fee_Price'>1,929,624 đ</div>
+                            </div>
+                            <div className='Fee_Product'>
+                              <div className='Fee_Name'>Cổng thanh toán COD (4%)</div>
+                              <div className='Fee_Price'>1,929,624 đ</div>
+                            </div>
+                            <div className='Fee_Product'>
+                              <div className='Fee_Name'>Phí dịch vụ GTGT</div>
+                              <div className='Fee_Price'>1,929,624 đ</div>
+                            </div>
+                            <div className='Fee_Product'>
+                              <div className='Fee_Name'>Phụ thu sản phẩm</div>
+                              <div className='Fee_Price'>1,929,624 đ</div>
+                            </div>
+                            <div className='Fee_Product'>
+                              <div className='Fee_Name'>Phí giao hàng nội địa</div>
+                              <div className='Fee_Price'>1,929,624 đ</div>
+                            </div>
+                            <div className='Fee_Product'>
+                              <div className='Fee_Name'>Tổng tiền</div>
+                              <div className='Fee_Price'>1,929,624 đ</div>
+                            </div>
+                            <div className='Fee_Product'>
+                              <div className='Fee_Name'>Đã thanh toán</div>
+                              <div className='Fee_Price'>1,929,624 đ</div>
+                            </div>
+                            <div className='Fee_Product'>
+                              <div className='Fee_Name'>Số tiền còn lại</div>
+                              <div className='Fee_Price'>1,929,624 đ</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div> */}
+                    </div>
+                  </div>
