@@ -9,18 +9,18 @@ SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT	    K.LUẬN 16/18
 21-185 -> 9.Pay_Request	-> click vào Rút tiền ko có sự kiện				-> đã sửa	-> 	100%
 22-186 -> 9.Pay_Request	-> click vào Nạp tiền ko có sự kiện				-> đã sửa	-> 	100%
 23-187 -> 9.Pay_Request	-> ko đóng điều kiện lọc khi nhấn ra ngoài			-> đã sửa	-> 	100%
-24-167 -> 4.Ecommerce	-> tab trạng thái sửa theo yêu cầu trên ITSM			-> sửa được	-> đã sửa
+24-167 -> 4.Ecommerce	-> tab trạng thái sửa theo yêu cầu trên ITSM			-> sửa được	-> 	100%
 25-193 -> 6.Tracking	-> tiêu đề bảng chữ đang bị đậm -> đã fix nhỏ = PO		-> đã sửa	-> 	100%
-26-194 -> 6.Tracking	-> lựa chọn More Options 1 vài chỗ đang ko có			-> sửa được	-> đã sửa full
-29-197 -> 4.Ecommerce	-> thừa 2 trường dữ liệu lọc dữ liệu khách hàng và nhân viên	-> sửa được	-> đã sửa
-30-198 -> 5.ShippingOrde-> thừa 2 trường dữ liệu lọc dữ liệu khách hàng và nhân viên	-> sửa được	-> đã sửa
-31-200 -> 5.ShippingOrde-> sai tiêu đề Breadcrumb					-> sửa được	-> c.sửa ko theo/đã sửa
-32-201 -> 4. 5.		-> sai tiêu đề Breadcrumb					-> sửa được	-> c.sửa ko theo/đã sửa
-33-202 -> 4.Ecommerce	-> Click vào Reset -> reset lại toàn bộ giá trị nhập		-> sửa được	-> đã sửa
-34-203 -> 5.ShippingOrde-> thiếu combobox lựa chọn cột Action				-> sửa được	-> đã sửa
+26-194 -> 6.Tracking	-> lựa chọn More Options 1 vài chỗ đang ko có			-> sửa được	-> 	100%
+29-197 -> 4.Ecommerce	-> thừa 2 trường dữ liệu lọc dữ liệu khách hàng và nhân viên	-> sửa được	-> 	100%
+30-198 -> 5.ShippingOrde-> thừa 2 trường dữ liệu lọc dữ liệu khách hàng và nhân viên	-> sửa được	-> 	100%
+31-200 -> 5.ShippingOrde-> sai tiêu đề Breadcrumb					-> sửa được	-> 100%-c.sửa ko theo tk
+32-201 -> 4. 5.		-> sai tiêu đề Breadcrumb					-> sửa được	-> 100%-c.sửa ko theo tk
+33-202 -> 4.Ecommerce	-> Click vào Reset -> reset lại toàn bộ giá trị nhập		-> sửa được	-> 	100%
+34-203 -> 5.ShippingOrde-> thiếu combobox lựa chọn cột Action				-> sửa được	-> 	100%
 35-204 -> 5.ShippingOrde-> click vào dòng item bị checkbox cả hàng thay vì ấn vào	-> KHÓ		-> CHƯA SỬA ĐƯỢC
 36-205 -> 4.Ecommerce	-> click vào dòng item bị checkbox cả hàng thay vì ấn vào	-> KHÓ		-> CHƯA SỬA ĐƯỢC
-37-206 -> 4.Ecommerce	-> phần tạo đơn bị dày quá					-> sửa được	-> đã sửa
+37-206 -> 4.Ecommerce	-> phần tạo đơn bị dày quá					-> sửa được	-> 	100%
 ---------------------------------------------------------------------------------------------------------------------------
 MỤC SAU: header (2) - API (3) - figma (4)
 9-165 -> Header		-> phần avatar: avatar nằm trái, bổ sung mũi tên sổ xuống	-> sau		-> 	SAU
@@ -76,6 +76,12 @@ Ngày cập nhật: 12/06/2024
  ! lưu ý: file scss của home là dashboard; từ đây lấy Icon hoặc CSS tính từ thằng đầu tiên!
  - đã chỉnh sửa lại khoảng cách giữa các cột, các bảng đồng đều lẫn responsive (32px)
  - đã căn chỉnh lại giao dịch gần nhất
+ *Detail:
+	- import -> đã đúng ./IconHome
+	- tạo 1 biến sx bảng 2 chiều
+	KHÓ -> fake data cũng đang là 1 bảng 2 chiều	-> sẽ khó khi truyền API
+	- rows khi mà sortedRows có dữ liệu thì lấy nó còn ko in ra cái fakeData
+	- 
 ------------------------------------------------------------------------------------------
 3.Shopping:
 ------------------------------------------------------------------------------------------

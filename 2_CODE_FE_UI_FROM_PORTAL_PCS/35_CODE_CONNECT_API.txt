@@ -18,3 +18,12 @@ tạo PodState
 ...
 ấn tiếp bên dưới có surchargeBuyAction
  -> trỏ đến saga
+ -> tạo ra khối data giờ chỉ cần truyền xuống là ok làm tương tự xem sao
+--------------------------------------------------------------------------------------------------------------------
+- Xác định page nào cần kết nối API -> tạo nhầm rồi -> sửa lại trackingList
+- vào [store] -> [deliveryBillReducer] -> index.ts
+- xuống rootReducer.ts
+- import nó theo mẫu xong đẩy lên saga
+- từ đây tạo [saga] -> [deliveryBillSaga] -> index.ts
+- xong lại đẩy xuống rootSaga.ts để lưu trữ
+=> 
