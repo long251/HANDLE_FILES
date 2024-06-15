@@ -2,8 +2,9 @@ CTY_PCS
 -------
 Ngày cập nhật: 12/06/2024
 -------------------------
+Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
-- hộp bánh danisa -> hết bánh -> Mang -> những gói đậu phộng mỡ lên
+- hộp bánh danisa -> vài bánh gạo an rong biển
 - Cốc thuốc:
 	- xịt mũi x1 -> 50%
 	- nhỏ mũi x1 -> 80%
@@ -12,24 +13,24 @@ Ngày cập nhật: 12/06/2024
 	- thuốc đỏ nhỏ x1 -> 30%, hơi bẩn -> THAY MỚI
 - chai nước -> OK
 - case máy tính -> hơi lỏng dây -> OK
-- gối cong -> nằm hơi đau đầu -> THAY GỐI MỚI
-- balo -> check ở nhà
+- gối cong -> nằm hơi đau đầu -> chưa thay đc gối mới vì nó gọn vs ngủ cx dễ chịu
+- balo* -> check ở nhà
 - kẹo xilytol x1 hộp vừa -> 20%, 1 hộp 55k -> hơi đắt ko bt nên mua tiếp ko?
 - giấy ăn x2 bịch nhỏ -> nhiều, nhà còn nhiều có thể cung cấp được
 - tai nghe có dây -> ổn -> nó không bị hỏng, gạt nhầm chức năng S-N
 - bút bi x3
 - sổ tay -> note: tip, issue cần làm, sửa
-- Màn PC (PCS) x2 -> dùng được, 2 màn hơi khác màu do điều chỉnh
 - iphone -> check ở nhà
-- nhỏ mắt -> 30% -> THAY MỚI
+- Màn PC (PCS) x2 -> dùng được, 2 màn hơi khác màu do điều chỉnh -> vẫn OK
+- chuột công thái học
+- bàn phím rapoo
+- nhỏ mắt -> MANG
 - giấy note -> nhiều
 *PC (PCS):
+ - [HANDLE_FILE] -> học tập, note code, lưu ảnh, CHECK_DAY_LIST_PCS...
  - [TRANSONLINE-PORTAL] -> làm giao diện thiết kế UI, React, fix lỗi ITSM...
  - [PO] -> tham khảo
- - [HANDLE_FILE] -> học tập, note code, lưu ảnh, CHECK_DAY_LIST_PCS...
  - [Pictures] -> [Screenshots] -> xóa ảnh chụp 1 tuần / lần
- - Skype -> check tin nhắn của các anh, trao đổi thông tin
- - figma -> làm theo thiết kế UI
  - Cốc cốc:
 	- [alagod] -> check giá bán thường + cập nhật hàng mới hằng ngày
 	- [CNTT] -> tích hợp file này vào trong [HANDLE_FILE]
@@ -37,9 +38,16 @@ Ngày cập nhật: 12/06/2024
 	- [gitlab] -> a Khánh check hằng ngày xem cập nhật gì rồi?
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
-- Mang	-> bánh ăn vặt
-- Mang	-> thuốc đỏ nhỏ	-> M
-- Mang	-> kẹo xylitol	-> M
-- CHECK	-> vở, files
-- cập nhật LOL 14.12
-
+- thuốc đỏ nhỏ 	-> THAY MỚI -> M -> Mang -> đến cty		-> Ngày:
+- giấy ăn	-> Mang -> đến cty -> x2 gói			-> Ngày:
+- nhỏ mắt	-> làm nhỏ mũi -> Mang				-> Ngày:
+-----------
+*CÁ CẢNH:
+- chiều mua cá xin thêm rong thả bể cho mát nước, mát cá
+- hồng cam vây dài	->	nhiệt độ phải lạnh chút 25 độ
+- chuột cf vây đai	-> 	xem thêm
+- ngựa cánh tiên	->	xem thêm
+- ĐỒ CÁ:
+	- đèn rọi xem lắp được bóng -> nhưng chói mắt lắm
+	- hỏi xem bể dạo này có giảm giá ko?
+	- 

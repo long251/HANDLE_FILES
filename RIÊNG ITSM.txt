@@ -49,7 +49,8 @@ MỤC KHÁC: Shopping (10)
 _________________________________________________________________________________________________________________________
 ISSUE FROM MR KHÁNH
 -------------------
-truyền API: https://portal.shipquocte.com/tracking -> màn 6.
+ - truyền API màn tracking (6)
+ - truyền API màn website (10)
 _________________________________________________________________________________________________________________________
 CẬP NHẬT UI
 -----------
@@ -57,7 +58,6 @@ Ngày cập nhật: 12/06/2024
 -------------------------
 *Tổng quan:
 *Lỗi chung:
- - src > component > Breadcrumb > a Khánh đã cập nhật lại
  - src > component > icon > tách nhỏ ra file đang nặng quá; a Khánh đã sửa
  - có phân trang chung -> nhưng hình như a Khánh đã xóa
  - switch > nút checkbox này để làm gì?
@@ -129,4 +129,32 @@ Ngày cập nhật: 12/06/2024
  - thanh search ở DataTable căn giữa, bỏ outline khi active	-> chưa bỏ được
  - Neo cột cuối đổi popover ngày lên trước và căn trái
  - cái đoạn mở rộng làm nó sao cho ở giữa nhất có thể
- - 
+_________________________________________________________________________________________________________________________
+RÀ SOÁT LẠI TẤT CẢ THƯ MỤC CỦA TO_PORTAL
+----------------------------------------
+*từ trên xuống dưới
+ 1. public: 
+	images -> lưu ảnh dưới dạng PNG
+ 3. .env:
+	tạo ra file env từ local; chạy port 4000
+ 2. src:
+	components
+		Breadcrumb{ 	-> SharedDivider.tsx -> xuất ra đường kẻ phân cách các phần mục
+				-> TitleBreadcrumb.tsx -> a Khánh đã chỉnh thì mình cứ dùng tạm đã 	-> ĐANG FIX BREADCRUMB
+
+		FooterMarkup	-> phần phân trang							-> FIX SAU LINK CÂU HỎI
+		
+		Icons		-> dữ liệu đang lớn hơn 500KB -> tách nhỏ sửa lại			-> (ĐÃ SỬA)
+				-> IconChromeOnWindows/Android/Laptop/Iphone/PC				-> Sửa lại ở page Account
+				-> chỉnh sửa lại các Icon dùng chung đặt tên lại: IconTechcombankCreate / IconTechcombankHover / IconMBBankCreate / IconVietcombankCreate / IconBIDVCreate / IconAgribankCreate / IconCart / 
+				-> IconLike / IconSub / IconSum / 							-> của shopping ko đc sửa
+				-> IconCalendar / IconCalendar_Hover					-> sửa chỗ dùng chung
+
+		NumberPagination-> phân trang chung của dự án						-> có thể thay thế
+	------------------------
+	data
+		-> lưu lại các dữ liệu mẫu nhưng giờ đã sử dụng API
+	------------------------
+	layouts
+		-> MainApp.tsx	-> 
+	

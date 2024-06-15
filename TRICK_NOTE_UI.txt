@@ -17,3 +17,17 @@ I. Giao diện: FE, html, css
  *quy tắc chia layout:
 	- từ trên xuống dưới; ngoài vào trong.
 ---------------------------
+- check lại toàn bộ thư mục của TO_PORTAL
+---------------------------
+*TRICK NOTE GITLAB
+- ví dụ đang ở nhánh fixBug3
+ -> git add 
+ -> git commit
+ -> push
+ -> git fetch origin develop
+ -> git merge origin/develop
+
+ -> git checkout develop
+ -> git pull origin/develop
+ -> git checkout -b (new)
+---------------------------
