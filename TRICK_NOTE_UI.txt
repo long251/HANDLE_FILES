@@ -21,13 +21,20 @@ I. Giao diện: FE, html, css
 ---------------------------
 *TRICK NOTE GITLAB
 - ví dụ đang ở nhánh fixBug3
- -> git add 
- -> git commit
- -> push
- -> git fetch origin develop
- -> git merge origin/develop
-
- -> git checkout develop
- -> git pull origin/develop
- -> git checkout -b (new)
+	- git status: kiểm tra xem các cập nhật mới
+	- git add [files]: theo status
+	- git commit -m'date chẳng hạn'
+	- git push (push thường ko thêm origin gì cả)
+	- git fetch origin/develop -> lấy nhánh này từ xa mà chưa cần hợp nhất ngay
+	- git merge origin/develop -> hợp nhất cac thay đổi từ develop vào nhánh hiện tại -> xung đột -> giải quyết
+	- git push (push lại là vì vừa hợp nhất code nên cần push lại) -> đẩy lại các thay đổi khi hợp nhất
+	! xong xuôi thì tiếp tục tạo nhánh mới làm tiếp!
+	- git checkout develop 
+	- git pull origin develop
+	- git checkout -b 'newName'
+	(develop ở đây là nhánh main)
+	! luôn git pull trước khi làm trên nhánh mới
 ---------------------------
+*KẾT NỐI API
+- khi kết nối API truyền payload truyền đủ các thông số thì nó mới đổ ra dữ liệu
+

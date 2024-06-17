@@ -1,0 +1,88 @@
+const userMenuMarkup = (
+  <div className='PolarisBox'>
+    <TopBar.UserMenu
+      actions={[
+        {
+          items: [
+            {
+              //@ts-ignore
+              content: <img src={getCustomerLevelImage(authState.user?.customer?.level)} alt={'User rank'} />,
+              url: '/thong-tin-ca-nhan/thong-tin-tai-khoan',
+              id: 'UserMenuLevel',
+            },
+          ],
+        },
+        {
+          items: [
+            {
+              //@ts-ignore
+              content: (
+                <div className='UserMenuItem'>
+                  <AccountIcon />
+                  <p className='UserMenuItem--Text'>Thông tin tài khoản</p>
+                </div>
+              ),
+              url: '/thong-tin-ca-nhan/thong-tin-tai-khoan',
+            },
+            {
+              //@ts-ignore
+              content: (
+                <div className='UserMenuItem'>
+                  <AddressIcon />
+                  <p className='UserMenuItem--Text'>Sổ địa chỉ</p>
+                </div>
+              ),
+              url: '/thong-tin-ca-nhan/so-dia-chi',
+              // icon: AddressSVG,
+            },
+            {
+              //@ts-ignore
+              content: (
+                <div className='UserMenuItem'>
+                  <BankIcon />
+                  <p className='UserMenuItem--Text'>Tài khoản ngân hàng</p>
+                </div>
+              ),
+              url: '/thong-tin-ca-nhan/tai-khoan-ngan-hang',
+              // icon: BankAccountSVG,
+            },
+            {
+              //@ts-ignore
+              content: (
+                <div className='UserMenuItem'>
+                  <LockIcon />
+                  <p className='UserMenuItem--Text'>Đổi mật khẩu</p>
+                </div>
+              ),
+              url: '/thong-tin-ca-nhan/thong-tin-tai-khoan?tab=doi-mat-khau',
+              // icon: ChangePasswordSVG,
+            },
+          ],
+        },
+        {
+          items: [
+            {
+              //@ts-ignore
+              content: (
+                <div>
+                  <div className='UserMenuItem'>
+                    <LogoutIcon />
+                    <p className='UserMenuItem--Text'>Logout</p>
+                  </div>
+                </div>
+              ),
+              onAction: () => handleLogout(),
+            },
+          ],
+        },
+      ]}
+      // AvatarSample.png
+      avatar='/images/account/AvatarSample.png'
+      name={authState.user?.customer?.fullname}
+      // detail={authState.user?.customer?.email}
+      initials='Icon'
+      open={userOpen}
+      onToggle={() => setUserOpen(!userOpen)}
+    />
+  </div>
+);

@@ -1,8 +1,8 @@
 CTY_PCS
 -------
-Ngày cập nhật: 12/06/2024
+Ngày cập nhật: 17/06/2024
 -------------------------
-Đầu tiên vào PC (PCS) cập nhật check_day_list!
+! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
 - hộp bánh danisa -> vài bánh gạo an rong biển
 - Cốc thuốc:
@@ -15,7 +15,7 @@ Ngày cập nhật: 12/06/2024
 - case máy tính -> hơi lỏng dây -> OK
 - gối cong -> nằm hơi đau đầu -> chưa thay đc gối mới vì nó gọn vs ngủ cx dễ chịu
 - balo* -> check ở nhà
-- kẹo xilytol x1 hộp vừa -> 20%, 1 hộp 55k -> hơi đắt ko bt nên mua tiếp ko?
+- kẹo xilytol x1 hộp -> hết, 1 hộp 55k -> hơi đắt ko bt nên mua tiếp ko?
 - giấy ăn x2 bịch nhỏ -> nhiều, nhà còn nhiều có thể cung cấp được
 - tai nghe có dây -> ổn -> nó không bị hỏng, gạt nhầm chức năng S-N
 - bút bi x3
@@ -32,22 +32,23 @@ Ngày cập nhật: 12/06/2024
  - [PO] -> tham khảo
  - [Pictures] -> [Screenshots] -> xóa ảnh chụp 1 tuần / lần
  - Cốc cốc:
-	- [alagod] -> check giá bán thường + cập nhật hàng mới hằng ngày
 	- [CNTT] -> tích hợp file này vào trong [HANDLE_FILE]
 	- [ITSM] -> check hằng ngày để kiểm tra lỗi và cập nhật
 	- [gitlab] -> a Khánh check hằng ngày xem cập nhật gì rồi?
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
 - thuốc đỏ nhỏ 	-> THAY MỚI -> M -> Mang -> đến cty		-> Ngày:
+- kẹo cao su	-> xilytol lọ vừa 55k -> M -> Mang lên cty	-> Ngày:
 - giấy ăn	-> Mang -> đến cty -> x2 gói			-> Ngày:
 - nhỏ mắt	-> làm nhỏ mũi -> Mang				-> Ngày:
+ - Cốc cốc:
+	- [CNTT] -> tích hợp file này vào trong [HANDLE_FILE]
 -----------
 *CÁ CẢNH:
-- chiều mua cá xin thêm rong thả bể cho mát nước, mát cá
+- chiều mua cá xin thêm rong thả bể cho mát nước, mát cá	-> đang nhận thấy nước đục vcl -> đã châm vi sinh chờ xem sao?
 - hồng cam vây dài	->	nhiệt độ phải lạnh chút 25 độ
-- chuột cf vây đai	-> 	xem thêm
+- chuột cf vây dài	-> 	xem thêm
 - ngựa cánh tiên	->	xem thêm
 - ĐỒ CÁ:
 	- đèn rọi xem lắp được bóng -> nhưng chói mắt lắm
 	- hỏi xem bể dạo này có giảm giá ko?
-	- 

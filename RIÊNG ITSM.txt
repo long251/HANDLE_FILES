@@ -14,8 +14,8 @@ SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT	    K.LUẬN 16/18
 26-194 -> 6.Tracking	-> lựa chọn More Options 1 vài chỗ đang ko có			-> sửa được	-> 	100%
 29-197 -> 4.Ecommerce	-> thừa 2 trường dữ liệu lọc dữ liệu khách hàng và nhân viên	-> sửa được	-> 	100%
 30-198 -> 5.ShippingOrde-> thừa 2 trường dữ liệu lọc dữ liệu khách hàng và nhân viên	-> sửa được	-> 	100%
-31-200 -> 5.ShippingOrde-> sai tiêu đề Breadcrumb					-> sửa được	-> 100%-c.sửa ko theo tk
-32-201 -> 4. 5.		-> sai tiêu đề Breadcrumb					-> sửa được	-> 100%-c.sửa ko theo tk
+31-200 -> 5.ShippingOrde-> sai tiêu đề Breadcrumb -> chỉnh sửa ko theo thiết kế		-> sửa được	-> 	100%
+32-201 -> 4. 5.		-> sai tiêu đề Breadcrumb -> chỉnh sửa ko theo thiết kế		-> sửa được	-> 	100%
 33-202 -> 4.Ecommerce	-> Click vào Reset -> reset lại toàn bộ giá trị nhập		-> sửa được	-> 	100%
 34-203 -> 5.ShippingOrde-> thiếu combobox lựa chọn cột Action				-> sửa được	-> 	100%
 35-204 -> 5.ShippingOrde-> click vào dòng item bị checkbox cả hàng thay vì ấn vào	-> KHÓ		-> CHƯA SỬA ĐƯỢC
@@ -25,6 +25,7 @@ SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT	    K.LUẬN 16/18
 MỤC SAU: header (2) - API (3) - figma (4)
 9-165 -> Header		-> phần avatar: avatar nằm trái, bổ sung mũi tên sổ xuống	-> sau		-> 	SAU
 10-166 -> Header	-> thiếu icon giỏ hàng						-> sau		-> 	SAU
+38-207 -> Header	-> nhập vào ô search xong ấn enter bị giật lag			-> sau		->	SAU
 *cần API:
 2-158 -> 2.Dashboard	-> truyền API							-> cần API 	->	SAU
 18-182 -> 10.Website	-> truyền API							-> cần API	-> 	SAU
@@ -58,9 +59,9 @@ Ngày cập nhật: 12/06/2024
 -------------------------
 *Tổng quan:
 *Lỗi chung:
- - src > component > icon > tách nhỏ ra file đang nặng quá; a Khánh đã sửa
- - có phân trang chung -> nhưng hình như a Khánh đã xóa
- - switch > nút checkbox này để làm gì?
+ - src > component > icon > tách nhỏ ra file đang nặng quá -> đã sửa xong
+ - có phân trang chung -> có nên sử dụng?
+ - switch > nút checkbox này để làm gì?-> nó ko liên quan gì lắm đến dự án
  - data > fake data dữ liệu từng màn truyền qua props nhưng ở đây ko dùng props
 *Header:
  - nút cuộn navbar chưa có nét đứt và đổ bóng
@@ -110,6 +111,9 @@ Ngày cập nhật: 12/06/2024
  - C3 -> đẹp rồi
 ----------------------------------------------------------------------------------------
 5.ShippingOrders:
+ *kết nối API:
+ - ko có trường dữ liệu 'TT thanh toán' => xóa
+ - trường tiền nong các thứ đang chưa hoàn thiện
  *ShippingOrders:
  - sử dụng Breadcrumb a Khánh tạo ra
  - xóa 2 filter Khách hàng và nhân viên
@@ -147,7 +151,7 @@ RÀ SOÁT LẠI TẤT CẢ THƯ MỤC CỦA TO_PORTAL
 		Icons		-> dữ liệu đang lớn hơn 500KB -> tách nhỏ sửa lại			-> (ĐÃ SỬA)
 				-> IconChromeOnWindows/Android/Laptop/Iphone/PC				-> Sửa lại ở page Account
 				-> chỉnh sửa lại các Icon dùng chung đặt tên lại: IconTechcombankCreate / IconTechcombankHover / IconMBBankCreate / IconVietcombankCreate / IconBIDVCreate / IconAgribankCreate / IconCart / 
-				-> IconLike / IconSub / IconSum / 							-> của shopping ko đc sửa
+				-> IconLike / IconSub / IconSum / 					-> của shopping ko đc sửa
 				-> IconCalendar / IconCalendar_Hover					-> sửa chỗ dùng chung
 
 		NumberPagination-> phân trang chung của dự án						-> có thể thay thế
@@ -156,5 +160,17 @@ RÀ SOÁT LẠI TẤT CẢ THƯ MỤC CỦA TO_PORTAL
 		-> lưu lại các dữ liệu mẫu nhưng giờ đã sử dụng API
 	------------------------
 	layouts
-		-> MainApp.tsx	-> 
+		-> MainApp.tsx	-> sửa lại navbar_left							-> (ĐÃ SỬA)
+				-> thiết kế thêm cái cặp ở header -> đã có bản thiết kế			-> sửa lại
+	pages
+		-> Account:
+			-> DataTableBirthday.tsx -> là cái ngày sinh nhật trong userMenu detail		-> gộp về 1 trang
+			-> GeneralInformation.tsx:							-> sửa nhiều
+				-> khả năng đổi lại tên page => Account.tsx -> lằng nhằng 		-> ko sửa
+				-> DateBirthday	-> gộp vào trang chính					-> đã gộp -> TEST UI
+				-> chỉnh sửa lại đoạn chuyển trang nhưng lằng nhằng quá			-> từ từ
+				-> Fake data Access device -> đoạn này chỉnh lại Icon			-> icon + text bị gộp
+				-> điều chỉnh lại CSS							-> 
+			    *UI:
+				-> font chữ Tab đang sai
 	
