@@ -1,6 +1,7 @@
 RIÊNG ITSM
 ----------
-Ngày cập nhật: 10/06/2024
+Ngày cập nhật: 18/06/2024
+Tổng số lỗi:39
 -------------------------
 SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT	    K.LUẬN 16/18
 1-175 -> 2.Dashboard	-> khoảng cách Footer cách nhiều hơn khoảng cách giữa các bảng	-> ko sửa 	-> 	100%
@@ -21,8 +22,9 @@ SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT	    K.LUẬN 16/18
 35-204 -> 5.ShippingOrde-> click vào dòng item bị checkbox cả hàng thay vì ấn vào	-> sửa được	-> 	100%
 36-205 -> 4.Ecommerce	-> click vào dòng item bị checkbox cả hàng thay vì ấn vào	-> sửa được	-> a Khánh đang sửa
 37-206 -> 4.Ecommerce	-> phần tạo đơn bị dày quá					-> sửa được	-> 	100%
+39-208 -> Navbar_Left	-> thừa SQT Extention						-> xóa đi là ok	-> sửa được
 ---------------------------------------------------------------------------------------------------------------------------
-MỤC SAU: header (2) - API (3) - figma (4)
+MỤC SAU: header (3) - API (3) - figma (4)
 9-165 -> Header		-> phần avatar: avatar nằm trái, bổ sung mũi tên sổ xuống	-> sau		-> 	SAU
 10-166 -> Header	-> thiếu icon giỏ hàng						-> sau		-> 	SAU
 38-207 -> Header	-> nhập vào ô search xong ấn enter bị giật lag			-> sau		->	SAU

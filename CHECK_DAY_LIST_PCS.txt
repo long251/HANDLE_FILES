@@ -4,10 +4,10 @@ Ngày cập nhật: 17/06/2024
 -------------------------
 ! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
-- hộp bánh danisa -> vài bánh gạo an rong biển
+- hộp bánh danisa -> bánh gạo rong biển x1 -> HẾT BÁNH -> Mang đi
 - Cốc thuốc:
 	- xịt mũi x1 -> 50%
-	- nhỏ mũi x1 -> 80%
+	- nhỏ mũi x1 -> 60%
 	- kéo nhỏ x1 -> OK
 	- âu gâu nhỏ x5 -> OK
 	- thuốc đỏ nhỏ x1 -> 30%, hơi bẩn -> THAY MỚI
@@ -37,10 +37,9 @@ Ngày cập nhật: 17/06/2024
 	- [gitlab] -> a Khánh check hằng ngày xem cập nhật gì rồi?
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
+- bánh kẹo	-> MANG
 - thuốc đỏ nhỏ 	-> THAY MỚI -> M -> Mang -> đến cty		-> Ngày:
 - kẹo cao su	-> xilytol lọ vừa 55k -> M -> Mang lên cty	-> Ngày:
-- giấy ăn	-> Mang -> đến cty -> x2 gói			-> Ngày:
-- nhỏ mắt	-> làm nhỏ mũi -> Mang				-> Ngày:
  - Cốc cốc:
 	- [CNTT] -> tích hợp file này vào trong [HANDLE_FILE]
 -----------
