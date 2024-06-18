@@ -1,0 +1,32 @@
+MÀN 5. ĐƠN HÀNG VẬN CHUYỂN
+UI:
+- mã đơn hàng
+- mã tracking
+- mã phiếu xuất
+- tuyến
+- trọng lượng
+- tổng tiền
+- ngày đặt hàng
+- TT thanh toán
+- Action
+
+API trả về:
+- currency: 'JPY' -> đơn vị (tổng tiền)
+- địa chỉ khách
+- isDetail -> Action
+- lần cuối chỉnh sửa
+- mã đơn hàng
+- ngày đặt hàng
+- price Expected == giá dự kiến
+- tên sản phẩm
+- giá sản phẩm
+- product Transport View Models == sản phẩm Mô hình xem giao thông vận tải
+	(kiểu như đường đi đến đâu?)
+- prroductUnit == đơn vị sản phẩm
+- productWeight == trọng lượng sản phẩm
+- trackingCode
+
+- couponCode == mã xuất phiếu
+- region == tuyến (mới có đơn vị tiền tệ JPY)
+- paymentStatus == trạng thái thanh toán
+- 

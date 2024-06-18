@@ -18,8 +18,8 @@ SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT	    K.LUẬN 16/18
 32-201 -> 4. 5.		-> sai tiêu đề Breadcrumb -> chỉnh sửa ko theo thiết kế		-> sửa được	-> 	100%
 33-202 -> 4.Ecommerce	-> Click vào Reset -> reset lại toàn bộ giá trị nhập		-> sửa được	-> 	100%
 34-203 -> 5.ShippingOrde-> thiếu combobox lựa chọn cột Action				-> sửa được	-> 	100%
-35-204 -> 5.ShippingOrde-> click vào dòng item bị checkbox cả hàng thay vì ấn vào	-> KHÓ		-> CHƯA SỬA ĐƯỢC
-36-205 -> 4.Ecommerce	-> click vào dòng item bị checkbox cả hàng thay vì ấn vào	-> KHÓ		-> CHƯA SỬA ĐƯỢC
+35-204 -> 5.ShippingOrde-> click vào dòng item bị checkbox cả hàng thay vì ấn vào	-> sửa được	-> 	100%
+36-205 -> 4.Ecommerce	-> click vào dòng item bị checkbox cả hàng thay vì ấn vào	-> sửa được	-> a Khánh đang sửa
 37-206 -> 4.Ecommerce	-> phần tạo đơn bị dày quá					-> sửa được	-> 	100%
 ---------------------------------------------------------------------------------------------------------------------------
 MỤC SAU: header (2) - API (3) - figma (4)
