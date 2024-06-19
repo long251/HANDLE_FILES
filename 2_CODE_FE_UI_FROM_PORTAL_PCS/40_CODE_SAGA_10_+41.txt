@@ -1,0 +1,133 @@
+import { createSlice } from '@reduxjs/toolkit';
+
+export type WebsiteState = {
+  data_loading: boolean;
+  data: any[];
+  data_length: number;
+  count_loading: boolean;
+  buyer_config_count: {
+    allCount: number;
+    jpCount: number;
+    ukCount: number;
+    krCount: number;
+    usCount: number;
+    geCount: number;
+  };
+};
+
+const initState: WebsiteState = {
+  data_loading: false,
+  data: [],
+  data_length: 0,
+  count_loading: false,
+  buyer_config_count: {
+    allCount: 0,
+    jpCount: 0,
+    ukCount: 0,
+    krCount: 0,
+    usCount: 0,
+    geCount: 0,
+  },
+};
+
+const websiteSlice = createSlice({
+  name: 'website',
+  initialState: initState,
+  reducers: {
+    fetchData: (state: WebsiteState, _action) => {
+      state.data_loading = true;
+    },
+    fetchDataSucceed: (state: WebsiteState, action) => {
+      state.data_loading = false;
+      state.data = action.payload.data;
+      state.data_length = action.payload.data_length;
+    },
+    fetchDataFailed: (state: WebsiteState) => {
+      state.data_loading = false;
+    },
+    fetchCount: (state: WebsiteState, _action) => {
+      state.count_loading = true;
+    },
+    fetchCountSucceed: (state: WebsiteState, action) => {
+      state.count_loading = false;
+      state.buyer_config_count = action.payload;
+    },
+    fetchCountFailed: (state: WebsiteState) => {
+      state.count_loading = false;
+    },
+  },
+});
+
+export const websiteReducer = websiteSlice.reducer;
+export const websiteAction = websiteSlice.actions;
+--------------------------------------------------------------------------------------------------------------------------------
+import { PayloadAction } from '@reduxjs/toolkit';
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { AxiosResponse } from 'axios';
+import { apiClient } from '../../../utils/api';
+import { websiteAction } from '../../reducers/websiteReducer';
+
+function* fetchData({ payload }: PayloadAction<any>) {
+  try {
+    let data = {
+      pageIndex: payload.pageIndex,
+      pageSize: payload.pageSize,
+      sorts: [
+        {
+          sortBy: 'Id',
+          sortDirection: 'DESC',
+        },
+      ],
+      keyword: payload.keyword,
+      route: payload.route,
+    };
+    let response: AxiosResponse = yield apiClient.post(
+      'https://beta-portal-api.shipquocte.com/api/BuyerConfig/GetListBuyerConfigNew',
+      data,
+    );
+    if (response.data) {
+      yield put(
+        websiteAction.fetchDataSucceed({
+          data: response.data.data,
+          data_length: response.data.total,
+        }),
+      );
+    } else {
+      yield put(websiteAction.fetchDataFailed());
+    }
+  } catch (e) {
+    yield put(websiteAction.fetchDataFailed());
+  }
+}
+
+function* fetchCount() {
+  try {
+    let response: AxiosResponse = yield apiClient.post(
+      'https://beta-portal-api.shipquocte.com/api/BuyerConfig/GetListBuyerConfigCount',
+    );
+    if (response.data) {
+      yield put(
+        websiteAction.fetchCountSucceed({
+          allCount: response.data.allCount,
+          jpCount: response.data.jpCount,
+          ukCount: response.data.ukCount,
+          krCount: response.data.krCount,
+          usCount: response.data.usCount,
+          geCount: response.data.geCount,
+        }),
+      );
+    } else {
+      yield put(websiteAction.fetchCountFailed());
+    }
+  } catch (e) {
+    yield put(websiteAction.fetchCountFailed());
+  }
+}
+
+function* websiteSaga() {
+  yield takeLatest(websiteAction.fetchData.type, fetchData);
+  yield takeLatest(websiteAction.fetchCount.type, fetchCount);
+}
+
+export default websiteSaga;
+
