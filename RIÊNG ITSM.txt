@@ -38,7 +38,7 @@ MỤC SAU: header (3) - API (3) - figma (4)
 27-195 -> 6.Tracking	-> click vào button column chưa có hiểu thị giao diện -> chờ	-> chờ figma	-> chờ figma
 28-196 -> 6.Tracking	-> click vào button filter chưa có hiển thị giao diện -> chờ	-> chờ figma	-> chờ figma
 ---------------------------------------------------------------------------------------------------------------------------
-MỤC KHÁC: Shopping (10)
+MỤC KHÁC: Shopping (10) - Ecommerce (1)
 3-159 -> 3.Shopping	-> truyền API							-> cần API	-> chuyển a Khánh
 4-160 -> 3.Shopping	-> lề trái/phải danh mục sản phẩm				-> đã khác	-> chuyển a Khánh
 6-161 -> 3.Shopping	-> hover giỏ hàng cùng lúc					-> đã sửa	-> chuyển a Khánh
@@ -49,6 +49,7 @@ MỤC KHÁC: Shopping (10)
 15-169 -> 3.Shopping	-> chi tiết sản phẩm, Breadcrumb dài sẽ được ẩn đi		-> a Khánh tạo	-> chuyển a Khánh
 16-173 -> 3.Shopping	-> danh mục chính, đang lệch nút next/back			-> đã sửa	-> chuyển a Khánh
 17-174 -> 3.Shopping	-> chi tiết sản phẩm, sai font chữ thương hiệu			-> đã sửa	-> chuyển a Khánh
+
 _________________________________________________________________________________________________________________________
 ISSUE FROM MR KHÁNH
 -------------------
