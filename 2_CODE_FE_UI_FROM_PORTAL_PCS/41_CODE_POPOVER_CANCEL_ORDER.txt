@@ -1,0 +1,45 @@
+            <div className='Style_Popover'>
+              <Popover
+                active={openActionId === index}
+                preferredAlignment={'right'}
+                activator={
+                  <Button
+                    icon={PolarisIcons.CaretDownMinor}
+                    onClick={() => setOpenActionId(openActionId === index ? null : index)}
+                  />
+                }
+                onClose={() => {
+                  setOpenActionId(null);
+                }}
+              >
+                <Button
+                  onClick={() => setOpenModalCancelId(index)}
+                  textAlign={'left'}
+                  fullWidth
+                  icon={PolarisIcons.CircleCancelMajor}
+                >
+                  Hủy đơn
+                </Button>
+              </Popover>
+              <Modal
+                open={openModalCancelId === index}
+                primaryAction={{
+                  content: 'Yêu cầu huỷ đơn',
+                  onAction: () => handleCancel(),
+                  loading: loadingCancel,
+                }}
+                title={'Yêu cầu huỷ đơn'}
+                onClose={() => setOpenModalCancelId(null)}
+              >
+                <Modal.Section>
+                  <TextField
+                    multiline={3}
+                    label={'Ghi chú xử lý'}
+                    placeholder={'Nhập ghi chú xử lý'}
+                    autoComplete={'off'}
+                    value={messageCancel}
+                    onChange={(value) => setMessageCancel(value)}
+                  />
+                </Modal.Section>
+              </Modal>
+            </div>

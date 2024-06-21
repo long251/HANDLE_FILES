@@ -1,10 +1,10 @@
 CTY_PCS
 -------
-Ngày cập nhật: 20/06/2024
+Ngày cập nhật: 21/06/2024
 -------------------------
 ! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
-- hộp bánh danisa -> ít	-> Mang thêm
+- hộp bánh danisa -> 
 - Cốc thuốc:
 	- xịt mũi x1 -> 80%
 	- nhỏ mũi x1 -> 50%
