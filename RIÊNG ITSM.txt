@@ -23,6 +23,9 @@ SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT	    K.LUẬN 16/18
 36-205 -> 4.Ecommerce	-> click vào dòng item bị checkbox cả hàng thay vì ấn vào	-> sửa được	-> a Khánh đang sửa
 37-206 -> 4.Ecommerce	-> phần tạo đơn bị dày quá					-> sửa được	-> 	100%
 39-208 -> Navbar_Left	-> thừa SQT Extention						-> xóa đi là ok	-> đã sửa
+42-212 -> 6.Tracking	-> lỗi xem chi tiết -> fix = API				-> 50/50	-> 50/50
+43-213 -> 10.website	-> sai số lượng chỉ số index					-> đã sửa	-> do API
+
 ---------------------------------------------------------------------------------------------------------------------------
 MỤC SAU: header (3) - API (3) - figma (4)
 9-165 -> Header		-> phần avatar: avatar nằm trái, bổ sung mũi tên sổ xuống	-> sau		-> 	SAU
@@ -37,6 +40,8 @@ MỤC SAU: header (3) - API (3) - figma (4)
 8-164 -> Footer		-> chưa có link: điều khoản quy định				-> sau		-> chờ figma
 27-195 -> 6.Tracking	-> click vào button column chưa có hiểu thị giao diện -> chờ	-> chờ figma	-> chờ figma
 28-196 -> 6.Tracking	-> click vào button filter chưa có hiển thị giao diện -> chờ	-> chờ figma	-> chờ figma
+41-210 -> 6.Tracking	-> click vào filters ko có event gì				-> chờ figma	-> chờ figma
+44-214 -> tra cứu đơn	-> ko có trên figma -> chờ					-> chờ figma	-> chờ figma
 ---------------------------------------------------------------------------------------------------------------------------
 MỤC KHÁC: Shopping (10) - Ecommerce (1)
 3-159 -> 3.Shopping	-> truyền API							-> cần API	-> chuyển a Khánh
@@ -49,7 +54,7 @@ MỤC KHÁC: Shopping (10) - Ecommerce (1)
 15-169 -> 3.Shopping	-> chi tiết sản phẩm, Breadcrumb dài sẽ được ẩn đi		-> a Khánh tạo	-> chuyển a Khánh
 16-173 -> 3.Shopping	-> danh mục chính, đang lệch nút next/back			-> đã sửa	-> chuyển a Khánh
 17-174 -> 3.Shopping	-> chi tiết sản phẩm, sai font chữ thương hiệu			-> đã sửa	-> chuyển a Khánh
-
+40-209 -> 4. Ecommerce	-> chưa thể import nhiều đơn => Excel				-> 		-> chuyển a Khánh
 _________________________________________________________________________________________________________________________
 ISSUE FROM MR KHÁNH
 -------------------
