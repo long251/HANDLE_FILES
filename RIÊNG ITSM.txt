@@ -122,6 +122,17 @@ Ngày cập nhật: 12/06/2024
  *kết nối API:
  - ko có trường dữ liệu 'TT thanh toán' => xóa
  - trường tiền nong các thứ đang chưa hoàn thiện
+//////////
+ - Breadcrumb truyền thêm 3 trường dữ liệu; format lại ngày tháng năm
+ - không có more options về API
+ - không có chỉnh sửa về 'thông tin người nhận'
+ - thông tin đơn hàng -> trạng thái lấy theo status [0]...
+ - nhân viên hỗ trợ -> thiếu số điện thọa
+ - thông tin tracking -> thiếu trường dữ liệu kích thước
+ - phần [dịch vụ cộng thêm PORTAL cũ có] nhưung API trả ra ko có
+ - tính tổng chi phí??
+ - thông tin thanh toán đang chỉ có đơn mua hộ
+ - 
  *ShippingOrders:
  - sử dụng Breadcrumb a Khánh tạo ra
  - xóa 2 filter Khách hàng và nhân viên

@@ -1,0 +1,52 @@
+<div style={{ display: 'flex', flexDirection: 'column' }}>
+                              <div className='Fee_Product'>
+                                <div className='Fee_Name'>Phí vận chuyển quốc tế</div>
+                                <div className='Fee_Price'>1,929,624 đ</div>
+                              </div>
+                              <div className='Fee_Product'>
+                                <div className='Fee_Name'>Phụ phí</div>
+                                <div className='Fee_Price'>1,929,624 đ</div>
+                              </div>
+                              <div className='Fee_Product'>
+                                <div className='Fee_Name'>Cổng thanh toán COD (4%)</div>
+                                <div className='Fee_Price'>1,929,624 đ</div>
+                              </div>
+                              <div className='Fee_Product'>
+                                <div className='Fee_Name'>Phí dịch vụ GTGT</div>
+                                <div className='Fee_Price'>1,929,624 đ</div>
+                              </div>
+                              <div className='Fee_Product'>
+                                <div className='Fee_Name'>Phụ thu sản phẩm</div>
+                                <div className='Fee_Price'>1,929,624 đ</div>
+                              </div>
+                              <div className='Fee_Product'>
+                                <div className='Fee_Name'>Phí giao hàng nội địa</div>
+                                <div className='Fee_Price'>1,929,624 đ</div>
+                              </div>
+                              <div className='Fee_Product'>
+                                <div className='Fee_Name' style={{ fontWeight: '700' }}>
+                                  Tổng tiền
+                                </div>
+                                <div className='Fee_Price' style={{ fontWeight: '700' }}>
+                                  {}
+                                </div>
+                              </div>
+                            </div>
+-------------------------------------------------------------------------------------------
+.Fee_Product {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+}
+.Fee_Name,
+.Fee_Price {
+  padding: 12px;
+  flex: 1; 
+}
+.Fee_Name {
+  border-right: 1px solid #ddd;
+}
+.Fee_Price {
+  text-align: right;
+}
