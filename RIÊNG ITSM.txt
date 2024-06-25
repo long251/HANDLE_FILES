@@ -22,10 +22,11 @@ SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT	    K.LUẬN 16/18
 35-204 -> 5.ShippingOrde-> click vào dòng item bị checkbox cả hàng thay vì ấn vào	-> sửa được	-> 	100%
 36-205 -> 4.Ecommerce	-> click vào dòng item bị checkbox cả hàng thay vì ấn vào	-> sửa được	-> a Khánh đang sửa
 37-206 -> 4.Ecommerce	-> phần tạo đơn bị dày quá					-> sửa được	-> 	100%
-39-208 -> Navbar_Left	-> thừa SQT Extention						-> xóa đi là ok	-> đã sửa
+39-208 -> Navbar_Left	-> thừa SQT Extention						-> xóa đi là ok	-> 	100%
 42-212 -> 6.Tracking	-> lỗi xem chi tiết -> fix = API				-> 50/50	-> 50/50
 43-213 -> 10.website	-> sai số lượng chỉ số index					-> đã sửa	-> do API
-
+45-215 -> 10.website	-> ko hiển thị đầy đủ tab tuyến -> màn mobile			-> đã sửa	-> 	100%
+46-216 -> 6.tracking	-> bỏ tab tracking						-> ẩn		-> 	100%
 ---------------------------------------------------------------------------------------------------------------------------
 MỤC SAU: header (3) - API (3) - figma (4)
 9-165 -> Header		-> phần avatar: avatar nằm trái, bổ sung mũi tên sổ xuống	-> sau		-> 	SAU
