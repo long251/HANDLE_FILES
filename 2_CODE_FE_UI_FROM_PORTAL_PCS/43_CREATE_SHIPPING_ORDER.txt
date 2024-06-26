@@ -1,0 +1,170 @@
+CREATE SHIPPING ORDERS
+----------------------
+LOGIC:
+const dispatch = useDispatch();
+  const shippingOrdersState = useSelector((state: AppState) => state.shippingOrders);
+//-----------------Create Shipping Orders-------------------------------
+  const [activeCountry, setActiveCountry] = useState<string | null>('US-VN');
+  const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
+  const handleMouseEnterCountry = (countryName: string) => {
+    if (activeCountry !== countryName) {
+      setHoveredCountry(countryName);
+    }
+  };
+  const handleMouseLeaveCountry = () => {
+    setHoveredCountry(null);
+  };
+  const handleClickCountry = (countryName: string) => {
+    setActiveCountry(countryName);
+    dispatch(shippingOrdersAction.fetchRoute({ route: countryName }));
+  };
+  const [activeAddress, setActiveAddress] = useState<string | null>(null);
+  const [hoveredAddress, setHoveredAddress] = useState<string | null>(null);
+  const handleMouseEnterAddress = (address: string) => {
+    if (activeAddress !== address) {
+      setHoveredAddress(address);
+    }
+  };
+  const handleMouseLeaveAddress = () => {
+    setHoveredAddress(null);
+  };
+  const handleClickAddress = (address: string) => {
+    setActiveAddress(address);
+    dispatch(shippingOrdersAction.fetchRoute({ route: address }));
+  };
+  const notify = () => showToast('Đã huỷ', 'warning');
+  const [isOrderPlaced, setIsOrderPlaced] = useState(false);
+  const handleCancel = () => {
+    notify();
+    setIsOrderPlaced(true);
+  };
+------
+RETURN:
+<div style={{ position: 'relative' }}>
+                      {/* chọn kho hàng */}
+                      <div className='Select_Warehouse'>
+                        <div className='Header'>Chọn kho nhận hàng</div>
+
+                        <div className='Region'>
+                          <div
+                            style={{
+                              backgroundColor:
+                                activeCountry === 'US-VN' || hoveredCountry === 'US_VN' ? '#EFF1F4' : 'transparent',
+                            }}
+                            className='Style_Region'
+                            onMouseEnter={() => handleMouseEnterCountry('Mỹ')}
+                            onMouseLeave={handleMouseLeaveCountry}
+                            onClick={() => handleClickCountry('US-VN')}
+                          >
+                            <IconAmerican />
+                            Mỹ-Việt Nam
+                          </div>
+                          <div
+                            style={{
+                              backgroundColor:
+                                activeCountry === 'JP-VN' || hoveredCountry === 'JP-VN' ? '#EFF1F4' : 'transparent',
+                            }}
+                            className='Style_Region'
+                            onMouseEnter={() => handleMouseEnterCountry('Nhật Bản')}
+                            onMouseLeave={handleMouseLeaveCountry}
+                            onClick={() => handleClickCountry('JP-VN')}
+                          >
+                            <IconJapan />
+                            Nhật Bản-Việt Nam
+                          </div>
+                          <div
+                            style={{
+                              backgroundColor:
+                                activeCountry === 'KR-VN' || hoveredCountry === 'KR-VN' ? '#EFF1F4' : 'transparent',
+                            }}
+                            className='Style_Region'
+                            onMouseEnter={() => handleMouseEnterCountry('Hàn Quốc')}
+                            onMouseLeave={handleMouseLeaveCountry}
+                            onClick={() => handleClickCountry('KR-VN')}
+                          >
+                            <IconKorea />
+                            Hàn Quốc-Việt Nam
+                          </div>
+                          <div
+                            style={{
+                              backgroundColor:
+                                activeCountry === 'UK-VN' || hoveredCountry === 'UK-VN' ? '#EFF1F4' : 'transparent',
+                            }}
+                            className='Style_Region'
+                            onMouseEnter={() => handleMouseEnterCountry('Anh')}
+                            onMouseLeave={handleMouseLeaveCountry}
+                            onClick={() => handleClickCountry('UK-VN')}
+                          >
+                            <IconEngland />
+                            Anh-Việt Nam
+                          </div>
+                          <div
+                            style={{
+                              backgroundColor:
+                                activeCountry === 'GE-VN' || hoveredCountry === 'GE-VN' ? '#EFF1F4' : 'transparent',
+                            }}
+                            className='Style_Region'
+                            onMouseEnter={() => handleMouseEnterCountry('Đức')}
+                            onMouseLeave={handleMouseLeaveCountry}
+                            onClick={() => handleClickCountry('GE-VN')}
+                          >
+                            <IconGermany />
+                            Đức-Việt Nam
+                          </div>
+                        </div>
+
+                        {/* Sổ địa chỉ */}
+                        <div className='Address_Book'>
+                          {/* địa chỉ 1 */}
+                          {/* {shippingOrdersState.data.map((item.index)=>( */}
+                          <div
+                            style={{
+                              backgroundColor:
+                                activeAddress === 'Address1' || hoveredAddress === 'Address1'
+                                  ? '#DFE3E9'
+                                  : 'transparent',
+                            }}
+                            className='Style_Address_Book'
+                            onMouseEnter={() => handleMouseEnterAddress('Address1')}
+                            onMouseLeave={handleMouseLeaveAddress}
+                            onClick={() => handleClickAddress('Address1')}
+                          >
+                            <div className='Address'>
+                              Address: <div>5050 NE 112th Ave, Portland, Oregon</div>
+                            </div>
+                            <div className='Post_Code'>
+                              PostCode: <div>97200</div>
+                            </div>
+                            <div className='Tel'>
+                              <div style={{ display: 'flex', gap: '54px' }}>
+                                Tel: <div>(971)713-6031</div>
+                              </div>
+                              <div style={{ color: '#0050A6', cursor: 'pointer' }}>
+                                Chi tiết <IconArrowDetail />
+                              </div>
+                            </div>
+                          </div>
+                          {/* ))} */}
+                        </div>
+                      </div>
+                      {/* Địa chỉ nhận hàng */}
+                      <div className='Delivery_Address'>
+                        <div className='Header'>
+                          <div className='Font_Header'>Địa chỉ nhận hàng</div>
+                          <div style={{ color: '#0050A6', cursor: 'pointer' }}>
+                            Sổ địa chỉ <IconArrowDetail />
+                          </div>
+                        </div>
+                        <div className='Content_Delivery_Address'>
+                          <div style={{ display: 'flex', gap: '22px' }}>
+                            Người nhận: <div>Lê Tuấn Anh</div>
+                          </div>
+                          <div style={{ display: 'flex', gap: '52px' }}>
+                            Địa chỉ: <div>Số 17 Quang Tiến, P. Đại Mỗ, Q. Nam Từ Liêm, TP. Hà Nội</div>
+                          </div>
+                          <div style={{ display: 'flex', gap: '12px' }}>
+                            Số điện thoại: <div>0974497237</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>

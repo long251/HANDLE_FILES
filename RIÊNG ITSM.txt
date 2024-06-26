@@ -1,7 +1,7 @@
 RIÊNG ITSM
 ----------
-Ngày cập nhật: 19/06/2024
-Tổng số lỗi:39
+Ngày cập nhật: 26/06/2024
+Tổng số lỗi:52
 -------------------------
 SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT	    K.LUẬN 16/18
 1-175 -> 2.Dashboard	-> khoảng cách Footer cách nhiều hơn khoảng cách giữa các bảng	-> ko sửa 	-> 	100%
@@ -27,8 +27,13 @@ SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT	    K.LUẬN 16/18
 43-213 -> 10.website	-> sai số lượng chỉ số index					-> đã sửa	-> do API
 45-215 -> 10.website	-> ko hiển thị đầy đủ tab tuyến -> màn mobile			-> đã sửa	-> 	100%
 46-216 -> 6.tracking	-> bỏ tab tracking						-> ẩn		-> 	100%
+47-217 -> Button Filter	-> bỏ các nút Filter và Columns trên giao diện			-> xóa đi	-> sửa được
+48-218 -> Button Filter	-> bỏ các nút Filter và Columns trên giao diện			-> xóa đi	-> sửa được
+49-219 -> Button Filter	-> bỏ các nút Filter và Columns trên giao diện			-> xóa đi	-> sửa được
+51-221 -> 5.Đơn VC	-> bỏ chức năng hủy đơn từ kho quốc tế				-> đã sửa	-> đã sửa
+
 ---------------------------------------------------------------------------------------------------------------------------
-MỤC SAU: header (3) - API (3) - figma (4)
+MỤC SAU: header (3) - API (3) - figma (6)
 9-165 -> Header		-> phần avatar: avatar nằm trái, bổ sung mũi tên sổ xuống	-> sau		-> 	SAU
 10-166 -> Header	-> thiếu icon giỏ hàng						-> sau		-> 	SAU
 38-207 -> Header	-> nhập vào ô search xong ấn enter bị giật lag			-> sau		->	SAU
@@ -56,6 +61,8 @@ MỤC KHÁC: Shopping (10) - Ecommerce (1)
 16-173 -> 3.Shopping	-> danh mục chính, đang lệch nút next/back			-> đã sửa	-> chuyển a Khánh
 17-174 -> 3.Shopping	-> chi tiết sản phẩm, sai font chữ thương hiệu			-> đã sửa	-> chuyển a Khánh
 40-209 -> 4. Ecommerce	-> chưa thể import nhiều đơn => Excel				-> 		-> chuyển a Khánh
+50-220 -> Ecommerce	-> sửa lại status: Đang giao hàng => Đã giao			-> thay đổi	-> chuyển a Khánh
+52-222 -> Ecommerce	-> bỏ chức năng 'HỦY' từ tab đã mua đến hủy đơn			-> sửa được	-> chuyển a Khánh
 _________________________________________________________________________________________________________________________
 ISSUE FROM MR KHÁNH
 -------------------
