@@ -1,6 +1,6 @@
 CTY_PCS
 -------
-Ngày cập nhật: 24/06/2024
+Ngày cập nhật: 27/06/2024
 -------------------------
 ! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
@@ -11,7 +11,7 @@ Ngày cập nhật: 24/06/2024
 	- thuốc đỏ nhỏ x1 -> 40% (đã thay mới)
 	- kéo nhỏ x1 -> OK
 	- âu gâu nhỏ x5 -> OK
-- chai nước -> OK -> THAY MỚI (MANG TỪ NHÀ)
+- chai nước -> OK
 - case máy tính -> hơi lỏng dây -> OK
 - gối cong -> nằm hơi đau đầu -> chưa thay đc gối mới vì nó gọn vs ngủ cx dễ chịu rồi
 - balo*
@@ -41,8 +41,6 @@ Ngày cập nhật: 24/06/2024
 	- [gitlab] -> a Khánh check hằng ngày xem cập nhật gì rồi?
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
-- chai nước lọc	-> THAY MỚI -> Mang -> từ QL1 -> đến cty	-> Status:
-- kẹo cao su	-> xilytol lọ vừa 55k -> M -> Mang lên cty	-> Status:
  - Cốc cốc:
 	- [CNTT] -> tích hợp file này vào [HANDLE_FILES]	-> Status:
 	- [ITSM] -> cập nhật vào [Riêng ITSM]			-> Status:

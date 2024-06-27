@@ -1,0 +1,147 @@
+LOGIC
+-----
+ const [trackingCodeInput, setTrackingCodeInput] = useState<string>('');
+  const [trackingData, setTrackingData] = useState<{ trackingCode: string }[]>([]);
+  const handleTrackingCodeInput = () => {
+    if (trackingCodeInput.trim() !== '') {
+      setTrackingData([...trackingData, { trackingCode: trackingCodeInput }]);
+      setTrackingCodeInput(''); // Đặt lại giá trị mã tracking về rỗng sau khi đã lưu vào state
+    }
+  };
+  const handleDelete = (index: number) => {
+    const updatedTrackingData = [...trackingData];
+    updatedTrackingData.splice(index, 1);
+    setTrackingData(updatedTrackingData);
+  };
+  // Handle Expand
+  const [expandedServiceIndexes, setExpandedServiceIndexes] = useState<number[]>([]);
+  const [selectedServices, setSelectedServices] = useState<{ [key: number]: string[] }>({});
+  const toggleExpandService = (index: number) => {
+    if (expandedServiceIndexes.includes(index)) {
+      setExpandedServiceIndexes(expandedServiceIndexes.filter((item) => item !== index));
+    } else {
+      setExpandedServiceIndexes([...expandedServiceIndexes, index]);
+    }
+  };
+  const handleServiceChange = (index: number, updatedServices: string[]) => {
+    setSelectedServices((prevSelectedServices) => ({
+      ...prevSelectedServices,
+      [index]: updatedServices,
+    }));
+  };
+  const handleOkClick = (index: number) => {
+    setExpandedServiceIndexes(expandedServiceIndexes.filter((item) => item !== index));
+  };
+
+  const rows = trackingData.map((item, index) => {
+    const isExpanded = expandedServiceIndexes.includes(index);
+
+    return [
+      index + 1,
+      <input type='text' defaultValue={item.trackingCode} className='Input_Tracking_Code' />,
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <input
+          type='text'
+          defaultValue={''}
+          style={{
+            borderRadius: '4px 0 0 4px',
+          }}
+          className='Input_Tracking_Code'
+        />
+        <div className='Unit_Input_Tracking_Code'>kg</div>
+      </div>,
+ <input type='text' defaultValue={''} className='Input_Note' />,
+
+      <input type='text' defaultValue={''} className='Input_Note' />,
+      <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
+        <div
+          className='Style_Icon_Edit_Delete'
+          onClick={() => {
+            handleEdit(item);
+            // toggleModalE();
+          }}
+        >
+          <IconEdit />
+        </div>
+        <div className='Style_Icon_Edit_Delete' onClick={() => handleDelete(index)}>
+          <IconDelete />
+        </div>
+      </div>,
+    ];
+  });
+  const handleEdit = (item: any) => {
+    // Handle edit logic here
+    console.log('Edit:', item);
+  };
+
+
+  const notifySave = () => showToast('Đã lưu vào cơ sở dữ liệu', 'success');
+  const handleSave = () => {
+    notifySave();
+  };
+-----------------------------------------------------------------
+RETURN
+------
+                                {selected === 1 && (
+                  <div>
+                    <div className='Shipping_Information'>
+                      {/* header */}
+                      <div className='Header'>
+                        <div className='Font'>Thông tin hàng hoá vận chuyển</div>
+                        <div style={{ color: '#0050A6', cursor: 'pointer', whiteSpace: 'nowrap' }}>Tải file mẫu</div>
+                      </div>
+
+                      {/* Nhập mã tracking  */}
+                      <div className='Enter_Tracking_Code'>
+                        <div className='Label_Tracking_Code'>
+                          <div>Nhập mã tracking</div>
+                          <div style={{ flexGrow: '1' }}>
+                          <input
+                  type='text'
+                  className='Input_Tracking'
+                  value={trackingCodeInput}
+                  onChange={(e) => setTrackingCodeInput(e.target.value)}
+                />
+                            {/* khi nhập mã tracking thì mới show bảng dữ liệu bên dưới */}
+                          </div>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                          <div className='Button_OK'>
+                            <Button onClick={handleTrackingCodeInput}>OK</Button>
+                            {/* khi nhập xong mã tracking nhấn OK thì show bảng bên dưới với ô mã tracking đã nhập */}
+                          </div>
+                          <div className='Button_Import'>
+                            <IconImportExcel />
+                            Import Excel
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Data Table */}
+                      <div className='Data_Table_Shipping_Orders'>
+                        <DataTable
+                          columnContentTypes={['text', 'text', 'text', 'text', 'text', 'text']}
+                          headings={['STT', 'Mã tracking', 'Total', 'Dịch vụ cộng thêm', 'Ghi chú', 'Action']}
+                          rows={rows}
+                        />
+                      </div>
+
+                      {/* Modal Edit Tracking */}
+
+                    </div>
+
+                    <div style={{ position: 'absolute' }}>
+                      <div className='Create_Input_Tracking_Code'>
+                        <div style={{ color: '#85C0FF', whiteSpace: 'nowrap' }}>3 Tracking</div>
+                        <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+                          <div style={{ color: '#FFFFFF', cursor: 'pointer' }} onClick={handleSave}>
+                            Lưu
+                          </div>
+                          <div className='Active_Button' onClick={() => handleSelectPageChange(2)}>
+                            <Button>Tiếp tục</Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}

@@ -3,7 +3,7 @@ RIÊNG ITSM
 Ngày cập nhật: 26/06/2024
 Tổng số lỗi:52
 -------------------------
-SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT	    K.LUẬN 16/18
+SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT	    K.LUẬN (??/29)
 1-175 -> 2.Dashboard	-> khoảng cách Footer cách nhiều hơn khoảng cách giữa các bảng	-> ko sửa 	-> 	100%
 5-162 -> 2.Dashboard	-> dữ liệu tỷ giá ngoại tệ định dạng sai			-> đã sửa	-> 	100%
 19-183 -> 10.Website	-> thiếu ô nhập tìm kiếm -> đã điền vào các tab khác		-> đã sửa	-> 	100%
@@ -31,7 +31,8 @@ SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT	    K.LUẬN 16/18
 48-218 -> Button Filter	-> bỏ các nút Filter và Columns trên giao diện			-> xóa đi	-> sửa được
 49-219 -> Button Filter	-> bỏ các nút Filter và Columns trên giao diện			-> xóa đi	-> sửa được
 51-221 -> 5.Đơn VC	-> bỏ chức năng hủy đơn từ kho quốc tế				-> đã sửa	-> đã sửa
-
+53-223 -> 5.Đơn VC	-> chỉnh sửa lại ngày đặt hang					-> đã sửa	-> đã sửa
+54-224 -> 5.Đơn VC	-> sửa lại theo thiết kế mới					-> sửa được	-> sửa được
 ---------------------------------------------------------------------------------------------------------------------------
 MỤC SAU: header (3) - API (3) - figma (6)
 9-165 -> Header		-> phần avatar: avatar nằm trái, bổ sung mũi tên sổ xuống	-> sau		-> 	SAU
