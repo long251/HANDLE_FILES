@@ -1,10 +1,10 @@
 CTY_PCS
 -------
-Ngày cập nhật: 27/06/2024
+Ngày cập nhật: 02/07/2024
 -------------------------
 ! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
-- hộp bánh danisa -> nhiều
+- hộp bánh danisa -> ?
 - Cốc thuốc:
 	- xịt mũi x1 -> 80%
 	- nhỏ mũi x2 -> 50% - 80%
@@ -36,18 +36,10 @@ Ngày cập nhật: 27/06/2024
      *[KHÁC]:
 	- [Client LMHT] -> lướt vào hằng ngày xem có bản cập nhật nào mới ko? hoặc check thông báo từ fp
 	- [alagod bể cá] -> check hằng ngày xem có hàng mới? hỏi giảm giá? M đồ thêm...
-	- [CNTT] -> tích hợp file này vào trong [HANDLE_FILES]
+	- [CNTT] -> tích hợp file này vào trong [HANDLE_FILES] => tham khảo
 	- [ITSM] -> check hằng ngày để kiểm tra lỗi và cập nhật [HANDLE_FILES] -> [Riêng ITSM]
 	- [gitlab] -> a Khánh check hằng ngày xem cập nhật gì rồi?
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
- - Cốc cốc:
-	- [CNTT] -> tích hợp file này vào [HANDLE_FILES]	-> Status:
-	- [ITSM] -> cập nhật vào [Riêng ITSM]			-> Status:
+ - 
 ----------------------------------------------------------------------------
-*CHECK_DAY_LIST_CÁ_CẢNH:
-- 24/06/2024: 	SÁNG_7h19: ngâm cá 1 ngày trong chậu xanh nhỏ khoảng 20c bình tích sz 2cm thả vào ngâm với lượng nhỏ ueno tetra nhật + sủi liên tục 24/24 thì nhận thấy cá ban đầu hơi stress đi phân nhiều; trước đó thì 2c ko chịu được khi ở môi trường nhỏ, 1c nhảy ổ.
-		SÁNG_7h2x: lấy từ những lọ 2L, cốc nước (nước cũ đã qua khử clo) nhưng hơi lo ngại vấn đề bột giặt từ rèm cửa rơi xuống làm ngộ độc cá! => theo dõi; tráng qua bể 50 cũ + đổ khoảng hơn 4L nước 1 xíu vào + 1 thì sữa chua vừa muối tinh tránh nấm cá nhưng rút bớt ra nhận thấy hơi nhiều quá đà => theo dõi + sủi 24/24 mực nước thấp.
-
-		KẾ HOẠCH: thời tiết đang mưa hiện tại nhiệt độ giảm nếu lấy nước mới có sao ko??
-		Tối: 

@@ -1,0 +1,164 @@
+CODE FIX PICKED DATE RANGE
+--------------------------
+ <div className={'DeliveryBill_Picked_Date_Range'}>
+                      <div className='Polaris-Labelled__LabelWrapper'>
+                        <div className='Polaris-Label'>
+                          <label
+                            id={'PolarisTextField6Label'}
+                            htmlFor={'PolarisTextField6'}
+                            className='Polaris-Label__Text'
+                          >
+                            Thời gian
+                          </label>
+                        </div>
+                      </div>
+                      <div className='Polaris-Connected'>
+                        <div className='Polaris-Connected__Item Polaris-Connected__Item--primary'>
+                          <div className='Polaris-TextField Polaris-TextField--hasValue'>
+                            <input
+                              className='Polaris-TextField__Input'
+                              placeholder='dd.mm.yyyy - dd.mm.yyyy'
+                              value={dateInputValue}
+                              readOnly
+                              onClick={() => setDateRangeActive(!dateRangeActive)}
+                              id='PolarisTextField6'
+                              aria-labelledby={'PolarisTextField6Label'}
+                              aria-invalid={false}
+                            />
+                            <div className='Polaris-TextField__Backdrop' />
+                            <div className='Polaris-TextField__Suffix'>
+                              <Popover
+                                fluidContent
+                                active={dateRangeActive}
+                                activator={
+                                  <Button
+                                    onClick={() => setDateRangeActive(!dateRangeActive)}
+                                    plain
+                                    icon={
+                                      <div
+                                        onClick={handleIconCalendarClick}
+                                        onMouseEnter={handleMouseEnter}
+                                        onMouseLeave={handleMouseLeave}
+                                      >
+                                        {isActive ? (
+                                          <div className='Block_Wrapper'>
+                                            <div className='Block_Icon_Date_Range'>
+                                              <IconDateRange />
+                                            </div>
+                                          </div>
+                                        ) : isHovered ? (
+                                          <div className='Block_Wrapper'>
+                                            <div className='Block_Icon_Date_Range'>
+                                              <IconDateRange />
+                                            </div>
+                                          </div>
+                                        ) : (
+                                          <div className='Block_Wrapper'>
+                                            <div className='Block_Icon_Date_Range'>
+                                              <IconDateRange />
+                                            </div>
+                                          </div>
+                                        )}
+                                      </div>
+                                    }
+                                  />
+                                }
+                                onClose={() => {
+                                  setDateRangeActive(false);
+                                }}
+                              >
+                                <div className='Custom-DatePicker'>
+                                  <div className='date_range'>
+                                    <div className='pre_option'>
+                                      <div className='list_option'>
+                                        <div className='list_content'>
+                                          <OptionList
+                                            title=''
+                                            onChange={(selected) => {
+                                              setRangeSelected(selected);
+                                              if (selected[0] == 'today') {
+                                                setSelectedDates({
+                                                  start: moment().toDate(),
+                                                  end: moment().toDate(),
+                                                });
+                                                setDate({ month: moment().month(), year: moment().year() });
+                                              } else if (selected[0] == 'yesterday') {
+                                                setSelectedDates({
+                                                  start: moment().subtract(1, 'day').toDate(),
+                                                  end: moment().subtract(1, 'day').toDate(),
+                                                });
+                                                setDate({
+                                                  month: moment().subtract(1, 'day').month(),
+                                                  year: moment().subtract(1, 'day').year(),
+                                                });
+                                              } else if (selected[0] == 'last_7_days') {
+                                                setSelectedDates({
+                                                  start: moment().subtract(7, 'day').toDate(),
+                                                  end: moment().toDate(),
+                                                });
+                                                setDate({
+                                                  month: moment().subtract(7, 'day').month(),
+                                                  year: moment().subtract(7, 'day').year(),
+                                                });
+                                              } else if (selected[0] == 'last_30_days') {
+                                                setSelectedDates({
+                                                  start: moment().subtract(30, 'day').toDate(),
+                                                  end: moment().toDate(),
+                                                });
+                                                setDate({
+                                                  month: moment().subtract(30, 'day').month(),
+                                                  year: moment().subtract(30, 'day').year(),
+                                                });
+                                              }
+                                            }}
+                                            options={[
+                                              { value: 'today', label: 'Hôm nay' },
+                                              { value: 'yesterday', label: 'Hôm qua' },
+                                              { value: 'last_7_days', label: '7 ngày trước' },
+                                              { value: 'last_30_days', label: '30 ngày trước' },
+                                            ]}
+                                            selected={rangeSelected}
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className='pick_date'>
+                                      <DatePicker
+                                        disableDatesAfter={new Date()}
+                                        weekStartsOn={1}
+                                        month={month}
+                                        year={year}
+                                        onChange={setSelectedDates}
+                                        onMonthChange={handleMonthChange}
+                                        selected={selectedDates}
+                                        multiMonth
+                                        allowRange
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className='actions'>
+                                    <LegacyStack distribution={'trailing'}>
+                                      <Button onClick={() => setDateRangeActive(false)}>Đóng</Button>
+                                      <Button
+                                        primary
+                                        onClick={() => {
+                                          let startDate = selectedDates.start;
+                                          let endDate = selectedDates.end;
+                                          let startDateStr = moment(startDate).format('DD.MM.yyyy');
+                                          let endDateStr = moment(endDate).format('DD.MM.yyyy');
+                                          setDateInputValue(`${startDateStr} - ${endDateStr}`);
+                                          setDateRangeActive(false);
+                                          goToPage(1);
+                                        }}
+                                      >
+                                        Áp dụng
+                                      </Button>
+                                    </LegacyStack>
+                                  </div>
+                                </div>
+                              </Popover>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>

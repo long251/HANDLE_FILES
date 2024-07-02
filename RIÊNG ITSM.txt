@@ -1,6 +1,6 @@
 RIÊNG ITSM
 ----------
-Ngày cập nhật: 26/06/2024
+Ngày cập nhật: 02/07/2024
 Tổng số lỗi:52
 -------------------------
 SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT	    K.LUẬN (??/29)
@@ -33,6 +33,8 @@ SỐ	TÊN MÀN GIAO DIỆN				LỖI					N.XÉT	    K.LUẬN (??/29)
 51-221 -> 5.Đơn VC	-> bỏ chức năng hủy đơn từ kho quốc tế				-> đã sửa	-> đã sửa
 53-223 -> 5.Đơn VC	-> chỉnh sửa lại ngày đặt hang					-> đã sửa	-> đã sửa
 54-224 -> 5.Đơn VC	-> sửa lại theo thiết kế mới					-> sửa được	-> sửa được
+55-225 -> 5.Đơn VC	-> thiếu tab hủy						-> ??		-> hoang mang
+56-226 -> 5.Đơn VC	-> ko validate ô chọn thời gian					-> hỏi a Khánh	-> hỏi a Khánh
 ---------------------------------------------------------------------------------------------------------------------------
 MỤC SAU: header (3) - API (3) - figma (6)
 9-165 -> Header		-> phần avatar: avatar nằm trái, bổ sung mũi tên sổ xuống	-> sau		-> 	SAU
@@ -201,4 +203,7 @@ RÀ SOÁT LẠI TẤT CẢ THƯ MỤC CỦA TO_PORTAL
 				-> điều chỉnh lại CSS							-> 
 			    *UI:
 				-> font chữ Tab đang sai
+
+-----------------------------------------------------------------------------------------------------------------------
+
 	
