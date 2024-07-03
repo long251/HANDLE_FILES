@@ -24,30 +24,28 @@ SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN (?? / 26)
 18-209	/ 4.Ecommerce	/ nút import chưa có gì					/ chuyển a Khánh
 19-213	/ 10.Website	/ sai số trên tabs					/ lệch do API
 20-214	/ Tra cứu	/ chưa có thiết kế figma				/ chờ figma
-21-217	/ 7.phiếu xuất	/ xóa filter,column					/ làm được -> đã sửa -> chưa cập nhật
+21-217	/ 7.phiếu xuất	/ xóa filter,column					/ làm được -> đã sửa -> 100%
 22-219	/ 4.Ecommerce	/ xóa filter,column					/ chuyển a Khánh
 23-220	/ 4.Ecommerce	/ sửa tabs						/ chuyển a Khánh
 24-222	/ 4.Ecommerce	/ thay đổi tabs						/ chuyển a Khánh
 25-225	/ 5.Đơn VC	/ thiếu tab hủy; hỏi a Dũng bảo ko có xóa đi		/ a Khánh L chưa cho done
-26-226	/ 5.Đơn VC	/ ko cho nhập vào ô chọn thời gian			/ làm được -> đã sửa -> chưa cập nhật
+26-226	/ 5.Đơn VC	/ ko cho nhập vào ô chọn thời gian			/ làm được -> đã sửa -> 100%
 ------------------------------------------------------------------------------------------------------------------------
 kết nối API
 -----------
 5.Đơn VC:
- - khi tab mới đổ dữ liệu vào thì cái loading là: đang tải Ecommerce???					-> loading dữ liệu
- - khi tab ko có dữ liệu đang hiển thị khung Ecommerce là sai => khung Đơn hàng vận chuyển chứ?		-> loading dữ liệu
- - sang chi tiết đơn -> đường dẫn đang chứa cả orderCode và trackingCode				-> link
+ - khi tab mới đổ dữ liệu vào thì cái loading là: đang tải Ecommerce???				-> loading dữ liệu
+ - khi tab ko có dữ liệu đang hiển thị khung Ecommerce là sai => khung Đơn hàng vận chuyển chứ?	-> loading dữ liệu
+ - sang chi tiết đơn -> đường dẫn đang chứa cả orderCode và trackingCode			-> link
  *Chi tiết đơn hàng VC:
-	CSS: làm gọn lại style										-> SỬA
+	CSS: làm gọn lại style									-> SỬA
 	RES: responsive đã OK								
-	- More options : chưa có form in/copy đơn							-> figma
-	- Edit thông tin người nhận -> chọn địa chỉ và cập nhật lại lại					-> chờ API
-	- danh sách tracking phụ: thiếu traceTracking							-> chờ API
-	- tổng khối lượng sai so với tổng trọng lượng cộng vào						-> hỏi API
-	- Phụ thu SL											-> hỏi API
-	- chưa có thông tin [Hình ảnh] [Ghi chú] [Phí]							-> chờ API
-	- chưa có trường dữ liệu [hình thức thanh toán]							-> chờ API
-	- phần lịch sử giao hàng làm lại theo traceStatus thay vì vị trí của chúng trong mảng		-> SỬA
+	- More options : chưa có form in/copy đơn						-> figma
+	- Edit thông tin người nhận -> chọn địa chỉ và cập nhật lại lại				-> chờ API	/
+	- tổng khối lượng sai so với tổng trọng lượng cộng vào					-> hỏi API	/
+	- Phụ thu SL										-> hỏi API	/
+	- chưa có thông tin [Hình ảnh] [Ghi chú] [Phí]						-> chờ API
+	- chưa có trường dữ liệu [hình thức thanh toán]						-> chờ API
  *Tạo đơn hàng VC:
 	- 
 
