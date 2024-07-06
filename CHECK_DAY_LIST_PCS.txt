@@ -1,10 +1,10 @@
 CTY_PCS
 -------
-Ngày cập nhật: 02/07/2024
+Ngày cập nhật: 06/07/2024
 -------------------------
 ! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
-- hộp bánh danisa -> ?
+- hộp bánh danisa -> nhiều
 - Cốc thuốc:
 	- xịt mũi x1 -> 80%
 	- nhỏ mũi x2 -> 50% - 80%
@@ -41,5 +41,5 @@ Ngày cập nhật: 02/07/2024
 	- [gitlab] -> a Khánh check hằng ngày xem cập nhật gì rồi?
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
- - 
+ - MANG	-> sổ tay làm việc đi
 ----------------------------------------------------------------------------
