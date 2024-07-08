@@ -1,6 +1,6 @@
 CTY_PCS
 -------
-Ngày cập nhật: 06/07/2024
+Ngày cập nhật: 08/07/2024
 -------------------------
 ! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
@@ -19,7 +19,7 @@ Ngày cập nhật: 06/07/2024
 - giấy ăn x2 bịch nhỏ -> nhiều, nhà còn nhiều có thể cung cấp được
 - tai nghe có dây -> ổn -> nó không bị hỏng, gạt nhầm chức năng S-N
 - bút bi x3 -> nhiều
-- sổ tay -> note: tip, issue cần làm, sửa
+- sổ tay -> note: tip, issue cần làm, sửa -> mới
 - iphone*
 - Màn PC (PCS) x2 -> dùng được, 2 màn hơi khác màu do điều chỉnh -> vẫn OK
 - chuột công thái học
@@ -41,5 +41,5 @@ Ngày cập nhật: 06/07/2024
 	- [gitlab] -> a Khánh check hằng ngày xem cập nhật gì rồi?
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
- - MANG	-> sổ tay làm việc đi
+ - 
 ----------------------------------------------------------------------------

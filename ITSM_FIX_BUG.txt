@@ -1,6 +1,6 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 06/07/2024
+Ngày cập nhật: 08/07/2024
 -------------------------
 Tổng số (35)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN (?? / 26)
@@ -30,12 +30,12 @@ SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN (?? / 26)
 24-222	/ 4.Ecommerce	/ thay đổi tabs						/ chuyển a Khánh
 25-225	/ 5.Đơn VC	/ thiếu tab hủy; hỏi a Dũng bảo ko có xóa đi		/ a Khánh lớn chưa cho done
 26-226	/ 5.Đơn VC	/ ko cho nhập vào ô chọn thời gian			/ 100%
-27-233	/ 5.Đơn VC	/ hiển thị khung xương sai khi ko có bản ghi		/ đã sửa -> chưa update
-28-232	/ 5.Đơn VC	/ thừa dấu phẩy ở màn danh sách				/ đã sửa -> chưa update
-29-231	/ 5.Đơn VC	/ chuyển key thành dữ lieu JP-VN => Nhật		/ đã sửa -> chưa update
-30-230	/ 5.Đơn VC	/ bỏ trg hình thức thanh toán trong tt thanh toán	/ đã sửa -> chưa update
-31-229	/ 5.Đơn VC	/ nỏ icon chỉnh sửa địa chỉ				/ đã sửa -> chưa update
-32-234	/ 5.Đơn VC	/ thiếu trạng thái trên Breadcrumb			/ đã sửa -> chưa update
+27-233	/ 5.Đơn VC	/ hiển thị khung xương sai khi ko có bản ghi		/ đã sửa -> 100
+28-232	/ 5.Đơn VC	/ thừa dấu phẩy ở màn danh sách				/ đã sửa -> 100
+29-231	/ 5.Đơn VC	/ chuyển key thành dữ lieu JP-VN => Nhật		/ đã sửa -> 100
+30-230	/ 5.Đơn VC	/ bỏ trg hình thức thanh toán trong tt thanh toán	/ đã sửa -> 100
+31-229	/ 5.Đơn VC	/ nỏ icon chỉnh sửa địa chỉ				/ đã sửa -> 100
+32-234	/ 5.Đơn VC	/ thiếu trạng thái trên Breadcrumb			/ đã sửa -> 100
 33-235	/ 5.Đơn VC	/ thiếu sđt nhân viên hỗ trợ				/ API trả về
 34-236	/ 4.Ecommerce	/ gộp các tabs lại					/ chuyển a Khánh
 35-237	/ 5.Đơn VC	/ chưa định dạng format trọng lượng			/ format đơn vị
@@ -43,12 +43,25 @@ SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN (?? / 26)
 kết nối API
 -----------
 5.Đơn VC:
+ - kiểm tra dữ liệu đầu vào đưa đến: API check validate cho nó
  5.1. Màn danh sách:
-	- trọng lương	-> xem xét kĩ thì chưa format dấu ngăn cách
-	- ngày đặt hàng	-> đang nhận thấy sai time đặt hàng kể cả trên portal cũ
+	- search order		: OK
+	- search tracking	: còn do người dùng tạo đơn nếu bị trùng mã tracking nhưng làm sao validate tracking có hay ko trong dữ liệu ?
+	- trọng lượng	-> xem xét kĩ thì chưa format dấu ngăn cách ,. tạm thời chưa format do khi tạo, sai lệch số lượng bị trắng trang, test 999kg ko sao; 1500kg lỗi
+	- ngày đặt hàng	-> đang nhận thấy sai lệch ngày giờ đặt hàng kể cả trên portal cũ chắc do API
+	- Action: View	-> đổi lại cho hiển thị và thay = xem chi tiết
  5.2. Màn chi tiết:
-    TH1: đơn đã được xử lý:
-	- breadcrumb	-> trạng thái thanh toán chưa được xử lý khi truyền qua Breadcrumb sẽ không có trạng thái này!
+	- breadcrumb	-> trạng thái thanh toán chưa được xử lý khi truyền qua Breadcrumb sẽ không có trạng thái này! -> đã sửa
+	- thông tin người nhận đang lấy từ tạo đơn là fake string
+	- ngày đặt hàng -> trong đơn chi tiết sai lệch so với màn danh sách
+	- Packages Tracking -> chưa có dữ liệu do chưa khai thác -> ngồi lại vs a Khánh để khai thác đơn
+	- đẩy ghi chú tại sao ko có? -> trước mắt tạo đơn ở portal cũ => sang portal mới tạo lại và so sánh
+5.3. Màn tạo đơn:
+	- API tạo đơn: 	- ShippingRouter/GetAll		 (lấy tất cả các tuyến theo code)
+			- CustomerAddress/GetListAddress (get ra danh sách địa chỉ để chọn)
+			- Warehouse/GetByRoute?route=JP-VN (lấy ra địa chỉ all, có kho hàng)
+			- 
+	- khi chọn tuyến hãy chọn luôn ngay phần tử đầu tiên địa chỉ [0]
+	- địa chỉ nhận hàng nếu ban đầu không có thì sao?? => phải có chỗ tạo chứ?
 	- 
-
 
