@@ -1,67 +1,48 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 08/07/2024
+Ngày cập nhật: 09/07/2024
 -------------------------
-Tổng số (35)
-SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN (?? / 26)
-1-158	/ 2.Dashboard	/ kết nối API						/ API
-2-160	/ 3.Shopping	/ Lề danh mục sản phẩm					/ khác -> y/c xóa	-> 100%
-3-161	/ 3.Shopping	/ hover giỏ hàng					/ khác -> y/c xóa	-> 100%
-4-163	/ Footer	/ link Câu hỏi thường gặp				/ SAU
-5-164	/ Footer	/ link Điều khoản quy định				/ SAU
-6-165	/ Header	/ account user sai vị trí				/ SAU
-7-166	/ Header	/ thiếu icon giỏ hàng					/ SAU
-8-168	/ 3.Shopping	/ ko hiện giỏ hàng khi responsive			/ khác -> y/c xóa	-> 100%
-9-170	/ 3.Shopping	/ ảnh chi tiết sản phẩm lỗi responsive			/ khác -> y/c xóa	-> 100%
-10-171	/ 3.Shopping	/ tab chi tiết đơn hàng 				/ khác -> y/c xóa	-> 100%
-11-172	/ 3.Shopping	/ chi tiết sản phẩm mua hàng ko hover			/ khác -> y/c xóa	-> 100%
-12-169	/ 3.Shopping	/ Breadcrum chi tiết sản phẩm quá dài			/ khác -> y/c xóa	-> chuyển a Khánh
-13-173	/ 3.Shopping	/ Lề danh mục sản phẩm					/ khác -> y/c xóa	-> 100%
-14-174	/ 3.Shopping	/ sai font thương hiệu					/ khác -> y/c xóa	-> 100%
-15-184	/ 9.pay request	/ kết nối API						/ API
-16-207	/ Header	/ khi nhập search giật lòi mắt				/ SAU
-17-205	/ 4.Ecommerce	/ tích vào dòng item vẫn bị tích tất cả			/ chuyển a Khánh
-18-209	/ 4.Ecommerce	/ nút import chưa có gì					/ chuyển a Khánh
-19-213	/ 10.Website	/ sai số trên tabs					/ lệch do API
-20-214	/ Tra cứu	/ chưa có thiết kế figma				/ chờ figma
-21-217	/ 7.phiếu xuất	/ xóa filter,column					/ 100%
-22-219	/ 4.Ecommerce	/ xóa filter,column					/ chuyển a Khánh
-23-220	/ 4.Ecommerce	/ sửa tabs						/ chuyển a Khánh
-24-222	/ 4.Ecommerce	/ thay đổi tabs						/ chuyển a Khánh
-25-225	/ 5.Đơn VC	/ thiếu tab hủy; hỏi a Dũng bảo ko có xóa đi		/ a Khánh lớn chưa cho done
-26-226	/ 5.Đơn VC	/ ko cho nhập vào ô chọn thời gian			/ 100%
-27-233	/ 5.Đơn VC	/ hiển thị khung xương sai khi ko có bản ghi		/ đã sửa -> 100
-28-232	/ 5.Đơn VC	/ thừa dấu phẩy ở màn danh sách				/ đã sửa -> 100
-29-231	/ 5.Đơn VC	/ chuyển key thành dữ lieu JP-VN => Nhật		/ đã sửa -> 100
-30-230	/ 5.Đơn VC	/ bỏ trg hình thức thanh toán trong tt thanh toán	/ đã sửa -> 100
-31-229	/ 5.Đơn VC	/ nỏ icon chỉnh sửa địa chỉ				/ đã sửa -> 100
-32-234	/ 5.Đơn VC	/ thiếu trạng thái trên Breadcrumb			/ đã sửa -> 100
-33-235	/ 5.Đơn VC	/ thiếu sđt nhân viên hỗ trợ				/ API trả về
-34-236	/ 4.Ecommerce	/ gộp các tabs lại					/ chuyển a Khánh
-35-237	/ 5.Đơn VC	/ chưa định dạng format trọng lượng			/ format đơn vị
+Tổng số (17)
+SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
+1-163	/ footer	/ chưa có link 'câu hỏi thường gặp'			/ sau
+2-164	/ footer	/ chưa có link 'điều khoản quy định'			/ sau
+5-171	/ 3.shopping	/ chi tiết sản phẩm -> tab đang bị vênh			/ chuyển a Khánh
+6-169	/ 3.shopping	/ chi tiết sản phẩm -> breadcrumb quá dài		/ chuyển a Khánh
+7-184	/ 9.paymentRe	/ API							/ kết nối API
+8-207	/ header	/ search tổng -> nhập, nhấn enter bị giật lag		/ chuyển a Khánh
+9-213	/ 10.website	/ API							/ sai API trả về
+10-214	/ tra cứu đơn	/ figma							/ chờ figma
+11-219	/ 4.Ecommerce	/ bỏ filter, columns					/ chuyển a Khánh
+12-220	/ 4.Ecommerce	/ sửa tab hiển thị dữ liệu				/ chuyển a Khánh
+14-235	/ 5.Đơn VC	/ chi tiết đơn vc -> thiếu dữ liệu sđt ng hỗ trợ	/ yêu cầu a Khánh lớn bổ sung -> API ko có
+15-237	/ 5.Đơn VC	/ chưa định dạng format trọng lương			/ đã sửa -> chưa cập nhật => format từ lúc tạo
+16-240	/ 10.website	/ sửa lại fontSize cho nó = 12px			/ đã sửa -> chưa cập nhật
+17-242	/ 5.Đơn VC	/ sửa lại Action: View khi hover link bị gạch chân	/ đã sửa -> chưa cập nhật
+18-243	/ 5.Đơn VC	/ tab trạng thái với đơn vận chuyển đang dày 2px	/ đã sửa -> chưa cập nhật
+19-241	/ 5.Đơn VC	/ màn chi tiết ngày tạo sai lệch => đưa về đúng r	/ đã sửa -> chưa cập nhật
+------------------------------------------------------------------------------------------------------------------------
+*CHỈNH SỬA THEO YÊU CẦU:
+ - tách riêng format theo 1 định dạng cố định xong sau đó sẽ tái sử dụng!
+ - chỉnh lại fontSize của header website = 12px					/ 			đã sửa
+ - chỉnh active tab của màn danh sách đang bị dày 2px				/ 			đã sửa		
+ - 5.Đơn VC	-> create -> input nhiều tracking 1 lúc thay vì gõ từng cái 1	/ KHÓ
+ - 5.Đơn VC	-> create -> sửa đổi mũi tên theo thiết kế figma		/ sửa được -> chưa sửa
+ - 5.Đơn VC	-> create -> ko riêng gì border ở đây nhưng nó bị dày quá	/ sửa được -> chưa sửa
+ - 5.Đơn VC	-> create -> bỏ điều kiện nhập đủ				/ TRUNG
+ - 5.Đơn VC	-> create -> sửa lại bộ trọn thành AutoComplete			/ TRUNG
+ - 5.Đơn VC	-> create -> trọng lượng tính theo gram khi được 1000 => 1,000	/ sửa được -> chưa sửa
+ - 5.Đơn VC	-> create -> vừa save vừa cộng package				/ TRUNG
+ - 5.Đơn VC	-> create -> thiếu ghi chú ở màn xem xét lại đơn tạo		/ sửa được -> chưa sửa
+ - chỉnh sửa lại phần nội dung trắng sữa cách 4 phía 40px			/ SAU
+ - 5.Đơn VC	-> create -> sửa lại nút thêm package làm trung tâm mấy cái kia xóa được	/ LUÔN
+ - 5.Đơn VC	-> create -> đang bị sai chỉ nhận tracking cuối thay vì các tracking còn lại	/ LUÔN
+ - 5.Đơn VC	-> create -> step1 cái địa chỉ của tuyến Mỹ khác luôn				/ LUÔN
 ------------------------------------------------------------------------------------------------------------------------
 kết nối API
 -----------
-5.Đơn VC:
- - kiểm tra dữ liệu đầu vào đưa đến: API check validate cho nó
- 5.1. Màn danh sách:
-	- search order		: OK
-	- search tracking	: còn do người dùng tạo đơn nếu bị trùng mã tracking nhưng làm sao validate tracking có hay ko trong dữ liệu ?
-	- trọng lượng	-> xem xét kĩ thì chưa format dấu ngăn cách ,. tạm thời chưa format do khi tạo, sai lệch số lượng bị trắng trang, test 999kg ko sao; 1500kg lỗi
-	- ngày đặt hàng	-> đang nhận thấy sai lệch ngày giờ đặt hàng kể cả trên portal cũ chắc do API
-	- Action: View	-> đổi lại cho hiển thị và thay = xem chi tiết
- 5.2. Màn chi tiết:
-	- breadcrumb	-> trạng thái thanh toán chưa được xử lý khi truyền qua Breadcrumb sẽ không có trạng thái này! -> đã sửa
-	- thông tin người nhận đang lấy từ tạo đơn là fake string
-	- ngày đặt hàng -> trong đơn chi tiết sai lệch so với màn danh sách
-	- Packages Tracking -> chưa có dữ liệu do chưa khai thác -> ngồi lại vs a Khánh để khai thác đơn
-	- đẩy ghi chú tại sao ko có? -> trước mắt tạo đơn ở portal cũ => sang portal mới tạo lại và so sánh
-5.3. Màn tạo đơn:
-	- API tạo đơn: 	- ShippingRouter/GetAll		 (lấy tất cả các tuyến theo code)
-			- CustomerAddress/GetListAddress (get ra danh sách địa chỉ để chọn)
-			- Warehouse/GetByRoute?route=JP-VN (lấy ra địa chỉ all, có kho hàng)
-			- 
-	- khi chọn tuyến hãy chọn luôn ngay phần tử đầu tiên địa chỉ [0]
-	- địa chỉ nhận hàng nếu ban đầu không có thì sao?? => phải có chỗ tạo chứ?
-	- 
-
+*5.Đơn VC:
+ *TẠO TRACE TRACKING:
+ - 
+ *TẠO ĐƠN MỚI:
+ - khi tạo đơn portal mới check lại các dữ liệu mình tạo đã lên hết chưa?!			/ LUÔN
+ - 
