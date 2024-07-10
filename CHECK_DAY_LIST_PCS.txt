@@ -4,7 +4,7 @@ Ngày cập nhật: 08/07/2024
 -------------------------
 ! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
-- hộp bánh danisa -> vừa
+- hộp bánh danisa -> vừa -> MANG BANH
 - Cốc thuốc:
 	- xịt mũi x1 -> 80%
 	- nhỏ mũi x2 -> 50% - 80%
@@ -14,7 +14,7 @@ Ngày cập nhật: 08/07/2024
 - chai nước -> OK
 - case máy tính -> hơi lỏng dây -> OK
 - gối cong -> nằm hơi đau đầu -> chưa thay đc gối mới vì nó gọn vs ngủ cx dễ chịu rồi
-- balo*
+- balo* -> MANG THUOC
 - kẹo xilytol x1 hộp -> hết, 1 hộp 55k -> hơi đắt ko bt nên mua tiếp ko? -> NÊN -> VÌ -> mồm có mùi
 - giấy ăn x2 bịch nhỏ -> nhiều, nhà còn nhiều có thể cung cấp được
 - tai nghe có dây -> ổn -> nó không bị hỏng, gạt nhầm chức năng S-N
@@ -41,5 +41,7 @@ Ngày cập nhật: 08/07/2024
 	- [gitlab] -> a Khánh check hằng ngày xem cập nhật gì rồi?
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
+ - MANG -> bánh lên cty
+ - MANG -> thuoc len cty
  - MANG -> x2 gói giấy ăn lên cty
 ----------------------------------------------------------------------------

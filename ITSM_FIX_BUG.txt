@@ -4,31 +4,43 @@ Ngày cập nhật: 09/07/2024
 -------------------------
 Tổng số (17)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
-1-163	/ footer	/ chưa có link 'câu hỏi thường gặp'			/ sau
-2-164	/ footer	/ chưa có link 'điều khoản quy định'			/ sau
-5-171	/ 3.shopping	/ chi tiết sản phẩm -> tab đang bị vênh			/ chuyển a Khánh
-6-169	/ 3.shopping	/ chi tiết sản phẩm -> breadcrumb quá dài		/ chuyển a Khánh
-7-184	/ 9.paymentRe	/ API							/ kết nối API
-8-207	/ header	/ search tổng -> nhập, nhấn enter bị giật lag		/ chuyển a Khánh
-9-213	/ 10.website	/ API							/ sai API trả về
-10-214	/ tra cứu đơn	/ figma							/ chờ figma
-11-219	/ 4.Ecommerce	/ bỏ filter, columns					/ chuyển a Khánh
-12-220	/ 4.Ecommerce	/ sửa tab hiển thị dữ liệu				/ chuyển a Khánh
-14-235	/ 5.Đơn VC	/ chi tiết đơn vc -> thiếu dữ liệu sđt ng hỗ trợ	/ yêu cầu a Khánh lớn bổ sung -> API ko có
-15-237	/ 5.Đơn VC	/ chưa định dạng format trọng lương			/ đã sửa -> chưa cập nhật => format từ lúc tạo
-16-240	/ 10.website	/ sửa lại fontSize cho nó = 12px			/ đã sửa -> chưa cập nhật
-17-242	/ 5.Đơn VC	/ sửa lại Action: View khi hover link bị gạch chân	/ đã sửa -> chưa cập nhật
-18-243	/ 5.Đơn VC	/ tab trạng thái với đơn vận chuyển đang dày 2px	/ đã sửa -> chưa cập nhật
-19-241	/ 5.Đơn VC	/ màn chi tiết ngày tạo sai lệch => đưa về đúng r	/ đã sửa -> chưa cập nhật
+1-163	/ footer	/ chưa có link 'câu hỏi thường gặp'			/ chờ figma - SAU
+2-164	/ footer	/ chưa có link 'điều khoản quy định'			/ chờ figma - SAU
+3-171	/ 3.Shopping	/ chi tiết -> tab đang bị vênh so với cái divider	/ chuyển a Khánh b
+4-169	/ 3.Shopping	/ chi tiết -> Breadcrumb -> quá dài			/ chuyển a Khánh b
+5-184	/ 9.Payment	/ API: lịch sử giao dịch				/ API
+6-207	/ header	/ thanh search tổng nhập, nhấn enter bị giật		/ chuyển a Khánh b
+7-213	/ 10.Website	/ sai số do API truyền vào				/ API
+8-214	/ ?.Tra cứu	/ chưa có thiết kế					/ chờ figma - SAU
+10-220	/ 4.Ecommerce	/ sửa lại tiêu đề Đang giao hàng -> Đang giao		/ chuyển a Khánh b => check
+11-235	/ 5.Đơn VC	/ thiếu sđt nv hỗ trợ					/ API
 ------------------------------------------------------------------------------------------------------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
+Màn 2: Dashboard:
+ - Giao dịch gần nhất:nếu ko có dữ liệu thêm hình ảnh mô tả chứ ko để trắng trang			/ sửa được
+ - Đơn hàng gần đây: liên quan đến tiền nong căn phải							/ đã sửa
+ - Đơn hàng gần đây: xử lý các đơn thay đổi thay vì đơn mới (đơn gần đây!)				/ chuyển a Khánh
+n 4: Ecommerce:
+ *Màn tạo đơn:
+	- step 1 -> đơn vị tính giá bị nhỏ ko đều khi chưa chọn tuyến					/ chuyển a Khánh
+Màn 5. Đơn hàng vận chuyển:
+ *Màn danh sách:
+	- search thời gian -> search 10 ngày nhưng khi về màn lại bị bay section -> sửa lại toàn bộ url	/ đã sửa
+	- 
+ *Màn chi tiết:
+	- 
+CHƯA:
+ - thêm địa chỉ khi không có địa chỉ nào
  - tách riêng format theo 1 định dạng cố định xong sau đó sẽ tái sử dụng!
+-----------------------------------------------------------------------------------------------------------
+ - 5.Đơn VC	-> create -> yêu cầu từ API trả về phương thức vận chuyển của kho: SEA or AIR/		API
+ - 5.Đơn VC	-> create -> xóa tuyến VN								đã sửa
  - chỉnh lại fontSize của header website = 12px					/ 			đã sửa
- - chỉnh active tab của màn danh sách đang bị dày 2px				/ 			đã sửa		
- - 5.Đơn VC	-> create -> input nhiều tracking 1 lúc thay vì gõ từng cái 1	/ KHÓ
- - 5.Đơn VC	-> create -> sửa đổi mũi tên theo thiết kế figma		/ sửa được -> chưa sửa
- - 5.Đơn VC	-> create -> ko riêng gì border ở đây nhưng nó bị dày quá	/ sửa được -> chưa sửa
- - 5.Đơn VC	-> create -> bỏ điều kiện nhập đủ				/ TRUNG
+ - chỉnh active tab của màn danh sách đang bị dày 2px				/ 			đã sửa
+ - 5.Đơn VC	-> create -> input nhiều tracking 1 lúc thay vì gõ từng cái 1	/ 			đã sửa
+ - 5.Đơn VC	-> create -> sửa đổi mũi tên theo thiết kế figma		/ 			đã sửa
+ - 5.Đơn VC	-> create -> ko riêng gì border ở đây nhưng nó bị dày quá	/ 			đã sửa
+ - 5.Đơn VC	-> create -> bỏ điều kiện nhập đủ				/ 			đã sửa
  - 5.Đơn VC	-> create -> sửa lại bộ trọn thành AutoComplete			/ TRUNG
  - 5.Đơn VC	-> create -> trọng lượng tính theo gram khi được 1000 => 1,000	/ sửa được -> chưa sửa
  - 5.Đơn VC	-> create -> vừa save vừa cộng package				/ TRUNG
@@ -36,7 +48,7 @@ SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
  - chỉnh sửa lại phần nội dung trắng sữa cách 4 phía 40px			/ SAU
  - 5.Đơn VC	-> create -> sửa lại nút thêm package làm trung tâm mấy cái kia xóa được	/ LUÔN
  - 5.Đơn VC	-> create -> đang bị sai chỉ nhận tracking cuối thay vì các tracking còn lại	/ LUÔN
- - 5.Đơn VC	-> create -> step1 cái địa chỉ của tuyến Mỹ khác luôn				/ LUÔN
+ - 5.Đơn VC	-> create -> step1 cái địa chỉ của tuyến Mỹ khác luôn				/ 	đã sửa
 ------------------------------------------------------------------------------------------------------------------------
 kết nối API
 -----------
