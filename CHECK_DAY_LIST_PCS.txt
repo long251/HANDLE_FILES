@@ -1,47 +1,48 @@
 CTY_PCS
 -------
-Ngày cập nhật: 08/07/2024
+Ngày cập nhật: 11/07/2024
 -------------------------
 ! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
-- hộp bánh danisa -> vừa -> MANG BANH
+- hộp bánh danisa
 - Cốc thuốc:
 	- xịt mũi x1 -> 80%
 	- nhỏ mũi x2 -> 50% - 80%
-	- thuốc đỏ nhỏ x1 -> 40% (đã thay mới)
-	- kéo nhỏ x1 -> OK
-	- âu gâu nhỏ x5 -> OK
-- chai nước -> OK
-- case máy tính -> hơi lỏng dây -> OK
+	- thuốc đỏ nhỏ x1 -> 40%
+	- kéo nhỏ x1
+	- âu gâu nhỏ x5
+- chai nước
+- (chai nước ngọt)
+- case máy tính -> hơi lỏng dây
 - gối cong -> nằm hơi đau đầu -> chưa thay đc gối mới vì nó gọn vs ngủ cx dễ chịu rồi
-- balo* -> MANG THUOC
-- kẹo xilytol x1 hộp -> hết, 1 hộp 55k -> hơi đắt ko bt nên mua tiếp ko? -> NÊN -> VÌ -> mồm có mùi
-- giấy ăn x2 bịch nhỏ -> nhiều, nhà còn nhiều có thể cung cấp được
-- tai nghe có dây -> ổn -> nó không bị hỏng, gạt nhầm chức năng S-N
-- bút bi x3 -> nhiều
-- sổ tay -> note: tip, issue cần làm, sửa -> mới
+- balo*
+- kẹo xilytol x1 hộp = 55k
+- giấy ăn x1 bịch nhỏ
+- tai nghe có dây x1
+- bút bi x3
+- vở ghi
 - iphone*
-- Màn PC (PCS) x2 -> dùng được, 2 màn hơi khác màu do điều chỉnh -> vẫn OK
+- Màn PC (PCS) x2
 - chuột công thái học
 - bàn phím rapoo
 - nhỏ mắt -> 80%
-- giấy note -> nhiều
+- giấy note
 *PC (PCS):
- - [HANDLE_FILES] -> học tập, note code, lưu ảnh, CHECK_DAY_LIST_PCS...		-> chiều về -> đẩy lên github
- - [TRANSONLINE-PORTAL] -> làm giao diện thiết kế UI, React, fix lỗi ITSM...	-> CÔNG VIỆC CHÍNH
- - [PO] -> tham khảo
+ - [HANDLE_FILES]	-> lưu file (github)
+ - [TRANSONLINE-PORTAL] -> thiết kế UI, connect API (gitlab)
+ - [PO] 		-> tham khảo cho PORTAL mới
  - [Pictures] -> [Screenshots] -> xóa ảnh chụp 1 tuần / lần
  - Cốc cốc:
-	- [gmail] -> check thư điện tử everyday!
+	- [gmail] -> check thư điện tử hàng ngày!
      *[KHÁC]:
-	- [Client LMHT] -> lướt vào hằng ngày xem có bản cập nhật nào mới ko? hoặc check thông báo từ fp
-	- [alagod bể cá] -> check hằng ngày xem có hàng mới? hỏi giảm giá? M đồ thêm...
-	- [CNTT] -> tích hợp file này vào trong [HANDLE_FILES] => tham khảo
-	- [ITSM] -> check hằng ngày để kiểm tra lỗi và cập nhật [HANDLE_FILES] -> [Riêng ITSM]
-	- [gitlab] -> a Khánh check hằng ngày xem cập nhật gì rồi?
+	- [Client LMHT] -> check cập nhật bản mới hàng ngày!
+	- [alagod cá] 	-> check đồ mới hàng ngày!
+	- [ITSM] 	-> check lỗi, cập nhật hàng ngày!
+	- [gitlab] 	-> check a Khánh cập nhật thỉnh thoảng!
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
- - MANG -> bánh lên cty
- - MANG -> thuoc len cty
- - MANG -> x2 gói giấy ăn lên cty
+ - MANG -> bánh
+ - MANG -> thuốc nâu > balo -> lên cty
+ - M	-> kẹo xylitol 55k nho tím
+ - MANG -> 01 bịch giấy ăn
 ----------------------------------------------------------------------------

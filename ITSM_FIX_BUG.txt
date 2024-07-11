@@ -8,12 +8,12 @@ SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 2-164	/ footer	/ chưa có link 'điều khoản quy định'			/ chờ figma - SAU
 3-171	/ 3.Shopping	/ chi tiết -> tab đang bị vênh so với cái divider	/ chuyển a Khánh b
 4-169	/ 3.Shopping	/ chi tiết -> Breadcrumb -> quá dài			/ chuyển a Khánh b
-5-184	/ 9.Payment	/ API: lịch sử giao dịch				/ API
+5-184	/ 9.Payment	/ API: lịch sử giao dịch				/ 	API
 6-207	/ header	/ thanh search tổng nhập, nhấn enter bị giật		/ chuyển a Khánh b
-7-213	/ 10.Website	/ sai số do API truyền vào				/ API
+7-213	/ 10.Website	/ sai số do API truyền vào				/ 	API
 8-214	/ ?.Tra cứu	/ chưa có thiết kế					/ chờ figma - SAU
-10-220	/ 4.Ecommerce	/ sửa lại tiêu đề Đang giao hàng -> Đang giao		/ chuyển a Khánh b => check
-11-235	/ 5.Đơn VC	/ thiếu sđt nv hỗ trợ					/ API
+9-220	/ 4.Ecommerce	/ sửa lại tiêu đề Đang giao hàng -> Đang giao		/ chuyển a Khánh b => thỉnh thoảng check
+10-247	/ 2.Dashboard	/ giao dịch gần nhất nếu ko có dữ liệu thêm ảnh		/ chờ figma - LUÔN
 ------------------------------------------------------------------------------------------------------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
 Màn 2: Dashboard:
