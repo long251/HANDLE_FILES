@@ -1,0 +1,10 @@
+LUỒNG CODE 'TẠO ĐƠN HÀNG VẬN CHUYỂN'
+------------------------------------
+- import
+- viết type
+- const CreateShippingOrders=()=>{content}
+- {content:
+	- hook useDispatch của redux; trả về hàm tham chiếu dispatch cho phép gửi action cập nhật trạng thái store
+	- hook useSelector của redux; chích xuất dữ liệu store; AppState tìm đến state đó
+	- 
+}

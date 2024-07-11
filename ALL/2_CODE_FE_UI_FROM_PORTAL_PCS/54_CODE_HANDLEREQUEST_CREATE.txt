@@ -1,0 +1,62 @@
+ const handleRequest = () => {
+    const orderTransportAddRequest = trackingData.map((tracking) =>
+      // {...tracking,
+      // shippingRouteCode: activeCountry,
+      //   shippingRouteId: 4,
+      //   currency: 'GBP',
+      //   warehouse: 'WUK',
+      //   addressId: 6546,
+      //   customerName: 'IT TEST 1 - KHONG MUA HANG',
+      //   customerAddress: '100 Hoàng Quốc Việt',
+      //   customerDistrict: 'Cầu Giấy',
+      //   customerPhone: '0375967251',
+      //   customerProvince: 'Hà Nội',
+      //   customerWard: 'Nghĩa Đô',
+      //   tracking: tracking.trackingCode,
+      //   surcharge: 0,
+      //   priceExpected: 0,
+      //   orderServices: ['SVC2306220001', 'SV02'],
+      //   totalAmount: 500000,}
+      ({
+        packages: tracking.packages.map((pack) => ({
+          packageProducts: pack.packageProducts.map((product) => ({
+            ...product,
+            priceStandard: product.priceStandard,
+            priceWeight: product.priceWeight,
+          })),
+          productAdd: {
+            weight: 0,
+            qty: 0,
+            price: 0,
+          },
+          ...tracking,
+          isEdit: false,
+
+          weightQuote: pack.weight,
+          length: pack.length,
+          height: pack.height,
+        })),
+        shippingRouteCode: activeCountry,
+        shippingRouteId: 1,
+        currency: exchangeRate().currencyCode,
+        warehouse: 'WUK',
+        addressId: 6546,
+        customerName: shippingOrdersState.address.find((add: any) => add.id === selectedAddress).name,
+        customerAddress: '100 Hoàng Quốc Việt',
+        customerDistrict: 'Cầu Giấy',
+        customerPhone: '0375967251',
+        customerProvince: 'Hà Nội',
+        customerWard: 'Nghĩa Đô',
+        tracking: tracking.trackingCode,
+        surcharge: 0,
+        priceExpected: 0,
+        orderServices: tracking.services.map((id: number) => services.find((s: any) => s.id === id).name),
+        totalAmount: 500000,
+      }),
+    );
+    const payload = {
+      orderTransportAddRequest,
+      paymentMethod: 'COD',
+    };
+    dispatch(shippingOrdersAction.fetchCreate(payload));
+  };

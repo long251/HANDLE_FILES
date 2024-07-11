@@ -1,6 +1,6 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 09/07/2024
+Ngày cập nhật: 11/07/2024
 -------------------------
 Tổng số (17)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
@@ -16,45 +16,40 @@ SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 10-247	/ 2.Dashboard	/ giao dịch gần nhất nếu ko có dữ liệu thêm ảnh		/ chờ figma - LUÔN
 ------------------------------------------------------------------------------------------------------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
+ -> tách riêng format thành 1 component riêng để tái sử dụng tăng hiệu suất nhưng mấy cái thời gian đang lệch -> để sau
 Màn 2: Dashboard:
  - Giao dịch gần nhất:nếu ko có dữ liệu thêm hình ảnh mô tả chứ ko để trắng trang			/ sửa được
- - Đơn hàng gần đây: liên quan đến tiền nong căn phải							/ đã sửa
  - Đơn hàng gần đây: xử lý các đơn thay đổi thay vì đơn mới (đơn gần đây!)				/ chuyển a Khánh
-n 4: Ecommerce:
+Màn 4: Ecommerce:
  *Màn tạo đơn:
 	- step 1 -> đơn vị tính giá bị nhỏ ko đều khi chưa chọn tuyến					/ chuyển a Khánh
 Màn 5. Đơn hàng vận chuyển:
  *Màn danh sách:
-	- search thời gian -> search 10 ngày nhưng khi về màn lại bị bay section -> sửa lại toàn bộ url	/ đã sửa
-	- 
+	- sửa lại tab tuyến và API mới theo chỉ đạo 11/07						/ chờ API
  *Màn chi tiết:
+	- more options -> chưa có mẫu in/copy đơn hàng							/ chờ figma
+	- thông tin người nhận -> có 1 số trường quan trọng đang fix cứng thông tin sửa ở chỗ tạo	/ sửa được
+ *Màn tạo đơn:
+	- chỉnh sửa lại nội dung UI màn nội dung tràn thêm ra và cách padding: 40px xung quanh		/ SAU
+   step 1:
+	- khi nhấn click nhấn luôn active vào địa chỉ được chọn liệu có đúng không? hỏi lại anh Đạt	/ sửa được
+	* Thêm mới địa chỉ nhận hàng ko đơn giản vì nó liên thông với Sổ địa chỉ tài khoản		/ KHÓ
+	- yêu cầu từ API trả về phương thức vận chuyển của địa chỉ kho AIR/SEA				/ API-CHƯA CÓ
+   step 2:
+	- tải file mẫu -> chưa có file mẫu để lấy ra, cũng chưa biết cách làm				/ KHÓ
+	- Nhập nhiều mã tracking cùng lúc -> in ra đúng số lượng nhưng create lên xem sao vd: 4 cái	/ xem xét
+	- chưa có import Excel, cũng chưa biết cách làm							/ KHÓ
+	! làm 1 tracking đơn hoàn chỉnh đã								/ quan trọng!
+	- lúc chọn sản phẩm -> danh mục sản phẩm -> chuyển thành AutoComplete				/ TRUNG
+	- lưu sản phẩm -> vừa lưu vừa tạo package							/ TRUNG
+     *tạo tracking:
+        *TH1: 1 tracking:
+	- sau khi nhập, nhấn OK tracking đầu tiên được in ra thì sẽ mở luôn cái iconEdit		/ xong
+	- tiếp tục sửa: sau khi nhập tracking và nhấn OK in cả iconEdit và iconProduct ra		/ nghĩ
 	- 
-CHƯA:
- - thêm địa chỉ khi không có địa chỉ nào
- - tách riêng format theo 1 định dạng cố định xong sau đó sẽ tái sử dụng!
------------------------------------------------------------------------------------------------------------
- - 5.Đơn VC	-> create -> yêu cầu từ API trả về phương thức vận chuyển của kho: SEA or AIR/		API
- - 5.Đơn VC	-> create -> xóa tuyến VN								đã sửa
- - chỉnh lại fontSize của header website = 12px					/ 			đã sửa
- - chỉnh active tab của màn danh sách đang bị dày 2px				/ 			đã sửa
- - 5.Đơn VC	-> create -> input nhiều tracking 1 lúc thay vì gõ từng cái 1	/ 			đã sửa
- - 5.Đơn VC	-> create -> sửa đổi mũi tên theo thiết kế figma		/ 			đã sửa
- - 5.Đơn VC	-> create -> ko riêng gì border ở đây nhưng nó bị dày quá	/ 			đã sửa
- - 5.Đơn VC	-> create -> bỏ điều kiện nhập đủ				/ 			đã sửa
- - 5.Đơn VC	-> create -> sửa lại bộ trọn thành AutoComplete			/ TRUNG
- - 5.Đơn VC	-> create -> trọng lượng tính theo gram khi được 1000 => 1,000	/ sửa được -> chưa sửa
- - 5.Đơn VC	-> create -> vừa save vừa cộng package				/ TRUNG
- - 5.Đơn VC	-> create -> thiếu ghi chú ở màn xem xét lại đơn tạo		/ sửa được -> chưa sửa
- - chỉnh sửa lại phần nội dung trắng sữa cách 4 phía 40px			/ SAU
- - 5.Đơn VC	-> create -> sửa lại nút thêm package làm trung tâm mấy cái kia xóa được	/ LUÔN
- - 5.Đơn VC	-> create -> đang bị sai chỉ nhận tracking cuối thay vì các tracking còn lại	/ LUÔN
- - 5.Đơn VC	-> create -> step1 cái địa chỉ của tuyến Mỹ khác luôn				/ 	đã sửa
+	*TH2: n trackings:
+	+ khi nhập nhiều tracking cùng 1 lúc thì nó sẽ chỉ mở rộng cái cuối thay vì mở tất cả hàm viết nhớ để ý!
+	+ 
+   step 3:
+	- thiếu ghi chú ở bước 3 và 4 có nghĩa là dữ liệu truyền chưa nhận được				/ TRUNG
 ------------------------------------------------------------------------------------------------------------------------
-kết nối API
------------
-*5.Đơn VC:
- *TẠO TRACE TRACKING:
- - 
- *TẠO ĐƠN MỚI:
- - khi tạo đơn portal mới check lại các dữ liệu mình tạo đã lên hết chưa?!			/ LUÔN
- - 
