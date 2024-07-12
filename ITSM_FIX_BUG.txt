@@ -1,8 +1,8 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 11/07/2024
+Ngày cập nhật: 12/07/2024
 -------------------------
-Tổng số (17)
+Tổng số ()
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 1-163	/ footer	/ chưa có link 'câu hỏi thường gặp'			/ chờ figma - SAU
 2-164	/ footer	/ chưa có link 'điều khoản quy định'			/ chờ figma - SAU
