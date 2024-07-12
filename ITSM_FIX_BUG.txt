@@ -23,10 +23,12 @@ Màn 2: Dashboard:
 Màn 4: Ecommerce:
  *Màn tạo đơn:
 	- step 1 -> đơn vị tính giá bị nhỏ ko đều khi chưa chọn tuyến					/ chuyển a Khánh
+-----------------------------------------------------------
 Màn 5. Đơn hàng vận chuyển:
  *Màn danh sách:
-	- sửa lại tab tuyến và API mới theo chỉ đạo 11/07						/ chờ API
+	- 
  *Màn chi tiết:
+	- sửa lại trạng thái cập nhật theo trackingStatusName, làm gì để hấng được nó?			/ chờ API
 	- more options -> chưa có mẫu in/copy đơn hàng							/ chờ figma
 	- thông tin người nhận -> có 1 số trường quan trọng đang fix cứng thông tin sửa ở chỗ tạo	/ sửa được
  *Màn tạo đơn:
