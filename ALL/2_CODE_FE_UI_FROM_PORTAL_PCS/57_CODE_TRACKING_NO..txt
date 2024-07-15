@@ -1,0 +1,322 @@
+CODE_TRACKING NO.
+-----------------
+  {expandedItem === item.trackingCode && (
+                                    <div>
+                                      <div
+                                        style={{
+                                          margin: '16px 0',
+                                          border: '1px dashed #D1D5DB',
+                                          width: '100%',
+                                        }}
+                                      >
+                                        <div
+                                          style={{
+                                            display: 'flex',
+                                            padding: '16px 20px',
+                                            justifyContent: 'space-between',
+                                            backgroundColor: '#0B3558',
+                                            color: '#FFFFFF',
+                                          }}
+                                        >
+                                          <div style={{ display: 'flex', gap: '16px' }}>
+                                            Tracking No. <div>{item.trackingCode}</div>
+                                          </div>
+                                          <div>
+                                            {item.packages.length} pkg | {weightToShow} kg
+                                          </div>
+                                        </div>
+
+                                        {item.packages.map((pkg, index) => (
+                                          <div key={index} className='Package_Item'>
+                                            <div
+                                              style={{
+                                                display: 'flex',
+                                                borderBottom: '1px dashed #D1D5DB',
+                                                justifyContent: 'space-between',
+                                                borderTop: '1px dashed #D1D5DB',
+                                              }}
+                                            >
+                                              <div style={{ display: 'flex' }}>
+                                                <div
+                                                  style={{
+                                                    borderRight: '1px dashed #D1D5DB',
+                                                    padding: '20px',
+                                                    borderLeft: 'unset',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                  }}
+                                                >
+                                                  <div
+                                                    className='Icon_Arrow_Expand'
+                                                    onClick={() => handleTogglePackageDetails(index)}
+                                                  >
+                                                    {expandedItemPackage === index ? (
+                                                      <IconArrowUp />
+                                                    ) : (
+                                                      <IconArrowDown />
+                                                    )}
+                                                  </div>
+                                                </div>
+                                                <div
+                                                  style={{
+                                                    padding: '20px',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    fontWeight: '700',
+                                                  }}
+                                                >
+                                                  Package #{index + 1}
+                                                </div>
+                                              </div>
+                                              <div style={{ padding: '20px' }}>
+                                                <div className='Delete_Package'>
+                                                  <Button onClick={() => handleRemovePackage(item.trackingCode, index)}>
+                                                    Xóa kiện hàng
+                                                  </Button>
+                                                </div>
+                                              </div>
+                                            </div>
+
+                                            {expandedItemPackage === index && (
+                                              <div>
+                                                <table className='Table_Package_Detail'>
+                                                  <tbody>
+                                                    <tr>
+                                                      <td style={{ width: '60px' }}></td>
+                                                      <td>#</td>
+                                                      <td>Tên sản phẩm</td>
+                                                      <td>Loại sản phẩm</td>
+                                                      <td>Số lượng</td>
+                                                      <td>Trọng lượng (kg)</td>
+                                                      <td>Giá trị</td>
+                                                      <td> </td>
+                                                    </tr>
+
+                                                    {pkg.packageProducts.map((p: any, i: number) => {
+                                                      return (
+                                                        <tr key={i}>
+                                                          <td></td>
+                                                          <td>{i + 1}</td>
+                                                          <td
+                                                            style={{
+                                                              display: 'flex',
+                                                              alignItems: 'center',
+                                                              justifyContent: 'center',
+                                                            }}
+                                                          >
+                                                            {expandedItem === item.trackingCode &&
+                                                            expandedItemPackage === index &&
+                                                            completedProducts.includes(i) ? (
+                                                              <p>{p.name}</p>
+                                                            ) : (
+                                                              <input
+                                                                type='text'
+                                                                value={p.name}
+                                                                onChange={(e) =>
+                                                                  setNameForProduct(
+                                                                    e.target.value,
+                                                                    i,
+                                                                    index,
+                                                                    item.trackingCode,
+                                                                  )
+                                                                }
+                                                                className='Style_Input'
+                                                              />
+                                                            )}
+                                                          </td>
+                                                          <td>
+                                                            {expandedItem === item.trackingCode &&
+                                                            expandedItemPackage === index &&
+                                                            completedProducts.includes(i) ? (
+                                                              <p>{p.nameCustom}</p>
+                                                            ) : (
+                                                              <select
+                                                                value={p.nameCustom}
+                                                                onChange={(e) =>
+                                                                  setTypeForProduct(
+                                                                    e.target.value,
+                                                                    i,
+                                                                    index,
+                                                                    item.trackingCode,
+                                                                  )
+                                                                }
+                                                                style={{ maxWidth: '200px' }}
+                                                              >
+                                                                <option style={{ maxWidth: '100px' }}>
+                                                                  Chọn danh mục sản phẩm
+                                                                </option>
+                                                                {packages?.map((p: any) => (
+                                                                  <option style={{ maxWidth: '100px' }}>
+                                                                    {p.name}
+                                                                  </option>
+                                                                ))}
+                                                              </select>
+                                                            )}
+                                                            {/* <Autocomplete
+                                                          options={packageOptions}
+                                                          selected={[selectedPackage]}
+                                                          onSelect={(selected) => {
+                                                            setSelectedPackage(selected[0]);
+                                                            const selectedText = selected.map((selectedItem) => {
+                                                              const matchedOption = packageOptions.find(
+                                                                (option: any) => {
+                                                                  return option['value'] == selectedItem;
+                                                                },
+                                                              );
+                                                              if (matchedOption) {
+                                                                return `${matchedOption['label']}`;
+                                                              }
+                                                              return '';
+                                                            });
+                                                            setSearchPackage(selectedText[0]);
+                                                          }}
+                                                          textField={
+                                                            <Autocomplete.TextField
+                                                              value={searchPackage}
+                                                              onChange={(value) => {
+                                                                setSearchPackage(value);
+                                                              }}
+                                                              suffix={<Icon source={PolarisIcons.CaretDownMinor} />}
+                                                              autoComplete={'off'}
+                                                              label={''}
+                                                            />
+                                                          }
+                                                        /> */}
+                                                          </td>
+                                                          <td>
+                                                            {expandedItem === item.trackingCode &&
+                                                            expandedItemPackage === index &&
+                                                            completedProducts.includes(i) ? (
+                                                              <p>{`SL: ${p.qty}`}</p>
+                                                            ) : (
+                                                              <input
+                                                                value={p.qty}
+                                                                onChange={(e) =>
+                                                                  setAmountForProduct(
+                                                                    e.target.value,
+                                                                    i,
+                                                                    index,
+                                                                    item.trackingCode,
+                                                                  )
+                                                                }
+                                                                type='number'
+                                                                className='Style_Input'
+                                                                // placeholder='Nhập số lượng'
+                                                              />
+                                                            )}
+                                                          </td>
+                                                          <td>
+                                                            {expandedItem === item.trackingCode &&
+                                                            expandedItemPackage === index &&
+                                                            completedProducts.includes(i) ? (
+                                                              <p>{`TL: ${p.weight}`} kg</p>
+                                                            ) : (
+                                                              <input
+                                                                type='number'
+                                                                value={p.weight}
+                                                                onChange={(e) =>
+                                                                  setWeightForProduct(
+                                                                    e.target.value,
+                                                                    i,
+                                                                    index,
+                                                                    item.trackingCode,
+                                                                  )
+                                                                }
+                                                                className='Style_Input'
+                                                              />
+                                                            )}
+                                                          </td>
+                                                          <td>
+                                                            <div
+                                                              style={{
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                justifyContent: 'center',
+                                                              }}
+                                                            >
+                                                              {expandedItem === item.trackingCode &&
+                                                              expandedItemPackage === index &&
+                                                              completedProducts.includes(i) ? (
+                                                                <p>{p.price * exchangeRate().exchangeRate} </p>
+                                                              ) : (
+                                                                <input
+                                                                  type='number'
+                                                                  value={p.price}
+                                                                  onChange={(e) =>
+                                                                    setPriceForProduct(
+                                                                      e.target.value,
+                                                                      i,
+                                                                      index,
+                                                                      item.trackingCode,
+                                                                    )
+                                                                  }
+                                                                  className='Style_Input'
+                                                                  style={{ width: '80px' }}
+                                                                />
+                                                              )}
+                                                            </div>
+                                                          </td>
+                                                          <td>
+                                                            <div
+                                                              style={{
+                                                                display: 'flex',
+                                                                gap: '8px',
+                                                                alignItems: 'center',
+                                                                justifyContent: 'center',
+                                                              }}
+                                                            >
+                                                              <div
+                                                                className='Style_Icon_Edit_Delete'
+                                                                onClick={() =>
+                                                                  handleDeleteProduct(i, index, item.trackingCode)
+                                                                }
+                                                              >
+                                                                <IconDelete />
+                                                              </div>
+
+                                                              <div
+                                                                className='Style_Icon_Edit_Delete'
+                                                                onClick={() => {
+                                                                  handleSaveProduct(item.trackingCode, index, i);
+                                                                }}
+                                                              >
+                                                                <IconAddProduct />
+                                                              </div>
+                                                            </div>
+                                                          </td>
+                                                        </tr>
+                                                      );
+                                                    })}
+                                                  </tbody>
+                                                </table>
+                                                <div
+                                                  onClick={() => {
+                                                    handleAddProduct(index, item.trackingCode);
+                                                  }}
+                                                  style={{
+                                                    display: 'flex',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                    padding: '8px',
+                                                    backgroundColor: '#D1D5DB',
+                                                    margin: '8px auto',
+                                                    width: 'fit-content',
+                                                    textAlign: 'center',
+                                                    cursor: 'pointer',
+                                                    borderRadius: '8px',
+                                                  }}
+                                                >
+                                                  <div>Thêm sản phẩm</div>
+                                                </div>
+                                              </div>
+                                            )}
+                                          </div>
+                                        ))}
+                                        <div className='Add_Package'>
+                                          <Button onClick={() => handleAddPackage(item.trackingCode)}>
+                                            Thêm Package
+                                          </Button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )}

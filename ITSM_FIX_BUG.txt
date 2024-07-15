@@ -1,6 +1,6 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 13/07/2024
+Ngày cập nhật: 15/07/2024
 -------------------------
 Tổng số ()
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
@@ -9,7 +9,6 @@ SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 3-171	/ 3.Shopping	/ chi tiết -> tab đang bị vênh so với cái divider	/ chuyển a Khánh b
 4-169	/ 3.Shopping	/ chi tiết -> Breadcrumb -> quá dài			/ chuyển a Khánh b
 5-184	/ 9.Payment	/ API: lịch sử giao dịch				/ 	API
-6-207	/ header	/ thanh search tổng nhập, nhấn enter bị giật		/ chuyển a Khánh b
 7-213	/ 10.Website	/ sai số do API truyền vào				/ 	API
 8-214	/ ?.Tra cứu	/ chưa có thiết kế					/ chờ figma - SAU
 9-220	/ 4.Ecommerce	/ sửa lại tiêu đề Đang giao hàng -> Đang giao		/ chuyển a Khánh b => thỉnh thoảng check
@@ -26,6 +25,7 @@ Màn 4: Ecommerce:
 	- step 1 -> đơn vị tính giá bị nhỏ ko đều khi chưa chọn tuyến					/ chuyển a Khánh
 -----------------------------------------------------------
 Màn 5. Đơn hàng vận chuyển:
+==> giải quyết 
  *Màn danh sách:
 	- xóa bỏ hoặc giữ lại outline màu xanh nước							/ SAU
  *Màn chi tiết:
@@ -33,10 +33,16 @@ Màn 5. Đơn hàng vận chuyển:
  *Màn tạo đơn:
 	- chỉnh sửa lại nội dung UI màn nội dung tràn thêm ra và cách padding: 40px xung quanh		/ SAU
    step 1:
-	- khi nhấn click nhấn luôn active vào địa chỉ được chọn liệu có đúng không? hỏi lại anh Đạt	/ sửa được
+	- khi nhấn click nhấn luôn active vào địa chỉ được chọn liệu có đúng không? hỏi lại anh Đạt	/ sửa được-SAU
 	* Thêm mới địa chỉ nhận hàng ko đơn giản vì nó liên thông với Sổ địa chỉ tài khoản		/ KHÓ
 	- yêu cầu từ API trả về phương thức vận chuyển của địa chỉ kho AIR/SEA				/ API-CHƯA CÓ
    step 2:
+	*TH1: nhập 1 mã tracking
+	- s2.1: 
+		- ITTEST1501_1	>  Services: gom hàng, check	>  IT TEST HE THONG 1
+		- gà rán	>  bóng đèn	>  2,3,4	> SAVE!
+	=> chưa gõ text ăn theo ở AutoCOmplete
+	-------------------------------------------------------------------------------------------------
 	- tải file mẫu -> chưa có file mẫu để lấy ra, cũng chưa biết cách làm				/ KHÓ
 	- chưa có import Excel, cũng chưa biết cách làm							/ KHÓ
 	- lúc chọn sản phẩm -> danh mục sản phẩm -> chuyển thành AutoComplete				/ TRUNG

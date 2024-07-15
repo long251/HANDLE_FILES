@@ -1,6 +1,6 @@
 CTY_PCS
 -------
-Ngày cập nhật: 13/07/2024
+Ngày cập nhật: 15/07/2024
 -------------------------
 ! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
@@ -41,8 +41,5 @@ Ngày cập nhật: 13/07/2024
 	- [gitlab] 	-> check a Khánh cập nhật thỉnh thoảng!
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
- - MANG -> thuốc nâu > balo -> lên cty
  - M	-> kẹo xylitol 55k nho tím
- - MANG -> giấy ăn x1 bịch
-
 ----------------------------------------------------------------------------
