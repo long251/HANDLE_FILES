@@ -1,33 +1,34 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 15/07/2024
+Ngày cập nhật: 22/07/2024
 -------------------------
-Tổng số ()
+Tổng số (6)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 1-163	/ footer	/ chưa có link 'câu hỏi thường gặp'			/ chờ figma - SAU
 2-164	/ footer	/ chưa có link 'điều khoản quy định'			/ chờ figma - SAU
-3-171	/ 3.Shopping	/ chi tiết -> tab đang bị vênh so với cái divider	/ chuyển a Khánh b
-4-169	/ 3.Shopping	/ chi tiết -> Breadcrumb -> quá dài			/ chuyển a Khánh b
-5-184	/ 9.Payment	/ API: lịch sử giao dịch				/ 	API
-7-213	/ 10.Website	/ sai số do API truyền vào				/ 	API
-8-214	/ ?.Tra cứu	/ chưa có thiết kế					/ chờ figma - SAU
-9-220	/ 4.Ecommerce	/ sửa lại tiêu đề Đang giao hàng -> Đang giao		/ chuyển a Khánh b => thỉnh thoảng check
-10-247	/ 2.Dashboard	/ giao dịch gần nhất nếu ko có dữ liệu thêm ảnh		/ chờ figma - LUÔN
-11-249	/ 5.Đơn VC	/ tạo đơn -> chưa có thêm mới địa chỉ			/ KHÓ
+3-169	/ 3.Shopping	/ chi tiết -> Breadcrumb -> quá dài			/ chuyển a Khánh b
+4-213	/ 10.Website	/ sai số do API truyền vào				/ 	API
+5-255	/ 5.Đơn VC	/ chưa hiển thị thông tin AIR/SEA			/ 	API
+6-260	/ 5.Đơn VC	/ tạo đơn -> chưa có nút import dữ liệu tạo nhiều đơn từ file excel	/ KHÓ (ở step 2)
 ------------------------------------------------------------------------------------------------------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
  -> tách riêng format thành 1 component riêng để tái sử dụng tăng hiệu suất nhưng mấy cái thời gian đang lệch -> để sau
 Màn 2: Dashboard:
- - Giao dịch gần nhất:nếu ko có dữ liệu thêm hình ảnh mô tả chứ ko để trắng trang			/ sửa được
  - Đơn hàng gần đây: xử lý các đơn thay đổi thay vì đơn mới (đơn gần đây!)				/ chuyển a Khánh
-Màn 4: Ecommerce:
- *Màn tạo đơn:
-	- step 1 -> đơn vị tính giá bị nhỏ ko đều khi chưa chọn tuyến					/ chuyển a Khánh
+*HỌP TRANS 18/07/2024:
+ - khi vào trang đầu tiên sẽ thấy shopping thay vì dashboard
+ - các màn tạo đơn vận chuyển cho phép khách tạo đơn từ file excel
+________________________________________________________________________________________________________________________
+CÁC MÀN GIAO DIỆN
+-----------------
+Màn 2. Dashboard:
+- Đơn hàng gần đây	-> trạng thái ở đây chỉ trả về 'chờ xử lý' => mong muốn nhiều đơn gần đây!	/ chuyển a Khánh
 -----------------------------------------------------------
 Màn 5. Đơn hàng vận chuyển:
-==> giải quyết 
  *Màn danh sách:
-	- xóa bỏ hoặc giữ lại outline màu xanh nước							/ SAU
+	- xóa bỏ hoặc giữ lại outline màu xanh nước sao cho đồng bộ					/ KHÓ-SAU
+	- sửa lại Action-View sao cho giống với Đơn Ecommerce						/ SỬA ĐƯỢC
+	- 
  *Màn chi tiết:
 	- more options -> chưa có mẫu in/copy đơn hàng							/ chờ figma-KHÓ
  *Màn tạo đơn:
