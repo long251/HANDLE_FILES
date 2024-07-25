@@ -1,17 +1,15 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 24/07/2024
+Ngày cập nhật: 25/07/2024
 -------------------------
-Tổng số (8)
+Tổng số (6)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 1-163	/ footer	/ chưa có link 'câu hỏi thường gặp'			/ chờ figma - SAU
 2-164	/ footer	/ chưa có link 'điều khoản quy định'			/ chờ figma - SAU
 3-169	/ 3.Shopping	/ chi tiết -> Breadcrumb -> quá dài			/ chuyển a Khánh b
 4-213	/ 10.Website	/ sai số do API truyền vào				/ 	API
-5-255	/ 5.Đơn VC	/ chưa hiển thị thông tin AIR/SEA			/ 	API
+5-214	/ Tra cứu đơn	/ thiếu tra cứu đơn hàng				/ 	CHỜ LỆNH
 6-260	/ 5.Đơn VC	/ tạo đơn -> chưa có nút import dữ liệu tạo nhiều đơn từ file excel	/ KHÓ (ở step 2)
-7-261	/ 2.Dashboard	/ sai thông tin tiêu đề bảng tỷ giá 'ngoại tệ'		/ đã sửa => chưa cập nhật
-8-214	/ Tra cứu đơn	/ thiếu tra cứu đơn hàng				/ 	CHỜ LỆNH
 ------------------------------------------------------------------------------------------------------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
  -> tách riêng format thành 1 component riêng để tái sử dụng tăng hiệu suất nhưng mấy cái thời gian đang lệch -> để sau
@@ -19,7 +17,7 @@ Màn 2: Dashboard:
  - Đơn hàng gần đây: xử lý các đơn thay đổi thay vì đơn mới (đơn gần đây!)				/ chuyển a Khánh
 *HỌP TRANS 18/07/2024:
  - khi vào trang đầu tiên sẽ thấy shopping thay vì dashboard
- - các màn tạo đơn vận chuyển cho phép khách tạo đơn từ file excel
+ - các màn tạo đơn vận chuyển cho phép khách tạo đơn từ file excel					/ LÀM KIỂU GÌ?
 ________________________________________________________________________________________________________________________
 CÁC MÀN GIAO DIỆN
 -----------------
@@ -30,26 +28,20 @@ Màn 5. Đơn hàng vận chuyển:
  *Màn danh sách:
 	- xóa bỏ hoặc giữ lại outline màu xanh nước sao cho đồng bộ					/ KHÓ-SAU
 	- sửa lại Action-View sao cho giống với Đơn Ecommerce						/ SỬA ĐƯỢC
-	- 
  *Màn chi tiết:
-	- more options -> chưa có mẫu in/copy đơn hàng							/ chờ figma-KHÓ
  *Màn tạo đơn:
 	- chỉnh sửa lại nội dung UI màn nội dung tràn thêm ra và cách padding: 40px xung quanh		/ SAU
    step 1:
-	- khi nhấn click nhấn luôn active vào địa chỉ được chọn liệu có đúng không? hỏi lại anh Đạt	/ sửa được-SAU
-	* Thêm mới địa chỉ nhận hàng ko đơn giản vì nó liên thông với Sổ địa chỉ tài khoản		/ KHÓ
 	- yêu cầu từ API trả về phương thức vận chuyển của địa chỉ kho AIR/SEA				/ API-CHƯA CÓ
    step 2:
-	*TH1: nhập 1 mã tracking
-	- s2.1: 
-		- ITTEST1501_1	>  Services: gom hàng, check	>  IT TEST HE THONG 1
-		- gà rán	>  bóng đèn	>  2,3,4	> SAVE!
-	=> chưa gõ text ăn theo ở AutoCOmplete
-	-------------------------------------------------------------------------------------------------
-	- tải file mẫu -> chưa có file mẫu để lấy ra, cũng chưa biết cách làm				/ KHÓ
+	- tải file mẫu -> chưa có file mẫu để lấy ra, cũng chưa biết cách làm				/ đã tải file
 	- chưa có import Excel, cũng chưa biết cách làm							/ KHÓ
-	- lúc chọn sản phẩm -> danh mục sản phẩm -> chuyển thành AutoComplete				/ TRUNG
-     *tạo tracking:
    step 3:
-	- chưa check trùng tracking nên là khi nhập xong vẫn ko trả ra tracking ở màn danh sách		/ LUÔN
+	- chưa check trùng tracking nên là khi nhập xong vẫn ko trả ra tracking ở màn danh sách		/ KHÓ client
 ------------------------------------------------------------------------------------------------------------------------
+Màn 7. Danh sách phiếu xuất (DeliveryBill):
+ *LOGIC:
+	- xóa dữ liệu mẫu
+	- xóa đoạn phân trang
+	- rowMarkup đang sử dụng dữ liệu mẫu
+	- 
