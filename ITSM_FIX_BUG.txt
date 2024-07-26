@@ -1,6 +1,6 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 25/07/2024
+Ngày cập nhật: 26/07/2024
 -------------------------
 Tổng số (6)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
@@ -16,8 +16,13 @@ SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 Màn 2: Dashboard:
  - Đơn hàng gần đây: xử lý các đơn thay đổi thay vì đơn mới (đơn gần đây!)				/ chuyển a Khánh
 *HỌP TRANS 18/07/2024:
- - khi vào trang đầu tiên sẽ thấy shopping thay vì dashboard
- - các màn tạo đơn vận chuyển cho phép khách tạo đơn từ file excel					/ LÀM KIỂU GÌ?
+ - khi vào trang đầu tiên sẽ thấy shopping thay vì dashboard						/ xong
+ - các màn tạo đơn vận chuyển cho phép khách tạo đơn từ file excel					/ đẩy xuống dưới
+*HỌP TRANS 26/07/2024:
+ - file mẫu tạo đơn vận chuyển (đã có) xử lý tạo đơn từ file excel					/ KHÓ
+ - Dịch vụ cộng thêm loại bỏ các hết chỉ để lại dịch vụ (Kiểm hàng và chụp ảnh) hiển thị giá 250k/lần.	/ hỏi lại step 2
+ - Màn tạo đơn vận chuyển bỏ nút (Thêm kiện hàng).							/ sửa được
+ - Màn phiếu xuất kho không xem chi tiết phiếu xuất kho nữa mà sẽ bổ sung thêm 1 nút tải file excel ở từng phiếu xuất kho. 													/ View -> excel
 ________________________________________________________________________________________________________________________
 CÁC MÀN GIAO DIỆN
 -----------------
@@ -33,6 +38,7 @@ Màn 5. Đơn hàng vận chuyển:
 	- chỉnh sửa lại nội dung UI màn nội dung tràn thêm ra và cách padding: 40px xung quanh		/ SAU
    step 1:
 	- yêu cầu từ API trả về phương thức vận chuyển của địa chỉ kho AIR/SEA				/ API-CHƯA CÓ
+	- nếu chưa có địa chỉ giao hàng hãy chặn ngay từ step1 không cho tiếp tục			/ SỬA ĐƯỢC
    step 2:
 	- tải file mẫu -> chưa có file mẫu để lấy ra, cũng chưa biết cách làm				/ đã tải file
 	- chưa có import Excel, cũng chưa biết cách làm							/ KHÓ
@@ -40,8 +46,3 @@ Màn 5. Đơn hàng vận chuyển:
 	- chưa check trùng tracking nên là khi nhập xong vẫn ko trả ra tracking ở màn danh sách		/ KHÓ client
 ------------------------------------------------------------------------------------------------------------------------
 Màn 7. Danh sách phiếu xuất (DeliveryBill):
- *LOGIC:
-	- xóa dữ liệu mẫu
-	- xóa đoạn phân trang
-	- rowMarkup đang sử dụng dữ liệu mẫu
-	- 

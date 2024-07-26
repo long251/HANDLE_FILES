@@ -1,0 +1,33 @@
+- dispatch
+- state từ Redux Store
+- useE (dispatch)
+- logic chuyển trang trong 1 trang tạo đơn (trang lớn): selected
+---------------------Step 1-------------------------------------
+- format: nước sang lá cờ
+- format: chuyển tiền theo nước
+- format: chuyển tiền sang biểu tượng theo nước
+- format: chuyển tên route sang tuyến 
+- activeCountry; hoverCountry; 
+- activeAddress; hoverAddress;
+- mở rộng địa chỉ nhận theo Modal; lựa chọn địa chỉ nhận; handleSaveAddress; useE (địa chỉ mặc định)
+- func: thêm địa chỉ ; hàm reset
+---------------------Step 2-------------------------------------
+- const [trackingCodeInput, setTrackingCodeInput] = useState<string>('');
+- obj mẫu khi khởi tạo:
+	- defaultProduct {
+		tên	/ tên sản phẩm	/ hình ảnh	/ qty	/ giá	/giá cân / cân	/ giá tiêu chuẩn
+	- defaultPack {
+		tracking/ weight / rộng x cao x dài / note /  packageProducts: [defaultProduct]
+     - trackingData [
+		trackingCode, ... lấy lại ở bên trên
+- services []
+- activePopover: mở dịch vụ
+- expandedItem: mở nút Edit
+- nhấn enter OK; nhập trackingCodeSubmit; 
+replace(/\s+/g, ' '): Thay thế tất cả các khoảng trắng liên tiếp bằng một khoảng trắng duy nhất.
+trim(): Xóa khoảng trắng ở đầu và cuối chuỗi.
+split(' '): Phân tách chuỗi thành mảng các mã theo dõi.
+
+- ...
+ ---------------------Step 3-------------------------------------
+- row2: bảng dữ liệu in
