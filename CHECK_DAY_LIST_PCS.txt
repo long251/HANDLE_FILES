@@ -1,6 +1,6 @@
 CTY_PCS
 -------
-Ngày cập nhật: 26/07/2024
+Ngày cập nhật: 29/07/2024
 -------------------------
 ! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
