@@ -1,0 +1,164 @@
+const CreateShippingOrders = () => {
+LOGIC
+// Logic Navigation Selected Page
+  const location = useLocation();
+  const [selected, setSelected] = useState(location.state?.selected || 0);
+  const handleSelectPageChange = useCallback((selectedTabIndex: number) => setSelected(selectedTabIndex), []);
+
+ const navigate = useNavigate();
+  const handleImportClick = () => {
+    const selectedAdd = shippingOrdersState.address.find((add) => add.id === selectedAddress);
+    const dataToImport = {
+      routeImport: activeCountry,
+      warehouseImport: warehouseName,
+      recipient: selectedAdd,
+      selectedImport: selected
+        ? {
+            name: selectedAdd.name,
+            phone: selectedAdd.phone,
+            address: selectedAdd.fullAddress,
+          }
+        : null,
+    };
+    navigate('/don-hang-van-chuyen/tao-moi/import', { state: dataToImport });
+  };
+RETURN
+{selected === 1 && (
+                  <div>
+                    <div className='Shipping_Information'>
+                      <div className='Enter_Tracking_Code'>
+                        <div className='Label_Tracking_Code'>
+                          <div style={{ marginBottom: '20px', whiteSpace: 'nowrap' }}>Nhập mã tracking</div>
+                          <div
+                            style={{
+                              flexGrow: '1',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              flexDirection: 'column',
+                              gap: '4px',
+                            }}
+                          >
+                            <input
+                              style={{ outline: 'none', borderRadius: '4px' }}
+                              type='text'
+                              className='Input_Tracking'
+                              placeholder='Nhập mã tracking...'
+                              value={trackingCodeInput}
+                              onChange={(e) => setTrackingCodeInput(e.target.value)}
+                              onKeyDown={handleKeyPress}
+                            />
+                            <p style={{ color: '#A0ACBE', fontSize: '14px' }}>
+                              Bạn có thể nhập một hoặc nhiều mã tracking cùng một lúc
+                            </p>
+                          </div>
+                        </div>
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '20px',
+                            marginBottom: '20px',
+                            flexWrap: 'wrap',
+                          }}
+                        >
+                          <div className='Button_OK'>
+                            <Button onClick={handleTrackingCodeSubmit}>Thêm</Button>
+                          </div>
+                          <div className='Button_Import'>
+                            <Button onClick={handleImportClick}>Import Excel</Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+-------------------------------------------------------------
+import { FormLayout, Layout, LegacyCard, Page } from 'pcs-polaris';
+import React, { useState } from 'react';
+import TitleBreadcrumbs from '../../components/Breadcrumb/TitleBreadcrumb';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { IconBack } from '../Ecommerce/IconEcommerce';
+
+const ImportCreateShippingOrders = () => {
+  const { state } = useLocation();
+  const [step, setStep] = useState(1);
+  const navigate = useNavigate();
+  const handleBackClick = () => {
+    navigate('/don-hang-van-chuyen/tao-moi', { state: { selected: 1 } });
+  };
+  return (
+    <div className='Polaris-Custom'>
+      <Page
+        //@ts-ignore
+        title={<TitleBreadcrumbs breadcrumbs={[{ title: 'Import nhiều đơn hàng vận chuyển', url: '' }]} />}
+        primaryAction={
+            step == 1 ? (
+                <div className='Icon_Import' onClick={() => {handleBackClick}}>
+                <div>
+                  <IconBack />
+                </div>
+                <div className='Create_Order_Font'>Quay lại</div>
+              </div>
+            ): null
+        }
+      >
+       {step == 1 ? (
+         <Layout>
+         <Layout.Section>
+           <LegacyCard title={'Kiểm tra thông tin'}>
+             <LegacyCard.Section>
+             <FormLayout>
+                      <FormLayout.Group>
+                        <table className='Info_Table_Shipping_Orders'>
+                          <thead>
+                            <tr>
+                              <th colSpan={2}>Thông tin vận chuyển</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td style={{ width: '30%' }}>Tuyến vận chuyển</td>
+                              <td style={{ width: '70%' }}>{state?.routeImport}</td>
+                            </tr>
+                            <tr>
+                              <td>Kho nhận hàng</td>
+                              <td>{state?.warehouseImport}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <table className='Info_Table_Shipping_Orders'>
+                          <thead>
+                            <tr>
+                              <th colSpan={2}>Thông tin giao hàng</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          {state?.recipient && (
+                            <>
+                              <tr>
+                                <td style={{ width: '30%' }}>Người nhận</td>
+                                <td style={{ width: '70%' }}>
+                                  {state.recipient.name} - {state.recipient.phone}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Địa chỉ</td>
+                                <td>{state.recipient.address}</td>
+                              </tr>
+                            </>
+                          )}
+
+                          </tbody>
+                        </table>
+                      </FormLayout.Group>
+                    </FormLayout>
+             </LegacyCard.Section>
+           </LegacyCard>
+         </Layout.Section>
+       </Layout>
+       ): null}
+      </Page>
+    </div>
+  );
+};
+
+export default ImportCreateShippingOrders;
