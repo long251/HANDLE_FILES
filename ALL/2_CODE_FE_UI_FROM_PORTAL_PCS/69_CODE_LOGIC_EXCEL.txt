@@ -1,0 +1,131 @@
+XỬ LÝ KHI TRACKING BÊN TRONG CÓ NHIỀU DỮ LIỆU
+---------------------------------------------
+- khai báo 1 biến trackings [] lưu các tracking
+- tiếp theo trong Array xét điều kiện Vd ở (4) có id 0, id 1 có dữ liệu là index và mã tracking
+thì tạo biến tạm lưu tracking tmp = tracking; vẫn trong vòng lặp đó nếu các phần tử trong Array ko có dữ liệu ở id0 và id1 thì in các dữ liệu đó tiếp tục và id2,id3,id4 của tracking này.
+- cho đến khi gặp phần tử có giá trị id0 id1 thì đó sẽ là 1 tracking mới và cứ tiếp tục như vậy cho đến khi break;
+[
+    [
+        null,
+        null,
+        "MẪU NHẬP LIỆU SỐ LƯỢNG LỚN CHO ĐƠN VẬN CHUYỂN"
+    ],
+    [
+        "STT",
+        "THÔNG TIN HÀNG HÓA VẬN CHUYỂN",
+        null,
+        null,
+        null,
+        null,
+        null,
+        "GHI CHÚ"
+    ],
+    [
+        null,
+        "Mã tracking (*)",
+        "Nội dung hàng",
+        "Số lượng",
+        "Đơn giá sản phẩm",
+        "Kiểm hàng & Chụp ảnh",
+        "Trọng lượng dự kiến (kg)"
+    ],
+    [
+        "(1)",
+        "(2)",
+        "(3)",
+        "(4)",
+        "(5)",
+        "(6)",
+        "(7)",
+        "(8)"
+    ],
+    [
+        1,
+        "QWERTYUIOPASDFGHJKLZXCVBNM20240725001",
+        "Quần áo",
+        10,
+        20,
+        "x",
+        3,
+        "Ghi chú cho tracking"
+    ],
+    [
+        null,
+        null,
+        "Giày dép",
+        12,
+        25
+    ],
+    [
+        null,
+        null,
+        "Máy tính bảng",
+        2,
+        12.8
+    ],
+    [
+        2,
+        "QWERTYUIOPASDFGHJKL0001",
+        "Quần áo 1",
+        8,
+        15.5,
+        "x",
+        4.5,
+        "Ghi chú cho tracking"
+    ],
+    [
+        null,
+        null,
+        "Quần áo 2",
+        15,
+        12.5
+    ],
+    [
+        3,
+        "QWERTYUIOPASDFGHJKL0002",
+        "Máy tính bảng",
+        1,
+        230,
+        null,
+        2.5,
+        "Ghi chú cho tracking"
+    ],
+    [
+        4,
+        "QWERTYUIOPASDFGHJKL0003"
+    ],
+    [],
+    [],
+    [
+        null,
+        "HƯỚNG DẪN NHẬP LIỆU"
+    ],
+    [
+        1,
+        "Mã tracking: Thông tin mã tracking là BẮT BUỘC phải nhập"
+    ],
+    [
+        2,
+        "Nội dung hàng: Vui lòng kê khai đầy đủ các mặt hàng có trong tracking, mỗi dòng một mặt hàng (VD: Quần áo)"
+    ],
+    [
+        3,
+        "Số lượng: Vui lòng kê khai đầy đủ số lượng của hàng hóa có trong tracking"
+    ],
+    [
+        4,
+        "Đơn giá sản phẩm: Vui lòng kê khai đơn giá của từng sản phẩm có trong tracking"
+    ],
+    [
+        5,
+        "Kiểm hàng chụp ảnh: Vui lòng đánh dấu \"x\" vào cột Kiểm hàng & Chụp ảnh nếu sử dụng dịch vụ"
+    ],
+    [
+        6,
+        "Trọng lượng dự kiến: Vui lòng cung cấp trọng lượng dự kiến của tracking (nếu có) - tính theo kg"
+    ],
+    [
+        7,
+        "Ghi chú: Nhập thông tin ghi chú cho tracking để SHIPQUOCTE có thể xử lý kiện hàng của bạn tốt nhất"
+    ]
+]
