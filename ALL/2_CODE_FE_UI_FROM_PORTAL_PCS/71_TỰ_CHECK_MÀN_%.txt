@@ -1,0 +1,27 @@
+TỰ CHECK
+--------
+Ngày: 01/08/2024
+----------------
+Màn 5. Đơn vận chuyển
+ *Màn danh sách:
+	- 
+ *Màn chi tiết:
+	- từ Action bấm sang màn chi tiết bị kiểu như vẫn load cái cũ xong mới in cái mới
+	-> Breadcrumb lệch: orderCode, trạng thái, ngày tạo
+
+	- lệch 1px ở đoạn mở xem package ko đều bị OCD
+	- ảnh chưa phóng to để xem được?
+ *Màn tạo đơn:
+     step1:
+	- ward đang đưa thành kho hàng -> sửa cách truyền API
+	- thêm ngay nút tạo địa chỉ khi chưa có địa chỉ nhận hàng
+	- thêm ngay nút import ở mục tiếp tục
+     step2:
+       *TH tạo đơn tay:
+	- khi tạo nhiều đơn 1 lúc thì gõ xong bên trên đơn bên dưới lại in ra sp của đơn trên
+       *TH tạo đơn import excel:
+	- format tuyến vận chuyển JP-VN => Nhật - VN
+	- khi import đơn Excel thì đơn vị tính đằng sau đổi theo tuyến
+	- những vị trí nào trống hãy đưa 'text' vào thay thế
+     step3:
+	- 

@@ -1,10 +1,10 @@
 CTY_PCS
 -------
-Ngày cập nhật: 29/07/2024
+Ngày cập nhật: 01/08/2024
 -------------------------
 ! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
-- hộp bánh danisa -> quá nhiều
+- hộp bánh danisa
 - Cốc thuốc:
 	- xịt mũi x1 -> 80%
 	- nhỏ mũi x2 -> 50% - 80%
@@ -41,5 +41,7 @@ Ngày cập nhật: 29/07/2024
 	- [gitlab] 	-> check a Khánh cập nhật thỉnh thoảng!
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
+ - MANG	-> bánh kẹo lên cty
  - M	-> kẹo xylitol 55k nho tím
+ - MANG	-> vở ghi lên cty để test trường hợp logic
 ----------------------------------------------------------------------------
