@@ -1,9 +1,0 @@
-Techcombank	->	Ngân hàng Thương mại cổ phần Kỹ Thương Việt Nam
-MBBank		->	Ngân hàng Thương mại cổ phần Quân Đội
-Vietcombank	->	Ngân hàng Thương mại cổ phần Ngoại Thương Việt Nam
-VPBank		->	Ngân hàng Thương mại cổ phần Việt Nam Thịnh Vượng
-VIB		->	Ngân hàng Thương mại cổ phần Quốc tế Việt Nam
-ACB		->	Ngân hàng Thương mại cổ phần Á Châu
-BIDV		->	Ngân hàng Thương mại cổ phần Đầu tư và Phát triển Việt Nam
-TPBank		->	Ngân hàng Thương mại cổ phần Tiên Phong
-Agribank	->	Ngân hàng Nông Nghiệp & Phát triển Nông thôn Việt Nam
