@@ -2,20 +2,20 @@ ITSM_FIX_BUG
 ------------
 Ngày cập nhật: 06/08/2024
 -------------------------
-Tổng số (5)
+Tổng số (8)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 1-163	/ footer	/ chưa có link 'câu hỏi thường gặp'			/ chờ figma - SAU
 2-164	/ footer	/ chưa có link 'điều khoản quy định'			/ chờ figma - SAU
 3-169	/ 3.Shopping	/ chi tiết -> Breadcrumb -> quá dài			/ chuyển a Khánh b
 4-213	/ 10.Website	/ sai số do API truyền vào				/ 	API
 5-214	/ Tra cứu đơn	/ thiếu tra cứu đơn hàng				/ chờ thêm tính năng bổ sung
-6-269	/ PXK		/ tải nhiều phiếu xuất kho cùng 1 lúc			/ KHÓ -> HỎI
-7-270	/ PXK		/ bỏ trim đầu cuối chỉ clear khi nhập xong		/ SỬA ĐƯỢC
-8-271	/ 5.Đơn VC	/ bỏ trim đầu cuối chỉ clear khi nhập xong		/ SỬA ĐƯỢC
-------------------------
+6-269	/ 7.PXK		/ tải nhiều phiếu xuất kho cùng 1 lúc			/ KHÓ -> HỎI
+7-270	/ 7.PXK		/ bỏ trim đầu cuối chỉ clear khi nhập xong		/ SỬA ĐƯỢC -> KHÓ
+8-271	/ 5.Đơn VC	/ bỏ trim đầu cuối chỉ clear khi nhập xong		/ SỬA ĐƯỢC -> KHÓ
+-------------------------
 *NOTE:
  -> tách riêng format thành 1 component riêng để tái sử dụng tăng hiệu suất nhưng mấy cái thời gian đang lệch -> để sau
-------------------------
+-------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
  -> 
 ________________________________________________________________________________________________________________________
