@@ -1,47 +1,45 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 02/08/2024
+Ngày cập nhật: 06/08/2024
 -------------------------
-Tổng số (6)
+Tổng số (5)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 1-163	/ footer	/ chưa có link 'câu hỏi thường gặp'			/ chờ figma - SAU
 2-164	/ footer	/ chưa có link 'điều khoản quy định'			/ chờ figma - SAU
 3-169	/ 3.Shopping	/ chi tiết -> Breadcrumb -> quá dài			/ chuyển a Khánh b
 4-213	/ 10.Website	/ sai số do API truyền vào				/ 	API
-5-214	/ Tra cứu đơn	/ thiếu tra cứu đơn hàng				/ 	CHỜ LỆNH
-8-265	/ 7.DSPX	/ chưa có tải file excel của dữ liệu					/ KHÓ
+5-214	/ Tra cứu đơn	/ thiếu tra cứu đơn hàng				/ chờ thêm tính năng bổ sung
+6-269	/ PXK		/ tải nhiều phiếu xuất kho cùng 1 lúc			/ KHÓ -> HỎI
+7-270	/ PXK		/ bỏ trim đầu cuối chỉ clear khi nhập xong		/ SỬA ĐƯỢC
+8-271	/ 5.Đơn VC	/ bỏ trim đầu cuối chỉ clear khi nhập xong		/ SỬA ĐƯỢC
+------------------------
+*NOTE:
+ -> tách riêng format thành 1 component riêng để tái sử dụng tăng hiệu suất nhưng mấy cái thời gian đang lệch -> để sau
 ------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
- -> tách riêng format thành 1 component riêng để tái sử dụng tăng hiệu suất nhưng mấy cái thời gian đang lệch -> để sau
-Màn 2: Dashboard:
- - Đơn hàng gần đây: xử lý các đơn thay đổi thay vì đơn mới (đơn gần đây!)				/ chuyển a Khánh
-*HỌP TRANS 18/07/2024:
- - khi vào trang đầu tiên sẽ thấy shopping thay vì dashboard						/ xong
-*HỌP TRANS 26/07/2024:
- - Màn phiếu xuất kho không xem chi tiết phiếu xuất kho nữa mà sẽ bổ sung thêm 1 nút tải file excel ở từng phiếu xuất kho. 													/ View -> excel
+ -> 
 ________________________________________________________________________________________________________________________
 CÁC MÀN GIAO DIỆN
 -----------------
-Màn 2. Dashboard:
-- Đơn hàng gần đây	-> trạng thái ở đây chỉ trả về 'chờ xử lý' => mong muốn nhiều đơn gần đây!	/ chuyển a Khánh
----------------------------
 Màn 5. Đơn hàng vận chuyển:
  *Màn danh sách:
 	- xóa bỏ hoặc giữ lại outline màu xanh nước sao cho đồng bộ					/ KHÓ-SAU
 	- sửa lại Action-View sao cho giống với Đơn Ecommerce						/ SỬA ĐƯỢC
  *Màn chi tiết:
-	- khi nhấp vào hình ảnh sẽ phóng to hình ảnh đó
+	- khi nhấp vào hình ảnh sẽ phóng to hình ảnh đó							/ KHÓ
  *Màn tạo đơn:
 	- chỉnh sửa lại nội dung UI màn nội dung tràn thêm ra và cách padding: 40px xung quanh		/ SAU
+	- điều chỉnh lại điều hướng đến Import Excel là cùng 1 trang tạo đơn mới			/ SỬA ĐƯỢC
    step 1:
 	- yêu cầu từ API trả về phương thức vận chuyển của địa chỉ kho AIR/SEA				/ API-CHƯA CÓ
-	- tạo đơn mới giờ sẽ ko active ngay route, kho, add mà phải chọn ko chọn ko đi tiếp đc		/ SỬA ĐC
 	- 
    step 2:
 	- 
    step 3:
 	- chưa check trùng tracking nên là khi nhập xong vẫn ko trả ra tracking ở màn danh sách		/ KHÓ client
 --------------------------------------------
-Màn 7. Danh sách phiếu xuất (DeliveryBill):
-	- kết nối API tải file Excel
+Màn 8. Ví SQT:
+ *Màn danh sách
+	- format 'Số tiền' 1,000 và +-
+	- 
 ________________________________________________________________________________________________________________________
