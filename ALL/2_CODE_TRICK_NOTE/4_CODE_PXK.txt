@@ -1,0 +1,113 @@
+LOGIC
+-----
+  const [codeDeliveryBill, setCodeDeliveryBill] = useState(''); //QuoteCode
+
+const debounceFetchDataFun = useCallback(
+    debounce((data: any) => dispatch(deliveryBillAction.fetchData(data)), 300),
+    [],
+  );
+  const resourceName = {
+    singular: 'phiếu xuất kho',
+    plural: 'phiếu xuất kho'
+  }
+  const resourceIDResolver = (item: any) => {
+    return `${item.QuoteId}`;
+  };
+  let dataOut = [];
+  if (deliveryBillState.data && deliveryBillState.data.dataOut) {
+    try {
+      dataOut = JSON.parse(deliveryBillState.data.dataOut);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  const { selectedResources, allResourcesSelected, handleSelectionChange } = useIndexResourceState(dataOut, {
+    resourceIDResolver,
+  });
+
+  const handleView = (quoteCode: string) => {
+    dispatch(deliveryBillAction.exportQuotes({ quoteCode }));
+  };
+
+  const rowMarkup = dataOut.map((delivery: any, index: number) => {
+    return (
+      <IndexTable.Row
+        onClick={() => {}}
+        id={`${delivery.QuoteId}`}
+        key={index}
+        selected={selectedResources.includes(`${delivery.QuoteId}`)}
+        position={index}
+      >
+        <IndexTable.Cell>{delivery.QuoteCode}</IndexTable.Cell>
+        <IndexTable.Cell>{delivery.PoNumber}</IndexTable.Cell>
+        <IndexTable.Cell>{delivery.TotalOrder}</IndexTable.Cell>
+        <IndexTable.Cell>{delivery.TotalTracking}</IndexTable.Cell>
+        <IndexTable.Cell>{delivery.CustomerFullAddress}</IndexTable.Cell>
+        <IndexTable.Cell>{formatCurrency(delivery.TotalAmount)}</IndexTable.Cell>
+        <IndexTable.Cell>{delivery.QRCode === 1 ? <QRstatus1/> : <QRstatus0/>}</IndexTable.Cell>
+        <IndexTable.Cell>{formatDate(delivery.CreatedDate)}</IndexTable.Cell>
+        <IndexTable.Cell>{formatDate(delivery.ApprovalDate)}</IndexTable.Cell>
+        <IndexTable.Cell>{delivery.PaymentMetho}</IndexTable.Cell>
+        <IndexTable.Cell>{formatStatusPayment(delivery.StatusQuoteName)}</IndexTable.Cell>
+        {/* <IndexTable.Cell>{'Lý do hủy'}</IndexTable.Cell> */}
+        <IndexTable.Cell>
+          <Button onClick={() => handleView(delivery.QuoteCode)} icon={PolarisIcons.ImportMinor}></Button>
+        </IndexTable.Cell>
+      </IndexTable.Row>
+    );
+  });
+
+const getBulkSelect = () => {
+    let bulks = [];
+  
+    bulks.push({
+      content: `Xuất ${selectedResources.length} file Excel`,
+      onAction: () => {
+        const quoteCodes = selectedResources.map((id) => {
+          const item = dataOut.find((delivery:any) => delivery.QuoteId === id);
+          return item ? item.QuoteCode : null;
+        }).filter(Boolean);
+  
+        if (quoteCodes.length) {
+          dispatch(deliveryBillAction.exportQuotes({ quoteCodes }));
+          showToast('Đang xuất các file Excel...', 'info');
+        } else {
+          showToast('Không tìm thấy mã đơn hàng để xuất.', 'error');
+        }
+      },
+    });
+  
+    return bulks;
+  };
+-----------------------------------------------------
+RETURN
+------
+<div className='DeliveryBill_Index_Table IndexTable--NoSticky'>
+                    {/* Index Table */}
+                    <IndexTable
+                    resourceName={resourceName}
+                    promotedBulkActions={getBulkSelect()}
+                      loading={deliveryBillState.data_loading}
+                      lastColumnSticky
+                      itemCount={dataOut.length}
+                      selectedItemsCount={allResourcesSelected ? 'All' : selectedResources.length}
+                      onSelectionChange={handleSelectionChange}
+                      headings={[
+                        { title: 'Mã xuất phiếu', alignment: 'center' },
+                        { title: 'Mã vận đơn', alignment: 'center' },
+                        { title: 'Số đơn', alignment: 'center' },
+                        { title: 'Số tracking', alignment: 'center' },
+                        { title: 'Địa chỉ giao hàng', alignment: 'center' },
+                        { title: 'Tổng tiền thanh toán', alignment: 'center' },
+                        { title: 'QR', alignment: 'center' },
+                        { title: 'Ngày tạo phiếu', alignment: 'center' },
+                        { title: 'Ngày duyệt phiếu ', alignment: 'center' },
+                        { title: 'Hình thức TT', alignment: 'center' },
+                        { title: 'Trạng thái', alignment: 'center' },
+                        // { title: 'Lý do huỷ ', alignment: 'center' },
+                        { title: '', alignment: 'center' },
+                      ]}
+                    >
+                      {rowMarkup}
+                    </IndexTable>
+                  </div>
