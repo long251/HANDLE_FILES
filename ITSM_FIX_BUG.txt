@@ -2,7 +2,7 @@ ITSM_FIX_BUG
 ------------
 Ngày cập nhật: 07/08/2024
 -------------------------
-Tổng số (8)
+Tổng số (9)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 1-163	/ footer	/ chưa có link 'câu hỏi thường gặp'			/ chờ figma - SAU
 2-164	/ footer	/ chưa có link 'điều khoản quy định'			/ chờ figma - SAU
@@ -12,6 +12,7 @@ SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 6-269	/ 7.PXK		/ tải nhiều phiếu xuất kho cùng 1 lúc			/ KHÓ -> HỎI
 7-270	/ 7.PXK		/ bỏ trim đầu cuối chỉ clear khi nhập xong		/ SỬA ĐƯỢC -> KHÓ
 8-271	/ 5.Đơn VC	/ bỏ trim đầu cuối chỉ clear khi nhập xong		/ SỬA ĐƯỢC -> KHÓ
+9-272	/ 5.Đơn VC	/ tạo đơn -> 'Nút tạo đơn', 'tab' căn lại đúng thiết kế	/ SỬA ĐƯỢC
 -------------------------
 *NOTE:
  -> tách riêng format thành 1 component riêng để tái sử dụng tăng hiệu suất nhưng mấy cái thời gian đang lệch -> để sau
