@@ -1,0 +1,344 @@
+  const setTotalWeight = (weightInut: number, trackingCode: string) => {
+    const tracking = trackingData.find((t) => t.trackingCode === trackingCode);
+    if (tracking) {
+      const newTracking = { ...tracking, weight: weightInut };
+      setTrackingData(trackingData.map((t) => (t.trackingCode === trackingCode ? newTracking : t)));
+    }
+  };
+----------------------------------------------------
+RETURN
+------
+        {selected === 1 && trackingData.length ? (
+          <Layout>
+            <Layout.Section>
+              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '4px', marginTop: '20px' }}>
+                <div style={{ fontSize: '16px', fontWeight: '700' }}>Thông tin hàng hóa vận chuyển</div>
+                <div style={{ fontSize: '16px', fontWeight: '700' }}>{trackingData.length} Tracking</div>
+              </div>
+            </Layout.Section>
+          </Layout>
+        ) : (
+          ''
+        )}
+        {selected === 1 &&
+          trackingData.length > 0 &&
+          trackingData.map((item: any, tIndex: number) => {
+            return (
+              // <Layout.Section >
+              <LegacyCard key={item.trackingCode}>
+                <LegacyCard.Section>
+                  <div style={{ overflow: 'auto' }}>
+                    <div className='Style_Row' style={{ display: 'flex', gap: '40px' }}>
+                      <div style={{ flex: '20%' }}>
+                        <div>Mã tracking</div>
+                        <div
+                          style={{
+                            height: '44px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            fontWeight: '900',
+                            fontSize: '14px',
+                          }}
+                        >
+                          {item.trackingCode}
+                        </div>
+                      </div>
+                      <div style={{ flex: '15%' }}>
+                        <div style={{ whiteSpace: 'nowrap' }}>Trọng lượng (kg)</div>
+                        <input
+                          value={item.weight}
+                          type='number'
+                          className='Input_Tracking_Code'
+                          placeholder='Nhập trọng lượng'
+                          onChange={(e) => setTotalWeight(parseFloat(e.target.value), item.trackingCode)}
+                        />
+                      </div>
+                      <div className='Style_Cell' style={{ flex: '15%' }}>
+                        <div>
+                          <div style={{ textAlign: 'left', marginLeft: '12px', whiteSpace: 'nowrap' }}>
+                            Dịch vụ cộng thêm
+                          </div>
+                          <div
+                            className='Style_Additional_Services'
+                            style={{
+                              // border: '1px solid #D1D5DB',
+                              borderRadius: '4px',
+                              display: 'flex',
+                              gap: '20px',
+                              padding: '6px',
+                              justifyContent: 'space-between',
+                              alignItems: 'center',
+                              verticalAlign: 'center',
+                            }}
+                          >
+                            <Tooltip content={<div style={{ color: '#A91116' }}>Đơn giá 250,000đ/(lần)</div>}>
+                              <div style={{ whiteSpace: 'nowrap' }}>
+                                <Checkbox
+                                  label='Kiểm hàng & chụp ảnh'
+                                  checked={item.services.includes(14)} // Assuming the service ID is 14
+                                  onChange={() => handleCheckboxChange(14, item.trackingCode)}
+                                />
+                              </div>
+                            </Tooltip>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Ghi chú */}
+                      <div className='Style_Cell' style={{ flex: '30%' }}>
+                        <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+                          <div style={{ textAlign: 'left' }}>Ghi chú</div>
+                          <input
+                            value={item.note}
+                            style={{ width: '400px' }}
+                            className='Input_Tracking_Code'
+                            placeholder='Nhập ghi chú...'
+                            onChange={(e) => setNoteForTracking(e.target.value, item.trackingCode)}
+                          ></input>
+                        </div>
+                      </div>
+                      <div className='Style_Cell' style={{ flex: '15%' }}>
+                        <div>
+                          <div style={{ textAlign: 'left' }}>Action</div>
+                          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
+                            <div className='Style_Icon_Edit_Delete' onClick={() => handleEdit(item.trackingCode)}>
+                              <IconEdit />
+                            </div>
+                            <div className='Style_Icon_Edit_Delete' onClick={() => handleDelete(tIndex)}>
+                              <IconDelete />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {expandedItem === item.trackingCode && (
+                    <div
+                      style={{
+                        borderTop: '1px dashed #D1D5DB',
+                        marginTop: '16px',
+                      }}
+                    >
+                      <div
+                        style={{
+                          margin: '16px 0',
+                          border: '1px dashed #D1D5DB',
+                          width: '100%',
+                        }}
+                      >
+                        {item.packages.map((pkg: any, pIndex: number) => (
+                          <div key={pIndex} className='Package_Item' style={{ overflow: 'auto' }}>
+                            <div style={{ minWidth: '1200px' }}>
+                              <table className='Table_Package_Detail'>
+                                <tbody>
+                                  <tr>
+                                    <td style={{ width: '5%' }}>#</td>
+                                    <td style={{ width: '50%' }}>Tên sản phẩm</td>
+                                    <td style={{ width: '15%' }}>Số lượng</td>
+                                    <td style={{ width: '15%' }}>Giá trị</td>
+                                    <td style={{ width: '5%' }}></td>
+                                  </tr>
+
+                                  {pkg.packageProducts.map((pp: any, ppIndex: number) => {
+                                    const currentIndex = `${tIndex}-${pIndex}-${ppIndex}`;
+                                    return (
+                                      <tr key={ppIndex}>
+                                        {/* <td></td> */}
+                                        <td>{ppIndex + 1}</td>
+                                        <td
+                                          style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            padding: '20px',
+                                          }}
+                                        >
+                                          {expandedItem === item.trackingCode &&
+                                          // expandedItemPackage === pIndex &&
+                                          // completedProducts.includes(ppIndex) ? (
+                                          //   <p>{pp.name}</p>
+                                          // ) : (
+                                          (
+                                            <input
+                                              type='text'
+                                              value={pp.name}
+                                              placeholder='Nhập tên sản phẩm'
+                                              onChange={(e) => {
+                                                let tmp: any = [...trackingData];
+                                                tmp[tIndex]['packages'][pIndex]['packageProducts'][ppIndex].name =
+                                                  e.target.value;
+                                                setTrackingData(tmp);
+                                              }}
+                                              className='Style_Input_Product'
+                                            />
+                                          )}
+                                        </td>
+
+                                        <td>
+                                          {expandedItem === item.trackingCode &&
+                                          // expandedItemPackage === pIndex &&
+                                          // completedProducts.includes(ppIndex) ? (
+                                          //   <p>{`${pp.qty}`}</p>
+                                          // ) : (
+                                          (
+                                            <input
+                                              value={pp.qty}
+                                              onChange={(e) => {
+                                                let tmp = [...trackingData];
+                                                tmp[tIndex]['packages'][pIndex]['packageProducts'][ppIndex]['qty'] =
+                                                  e.target.value;
+                                                setTrackingData(tmp);
+                                              }}
+                                              onBlur={(e) => {
+                                                let numVal = parseInt(e.target.value);
+                                                if (numVal < 1) {
+                                                  numVal = 1;
+                                                }
+                                                let tmp = [...trackingData];
+                                                tmp[tIndex]['packages'][pIndex]['packageProducts'][ppIndex][
+                                                  'qty'
+                                                ] = `${numVal}`;
+                                                setTrackingData(tmp);
+                                              }}
+                                              min={1}
+                                              type='number'
+                                              className='Style_Input_Product'
+                                            />
+                                          )}
+                                        </td>
+
+                                        <td>
+                                          <div
+                                            style={{
+                                              display: 'flex',
+                                              alignItems: 'center',
+                                              justifyContent: 'center',
+                                            }}
+                                          >
+                                            {expandedItem === item.trackingCode &&
+                                            // expandedItemPackage === pIndex &&
+                                            // completedProducts.includes(ppIndex) ? (
+                                            //   <p>
+                                            //     {pp.price} {getCurrencySymbol(exchangeRate().currencyCode)}
+                                            //   </p>
+                                            // ) : (
+                                            (
+                                              <div style={{ display: 'flex' }}>
+                                                <input
+                                                  type='number'
+                                                  value={pp.price}
+                                                  min={0}
+                                                  onChange={(e) => {
+                                                    let tmp = [...trackingData];
+                                                    tmp[tIndex]['packages'][pIndex]['packageProducts'][ppIndex][
+                                                      'price'
+                                                    ] = e.target.value;
+                                                    setTrackingData(tmp);
+                                                  }}
+                                                  onBlur={(e) => {
+                                                    let numVal = Number(e.target.value);
+                                                    if (numVal <= 0) {
+                                                      numVal = 0;
+                                                    }
+                                                    let tmp = [...trackingData];
+                                                    tmp[tIndex]['packages'][pIndex]['packageProducts'][ppIndex][
+                                                      'price'
+                                                    ] = `${numVal}`;
+                                                    setTrackingData(tmp);
+                                                  }}
+                                                  className='Style_Input_Product'
+                                                  style={{
+                                                    // width: '80px',
+                                                    borderRadius: '4px 0 0 4px',
+                                                  }}
+                                                />
+                                                <div
+                                                  style={{
+                                                    padding: '8px 12px',
+                                                    border: '1px solid #D1D5DB',
+                                                    borderLeft: 'unset',
+                                                    borderRadius: '0 4px 4px 0',
+                                                    display: 'flex',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                  }}
+                                                >
+                                                  {getCurrencySymbol(exchangeRate().currencyCode)}
+                                                </div>
+                                              </div>
+                                            )}
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div
+                                            style={{
+                                              display: 'flex',
+                                              gap: '4px',
+                                              alignItems: 'center',
+                                              justifyContent: 'center',
+                                            }}
+                                          >
+                                            {/* <div
+                                                  className='Style_Icon_Edit_Delete'
+                                                  onClick={() => {
+                                                    handleSaveProduct(item.trackingCode, pIndex, ppIndex);
+                                                  }}
+                                                >
+                                                  {completedProducts.includes(ppIndex) ? (
+                                                    <Icon source={PolarisIcons.EditMajor} color={'highlight'} />
+                                                  ) : (
+                                                    <Icon source={PolarisIcons.CircleTickMajor} color={'success'} />
+                                                  )}
+                                                </div> */}
+                                            <div
+                                              style={{
+                                                cursor: 'pointer',
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                              }}
+                                              onClick={() => handleDeleteProduct(ppIndex, pIndex, item.trackingCode)}
+                                              onMouseEnter={() => setIsHoverDeleteIcon(currentIndex)}
+                                              onMouseLeave={() => setIsHoverDeleteIcon(null)}
+                                            >
+                                              {isHoverDeleteIcon === currentIndex ? (
+                                                <IconDeleteHover />
+                                              ) : (
+                                                <IconDeleteUnHover />
+                                              )}
+                                            </div>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    );
+                                  })}
+                                </tbody>
+                              </table>
+                              <div
+                                onClick={() => {
+                                  handleAddProduct(pIndex, item.trackingCode);
+                                }}
+                                style={{
+                                  display: 'flex',
+                                  justifyContent: 'flex-end',
+                                  alignItems: 'flex-end',
+                                  padding: '8px',
+                                  textAlign: 'center',
+                                  cursor: 'pointer',
+                                }}
+                                className='Add_Product'
+                              >
+                                <Button icon={PolarisIcons.AddProductMajor}>Thêm sản phẩm</Button>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </LegacyCard.Section>
+              </LegacyCard>
+              // </Layout.Section>
+            );
+          })}

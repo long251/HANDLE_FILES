@@ -1,6 +1,6 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 07/08/2024
+Ngày cập nhật: 08/08/2024
 -------------------------
 Tổng số (9)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
@@ -18,6 +18,7 @@ SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
  -> tách riêng format thành 1 component riêng để tái sử dụng tăng hiệu suất nhưng mấy cái thời gian đang lệch -> để sau
 -------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
+ -> chỉnh sửa lại nội dung UI màn nội dung tràn thêm ra và cách padding: 40px xung quanh		/ SAU
  -> 
 ________________________________________________________________________________________________________________________
 CÁC MÀN GIAO DIỆN
@@ -26,11 +27,10 @@ Màn 5. Đơn hàng vận chuyển:
  *Màn danh sách:
 	- xóa bỏ hoặc giữ lại outline màu xanh nước sao cho đồng bộ					/ KHÓ-SAU
 	- cách phần search bỏ trim() 2 đầu giữ lại ở giữa						/ KHÓ-SAU
-	- sửa lại Action-View sao cho giống với Đơn Ecommerce						/ SỬA ĐƯỢC
+	- sửa lại Action-View sao cho giống với Đơn Ecommerce						/ SỬA ĐƯỢC-CHƯA
  *Màn chi tiết:
 	- khi nhấp vào hình ảnh sẽ phóng to hình ảnh đó							/ KHÓ
  *Màn tạo đơn:
-	- chỉnh sửa lại nội dung UI màn nội dung tràn thêm ra và cách padding: 40px xung quanh		/ SAU
 	- điều chỉnh lại điều hướng đến Import Excel là cùng 1 trang tạo đơn mới			/ SỬA ĐƯỢC (LÂU)
 	- 
    step 1:

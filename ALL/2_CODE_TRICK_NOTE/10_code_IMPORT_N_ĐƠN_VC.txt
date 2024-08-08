@@ -1,0 +1,698 @@
+import {
+  Button,
+  DataTable,
+  DropZone,
+  FormLayout,
+  IndexTable,
+  Layout,
+  LegacyCard,
+  LegacyStack,
+  Link,
+  Page,
+  PolarisIcons,
+  Text,
+} from 'pcs-polaris';
+import React, { useEffect, useState } from 'react';
+import TitleBreadcrumbs from '../../components/Breadcrumb/TitleBreadcrumb';
+import { useLocation } from 'react-router-dom';
+import { IconBack } from '../Ecommerce/IconEcommerce';
+import * as XLSX from 'xlsx';
+import { divide, trim } from 'lodash';
+import { showToast } from '../../helpers/toast';
+import { apiClient } from '../../utils/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../store';
+import { shippingOrdersAction } from '../../store/reducers/shippingOrdersReducer';
+import { IconHaveService, IconSuccessed } from './IconShippingOrders';
+import moment from 'moment';
+
+const ImportCreateShippingOrders = () => {
+  const dispatch = useDispatch();
+  const shippingOrdersState = useSelector((state: AppState) => state.shippingOrders);
+  useEffect(() => {
+    dispatch(shippingOrdersAction.fetchCurrency());
+  }, []);
+  const { state } = useLocation();
+  const [step, setStep] = useState(1);
+  const [fileName, setFileName] = useState('');
+  const [data, setData] = useState<Array<any>>([]);
+  const [trackingCount, setTrackingCount] = useState(0);
+
+  const readFile = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      setFileName(file.name);
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
+      const firstSheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[firstSheetName];
+      const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+      // let items = [];
+      console.log('dữ liệu thuần', jsonData);
+      
+      let trackings: any[] = [];
+      let currentTracking: any = null;
+      for (let i = 4; i < jsonData.length; i++) {
+        let row: any = jsonData[i];
+        if (row.length) {
+          if (trim(row[0] && trim(row[1]))) {
+            if (currentTracking) {
+              trackings.push(currentTracking);
+            }
+            currentTracking = {
+              index: trim(row[0]),
+              trackingCode: trim(row[1]),
+              items: [],
+              inspection: trim(row[5]),
+              weight: trim(row[6]),
+              note: trim(row[7]),
+            };
+          }
+          if (currentTracking) {
+            let item = {
+              content: trim(row[2]),
+              quantity: trim(row[3]),
+              price: trim(row[4]),
+            };
+            currentTracking.items.push(item);
+          }
+        } else {
+          break;
+        }
+      }
+      if (currentTracking) {
+        trackings.push(currentTracking);
+      }
+      trackings.forEach((tracking) => {
+        tracking.items.forEach((item: any) => {
+          console.log('dữ liệu content', item.content);
+        });
+      });
+      const trackingCount = trackings.length;
+      setData(trackings);
+      setTrackingCount(trackingCount);
+    };
+    reader.readAsArrayBuffer(file);
+  };
+  console.log('dữ liệu excel', data);
+  
+
+  const rows2 = data.map((item: any, i: number) => {
+    const weightContent = item.weight ? `${item.weight} kg` : '';
+    const serviceContent = item.inspection ? 'x' : '';
+    const noteContent = item.note
+      ? item.note
+      : // <span style={{ color: '#A91116' }}>Không có ghi chú nào được thêm</span>\
+        '';
+    return [i + 1, item.trackingCode, weightContent, serviceContent, noteContent];
+  });
+  const [orderCodes, setOrderCodes] = useState<string[]>([]);
+  const rows3 = data.map((item: any, i: number) => {
+    const weightContent = item.weight ? `${item.weight} kg` : '';
+    const serviceContent = item.inspection ? (
+      <IconHaveService />
+    ) : (
+      <span style={{ color: '#A91116' }}>Không có dịch vụ được chọn</span>
+    );
+    const noteContent = item.note ? (
+      item.note
+    ) : (
+      <span style={{ color: '#A91116' }}>Không có ghi chú nào được thêm</span>
+    );
+    return [i + 1, orderCodes[i] || '', item.trackingCode, weightContent, serviceContent, noteContent];
+  });
+  const handleRequest = async () => {
+    const payload = {
+      orderTransportAddRequest: data.map((d: any) => ({
+        packages: [
+          {
+            weight: 0,
+            packageProducts: d.items.map((item: any) => ({
+              name: item.content,
+              nameCustom: '',
+              image: '',
+              qty: item.quantity || 0,
+              price: item.price,
+              priceWeight: 0,
+              weight: '0',
+              priceStandard: 0,
+            })),
+
+            length: 0,
+            height: 0,
+          },
+        ],
+        note: d.note,
+        shippingRouteCode: state.routeImport,
+        shippingRouteId: 1,
+        currency: 'JPY',
+        warehouse: state.codeWarehouseImport,
+        addressId: state.recipient.id,
+        customerName: state.recipient.name,
+        customerAddress: state.recipient.address,
+        customerDistrict: state.recipient.district,
+        customerPhone: state.recipient.phone,
+        customerProvince: state.recipient.province,
+        customerWard: state.recipient.ward,
+        tracking: d.trackingCode,
+        surcharge: 0,
+        priceExpected: 0,
+        orderServices: d.inspection ? ['SV02'] : [],
+        totalAmount: 0,
+        weight: d.weight,
+      })),
+
+      paymentMethod: 'COD',
+      source: 'PORTALNEW',
+    };
+    try {
+      let response = await apiClient.post(
+        'https://beta-portal-api.shipquocte.com/api/OrderPackage/AddOrderTransport',
+        payload,
+      );
+      if (response.data.status) {
+        console.log('Tạo đơn hàng thành công', response.data.data);
+        setOrderDate(response.data.data[0].orderDate);
+        const codes = response.data.data.map((order: any) => order.code);
+        setOrderCodes(codes);
+        showToast('Tạo đơn hàng thành công', 'success');
+        setStep(3);
+      } else {
+        console.error('Tạo mới đơn hàng thất bại');
+        showToast('Tạo mới đơn hàng thất bại', 'error');
+      }
+    } catch (e) {
+      console.error('Tạo mới đơn hàng thất bại', e);
+      showToast('Tạo mới đơn hàng thất bại', 'error');
+    }
+  };
+  console.log('dữ liệu kho', state.recipient);
+
+  //format change route
+  const changeRouteName = (country: string | null) => {
+    switch (country) {
+      case 'VN':
+        return 'Việt Nam';
+      case 'US-VN':
+        return 'Mỹ - Việt Nam';
+      case 'JP-VN':
+        return 'Nhật Bản - Việt Nam';
+      case 'KR-VN':
+        return 'Hàn Quốc - Việt Nam';
+      case 'UK-VN':
+        return 'Anh - Việt Nam';
+      case 'DE-VN':
+        return 'Đức - Việt Nam';
+      case 'CN-VN':
+        return 'Trung Quốc - Việt Nam';
+      case 'CA-VN':
+        return 'Canada - Việt Nam';
+      default:
+        return 'Việt Nam';
+    }
+  };
+  //
+  const exchangeRate = (activeCountry: string) => {
+    switch (activeCountry) {
+      case 'VN':
+        return shippingOrdersState.currency[0];
+      case 'US-VN':
+        return shippingOrdersState.currency[1];
+      case 'KR-VN':
+        return shippingOrdersState.currency[2];
+      case 'JP-VN':
+        return shippingOrdersState.currency[3];
+      case 'UK-VN':
+        return shippingOrdersState.currency[4];
+      case 'DE-VN':
+        return shippingOrdersState.currency[5];
+      case 'CN-VN':
+        return shippingOrdersState.currency[6];
+      case 'CA-VN':
+        return shippingOrdersState.currency[7];
+      default:
+        return shippingOrdersState.currency[0];
+    }
+  };
+  const getCurrencySymbol = (currencyCode: string) => {
+    switch (currencyCode) {
+      case 'VNY':
+        return '₫';
+      case 'USD':
+        return '$';
+      case 'KRW':
+        return '₩';
+      case 'JPY':
+        return '¥';
+      case 'GBP':
+        return '£';
+      case 'EUR':
+        return '€';
+      case 'CNY':
+        return '元';
+      case 'CAD':
+        return '$';
+      default:
+        return currencyCode;
+    }
+  };
+  //
+  const [orderDate, setOrderDate] = useState<string | null>(null);
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const localOffset = date.getTimezoneOffset();
+    const gmtOffset = -7 * 60; // GMT+7
+    const timeZoneDiff = (gmtOffset - localOffset) * 60 * 1000;
+    date.setTime(date.getTime() + timeZoneDiff);
+    if (!moment(date).isValid()) {
+      return '';
+    }
+    const daysOfWeek = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+    const dayOfWeek = daysOfWeek[date.getDay()];
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    };
+    let formattedDate = new Intl.DateTimeFormat('en-GB', options).format(date);
+    formattedDate = formattedDate.replace(',', '');
+    const [day, month, year, time] = formattedDate.split(/\/| /);
+    const finalFormattedDate = `${time} - ${dayOfWeek}, ngày ${day}/${month}/${year}`;
+    return finalFormattedDate;
+  };
+  console.log('dữ liệu ngày tạo', state.orderDate);
+  return (
+    <div className='Polaris-Custom'>
+      <Page
+        //@ts-ignore
+        title={<TitleBreadcrumbs breadcrumbs={[{ title: 'Import nhiều đơn hàng vận chuyển', url: '' }]} />}
+        primaryAction={
+          step == 1 ? (
+            <Link url='/don-hang-van-chuyen/tao-moi'>
+              <div className='Icon_Import'>
+                <div>
+                  <IconBack />
+                </div>
+                <div className='Create_Order_Font'>Quay lại</div>
+              </div>
+            </Link>
+          ) : null || step == 2 ? (
+            <div className='Icon_Import' onClick={() => setStep(1)}>
+              <div>
+                <IconBack />
+              </div>
+              <div className='Create_Order_Font'>Quay lại</div>
+            </div>
+          ) : null
+          // || step == 3 ? (
+          //   <div className='Icon_Import' onClick={() => setStep(2)}>
+          //     <div>
+          //       <IconBack />
+          //     </div>
+          //     <div className='Create_Order_Font'>Quay lại</div>
+          //   </div>
+          // ) : null
+        }
+      >
+        {step == 1 ? (
+          <Layout>
+            {/* <Layout.Section>
+              <LegacyCard title={'Kiểm tra thông tin'}>
+                <LegacyCard.Section>
+                  <FormLayout>
+                    <FormLayout.Group>
+                      <table className='Info_Table_Shipping_Orders'>
+                        <thead>
+                          <tr>
+                            <th colSpan={2}>Thông tin vận chuyển</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td style={{ width: '30%' }}>Tuyến vận chuyển</td>
+                            <td style={{ width: '70%' }}>{changeRouteName(state?.routeImport)}</td>
+                          </tr>
+                          <tr>
+                            <td>Kho nhận hàng</td>
+                            <td>{state?.warehouseImport}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table className='Info_Table_Shipping_Orders'>
+                        <thead>
+                          <tr>
+                            <th colSpan={2}>Thông tin giao hàng</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {state?.recipient && (
+                            <>
+                              <tr>
+                                <td style={{ width: '30%' }}>Người nhận</td>
+                                <td style={{ width: '70%' }}>
+                                  {state.recipient.name} - {state.recipient.phone}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Địa chỉ</td>
+                                <td>{state.recipient.fullAddress}</td>
+                              </tr>
+                            </>
+                          )}
+                        </tbody>
+                      </table>
+                    </FormLayout.Group>
+                  </FormLayout>
+                </LegacyCard.Section>
+              </LegacyCard>
+            </Layout.Section> */}
+
+            <Layout.Section>
+              <LegacyCard title={'Import file'}>
+                <LegacyCard.Section
+                  title={<div>Tuyến vận chuyển: <span style={{fontWeight: '700'}}>{changeRouteName(state?.routeImport)}</span></div>}
+                  actions={[
+                    {
+                      content: 'Tải mẫu file import',
+                      icon: PolarisIcons.ImportMinor,
+                      url: '/files/TRANS_IMPORT_TEMPLATE.xlsx',
+                      external: true,
+                    },
+                  ]}
+                >
+                  <FormLayout>
+                    <div className={'DropZone-Custom'}>
+                      <DropZone
+                        type={'file'}
+                        accept={'.xlsx'}
+                        onDrop={(files) => {
+                          readFile(files[0]);
+                        }}
+                      >
+                        <DropZone.FileUpload actionHint={'Vui lòng chọn file .xlsx'} />
+                      </DropZone>
+                    </div>
+                    {fileName ? (
+                      <LegacyStack>
+                        <LegacyStack.Item>
+                          <Text as={'p'}>{fileName}</Text>
+                        </LegacyStack.Item>
+                        <LegacyStack>
+                          <Button
+                            onClick={() => {
+                              setFileName('');
+                              setData([]);
+                            }}
+                            plain
+                            destructive
+                            icon={PolarisIcons.DeleteMinor}
+                          />
+                        </LegacyStack>
+                      </LegacyStack>
+                    ) : null}
+                  </FormLayout>
+                </LegacyCard.Section>
+                {data.length ? (
+                  <LegacyCard.Section title={'Dữ liệu import'}>
+                    <div className={' IndexTable--NoSticky'}>
+                      <IndexTable
+                        selectable={false}
+                        headings={[
+                          { title: 'STT' },
+                          { title: 'Mã tracking' },
+                          { title: 'Nội dung hàng hóa' },
+                          { title: 'Số lượng' },
+                          // { title: `Đơn giá sản phẩm (${exchangeRate(state?.routeImport).currencyCode})` },
+                          { title: 'Đơn giá sản phẩm' },
+                          { title: 'Kiểm hàng & Chụp ảnh' },
+                          { title: 'Trọng lượng (kg)' },
+                          { title: 'Ghi chú' },
+                        ]}
+                        itemCount={data.length}
+                      >
+                        {data.map((item: any, index: number) => (
+                          <IndexTable.Row id={`${index}`} key={index} position={index}>
+                            <IndexTable.Cell>{item.index}</IndexTable.Cell>
+                            <IndexTable.Cell>{item.trackingCode}</IndexTable.Cell>
+                            <IndexTable.Cell>
+                              {item.items.map((i: any, index: number) => (
+                                <div key={index}>
+                                  <div>
+                                    {
+                                      i.content
+                                      // ? i.content : (
+                                      //   <span style={{color: '#A91116'}}>không có nội dung hàng hóa</span>
+                                      // )
+                                    }
+                                  </div>
+                                </div>
+                              ))}
+                            </IndexTable.Cell>
+                            <IndexTable.Cell>
+                              {item.items.map((i: any, index: number) => (
+                                <div key={index}>
+                                  <div>{i.quantity}</div>
+                                </div>
+                              ))}
+                            </IndexTable.Cell>
+                            <IndexTable.Cell>
+                              {item.items.map((i: any, index: number) => (
+                                <div key={index}>
+                                  <div>
+                                    {i.price ? (
+                                      <>
+                                        {i.price} {getCurrencySymbol(exchangeRate(state?.routeImport).currencyCode)}
+                                      </>
+                                    ) : (
+                                      ''
+                                    )}
+                                  </div>
+                                </div>
+                              ))}
+                            </IndexTable.Cell>
+                            <IndexTable.Cell>{item.inspection ? 'x' : ''}</IndexTable.Cell>
+                            <IndexTable.Cell>{item.weight}</IndexTable.Cell>
+                            <IndexTable.Cell>{item.note}</IndexTable.Cell>
+                          </IndexTable.Row>
+                        ))}
+                      </IndexTable>
+                    </div>
+                  </LegacyCard.Section>
+                ) : null}
+
+                <div style={{ position: 'absolute' }}>
+                  <div className='Create_Input_Tracking_Code'>
+                    <div style={{ color: '#85C0FF', whiteSpace: 'nowrap' }}>{trackingCount} Tracking</div>
+                    <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+                      <div style={{ color: '#FFFFFF', cursor: 'pointer' }}>
+                        <Link url='/don-hang-van-chuyen' removeUnderline monochrome>
+                          Hủy
+                        </Link>
+                      </div>
+                      <div
+                        className='Active_Button'
+                        onClick={() => {
+                          if (data && data.length > 0) {
+                            setStep(2);
+                          } else {
+                            showToast('Hãy nhập dữ liệu từ file.xlsx của bạn', 'error');
+                          }
+                        }}
+                      >
+                        <Button>Tiếp tục</Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </LegacyCard>
+            </Layout.Section>
+          </Layout>
+        ) : null}
+
+        {step == 2 ? (
+          <Layout>
+            <Layout.Section>
+              <LegacyCard>
+                <LegacyCard.Section>
+                  <FormLayout>
+                    <FormLayout.Group>
+                      <table className='Info_Table_Shipping_Orders'>
+                        <thead>
+                          <tr>
+                            <th colSpan={2}>Thông tin vận chuyển</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td style={{ width: '30%' }}>Tuyến vận chuyển</td>
+                            <td style={{ width: '70%' }}>{changeRouteName(state?.routeImport)}</td>
+                          </tr>
+                          <tr>
+                            <td>Kho nhận hàng</td>
+                            <td>{state?.warehouseImport}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table className='Info_Table_Shipping_Orders'>
+                        <thead>
+                          <tr>
+                            <th colSpan={2}>Thông tin giao hàng</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {state?.recipient && (
+                            <>
+                              <tr>
+                                <td style={{ width: '30%' }}>Người nhận</td>
+                                <td style={{ width: '70%' }}>
+                                  {state.recipient.name} - {state.recipient.phone}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Địa chỉ</td>
+                                <td>{state.recipient.fullAddress}</td>
+                              </tr>
+                            </>
+                          )}
+                        </tbody>
+                      </table>
+                    </FormLayout.Group>
+                  </FormLayout>
+                </LegacyCard.Section>
+              </LegacyCard>
+            </Layout.Section>
+
+            <Layout.Section>
+              <LegacyCard>
+                <LegacyCard.Section>
+                  <div>
+                    <div
+                      style={{
+                        fontWeight: '700',
+                        fontSize: '14px',
+                        lineHeight: '17.8px',
+                        padding: '16px 20px',
+                        backgroundColor: '#D1D5DB',
+                      }}
+                    >
+                      Danh sách tracking
+                    </div>
+                    <div className='Data_Table_Verify_Request'>
+                      <DataTable
+                        columnContentTypes={['text', 'text', 'text', 'text', 'text']}
+                        headings={['STT', 'Mã tracking', 'Trọng lượng', 'Dịch vụ cộng thêm', 'Ghi chú']}
+                        rows={rows2}
+                      />
+                    </div>
+                  </div>
+                </LegacyCard.Section>
+                <div style={{ position: 'absolute' }}>
+                  <div className='Create_Input_Tracking_Code'>
+                    <div style={{ color: '#85C0FF', whiteSpace: 'nowrap' }}>{trackingCount} Tracking</div>
+                    <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+                      <div style={{ color: '#FFFFFF', cursor: 'pointer' }}>
+                        <Link url='/don-hang-van-chuyen' removeUnderline monochrome>
+                          Hủy
+                        </Link>
+                      </div>
+                      <div
+                        className='Active_Button'
+                        onClick={() => {
+                          if (data && data.length > 0) {
+                            setStep(3);
+                          } else {
+                            showToast('Hãy nhập dữ liệu từ file.xlsx của bạn', 'error');
+                          }
+                        }}
+                      >
+                        <Button onClick={() => handleRequest()}>Gửi yêu cầu</Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </LegacyCard>
+            </Layout.Section>
+          </Layout>
+        ) : null}
+
+        {step == 3 ? (
+          <Layout>
+            <Layout.Section>
+              <LegacyCard>
+                <LegacyCard.Section>
+                  <div className='Verify_Reuquest_Successed'>
+                    {/* trạng thái thành công */}
+                    <div className='Icon_Successed'>
+                      <div>
+                        <IconSuccessed />
+                      </div>
+                      <div className='Title_Verify_Request'>
+                        <div className='Font_Title'>Quý khách đã tạo yêu cầu thành công</div>
+                        {orderDate && <div>({formatDate(orderDate)})</div>}
+                      </div>
+                    </div>
+
+                    {/* Danh sách tracking */}
+                    <div style={{ position: 'relative', marginTop: '68px' }}>
+                      <div
+                        style={{
+                          padding: '16px 20px',
+                          backgroundColor: '#D1D5DB',
+                          fontWeight: '700',
+                          fontSize: '14px',
+                          lineHeight: '17.8px',
+                        }}
+                      >
+                        Đơn hàng đã tạo
+                      </div>
+                      <div className='Data_Table_Verify_Request_Succeed'>
+                        <DataTable
+                          columnContentTypes={['text', 'text', 'text', 'text', 'text', 'text']}
+                          headings={['#', 'Mã đơn', 'Tracking', 'Trọng lượng', 'Dịch vụ cộng thêm', 'Ghi chú']}
+                          rows={rows3}
+                        />
+                      </div>
+
+                      {/* <div className='Icon_Print_Information'>
+                                         <IconPrintSuccessed /> In Thông tin
+                                              </div> */}
+                    </div>
+
+                    {/* Quản lý & tạo yêu cầu */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        gap: '20px',
+                        marginTop: '48px',
+                        flexWrap: 'wrap',
+                      }}
+                    >
+                      <div className='Button_Order_Management'>
+                        <Button url='/don-hang-van-chuyen' monochrome removeUnderline>
+                          Quản lý đơn hàng
+                        </Button>
+                      </div>
+                      <div className='Button_Create_Request'>
+                        <Button url='/don-hang-van-chuyen/tao-moi'>Tạo yêu cầu đơn mới</Button>
+                      </div>
+                    </div>
+                  </div>
+                </LegacyCard.Section>
+              </LegacyCard>
+            </Layout.Section>
+          </Layout>
+        ) : null}
+      </Page>
+    </div>
+  );
+};
+
+export default ImportCreateShippingOrders;
