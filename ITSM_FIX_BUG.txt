@@ -1,24 +1,23 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 08/08/2024
+Ngày cập nhật: 09/08/2024
 -------------------------
-Tổng số (9)
+Tổng số (7)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 1-163	/ footer	/ chưa có link 'câu hỏi thường gặp'			/ chờ figma - SAU
 2-164	/ footer	/ chưa có link 'điều khoản quy định'			/ chờ figma - SAU
 3-169	/ 3.Shopping	/ chi tiết -> Breadcrumb -> quá dài			/ chuyển a Khánh b
-4-213	/ 10.Website	/ sai số do API truyền vào				/ 	API
-5-214	/ Tra cứu đơn	/ thiếu tra cứu đơn hàng				/ chờ thêm tính năng bổ sung
-6-269	/ 7.PXK		/ tải nhiều phiếu xuất kho cùng 1 lúc			/ KHÓ -> HỎI
-7-270	/ 7.PXK		/ bỏ trim đầu cuối chỉ clear khi nhập xong		/ SỬA ĐƯỢC -> KHÓ
-8-271	/ 5.Đơn VC	/ bỏ trim đầu cuối chỉ clear khi nhập xong		/ SỬA ĐƯỢC -> KHÓ
-9-272	/ 5.Đơn VC	/ tạo đơn -> 'Nút tạo đơn', 'tab' căn lại đúng thiết kế	/ SỬA ĐƯỢC
+4-214	/ Tra cứu đơn	/ thiếu tra cứu đơn hàng				/ chờ thêm tính năng bổ sung
+5-270	/ 7.PXK		/ bỏ trim đầu cuối chỉ clear khi nhập xong		/ SỬA ĐƯỢC -> KHÓ
+6-271	/ 5.Đơn VC	/ bỏ trim đầu cuối chỉ clear khi nhập xong		/ SỬA ĐƯỢC -> KHÓ
+7-273	/ 7.PXK		/ click vào QR sang màn QR Code				/ SỬA ĐƯỢC -> CHỜ
 -------------------------
 *NOTE:
  -> tách riêng format thành 1 component riêng để tái sử dụng tăng hiệu suất nhưng mấy cái thời gian đang lệch -> để sau
 -------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
  -> chỉnh sửa lại nội dung UI màn nội dung tràn thêm ra và cách padding: 40px xung quanh		/ SAU
+ -> ví dụ màn nào có tab ko cần debounce
  -> 
 ________________________________________________________________________________________________________________________
 CÁC MÀN GIAO DIỆN
@@ -26,12 +25,11 @@ CÁC MÀN GIAO DIỆN
 Màn 5. Đơn hàng vận chuyển:
  *Màn danh sách:
 	- xóa bỏ hoặc giữ lại outline màu xanh nước sao cho đồng bộ					/ KHÓ-SAU
-	- cách phần search bỏ trim() 2 đầu giữ lại ở giữa						/ KHÓ-SAU
+	- các phần search bỏ trim() 2 đầu giữ lại ở giữa						/ KHÓ-SAU
 	- sửa lại Action-View sao cho giống với Đơn Ecommerce						/ SỬA ĐƯỢC-CHƯA
  *Màn chi tiết:
 	- khi nhấp vào hình ảnh sẽ phóng to hình ảnh đó							/ KHÓ
  *Màn tạo đơn:
-	- điều chỉnh lại điều hướng đến Import Excel là cùng 1 trang tạo đơn mới			/ SỬA ĐƯỢC (LÂU)
 	- 
    step 1:
 	- yêu cầu từ API trả về phương thức vận chuyển của địa chỉ kho AIR/SEA				/ API-CHƯA CÓ
@@ -45,9 +43,11 @@ Màn 5. Đơn hàng vận chuyển:
 --------------------------------------------
 Màn 7. Phiếu xuất kho:
 	- phần search vẫn đang chưa trim() đầu cuối: mã PXK, mã tracking (2)				/ SỬA SAU
-	- 
+	- thêm icon xuất excel lúc mà nó 
 Màn 8. Ví SQT:
  *Màn danh sách
 	- tiền nạp trong tháng (đang chờ API)
+	- 
+Màn 10. Website mua hàng:
 	- 
 ________________________________________________________________________________________________________________________
