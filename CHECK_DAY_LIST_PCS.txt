@@ -1,12 +1,12 @@
 CTY_PCS
 -------
-Ngày cập nhật: 09/08/2024
+Ngày cập nhật: 12/08/2024
 -------------------------
 ! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
-- hộp bánh danisa -> nhiều
+- hộp bánh danisa
 - Cốc thuốc:
-	- xịt mũi x1 -> 80%
+	- xịt mũi x1 -> hết
 	- nhỏ mũi x2 -> 50% - 80%
 	- thuốc đỏ nhỏ x1 -> 40%
 	- kéo nhỏ x1
@@ -40,5 +40,6 @@ Ngày cập nhật: 09/08/2024
 	- [gitlab] 	-> check a Khánh cập nhật thỉnh thoảng!
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
- - 
+ - THÊM -> thêm bánh khác vào hộp
+ - MANG -> xịt mũi khác; M -> thêm xịt mũi
 ----------------------------------------------------------------------------

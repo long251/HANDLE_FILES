@@ -1,16 +1,14 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 09/08/2024
+Ngày cập nhật: 12/08/2024
 -------------------------
-Tổng số (7)
+Tổng số (5)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 1-163	/ footer	/ chưa có link 'câu hỏi thường gặp'			/ chờ figma - SAU
 2-164	/ footer	/ chưa có link 'điều khoản quy định'			/ chờ figma - SAU
 3-169	/ 3.Shopping	/ chi tiết -> Breadcrumb -> quá dài			/ chuyển a Khánh b
 4-214	/ Tra cứu đơn	/ thiếu tra cứu đơn hàng				/ chờ thêm tính năng bổ sung
-5-270	/ 7.PXK		/ bỏ trim đầu cuối chỉ clear khi nhập xong		/ SỬA ĐƯỢC -> KHÓ
-6-271	/ 5.Đơn VC	/ bỏ trim đầu cuối chỉ clear khi nhập xong		/ SỬA ĐƯỢC -> KHÓ
-7-273	/ 7.PXK		/ click vào QR sang màn QR Code				/ SỬA ĐƯỢC -> CHỜ
+5-273	/ 7.PXK		/ click vào QR sang màn QR Code				/ SỬA ĐƯỢC -> CHỜ
 -------------------------
 *NOTE:
  -> tách riêng format thành 1 component riêng để tái sử dụng tăng hiệu suất nhưng mấy cái thời gian đang lệch -> để sau
@@ -25,25 +23,21 @@ CÁC MÀN GIAO DIỆN
 Màn 5. Đơn hàng vận chuyển:
  *Màn danh sách:
 	- xóa bỏ hoặc giữ lại outline màu xanh nước sao cho đồng bộ					/ KHÓ-SAU
-	- các phần search bỏ trim() 2 đầu giữ lại ở giữa						/ KHÓ-SAU
 	- sửa lại Action-View sao cho giống với Đơn Ecommerce						/ SỬA ĐƯỢC-CHƯA
  *Màn chi tiết:
-	- khi nhấp vào hình ảnh sẽ phóng to hình ảnh đó							/ KHÓ
+	- 
  *Màn tạo đơn:
 	- 
    step 1:
 	- yêu cầu từ API trả về phương thức vận chuyển của địa chỉ kho AIR/SEA				/ API-CHƯA CÓ
-	- 
    step 2:
 	- có 1 vấn đề là khi tạo 2 đơn hoặc 3 đơn cùng lúc mà nhập sp từ tracking 1 sẽ ăn cả theo 2 tracking còn lại
 	- trọng lượng (kg) đang có vấn đề khi nhập , là phẩy phần thập phân còn . là xóa cân nặng	/ TÌM CÁCH MÀ SỬA
-	- 
    step 3:
 	- chưa check trùng tracking nên là khi nhập xong vẫn ko trả ra tracking ở màn danh sách		/ KHÓ client
 --------------------------------------------
 Màn 7. Phiếu xuất kho:
-	- phần search vẫn đang chưa trim() đầu cuối: mã PXK, mã tracking (2)				/ SỬA SAU
-	- thêm icon xuất excel lúc mà nó 
+	- 
 Màn 8. Ví SQT:
  *Màn danh sách
 	- tiền nạp trong tháng (đang chờ API)
