@@ -11,6 +11,7 @@ SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 5-273	/ 7.PXK		/ click vào QR sang màn QR Code				/ SỬA ĐƯỢC -> CHỜ
 -------------------------
 *NOTE:
+ -> CLEAN CODE
  -> tách riêng format thành 1 component riêng để tái sử dụng tăng hiệu suất nhưng mấy cái thời gian đang lệch -> để sau
 -------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
@@ -27,21 +28,19 @@ Màn 5. Đơn hàng vận chuyển:
  *Màn chi tiết:
 	- 
  *Màn tạo đơn:
-	- 
+	- import nhiều đơn VC tính toán các TH làm sao cho nó đủ hết là được!				/ tối 12/08
    step 1:
-	- yêu cầu từ API trả về phương thức vận chuyển của địa chỉ kho AIR/SEA				/ API-CHƯA CÓ
+	- 
    step 2:
-	- có 1 vấn đề là khi tạo 2 đơn hoặc 3 đơn cùng lúc mà nhập sp từ tracking 1 sẽ ăn cả theo 2 tracking còn lại
-	- trọng lượng (kg) đang có vấn đề khi nhập , là phẩy phần thập phân còn . là xóa cân nặng	/ TÌM CÁCH MÀ SỬA
+	- nhiều track 1 lúc nhập sp1 ăn cả sang sp2 3...						/ tối 12/08
    step 3:
 	- chưa check trùng tracking nên là khi nhập xong vẫn ko trả ra tracking ở màn danh sách		/ KHÓ client
 --------------------------------------------
 Màn 7. Phiếu xuất kho:
-	- 
+	- chỗ màn danh sách đang chưa trả đúng dữ liệu
+	- màn QR của PXK
 Màn 8. Ví SQT:
  *Màn danh sách
 	- tiền nạp trong tháng (đang chờ API)
-	- 
 Màn 10. Website mua hàng:
-	- 
 ________________________________________________________________________________________________________________________
