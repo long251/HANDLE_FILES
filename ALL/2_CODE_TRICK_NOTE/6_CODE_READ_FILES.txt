@@ -1,0 +1,128 @@
+const readFile = (file: File) => {
+  const reader = new FileReader();
+  reader.onload = (e: any) => {
+    setFileName(file.name);
+    const data = new Uint8Array(e.target.result);
+    const workbook = XLSX.read(data, { type: 'array' });
+    const firstSheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[firstSheetName];
+    const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+    let processedTrackingCodes: { [key: string]: any } = {};
+    let currentTracking: any = null;
+
+    for (let i = 4; i < jsonData.length; i++) {
+      let row: any = jsonData[i];
+      if (row.length) {
+        const trackingCode = trim(row[1]);
+        const content = trim(row[2]);
+        const quantity = Number(trim(row[3]));
+        const price = Number(trim(row[4]));
+        const inspection = trim(row[5]) === 'x' ? true : false;
+        const weight = Number(trim(row[6]));
+        const note = trim(row[7]);
+
+        if (trackingCode) {
+          if (processedTrackingCodes[trackingCode]) {
+            let existingTracking = processedTrackingCodes[trackingCode];
+
+            // Gộp thông tin
+            let item = { content, quantity, price, note };
+            existingTracking.items.push(item);
+            existingTracking.weight += weight; // Cộng dồn trọng lượng
+
+            if (inspection) {
+              existingTracking.inspection = true; // Nếu có bất kỳ cái nào có kiểm hàng, đánh dấu là true
+            }
+          } else {
+            currentTracking = {
+              index: trim(row[0]),
+              trackingCode: trackingCode,
+              items: [{ content, quantity, price, note }],
+              inspection: inspection,
+              weight: weight,
+            };
+            processedTrackingCodes[trackingCode] = currentTracking;
+          }
+        } else if (currentTracking) {
+          let item = { content, quantity, price, note };
+          currentTracking.items.push(item);
+        }
+      } else {
+        break;
+      }
+    }
+
+    const trackings = Object.values(processedTrackingCodes);
+    const trackingCount = trackings.length;
+    setData(trackings);
+    setTrackingCount(trackingCount);
+  };
+  reader.readAsArrayBuffer(file);
+};
+
+--------------------
+{data.length ? (
+  <LegacyCard.Section title={'Dữ liệu import'}>
+    <div className={'IndexTable--NoSticky'}>
+      <IndexTable
+        selectable={false}
+        headings={[
+          { title: 'STT' },
+          { title: 'Mã tracking' },
+          { title: 'Nội dung hàng hóa' },
+          { title: 'Số lượng' },
+          { title: 'Đơn giá sản phẩm' },
+          { title: 'Kiểm hàng & Chụp ảnh' },
+          { title: 'Trọng lượng (kg)' },
+          { title: 'Ghi chú' },
+        ]}
+        itemCount={data.length}
+      >
+        {data.map((item: any, index: number) => (
+          <IndexTable.Row id={`${index}`} key={index} position={index}>
+            <IndexTable.Cell>{item.index}</IndexTable.Cell>
+            <IndexTable.Cell>{item.trackingCode}</IndexTable.Cell>
+            <IndexTable.Cell>
+              {item.items.map((i: any, index: number) => (
+                <div key={index}>
+                  <div>{i.content}</div>
+                </div>
+              ))}
+            </IndexTable.Cell>
+            <IndexTable.Cell>
+              {item.items.map((i: any, index: number) => (
+                <div key={index}>
+                  <div>{i.quantity}</div>
+                </div>
+              ))}
+            </IndexTable.Cell>
+            <IndexTable.Cell>
+              {item.items.map((i: any, index: number) => (
+                <div key={index}>
+                  <div>
+                    {i.price ? (
+                      <>
+                        {i.price} {getCurrencySymbol(exchangeRate().currencyCode)}
+                      </>
+                    ) : (
+                      ''
+                    )}
+                  </div>
+                </div>
+              ))}
+            </IndexTable.Cell>
+            <IndexTable.Cell>{item.inspection ? 'x' : ''}</IndexTable.Cell>
+            <IndexTable.Cell>{item.weight}</IndexTable.Cell>
+            <IndexTable.Cell>
+              {item.items.map((i: any, index: number) => (
+                <div key={index}>
+                  <div>{i.note}</div>
+                </div>
+              ))}
+            </IndexTable.Cell>
+          </IndexTable.Row>
+        ))}
+      </IndexTable>
+    </div>
+  </LegacyCard.Section>
+) : null}

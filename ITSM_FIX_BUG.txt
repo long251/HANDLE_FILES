@@ -1,6 +1,6 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 12/08/2024
+Ngày cập nhật: 13/08/2024
 -------------------------
 Tổng số (5)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
@@ -15,9 +15,7 @@ SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
  -> tách riêng format thành 1 component riêng để tái sử dụng tăng hiệu suất nhưng mấy cái thời gian đang lệch -> để sau
 -------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
- -> chỉnh sửa lại nội dung UI màn nội dung tràn thêm ra và cách padding: 40px xung quanh		/ SAU
- -> ví dụ màn nào có tab ko cần debounce
- -> 
+ -> chỉnh sửa lại nội dung UI màn nội dung tràn thêm ra và cách padding: 40px xung quanh		/ SAU 
 ________________________________________________________________________________________________________________________
 CÁC MÀN GIAO DIỆN
 -----------------
@@ -26,21 +24,34 @@ Màn 5. Đơn hàng vận chuyển:
 	- xóa bỏ hoặc giữ lại outline màu xanh nước sao cho đồng bộ					/ KHÓ-SAU
 	- sửa lại Action-View sao cho giống với Đơn Ecommerce						/ SỬA ĐƯỢC-CHƯA
  *Màn chi tiết:
-	- 
  *Màn tạo đơn:
 	- import nhiều đơn VC tính toán các TH làm sao cho nó đủ hết là được!				/ tối 12/08
    step 1:
 	- 
    step 2:
-	- nhiều track 1 lúc nhập sp1 ăn cả sang sp2 3...						/ tối 12/08
+	- 
    step 3:
 	- chưa check trùng tracking nên là khi nhập xong vẫn ko trả ra tracking ở màn danh sách		/ KHÓ client
 --------------------------------------------
 Màn 7. Phiếu xuất kho:
-	- chỗ màn danh sách đang chưa trả đúng dữ liệu
+	- chỗ màn danh sách đang chưa trả đúng dữ liệu do xóa hay gì gì đó vẫn bị
 	- màn QR của PXK
 Màn 8. Ví SQT:
  *Màn danh sách
 	- tiền nạp trong tháng (đang chờ API)
 Màn 10. Website mua hàng:
 ________________________________________________________________________________________________________________________
+RÀ SOÁT LẠI CÁC MÀN:
+- thanh scroll của AutoComplete của Polaris đang không kéo cuộn được do trình duyệt GChrome => thiết kế lại
+*Màn Ví SQT:
+ - CHƯA CÓ: trường dữ liệu 'tiêu dùng trong tháng'
+ - CHƯA CÓ: Print, xuất Excel, xuất PDF------------> (TẠM ẨN)
+*Màn Phiếu xuất kho:
+ - Trạng thái QR: 0-làm mở; 1-mở tab mới QR thanh toán
+ - Màn danh sách đang trả sai do xóa phiếu mà không cập nhật lại
+*Màn đơn vận chuyển:
+ - các tab khi khai thác lên và dữ liệu trên màn danh sách đang sai lệch
+ - tạo đơn: 
+*Thanh search tổng (theo tracking):
+*màn tra cứu đơn hàng:
+ - thêm các dữ liệu show ra (đang được ẩn)

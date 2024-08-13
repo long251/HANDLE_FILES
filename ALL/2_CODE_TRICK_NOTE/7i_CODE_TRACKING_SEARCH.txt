@@ -1,0 +1,129 @@
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Layout, LegacyCard, Page, Spinner, Text } from 'pcs-polaris';
+import { shippingOrdersAction } from '../../store/reducers/shippingOrdersReducer';
+import { AppState } from '../../store';
+import { IconV } from '../SQTWallet/IconSQTWallet';
+import moment from 'moment';
+import Empty from '../../components/NoData/Empty';
+
+const TrackingSearch = () => {
+  const { trackingCode } = useParams<{ trackingCode: string }>();
+  const dispatch = useDispatch();
+  const { trace_tracking_loading, trace_tracking } = useSelector((state: AppState) => state.shippingOrders);
+
+  useEffect(() => {
+    if (trackingCode) {
+      dispatch(shippingOrdersAction.fetchTraceTracking({ trackingCode: trackingCode.trim() }));
+    }
+  }, [dispatch, trackingCode]);
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    if (!moment(date).isValid()) {
+      return '';
+    }
+    date.setHours(date.getUTCHours());
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    };
+    return new Intl.DateTimeFormat('en-GB', options).format(date).replace(',', '');
+  };
+
+  const renderNoTrackingInfo = () => (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        gap: '8px',
+        padding: '16px',
+        textAlign: 'center',
+        width: '100%',
+      }}
+    >
+      <div style={{ flex: 1, minWidth: '150px', maxWidth: '300px', width: '100%' }}>
+        <Empty />
+      </div>
+      <Text as={'p'} variant={'bodyMd'}>
+        Không có dữ liệu thông tin đơn hàng
+      </Text>
+    </div>
+  );
+
+  return (
+    <div className='Polaris-Custom'>
+      <Page>
+        <Layout>
+          <Layout.Section>
+            <LegacyCard>
+              <LegacyCard.Section>
+                <div style={{ border: '1px solid #D1D5DB' }}>
+                  <div
+                    style={{
+                      backgroundColor: '#D1D5DB',
+                      padding: '16px 12px',
+                      fontWeight: '700',
+                      fontSize: '14px',
+                      lineHeight: '17.8px',
+                    }}
+                  >
+                    Lịch sử đơn hàng theo mã tracking: {trackingCode}
+                  </div>
+                  <div style={{ padding: '40px' }}>
+                    {trace_tracking_loading ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          gap: '8px',
+                        }}
+                      >
+                        <Spinner accessibilityLabel='Spinner example' size='small' />
+                      </div>
+                    ) : trace_tracking.length === 0 ? (
+                      renderNoTrackingInfo()
+                    ) : (
+                      trace_tracking
+                        .slice()
+                        .sort((a, b) => b.traceStatus - a.traceStatus)
+                        .map((trace, index) => (
+                          <div key={index} style={{ display: 'flex', gap: '20px' }}>
+                            <div className='Data_Table_Style'>
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                }}
+                              >
+                                <div className={index === 0 ? 'Data_Table_Icon' : 'Data_Table_IconV'}>
+                                  {index !== 0 && <IconV />}
+                                </div>
+                              </div>
+                              <div className='Data_Table_Dotted'></div>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                              <div>{trace.traceDesc}</div>
+                              <div>{formatDate(trace.traceTime)}</div>
+                            </div>
+                          </div>
+                        ))
+                    )}
+                  </div>
+                </div>
+              </LegacyCard.Section>
+            </LegacyCard>
+          </Layout.Section>
+        </Layout>
+      </Page>
+    </div>
+  );
+};
+
+export default TrackingSearch;
