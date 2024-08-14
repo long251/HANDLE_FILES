@@ -35,6 +35,13 @@ I. Giao diện: FE, html, css
 	(develop ở đây là nhánh main)
 	! luôn git pull trước khi làm trên nhánh mới
 ---------------------------
+*TRICK NOTE GITLAB TỰ MERGE
+- vào trang GitLab web
+- thấy cột navbar trái bên có 'merge request' nhấn vào chọn NEW
+- chọn selected: longddq(me) so sánh với nguồn develop(main)
+- kéo xuống bỏ tích Delete; 2 ô ko đc tích là đúng
+- setNew và chờ nó merge vào
+---------------------------
 *KẾT NỐI API
 - khi kết nối API truyền payload truyền đủ các thông số thì nó mới đổ ra dữ liệu
 ---------------------------
@@ -54,3 +61,4 @@ b5: b4 + và nó put hay dispatch đến fetchDataSuccessed xử lý và cập n
 b6: khi đã cập nhật xong nó đẩy lại về UI cập nhật dữ liệu giao diện
 	const dispatch = useDispatch();
   	const websiteState = useSelector((state: AppState) => state.website);
+

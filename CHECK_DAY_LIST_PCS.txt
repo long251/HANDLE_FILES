@@ -1,6 +1,6 @@
 CTY_PCS
 -------
-Ngày cập nhật: 13/08/2024
+Ngày cập nhật: 14/08/2024
 -------------------------
 ! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
@@ -17,7 +17,7 @@ Ngày cập nhật: 13/08/2024
 - gối cong -> nằm hơi đau đầu -> chưa thay đc gối mới vì nó gọn vs ngủ cx dễ chịu rồi
 - balo* -> MANG thuốc nâu axit
 - kẹo xilytol x1 hộp = 55k
-- giấy ăn x1 bịch nhỏ
+- giấy ăn x1 bịch nhỏ +1
 - tai nghe có dây x1
 - bút bi x3
 - vở ghi
@@ -33,13 +33,13 @@ Ngày cập nhật: 13/08/2024
  - [Pictures] -> [Screenshots] -> xóa ảnh chụp 1 tuần / lần
  - Cốc cốc:
 	- [gmail] -> check thư điện tử hàng ngày!
-     *[KHÁC]:
-	- [Client LMHT] -> check cập nhật bản mới thỉnh thoảng	-> dừng chơi LOL -> 12/08/2024 => bản 14.15
+     *[KHÁC]
+	- [Client LMHT] -> check cập nhật bản mới thỉnh thoảng	-> dừng chơi LOL -> 14/08/2024 => bản 14.16
+				-> Vi tăng Q; Wu tăng giáp, E; Rìu đen ok hơn, gươm đừng lên!
 	- [alagod cá] 	-> check đồ mới hàng ngày!				 -> tối
-	- [ITSM] 	-> check lỗi, cập nhật hàng ngày!			 -> 12/08/2024 => 5 issues
+	- [ITSM] 	-> check lỗi, cập nhật hàng ngày!			 -> 14/08/2024 => 5 issues
 	- [gitlab] 	-> check a Khánh cập nhật thỉnh thoảng!
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
  - M -> thêm xịt mũi
- - 
 ----------------------------------------------------------------------------
