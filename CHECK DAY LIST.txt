@@ -1,6 +1,6 @@
 *CHECK DAY LIST*
 ----------------
-Ngày cập nhật: 14/08/2024
+Ngày cập nhật: 15/08/2024
 -------------------------
 *ZALO:
  1. Cá cảnh Hà Nội:
@@ -22,6 +22,10 @@ Ngày cập nhật: 14/08/2024
 	- chép panda hàng nét  = 100k
 	- ...
 	=> đi xa tận Ba la, đoạn bến xe Yên Nghĩa rẽ chéo vào
+	=> CHỌN: bình tích 3k,
+		 bình tích cối kì cao 10k, 
+		 7m dumbo -> xem có bán lẻ (thg đức phạm)
+		 
 ----------------------------------------------------
  2. Cường St (cường aquarium):
 	- chép sư tử sz mini++ = 180k quá bé mà đắt kinh			=> X
@@ -38,8 +42,6 @@ Ngày cập nhật: 14/08/2024
 	- cao su non			= 10-30-60	/
  4. Sủi:
 	- ytz-300			= 54 (28)	/		/ ko nóng dùng OK
-	- sủi pin vipsun		= 39 (13)	/		/ hỏi xem?
-	! chiều đổi 2 sủi đều = ytz-300
 	- dây sủi (1m)			= 3.2 (60)	/		/ dạo này đắt thế
 	- hít giữ (1 cặp)		= 7 (13)	/
 	- quả sủi 10x12			= 3 (40)	/
@@ -54,7 +56,6 @@ Ngày cập nhật: 14/08/2024
  6. VLL:
 	- matrix 500ml			= 65 (68)	/
 	- matrix 100ml			= 20 (50)	/
-	! sứ trụ vàng hỏi xem có bán 1kg 1 ko?
 	- bi tiêu, bi vàng 0.5kg	= 25 (38)	/		/ đắt hơn sứ trụ trắng mà ko ăn thua
 	- sứ trụ trắng 0.5kg		= 17 (15)	/
 	- sứ bi đức 0.5kg		= 35 (30)	/		/ đắt thế mua có 45K/1kg
@@ -66,17 +67,15 @@ Ngày cập nhật: 14/08/2024
 	- extra bio 500ml		= 125 (17)	/
 	- biozym 1000ml			= 140 (44)	/
 	- tetra 1 gói			= 15 (57)	/
-	- nuphar anti-bio 15ml		= 25 		/		/ thử hỏi so sánh super one
 	- superone			= 26		/		/ so sánh anti-bio
  8. Trang trí:
 	- đồ chơi cá tép cho mấy con dọn bể mà chẳng chịu ăn, thử cắt lát dưa chuột?
 	- tranh 3d nếu rẻ thì mua ko thì tự đo xong mua sọp pe
 	- decan sau dán băng 2 mặt tách sau khi ko thích dùng
  9. Dụng cụ:
-	- vợt các loại chọn tại shop
+	- vợt các loại chọn tại shop	= rẻ OK đấy	/
 	- nhiệt kế			= 9		/
 	- lau bể tam giác		= 35		/
-	- nam châm lau bể q/sobo04	= 60 (8)	/
  10. Thức ăn:
 	- lọ lùn V20 đựng cám		= 2 (60)	/
 	- lên shop xem cám rồi mua!

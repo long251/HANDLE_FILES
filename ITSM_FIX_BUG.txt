@@ -1,6 +1,6 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 14/08/2024
+Ngày cập nhật: 15/08/2024
 -------------------------
 Tổng số (5)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
@@ -40,8 +40,7 @@ Màn 7. Phiếu xuất kho:
 	- chỉnh sửa lại phần AutoComplete của Polaris sao cho khớp với GG Chrome Vd: tuyến?		/ cuộn trang
 	- field tiền nạp trong tháng (đang chờ API)						/ chờ API
 	- danh sách PXK đang trả sai có thể là do API chưa xóa cái PX cũ			/ chờ API
-	- Modal QR Code											/ ghép đc
 --------------------------------------------
 Màn Tra cứu đơn hàng:
-	- đang chỉ đưa ra dữ liệu theo traceTracking thôi nên ít quá tạm ẩn vì giống thanh search tổng
+	- triển khai search nhiều tracking cùng 1 lúc và in ra theo tuần tự 'Lịch sử đơn hàng'		/ SỬA ĐƯỢC
 ________________________________________________________________________________________________________________________
