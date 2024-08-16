@@ -20,15 +20,16 @@ SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 ________________________________________________________________________________________________________________________
 CÁC MÀN GIAO DIỆN
 -----------------
+Màn 2. Dashboard:
+	- chỉnh lại 'trạng thái' => 'Đơn hàng gần đây' nó đang bị lệch					/ SỬA ĐƯỢC
 Màn 5. Đơn hàng vận chuyển:
  *Màn danh sách:
-	- đang trả sai dữ liệu do khai thác đơn sai							/ hỏi lại API
 	- xóa bỏ hoặc giữ lại outline màu xanh nước sao cho đồng bộ					/ KHÓ-SAU
 	- sửa lại Action-View sao cho giống với Đơn Ecommerce						/ SỬA ĐƯỢC-k sửa
  *Màn chi tiết:
-	- vẫn bị ăn dịch vụ: gom hàng tách vỏ (khai thác ở kho JP PCS)					/ hỏi lại
+	-
  *Màn tạo đơn:
-	- import nhiều đơn VC tính toán các TH làm sao cho nó đủ hết là được!				/ tối 12/08
+	- 
    step 1:
 	- 
    step 2:
@@ -38,9 +39,11 @@ Màn 5. Đơn hàng vận chuyển:
 --------------------------------------------
 Màn 7. Phiếu xuất kho:
 	- chỉnh sửa lại phần AutoComplete của Polaris sao cho khớp với GG Chrome Vd: tuyến?		/ cuộn trang
-	- field tiền nạp trong tháng (đang chờ API)						/ chờ API
-	- danh sách PXK đang trả sai có thể là do API chưa xóa cái PX cũ			/ chờ API
 --------------------------------------------
 Màn Tra cứu đơn hàng:
-	- triển khai search nhiều tracking cùng 1 lúc và in ra theo tuần tự 'Lịch sử đơn hàng'		/ SỬA ĐƯỢC
+	- triển khai search nhiều tracking cùng 1 lúc và in ra theo tuần tự 'Lịch sử đơn hàng'		/ ĐANG SỬA
+--------------------------------------------
+Màn 8. Ví SQT:
+	- field tiền nạp trong tháng
+	- lấy ra nội dung đơn mua hộ chi tiết theo nội dung lịch sử giao dịch
 ________________________________________________________________________________________________________________________
