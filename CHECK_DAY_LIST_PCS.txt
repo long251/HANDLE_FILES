@@ -1,6 +1,6 @@
 CTY_PCS
 -------
-Ngày cập nhật: 15/08/2024
+Ngày cập nhật: 17/08/2024
 -------------------------
 ! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
@@ -17,7 +17,7 @@ Ngày cập nhật: 15/08/2024
 - gối cong -> nằm hơi đau đầu -> chưa thay đc gối mới vì nó gọn vs ngủ cx dễ chịu rồi
 - balo* -> MANG thuốc nâu axit
 - kẹo xilytol x1 hộp = 55k
-- giấy ăn x1 bịch nhỏ +1
+- giấy ăn x1 bịch nhỏ
 - tai nghe có dây x1
 - bút bi x3
 - vở ghi

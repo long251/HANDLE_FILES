@@ -1,0 +1,18 @@
+Màn OrderSearch
+---------------
+LOGIC
+- gọi shippingOrderState
+- biến lưu thay đổi, trackingDataMap??
+- hàm fetchTrackingData => bên dưới nhập forEach vào từng mục
+- keydown, formatDate, renderNo, 
+
+RETURN
+- thông tin đơn hàng
+- nhập mã tracking
+- input nhập target; handleKeyDown, handleSearch nhận inputTrackingCode
+
+- loading ? spin : load && map theo code, 
+ if load
+ if ! hoặc === 0 => Empty
+ còn có return
+	- 
