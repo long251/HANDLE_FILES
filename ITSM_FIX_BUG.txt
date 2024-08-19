@@ -1,32 +1,32 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 17/08/2024
+Ngày cập nhật: 19/08/2024
 -------------------------
 Tổng số (5)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 1-163	/ footer	/ chưa có link 'câu hỏi thường gặp'			/ chờ figma - SAU
 2-164	/ footer	/ chưa có link 'điều khoản quy định'			/ chờ figma - SAU
-3-169	/ 3.Shopping	/ chi tiết -> Breadcrumb -> quá dài			/ chuyển a Khánh b
--------------------------
-*NOTE:
- -> CLEAN CODE!
- -> tách riêng format thành 1 component riêng để tái sử dụng tăng hiệu suất nhưng mấy cái thời gian đang lệch -> để sau
+3-169	/ 3.Shopping	/ chi tiết -> Breadcrumb -> quá dài			/ hỏi a Khánh - tự sửa
 -------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
- -> 
-________________________________________________________________________________________________________________________
+*Họp Trans 15/08/2024:
+ -> thiếu field 'tổng tiền nạp trong tháng' ở màn 2.dashboard; 8.Ví SQT; 9.Lịch sử giao dịch
+______________________________________________________________________________________________________
 CÁC MÀN GIAO DIỆN
 -----------------
 Màn 2. Dashboard:
-	- chỉnh lại 'trạng thái' => 'Đơn hàng gần đây' nó đang bị lệch					/ SỬA ĐƯỢC
+	- 
+Màn 3. Shopping:
+	- Breadcrumb màn chi tiết quá dài -> 100px cắt ngắn		/ hỏi a Khánh vì dùng chung
+	- xóa log shopping						/ hỏi a Khánh
 Màn 5. Đơn hàng vận chuyển:
  *Màn danh sách:
-	- xóa bỏ hoặc giữ lại outline màu xanh nước sao cho đồng bộ					/ KHÓ-SAU
-	- sửa lại Action-View sao cho giống với Đơn Ecommerce						/ SỬA ĐƯỢC-k sửa
+	- xóa bỏ hoặc giữ lại outline màu xanh nước sao cho đồng bộ		/ KHÓ-SAU
+	- sửa lại Action-View sao cho giống với Đơn Ecommerce			/ SỬA ĐƯỢC-k sửa
  *Màn chi tiết:
-	-
- *Màn tạo đơn:
 	- 
+ *Màn tạo đơn:
+	- tạo nhiều đơn Import -> nếu TH trùng thì đang chỉ + cái dòng trùng, những dòng dư thì + vào đâu?
    step 1:
 	- 
    step 2:
@@ -35,12 +35,16 @@ Màn 5. Đơn hàng vận chuyển:
 	- chưa check trùng tracking nên là khi nhập xong vẫn ko trả ra tracking ở màn danh sách		/ KHÓ client
 --------------------------------------------
 Màn 7. Phiếu xuất kho:
-	- chỉnh sửa lại phần AutoComplete của Polaris sao cho khớp với GG Chrome Vd: tuyến?		/ cuộn trang
+	- 
 --------------------------------------------
 Màn Tra cứu đơn hàng:
-	- triển khai search nhiều tracking cùng 1 lúc và in ra theo tuần tự 'Lịch sử đơn hàng'		/ ĐANG SỬA
+	- triển khai search nhiều tracking cùng 1 lúc và in ra theo tuần tự 'Lịch sử đơn hàng'		/ THẤY OK -> ko sửa nữa hoặc nhận đc tín hiệu cảnh báo
 --------------------------------------------
 Màn 8. Ví SQT:
-	- field tiền nạp trong tháng
 	- lấy ra nội dung đơn mua hộ chi tiết theo nội dung lịch sử giao dịch
-________________________________________________________________________________________________________________________
+--------------------------------------------
+Màn 9. Lịch sử giao dịch:
+--------------------------------------------
+*Thanh search tổng:
+	- đang search theo 1 mã tracking 1 lần
+______________________________________________________________________________________________________

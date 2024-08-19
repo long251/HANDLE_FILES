@@ -1,6 +1,6 @@
 CTY_PCS
 -------
-Ngày cập nhật: 17/08/2024
+Ngày cập nhật: 19/08/2024
 -------------------------
 ! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
@@ -14,7 +14,7 @@ Ngày cập nhật: 17/08/2024
 - chai nước
 - (chai nước ngọt)
 - case máy tính -> hơi lỏng dây
-- gối cong -> nằm hơi đau đầu -> chưa thay đc gối mới vì nó gọn vs ngủ cx dễ chịu rồi
+- gối cong
 - balo* -> MANG thuốc nâu axit
 - kẹo xilytol x1 hộp = 55k
 - giấy ăn x1 bịch nhỏ
@@ -41,5 +41,6 @@ Ngày cập nhật: 17/08/2024
 	- [gitlab] 	-> check a Khánh cập nhật thỉnh thoảng!
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
- - M -> thêm xịt mũi
+ - MANG -> gối ngủ khác; gối cong mang về kê đầu
+
 ----------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 TRICK NOTE UI
 -------------
-Ngày cập nhật: 17/08/2024
+Ngày cập nhật: 19/08/2024
 -------------------------
 
 I. Giao diện: FE, html, css
@@ -61,4 +61,8 @@ b5: b4 + và nó put hay dispatch đến fetchDataSuccessed xử lý và cập n
 b6: khi đã cập nhật xong nó đẩy lại về UI cập nhật dữ liệu giao diện
 	const dispatch = useDispatch();
   	const websiteState = useSelector((state: AppState) => state.website);
-
+-----------------------------------------------------------------------------
+*CLEAN CODE:
+ - xóa bỏ log, cắt code rườm già
+ - tách riêng các hàm, format,... dùng chung ra 1 component riêng và gọi các chỗ để tối ưu
+------------------------------------------------------------------------------------------
