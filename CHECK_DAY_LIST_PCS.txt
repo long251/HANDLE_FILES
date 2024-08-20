@@ -1,13 +1,13 @@
 CTY_PCS
 -------
-Ngày cập nhật: 19/08/2024
+Ngày cập nhật: 20/08/2024
 -------------------------
 ! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
-- hộp bánh danisa -> nhiều
+- hộp bánh danisa
 - Cốc thuốc:
-	- xịt mũi x1 -> 50%
-	- nhỏ mũi x2 -> 50% - 80%
+	- xịt mũi x1 -> 20%
+	- nhỏ mũi x1 -> 50%
 	- thuốc đỏ nhỏ x1 -> 40%
 	- kéo nhỏ x1
 	- âu gâu nhỏ x5
@@ -34,13 +34,13 @@ Ngày cập nhật: 19/08/2024
  - Cốc cốc:
 	- [gmail] -> check thư điện tử hàng ngày!
      *[KHÁC]
-	- [Client LMHT] -> check cập nhật bản mới thỉnh thoảng	-> dừng chơi LOL -> 14/08/2024 => bản 14.16
+	- [Client LMHT] -> check cập nhật bản mới thỉnh thoảng	-> 14/08/2024 => bản 14.16
 				-> Vi tăng Q; Wu tăng giáp, E; Rìu đen ok hơn, gươm đừng lên!
 	- [alagod cá] 	-> check đồ mới hàng ngày!				 -> tối
-	- [ITSM] 	-> check lỗi, cập nhật hàng ngày!			 -> 14/08/2024 => 5 issues
+	- [ITSM] 	-> check lỗi, cập nhật hàng ngày!			 -> 20/08/2024 = 3 lỗi
 	- [gitlab] 	-> check a Khánh cập nhật thỉnh thoảng!
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
  - MANG -> gối ngủ khác; gối cong mang về kê đầu
-
+ - MANG -> bánh mới lên cty
 ----------------------------------------------------------------------------

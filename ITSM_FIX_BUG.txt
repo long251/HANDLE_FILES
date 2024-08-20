@@ -1,16 +1,17 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 19/08/2024
+Ngày cập nhật: 20/08/2024
 -------------------------
 Tổng số (5)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 1-163	/ footer	/ chưa có link 'câu hỏi thường gặp'			/ chờ figma - SAU
 2-164	/ footer	/ chưa có link 'điều khoản quy định'			/ chờ figma - SAU
-3-169	/ 3.Shopping	/ chi tiết -> Breadcrumb -> quá dài			/ hỏi a Khánh - tự sửa
+3-169	/ 3.Shopping	/ chi tiết -> Breadcrumb -> quá dài			/ hỏi a Khánh
 -------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
 *Họp Trans 15/08/2024:
  -> thiếu field 'tổng tiền nạp trong tháng' ở màn 2.dashboard; 8.Ví SQT; 9.Lịch sử giao dịch
+ -> lấy ra mã đơn từ nội dung 'ví SQT' và khi action chuyển đến màn chi tiết mua hộ
 ______________________________________________________________________________________________________
 CÁC MÀN GIAO DIỆN
 -----------------
@@ -39,6 +40,7 @@ Màn 7. Phiếu xuất kho:
 --------------------------------------------
 Màn Tra cứu đơn hàng:
 	- triển khai search nhiều tracking cùng 1 lúc và in ra theo tuần tự 'Lịch sử đơn hàng'		/ THẤY OK -> ko sửa nữa hoặc nhận đc tín hiệu cảnh báo
+	- ngăn cách các 
 --------------------------------------------
 Màn 8. Ví SQT:
 	- lấy ra nội dung đơn mua hộ chi tiết theo nội dung lịch sử giao dịch
@@ -47,4 +49,8 @@ Màn 9. Lịch sử giao dịch:
 --------------------------------------------
 *Thanh search tổng:
 	- đang search theo 1 mã tracking 1 lần
+	- khả năng sửa lại theo kí tự
+	- 
 ______________________________________________________________________________________________________
+*CHỈNH SỬA GIAO DIỆN NHÌN UI*
+ *
