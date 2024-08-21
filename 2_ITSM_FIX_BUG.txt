@@ -1,17 +1,20 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 20/08/2024
+Ngày cập nhật: 21/08/2024
 -------------------------
 Tổng số (5)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 1-163	/ footer	/ chưa có link 'câu hỏi thường gặp'			/ chờ figma - SAU
 2-164	/ footer	/ chưa có link 'điều khoản quy định'			/ chờ figma - SAU
 3-169	/ 3.Shopping	/ chi tiết -> Breadcrumb -> quá dài			/ hỏi a Khánh
+4-274	/ tra cứu đơn	/ icon bên navbar tổng đang sai				/ ĐÃ SỬA
+5-275	/ tra cưu đơn	/ nhập nhiều tracking cái cũ ko đc load lại		/ CHƯA
 -------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
 *Họp Trans 15/08/2024:
  -> thiếu field 'tổng tiền nạp trong tháng' ở màn 2.dashboard; 8.Ví SQT; 9.Lịch sử giao dịch
  -> lấy ra mã đơn từ nội dung 'ví SQT' và khi action chuyển đến màn chi tiết mua hộ
+ -> 'tra cứu đơn hàng' đang search mà ko load lại trang!
 ______________________________________________________________________________________________________
 CÁC MÀN GIAO DIỆN
 -----------------
@@ -43,14 +46,24 @@ Màn Tra cứu đơn hàng:
 	- ngăn cách các 
 --------------------------------------------
 Màn 8. Ví SQT:
-	- lấy ra nội dung đơn mua hộ chi tiết theo nội dung lịch sử giao dịch
 --------------------------------------------
 Màn 9. Lịch sử giao dịch:
 --------------------------------------------
 *Thanh search tổng:
 	- đang search theo 1 mã tracking 1 lần
 	- khả năng sửa lại theo kí tự
-	- 
 ______________________________________________________________________________________________________
 *CHỈNH SỬA GIAO DIỆN NHÌN UI*
- *
+ *Header:
+	- phần navbar thu phóng đoạn Expand chưa có đường kẻ phân cách đổ bóng mờ	/ KHÓ
+ *NavBar tổng:
+	- bo tròn icon, tách border active						/ CỰC KHÓ
+	- đang thêm cái iconUp / iconDown vào các màn tạo đơn đang chưa làm đc		/ KHÓ
+ *Đơn hàng Ecommerce:
+	! mới chỉnh UI màn danh sách
+ *AccountUser:
+	- các màn cho nhỏ lại khi màn lớn để ko bị tràn ra quá nhiều gọn khung nhìn thôi	/
+   1. thông tin cá nhân:
+	- thêm cái hình tròn ảnh đại diện vào đó						/
+   2. Tài khoản:
+	- chỉnh lại chỗ render CMND và chọn, chụp ảnh						/ tối làm lại
