@@ -1,20 +1,21 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 21/08/2024
+Ngày cập nhật: 22/08/2024
 -------------------------
 Tổng số (5)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
-1-163	/ footer	/ chưa có link 'câu hỏi thường gặp'			/ chờ figma - SAU
-2-164	/ footer	/ chưa có link 'điều khoản quy định'			/ chờ figma - SAU
-3-169	/ 3.Shopping	/ chi tiết -> Breadcrumb -> quá dài			/ hỏi a Khánh
+1-163	/ footer	/ chưa có link 'câu hỏi thường gặp'			/ SAU
+2-164	/ footer	/ chưa có link 'điều khoản quy định'			/ SAU
+3-169	/ 3.Shopping	/ chi tiết -> Breadcrumb -> quá dài			/ hỏi a Khánh vì dùng chung
 4-274	/ tra cứu đơn	/ icon bên navbar tổng đang sai				/ ĐÃ SỬA
-5-275	/ tra cưu đơn	/ nhập nhiều tracking cái cũ ko đc load lại		/ CHƯA
+5-275	/ tra cưu đơn	/ nhập nhiều tracking cái cũ ko đc load lại		/ ĐÃ SỬA chắc do nhanh quá
 -------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
 *Họp Trans 15/08/2024:
  -> thiếu field 'tổng tiền nạp trong tháng' ở màn 2.dashboard; 8.Ví SQT; 9.Lịch sử giao dịch
  -> lấy ra mã đơn từ nội dung 'ví SQT' và khi action chuyển đến màn chi tiết mua hộ
- -> 'tra cứu đơn hàng' đang search mà ko load lại trang!
+*Chị Đào, a Khánh bé, a Đạt:
+ -> chỉnh sửa toàn bộ UI, icon, xem xét lại
 ______________________________________________________________________________________________________
 CÁC MÀN GIAO DIỆN
 -----------------
@@ -25,8 +26,8 @@ Màn 3. Shopping:
 	- xóa log shopping						/ hỏi a Khánh
 Màn 5. Đơn hàng vận chuyển:
  *Màn danh sách:
-	- xóa bỏ hoặc giữ lại outline màu xanh nước sao cho đồng bộ		/ KHÓ-SAU
-	- sửa lại Action-View sao cho giống với Đơn Ecommerce			/ SỬA ĐƯỢC-k sửa
+	- xóa bỏ hoặc giữ lại outline màu xanh nước sao cho đồng bộ
+	- sửa lại Action-View sao cho giống với Đơn Ecommerce
  *Màn chi tiết:
 	- 
  *Màn tạo đơn:
@@ -36,14 +37,13 @@ Màn 5. Đơn hàng vận chuyển:
    step 2:
 	- 
    step 3:
-	- chưa check trùng tracking nên là khi nhập xong vẫn ko trả ra tracking ở màn danh sách		/ KHÓ client
+	- chưa check trùng tracking nên là khi nhập xong vẫn ko trả ra tracking ở màn danh sách
 --------------------------------------------
 Màn 7. Phiếu xuất kho:
-	- 
 --------------------------------------------
 Màn Tra cứu đơn hàng:
-	- triển khai search nhiều tracking cùng 1 lúc và in ra theo tuần tự 'Lịch sử đơn hàng'		/ THẤY OK -> ko sửa nữa hoặc nhận đc tín hiệu cảnh báo
-	- ngăn cách các 
+	- ngăn cách các tracking bằng dấu , hoặc ; thay vì dấu cách
+	- tra cứu đơn hàng lại đang lỗi 						/ FIX!
 --------------------------------------------
 Màn 8. Ví SQT:
 --------------------------------------------
@@ -51,19 +51,9 @@ Màn 9. Lịch sử giao dịch:
 --------------------------------------------
 *Thanh search tổng:
 	- đang search theo 1 mã tracking 1 lần
-	- khả năng sửa lại theo kí tự
+	- khả năng sửa lại theo kí tự (>=5 chẳng hạn)
 ______________________________________________________________________________________________________
 *CHỈNH SỬA GIAO DIỆN NHÌN UI*
  *Header:
-	- phần navbar thu phóng đoạn Expand chưa có đường kẻ phân cách đổ bóng mờ	/ KHÓ
  *NavBar tổng:
-	- bo tròn icon, tách border active						/ CỰC KHÓ
-	- đang thêm cái iconUp / iconDown vào các màn tạo đơn đang chưa làm đc		/ KHÓ
- *Đơn hàng Ecommerce:
-	! mới chỉnh UI màn danh sách
- *AccountUser:
-	- các màn cho nhỏ lại khi màn lớn để ko bị tràn ra quá nhiều gọn khung nhìn thôi	/
-   1. thông tin cá nhân:
-	- thêm cái hình tròn ảnh đại diện vào đó						/
-   2. Tài khoản:
-	- chỉnh lại chỗ render CMND và chọn, chụp ảnh						/ tối làm lại
+	- bo tròn background item, tách border active					/ CỰC KHÓ SAU

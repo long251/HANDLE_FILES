@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fake Data Cut Video</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #e3e3e3;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .search-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .search-container input {
+        padding: 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        flex-grow: 1;
+        margin-right: 10px;
+      }
+
+      .search-container button {
+        padding: 12px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #2a4365;
+        color: white;
+        border: none;
+        border-radius: 5px;
+      }
+
+      .search-container input:focus,
+      .search-container button:focus {
+        outline: none;
+        box-shadow: 0 0 5px rgba(42, 67, 101, 0.5);
+      }
+
+      .date-range {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+      }
+
+      .date-range span {
+        margin-right: 10px;
+        font-size: 16px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #2a4365;
+        color: white;
+        font-weight: bold;
+      }
+
+      .icon {
+        cursor: pointer;
+        font-size: 20px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .icon-preview::before {
+        content: "▶";
+        color: #1a73e8;
+      }
+
+      .icon-download::before {
+        content: "☁";
+        color: #1a73e8;
+      }
+
+      .download-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #e2e8f0;
+        border: 1px solid #cbd5e0;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 16px;
+        color: #2a4365;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .download-btn:hover {
+        background-color: #cbd5e0;
+      }
+
+      .pagination {
+        display: flex;
+        justify-content: flex-end;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .pagination li {
+        margin-left: 5px;
+      }
+
+      .pagination a {
+        display: inline-block;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        background-color: #e2e8f0;
+        color: #2a4365;
+        font-size: 16px;
+        border: 1px solid #cbd5e0;
+        transition: background-color 0.3s ease;
+      }
+
+      .pagination a.active,
+      .pagination a:hover {
+        background-color: #2a4365;
+        color: white;
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .modal-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px;
+        border-radius: 10px;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .date-range {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+      }
+
+      .date-range input {
+        padding: 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        flex-grow: 1;
+      }
+    </style>
+    <!-- Flatpickr CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="search-container">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Nhập nội dung tìm kiếm"
+        />
+        <button id="searchButton">Tìm kiếm</button>
+        <div class="date-range">
+          <span>4/5/2022 - 9/6/2022</span>
+          <img src="calendar-icon.png" alt="Calendar Icon" width="20px" />
+        </div>
+      </div>
+
+      <table id="dataTable">
+        <thead>
+          <tr>
+            <th>Mã tracking</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Preview</th>
+            <th>Download</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Các hàng dữ liệu sẽ được thêm vào đây thông qua JavaScript -->
+        </tbody>
+      </table>
+
+      <ul class="pagination" id="pagination">
+        <!-- Các nút phân trang sẽ được thêm vào đây thông qua JavaScript -->
+      </ul>
+    </div>
+
+    <!-- Modal -->
+    <div id="videoModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <video id="modalVideo" width="100%" controls>
+          <source src="" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+      // Sample data array
+      const sampleData = [
+        {
+          trackingCode: "0011004099868468868179/1",
+          startTime: "06/07/2023 09:10:23",
+          endTime: "06/07/2023 09:20:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/2",
+          startTime: "06/07/2023 10:15:23",
+          endTime: "06/07/2023 10:25:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/3",
+          startTime: "06/07/2023 11:10:23",
+          endTime: "06/07/2023 11:20:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/4",
+          startTime: "06/07/2023 12:10:23",
+          endTime: "06/07/2023 12:20:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/5",
+          startTime: "06/07/2023 13:10:23",
+          endTime: "06/07/2023 13:20:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/6",
+          startTime: "06/07/2023 14:10:23",
+          endTime: "06/07/2023 14:20:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/7",
+          startTime: "06/07/2023 15:10:23",
+          endTime: "06/07/2023 15:20:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/8",
+          startTime: "06/07/2023 16:10:23",
+          endTime: "06/07/2023 16:20:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/9",
+          startTime: "06/07/2023 17:10:23",
+          endTime: "06/07/2023 17:20:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/10",
+          startTime: "06/07/2023 18:10:23",
+          endTime: "06/07/2023 18:20:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/11",
+          startTime: "06/07/2023 19:10:23",
+          endTime: "06/07/2023 19:20:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/12",
+          startTime: "06/07/2023 20:10:23",
+          endTime: "06/07/2023 20:20:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/13",
+          startTime: "06/07/2023 21:10:23",
+          endTime: "06/07/2023 21:20:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/14",
+          startTime: "06/07/2023 22:10:23",
+          endTime: "06/07/2023 22:20:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/15",
+          startTime: "06/07/2023 23:10:23",
+          endTime: "06/07/2023 23:20:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/16",
+          startTime: "07/07/2023 00:10:23",
+          endTime: "07/07/2023 00:20:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/17",
+          startTime: "07/07/2023 01:10:23",
+          endTime: "07/07/2023 01:20:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/18",
+          startTime: "07/07/2023 02:10:23",
+          endTime: "07/07/2023 02:20:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/19",
+          startTime: "07/07/2023 03:10:23",
+          endTime: "07/07/2023 03:20:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/20",
+          startTime: "07/07/2023 04:10:23",
+          endTime: "07/07/2023 04:20:23",
+        },
+        {
+          trackingCode: "0011004099868468868179/21",
+          startTime: "07/07/2023 05:10:23",
+          endTime: "07/07/2023 05:20:23",
+        },
+      ];
+
+      const itemsPerPage = 10;
+      let currentPage = 1;
+
+      function renderTable(data, page) {
+        const start = (page - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const paginatedData = data.slice(start, end);
+
+        const tableBody = document.getElementById("tableBody");
+        tableBody.innerHTML = "";
+
+        paginatedData.forEach((item) => {
+          const row = `
+                <tr>
+                    <td>${item.trackingCode}</td>
+                    <td>${item.startTime}</td>
+                    <td>${item.endTime}</td>
+                    <td class="icon icon-preview" data-video-src="sample-video.mp4"></td>
+                    <td class="icon icon-download"></td>
+                </tr>
+            `;
+          tableBody.insertAdjacentHTML("beforeend", row);
+        });
+
+        addPreviewClickListener();
+      }
+
+      function renderPagination(data) {
+        const totalPages = Math.ceil(data.length / itemsPerPage);
+        const pagination = document.getElementById("pagination");
+        pagination.innerHTML = "";
+
+        for (let i = 1; i <= totalPages; i++) {
+          const pageLink = `<li><a href="#" class="${
+            i === currentPage ? "active" : ""
+          }" data-page="${i}">${i}</a></li>`;
+          pagination.insertAdjacentHTML("beforeend", pageLink);
+        }
+
+        const pageLinks = pagination.querySelectorAll("a");
+        pageLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+            currentPage = parseInt(this.getAttribute("data-page"));
+            renderTable(data, currentPage);
+            renderPagination(data);
+          });
+        });
+      }
+
+      function addPreviewClickListener() {
+        const previewIcons = document.querySelectorAll(".icon-preview");
+        const modal = document.getElementById("videoModal");
+        const modalVideo = document.getElementById("modalVideo");
+        const span = document.getElementsByClassName("close")[0];
+
+        previewIcons.forEach((icon) => {
+          icon.addEventListener("click", function () {
+            const videoSrc = this.getAttribute("data-video-src");
+            modal.style.display = "block";
+            modalVideo.src = videoSrc;
+          });
+        });
+
+        span.onclick = function () {
+          modal.style.display = "none";
+          modalVideo.src = "";
+        };
+
+        window.onclick = function (event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+            modalVideo.src = "";
+          }
+        };
+      }
+
+      document
+        .getElementById("searchButton")
+        .addEventListener("click", function () {
+          const searchTerm = document
+            .getElementById("searchInput")
+            .value.toLowerCase();
+          const filteredData = sampleData.filter(
+            (item) =>
+              item.trackingCode.toLowerCase().includes(searchTerm) ||
+              item.startTime.toLowerCase().includes(searchTerm) ||
+              item.endTime.toLowerCase().includes(searchTerm)
+          );
+          currentPage = 1; // Reset về trang đầu tiên sau khi tìm kiếm
+          renderTable(filteredData, currentPage);
+          renderPagination(filteredData);
+        });
+        flatpickr("#datePicker", {
+            mode: "range",
+            dateFormat: "d/m/Y",
+            onChange: function(selectedDates, dateStr, instance) {
+                const [startDate, endDate] = selectedDates;
+                if (startDate && endDate) {
+                    const start = formatDate(startDate);
+                    const end = formatDate(endDate);
+                    console.log(`Ngày bắt đầu: ${start}, Ngày kết thúc: ${end}`);
+                    filterByDateRange(start, end);
+                }
+            }
+        });
+
+        function formatDate(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        function filterByDateRange(startDate, endDate) {
+            const filteredData = sampleData.filter(item => {
+                const itemStartDate = new Date(item.startTime);
+                const itemEndDate = new Date(item.endTime);
+                return itemStartDate >= new Date(startDate) && itemEndDate <= new Date(endDate);
+            });
+            currentPage = 1; // Reset về trang đầu tiên sau khi tìm kiếm
+            renderTable(filteredData, currentPage);
+            renderPagination(filteredData);
+        }
+
+      renderTable(sampleData, currentPage);
+      renderPagination(sampleData);
+    </script>
+  </body>
+</html>

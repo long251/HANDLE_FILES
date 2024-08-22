@@ -1,6 +1,6 @@
 CTY_PCS
 -------
-Ngày cập nhật: 21/08/2024
+Ngày cập nhật: 22/08/2024
 -------------------------
 ! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
@@ -41,6 +41,5 @@ Ngày cập nhật: 21/08/2024
 	- [gitlab] 	-> check a Khánh cập nhật thỉnh thoảng!
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
- - MANG -> gối ngủ khác; gối cong mang về kê đầu
- - MANG -> bánh mới lên cty
+ - 
 ----------------------------------------------------------------------------
