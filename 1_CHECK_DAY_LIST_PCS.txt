@@ -1,6 +1,6 @@
 CTY_PCS
 -------
-Ngày cập nhật: 22/08/2024
+Ngày cập nhật: 23/08/2024
 -------------------------
 ! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
@@ -14,9 +14,9 @@ Ngày cập nhật: 22/08/2024
 - chai nước
 - (chai nước ngọt)
 - case máy tính -> hơi lỏng dây
-- gối cong
+- gối cong => gối chóp
 - balo* -> MANG thuốc nâu axit
-- kẹo xilytol x1 hộp = 55k
+- kẹo xilytol x1 hộp
 - giấy ăn x1 bịch nhỏ
 - tai nghe có dây x1
 - bút bi x3
@@ -41,5 +41,7 @@ Ngày cập nhật: 22/08/2024
 	- [gitlab] 	-> check a Khánh cập nhật thỉnh thoảng!
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
- - 
+ - M -> kẹo xylitol 52k
+ - MANG -> giấy ăn x2
+ - MANG -> vở nháp
 ----------------------------------------------------------------------------

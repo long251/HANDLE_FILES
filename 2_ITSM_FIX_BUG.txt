@@ -1,59 +1,71 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 22/08/2024
+Ngày cập nhật: 23/08/2024
 -------------------------
 Tổng số (5)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 1-163	/ footer	/ chưa có link 'câu hỏi thường gặp'			/ SAU
 2-164	/ footer	/ chưa có link 'điều khoản quy định'			/ SAU
 3-169	/ 3.Shopping	/ chi tiết -> Breadcrumb -> quá dài			/ hỏi a Khánh vì dùng chung
-4-274	/ tra cứu đơn	/ icon bên navbar tổng đang sai				/ ĐÃ SỬA
-5-275	/ tra cưu đơn	/ nhập nhiều tracking cái cũ ko đc load lại		/ ĐÃ SỬA chắc do nhanh quá
 -------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
 *Họp Trans 15/08/2024:
  -> thiếu field 'tổng tiền nạp trong tháng' ở màn 2.dashboard; 8.Ví SQT; 9.Lịch sử giao dịch
  -> lấy ra mã đơn từ nội dung 'ví SQT' và khi action chuyển đến màn chi tiết mua hộ
-*Chị Đào, a Khánh bé, a Đạt:
- -> chỉnh sửa toàn bộ UI, icon, xem xét lại
-______________________________________________________________________________________________________
-CÁC MÀN GIAO DIỆN
+___________________________________________________________________________________________________________
+**CÁC MÀN GIAO DIỆN
 -----------------
-Màn 2. Dashboard:
-	- 
+GIAO DIỆN NHÌN:
+- header-> ở chỗ navbar phóng to, có thêm 1 cái đường border mờ cắt ngang nằm dưới CollapIcon	/ KHÓ
+- header-> accountUser chỉnh cái mũi tên như ở bên xổ xuống chỗ navbar tổng			/ SỬA ĐƯỢC
+- navbar-> kẻ làm sao cho nó borderRadius chia tách theo figma (border tách)			/ CỰC KHÓ
+- navbar-> khi nhấn vào 2 cái mở rộng kia chưa chuyển trang ngay mà khi nhấn vào trong		/ SỬA LUÔN
+- navbar-> khi hover vào 2 cái nút IconUp/Down sẽ ko di chuyển nó				/ SỬA LUÔN
+- search tổng-> đang chỉ search 1 lần!
+- header-> badge giỏ hàng màu đỏ #A91116
+- LỖI LOGIC: lịch các màn đang truyền -7h so với time quốc tế, thời gian trả ra đang sai	/ hỏi a Dũng
+- 
+Màn 2. Dashboard
+-------------------------------------------------------------------------------------------------
 Màn 3. Shopping:
-	- Breadcrumb màn chi tiết quá dài -> 100px cắt ngắn		/ hỏi a Khánh vì dùng chung
-	- xóa log shopping						/ hỏi a Khánh
+	- Breadcrumb màn chi tiết quá dài -> 100px cắt ngắn		/ SAU - từ từ
+	- xóa log shopping						/ SAU - từ từ
+	*23/08/2024 - from a Khánh:
+		- chỉnh sửa lại danh mục sản phẩm có hình ảnh tách ra làm 2 layout hoặc section modal	/ LUÔN
+		- vào danh mục sản phẩm ẩn cái cuộn đi hoặc thay bằng React Slick			/ LUÔN
+-------------------------------------------------------------------------------------------------
+Màn 4: Đơn hàng Ecommerce:
+	- chỉ dám sửa màn danh sách đầu tiên!
+	- màn tạo đơn	-> cái đoạn hình ảnh sp thì thêm chữ hoặc button upload ảnh nhấn vào	/ SỬA LUÔN
+	- màn chi tiết Modal và chuyển tab sửa lại theo thiết kế				/ DÀI x2
+-------------------------------------------------------------------------------------------------
 Màn 5. Đơn hàng vận chuyển:
  *Màn danh sách:
-	- xóa bỏ hoặc giữ lại outline màu xanh nước sao cho đồng bộ
-	- sửa lại Action-View sao cho giống với Đơn Ecommerce
  *Màn chi tiết:
-	- 
  *Màn tạo đơn:
 	- tạo nhiều đơn Import -> nếu TH trùng thì đang chỉ + cái dòng trùng, những dòng dư thì + vào đâu?
    step 1:
-	- 
+	- khi mà chọn đc từ sổ địa chỉ thì nó đã ăn luôn vào phần hiển thị!			/ SỬA SAU
    step 2:
 	- 
-   step 3:
+   step 3: chỉ là review lại thông tin
+   step 4:
 	- chưa check trùng tracking nên là khi nhập xong vẫn ko trả ra tracking ở màn danh sách
---------------------------------------------
-Màn 7. Phiếu xuất kho:
---------------------------------------------
+		- nếu khác tuyến thì nó vẫn ăn; nếu tạo rồi cùng tuyến tạo lại ko ăn
+-------------------------------------------------------------------------------------------------
+Màn 7. Danh sách phiếu xuất (PXK)
+-------------------------------------------------------------------------------------------------
 Màn Tra cứu đơn hàng:
 	- ngăn cách các tracking bằng dấu , hoặc ; thay vì dấu cách
-	- tra cứu đơn hàng lại đang lỗi 						/ FIX!
---------------------------------------------
+	- co nhỏ cái chỗ ko có dữ liệu								/ XONG
+-------------------------------------------------------------------------------------------------
 Màn 8. Ví SQT:
---------------------------------------------
+	- chia lại layout
+-------------------------------------------------------------------------------------------------
 Màn 9. Lịch sử giao dịch:
---------------------------------------------
-*Thanh search tổng:
-	- đang search theo 1 mã tracking 1 lần
-	- khả năng sửa lại theo kí tự (>=5 chẳng hạn)
-______________________________________________________________________________________________________
-*CHỈNH SỬA GIAO DIỆN NHÌN UI*
- *Header:
- *NavBar tổng:
-	- bo tròn background item, tách border active					/ CỰC KHÓ SAU
+	- nội dung bỏ giới hạn									/ XONG
+	- giống bên Ví SQT và chuyển tab
+-------------------------------------------------------------------------------------------------
+Màn 10. Website mua hàng:
+	- hover nội dung có underline								/ XONG
+___________________________________________________________________________________________________________
