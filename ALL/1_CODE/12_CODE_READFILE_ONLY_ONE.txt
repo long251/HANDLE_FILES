@@ -1,0 +1,109 @@
+  //
+  // const readFile = (file: File) => {
+  //   const reader = new FileReader();
+  //   reader.onload = (e: any) => {
+  //     setFileName(file.name);
+  //     const data = new Uint8Array(e.target.result);
+  //     const workbook = XLSX.read(data, { type: 'array' });
+  //     const firstSheetName = workbook.SheetNames[0];
+  //     const worksheet = workbook.Sheets[firstSheetName];
+  //     const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+  //     let trackings: any[] = [];
+  //     let currentTracking: any = null;
+  //     for (let i = 4; i < jsonData.length; i++) {
+  //       let row: any = jsonData[i];
+  //       if (row.length) {
+  //         if (trim(row[0] && trim(row[1]))) {
+  //           if (currentTracking) {
+  //             trackings.push(currentTracking);
+  //           }
+  //           currentTracking = {
+  //             index: trim(row[0]),
+  //             trackingCode: trim(row[1]),
+  //             items: [],
+  //             inspection: trim(row[5]),
+  //             weight: trim(row[6]),
+  //             note: trim(row[7]),
+  //           };
+  //         }
+  //         if (currentTracking) {
+  //           let item = {
+  //             content: trim(row[2]),
+  //             quantity: trim(row[3]),
+  //             price: trim(row[4]),
+  //           };
+  //           currentTracking.items.push(item);
+  //         }
+  //       } else {
+  //         break;
+  //       }
+  //     }
+  //     if (currentTracking) {
+  //       trackings.push(currentTracking);
+  //     }
+  //     const trackingCount = trackings.length;
+  //     setData(trackings);
+  //     setTrackingCount(trackingCount);
+  //   };
+  //   reader.readAsArrayBuffer(file);
+  // };
+  // const readFile = (file: File) => {
+  //   const reader = new FileReader();
+  //   reader.onload = (e: any) => {
+  //     setFileName(file.name);
+  //     const data = new Uint8Array(e.target.result);
+  //     const workbook = XLSX.read(data, { type: 'array' });
+  //     const firstSheetName = workbook.SheetNames[0];
+  //     const worksheet = workbook.Sheets[firstSheetName];
+  //     const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+  //     let processedTrackingCodes: { [key: string]: any } = {};
+  //     let currentTracking: any = null;
+  //     for (let i = 4; i < jsonData.length; i++) {
+  //       let row: any = jsonData[i];
+  //       if (row.length) {
+  //         const trackingCode = trim(row[1]);
+  //         if (trackingCode) {
+  //           if (processedTrackingCodes[trackingCode]) {
+  //             let existingTracking = processedTrackingCodes[trackingCode];
+  //             let item = {
+  //               content: trim(row[2]),
+  //               quantity: trim(row[3]),
+  //               price: trim(row[4]),
+  //             };
+  //             existingTracking.items.push(item);
+  //           } else {
+  //             currentTracking = {
+  //               index: trim(row[0]),
+  //               trackingCode: trackingCode,
+  //               items: [
+  //                 {
+  //                   content: trim(row[2]),
+  //                   quantity: trim(row[3]),
+  //                   price: trim(row[4]),
+  //                 },
+  //               ],
+  //               inspection: trim(row[5]),
+  //               weight: trim(row[6]),
+  //               note: trim(row[7]),
+  //             };
+  //             processedTrackingCodes[trackingCode] = currentTracking;
+  //           }
+  //         } else if (currentTracking) {
+  //           let item = {
+  //             content: trim(row[2]),
+  //             quantity: trim(row[3]),
+  //             price: trim(row[4]),
+  //           };
+  //           currentTracking.items.push(item);
+  //         }
+  //       } else {
+  //         break;
+  //       }
+  //     }
+  //     const trackings = Object.values(processedTrackingCodes);
+  //     const trackingCount = trackings.length;
+  //     setData(trackings);
+  //     setTrackingCount(trackingCount);
+  //   };
+  //   reader.readAsArrayBuffer(file);
+  // };

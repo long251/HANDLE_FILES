@@ -1,0 +1,693 @@
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  ActionList,
+  Button,
+  DatePicker,
+  IndexTable,
+  Layout,
+  LegacyCard,
+  LegacyStack,
+  Modal,
+  OptionList,
+  Page,
+  PolarisIcons,
+  Popover,
+  TextContainer,
+  useIndexResourceState,
+} from 'pcs-polaris';
+import { IconRecharge_Payment } from '../PaymentRequest/Icon';
+import { SharedDivider } from '../../components/Breadcrumb/SharedDivider';
+import {IconFeatureHover,} from './IconSQTWallet';
+import { showToast } from '../../helpers/toast';
+import TitleBreadcrumbs from '../../components/Breadcrumb/TitleBreadcrumb.tsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../store';
+import { formatMoney } from '../../helpers/currency.ts';
+import { IconPayment, IconRefund } from '../Home/_components/Icons.tsx';
+import { sqtWalletAction } from '../../store/reducers/sqtWalletReducer/index.ts';
+import { debounce } from 'lodash';
+import NumberPagination from '../../components/NumberPagination/index.tsx';
+import moment from 'moment';
+import MaskedInput from 'react-text-mask';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { apiClient } from '../../utils/api.ts';
+import { IconBack } from '../Ecommerce/IconEcommerce.tsx';
+
+const pageSize = 20;
+
+const SQTWallet = () => {
+  const dispatch = useDispatch();
+  const sqtWalletState = useSelector((state: AppState) => state.sqtWallet);
+  const debounceFetchDataFun = useCallback(
+    debounce((data: any) => dispatch(sqtWalletAction.fetchData(data)), 400),
+    [],
+  );
+  useEffect(() => {
+    dispatch(sqtWalletAction.fetchWallet());
+    fetchTotalThisMonth();
+  }, []);
+  const [totalPaymentThisMonth, setTotalPaymentThisMonth] = useState(0);
+  const [totalRefundThisMonth, setTotalRefundThisMonth] = useState(0);
+  const [loadingTotalThisMonth, setLoadingTotalThisMonth] = useState(false);
+  const fetchTotalThisMonth = async () => {
+    setLoadingTotalThisMonth(true);
+    let startThisMonth = moment().startOf('month');
+    let endThisMonth = moment().endOf('month');
+    let paymentThisMonth = 0;
+    let refundThisMonth = 0;
+    try {
+      let response = await apiClient.post(`/api/Payment/GetPaymentTransactionHistory`, {
+        fromDate: startThisMonth.toDate(),
+        toDate: endThisMonth.toDate(),
+        pageIndex: 1,
+        pageSize: 100,
+        sorts: [
+          {
+            sortBy: 'CreatedDate',
+            sortDirection: 'DESC',
+          },
+        ],
+      });
+      if (response.data.status) {
+        let data = response.data.data;
+        for (let i = 0; i < data.length; i++) {
+          let payments = data[i].payments;
+          for (let j = 0; j < payments.length; j++) {
+            if (payments[j].refund) {
+              refundThisMonth += payments[j].amount;
+            } else {
+              paymentThisMonth += payments[j].amount;
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    setTotalPaymentThisMonth(paymentThisMonth);
+    setTotalRefundThisMonth(refundThisMonth);
+    setLoadingTotalThisMonth(false);
+  };
+  // next step
+  const [step, setStep] = useState(1);
+  // pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  // search date range
+  const [dateRangeActive, setDateRangeActive] = useState(false);
+  const [{ month, year }, setDate] = useState({ month: new Date().getMonth(), year: new Date().getFullYear() });
+  const [selectedDates, setSelectedDates] = useState({
+    start: moment().subtract(30, 'days').toDate(),
+    end: moment().toDate(),
+  });
+  const handleMonthChange = useCallback((month: number, year: number) => setDate({ month, year }), []);
+  const [dateInputValue, setDateInputValue] = useState(
+    `${moment(selectedDates.start).format('DD/MM/yyyy')} - ${moment(selectedDates.end).format('DD/MM/yyyy')}`,
+  );
+  const [rangeSelected, setRangeSelected] = useState<string[]>([]);
+  const takeDate = (type: 'start' | 'end') => {
+    let splitDate = dateInputValue.split(' - ');
+    return type == 'start' ? splitDate[0] : splitDate[1];
+  };
+  // goToPage
+  const goToPage = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    updateUrl('page', `${pageNumber}`);
+    debounceFetchDataFun({
+      fromDate: moment(takeDate('start'), 'DD/MM/yyyy').toDate(),
+      toDate: moment(takeDate('end'), 'DD/MM/yyyy').add(1, 'd').toDate(),
+      sorts: [{ sortBy: 'CreatedDate', sortDirection: 'DESC' }],
+      pageIndex: pageNumber,
+      pageSize: pageSize,
+    });
+  };
+  // logic date picked range
+  const handleInputDate = (event: any) => {
+    setDateInputValue(event.target.value);
+    const [startDateStr, endDateStr] = event.target.value.split(' - ');
+    if (moment(startDateStr, 'DD/MM/yyyy').isValid() && moment(endDateStr, 'DD/MM/yyyy').isValid()) {
+      const startDate = moment(startDateStr, 'DD/MM/yyyy').toDate();
+      const endDate = moment(endDateStr, 'DD/MM/yyyy').toDate();
+      setSelectedDates({ start: startDate, end: endDate });
+      setDate({
+        month: moment(endDateStr, 'DD/MM/yyyy').month(),
+        year: moment(endDateStr, 'DD/MM/yyyy').year(),
+      });
+      const dateTime = `${startDateStr} - ${endDateStr}`;
+      updateUrl('dateTime', dateTime);
+      setCurrentPage(1);
+      updateUrl('page', '1');
+      debounceFetchDataFun({
+        fromDate: startDate,
+        toDate: moment(endDate).add(1, 'd').toDate(),
+        sorts: [{ sortBy: 'CreatedDate', sortDirection: 'DESC' }],
+        pageIndex: 1,
+        pageSize: pageSize,
+      });
+    }
+  };
+  const applyDateRange = () => {
+    const startDate = selectedDates.start;
+    const endDate = selectedDates.end;
+    const startDateStr = moment(startDate).format('DD/MM/yyyy');
+    const endDateStr = moment(endDate).format('DD/MM/yyyy');
+    if (moment(startDateStr, 'DD/MM/yyyy').isValid() && moment(endDateStr, 'DD/MM/yyyy').isValid()) {
+      const dateTime = `${startDateStr} - ${endDateStr}`;
+      setDateInputValue(dateTime);
+      updateUrl('dateTime', dateTime);
+      setCurrentPage(1);
+      updateUrl('page', '1');
+      setDateRangeActive(false);
+
+      debounceFetchDataFun({
+        fromDate: moment(startDateStr, 'DD/MM/yyyy').toDate(),
+        toDate: moment(endDateStr, 'DD/MM/yyyy').add(1, 'd').toDate(),
+        sorts: [{ sortBy: 'CreatedDate', sortDirection: 'DESC' }],
+        pageIndex: 1,
+        pageSize: pageSize,
+      });
+    }
+  };
+  //format data
+  const getIcon = (icon: string) => {
+    if (icon === 'C') {
+      return <IconRefund />;
+    } else if (icon === 'D') {
+      return <IconPayment />;
+    } else {
+      return null;
+    }
+  };
+  const formatAmountMoney = (amount: string) => {
+    const numberAmount = parseFloat(amount);
+    return numberAmount.toLocaleString('en-US').replace(/,/g, ',');
+  };
+  const getAmount = (icon: string, amount: string) => {
+    const formattedAmount = formatAmountMoney(amount);
+    if (icon === 'C') {
+      return <span style={{ color: '#0050a6' }}>+ {formattedAmount}đ</span>;
+    } else if (icon === 'D') {
+      return <span style={{ color: '#a91116' }}>- {formattedAmount}đ</span>;
+    } else {
+      return formattedAmount;
+    }
+  };
+  // IndexTable
+  const resourceName = {
+    singular: 'giao dịch',
+    plural: 'giao dịch',
+  };
+  const resourceIDResolver = (item: any) => {
+    return item.type;
+  };
+  const { selectedResources, allResourcesSelected, handleSelectionChange } = useIndexResourceState(
+    sqtWalletState.data,
+    { resourceIDResolver },
+  );
+  const rowMarkup = sqtWalletState.data.map((item, index) => {
+    return (
+      <IndexTable.Row
+        onClick={() => {}}
+        id={item.type}
+        key={index}
+        selected={selectedResources.includes(item.type)}
+        position={index}
+      >
+        <IndexTable.Cell>{getIcon(item.type)}</IndexTable.Cell>
+        <IndexTable.Cell>{getAmount(item.type, item.amount)}</IndexTable.Cell>
+        <IndexTable.Cell>{item.createdDateString}</IndexTable.Cell>
+        <IndexTable.Cell>{item.description}</IndexTable.Cell>
+      </IndexTable.Row>
+    );
+  });
+  // update url
+  const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
+  useEffect(() => {
+    const pageParam = searchParams.get('page');
+    const pageIndex = pageParam ? Number(pageParam) : 1;
+    setCurrentPage(pageIndex);
+
+    const dateTime = searchParams.get('dateTime') ?? '';
+    let fromDate, toDate;
+    if (dateTime) {
+      const [start, end] = dateTime.split(' - ').map((date) => moment(date, 'DD/MM/yyyy').toDate());
+      setSelectedDates({ start, end });
+      setDateInputValue(dateTime);
+      fromDate = start;
+      toDate = end;
+    } else {
+      fromDate = moment().subtract(30, 'days').toDate();
+      toDate = moment().toDate();
+      setSelectedDates({ start: fromDate, end: toDate });
+      setDateInputValue(`${moment(fromDate).format('DD/MM/yyyy')} - ${moment(toDate).format('DD/MM/yyyy')}`);
+    }
+    debounceFetchDataFun({
+      fromDate: fromDate,
+      toDate: moment(toDate).add(1, 'd').toDate(),
+      sorts: [{ sortBy: 'CreatedDate', sortDirection: 'DESC' }],
+      pageIndex: pageIndex,
+      // pageIndex: 1,
+      pageSize: pageSize,
+    });
+  }, []);
+  const updateUrl = (key: string, value: string) => {
+    searchParams.set(key, value);
+    navigate({ search: searchParams.toString() });
+  };
+  //----------Modal show and close form Deposit Money----------
+  const [activeDeposit, setActiveDeposit] = useState(false);
+  const toggleModalDeposit = useCallback(() => setActiveDeposit((activeDeposit) => !activeDeposit), []);
+  //logic
+  const [amount, setAmount] = useState('');
+  const [selectedAmount, setSelectedAmount] = useState(null);
+  const formatAmount = (value: any) => {
+    if (value === undefined || value === null) {
+      return '0';
+    }
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
+  const handleAmountClick = (value: any) => {
+    setAmount(value.toString());
+    setSelectedAmount(value);
+  };
+  const handleInputChange = (event: any) => {
+    const inputAmount = event.target.value.replace(/,/g, '');
+    if (/^\d+$/.test(inputAmount) || inputAmount === '') {
+      setAmount(inputAmount);
+      setSelectedAmount(null);
+    }
+  };
+  const handleDeposit = () => {
+    const formattedAmount = parseInt(amount.replace(/,/g, ''), 10);
+    if (!formattedAmount || formattedAmount < 100000) {
+      showToast('Số tiền bạn nạp tối thiểu là 100,000đ', 'error');
+    } else {
+      window.open(`/sqt-wallet/nap-tien?amount=${formattedAmount}`, '_blank');
+      toggleModalDeposit();
+      setAmount('');
+      setSelectedAmount(null);
+    }
+  };
+  //Popover feature
+  const [popoverActive, setPopoverActive] = useState(true);
+  const togglePopoverActive = useCallback(() => setPopoverActive((popoverActive) => !popoverActive), []);
+  const activator = (
+    <div onClick={togglePopoverActive} className='Icon_Feature_Wallet'>
+      <IconFeatureHover />
+    </div>
+  );
+  return (
+    <div className='Polaris-Custom'>
+      <Page
+        //@ts-ignore
+        title={<TitleBreadcrumbs breadcrumbs={[{ title: 'Tài khoản ví SHIPQUOCTE', url: '' }]} />}
+      >
+        {step == 1 ? (
+          <Layout>
+            <Layout.Section>
+              <LegacyCard>
+                <LegacyCard.Section>
+                  <div className='Transaction_Block'>
+                    <div className='Transaction_Display'>
+                      <div className='Block_1'>
+                        <div className='Block_Title'>Số dư ví</div>
+                        <div className='Block_Money'>{formatMoney(sqtWalletState.wallet?.cash ?? 0, 'VND')}</div>
+                      </div>
+                      <div className='Block_2'>
+                        <div className='Block_Title'>Tiền nạp trong tháng</div>
+                        <div className='Block_Money'>{formatMoney(totalRefundThisMonth, 'VND')}</div>
+                      </div>
+                      <div className='Block_3'>
+                        <div className='Block_Title'>Tiêu dùng trong tháng</div>
+                        <div className='Block_Money'>{formatMoney(totalPaymentThisMonth, 'VND')}</div>
+                      </div>
+                    </div>
+
+                    <div className='Block_Icon'>
+                      <button className='Block_Icon_Recharge' onClick={toggleModalDeposit}>
+                        <IconRecharge_Payment />
+                        Nạp tiền
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* <div style={{ marginTop: '24px' }}>
+                    <SharedDivider />
+                  </div> */}
+
+                  <div style={{ marginTop: '24px', position: 'relative' }}>
+                    <div className='Transaction_Data'>
+                      <div className='Data_Title'>Lịch sử giao dịch</div>
+                      <div className='Data_Feature'>
+                        <div className={'TextField--Mask'}>
+                          <div className='Polaris-Labelled__LabelWrapper'>
+                            <div className='Polaris-Label'>
+                              <label
+                                id={'PolarisTextField6Label'}
+                                htmlFor={'PolarisTextField6'}
+                                className='Polaris-Label__Text'
+                              >
+                                {/* Thời gian */}
+                              </label>
+                            </div>
+                          </div>
+                          <div className='Polaris-Connected'>
+                            <div className='Polaris-Connected__Item Polaris-Connected__Item--primary'>
+                              <div className='Polaris-TextField Polaris-TextField--hasValue'>
+                                <MaskedInput
+                                  mask={[
+                                    /\d/,
+                                    /\d/,
+                                    '/',
+                                    /\d/,
+                                    /\d/,
+                                    '/',
+                                    /\d/,
+                                    /\d/,
+                                    /\d/,
+                                    /\d/,
+                                    ' ',
+                                    '-',
+                                    ' ',
+                                    /\d/,
+                                    /\d/,
+                                    '/',
+                                    /\d/,
+                                    /\d/,
+                                    '/',
+                                    /\d/,
+                                    /\d/,
+                                    /\d/,
+                                    /\d/,
+                                  ]}
+                                  className='Polaris-TextField__Input'
+                                  placeholder='dd/mm/yyyy - dd/mm/yyyy'
+                                  guide
+                                  value={dateInputValue}
+                                  placeholderChar={'_'}
+                                  keepCharPositions
+                                  id='PolarisTextField6'
+                                  onChange={handleInputDate}
+                                  aria-labelledby={'PolarisTextField6Label'}
+                                  aria-invalid={false}
+                                />
+                                <div className='Polaris-TextField__Backdrop' />
+                                <div className='Polaris-TextField__Suffix'>
+                                  <Popover
+                                    fluidContent
+                                    active={dateRangeActive}
+                                    activator={
+                                      <Button
+                                        onClick={() => {
+                                          setRangeSelected([]);
+                                          setDateRangeActive(!dateRangeActive);
+                                          let splitDate = dateInputValue.split(' - ');
+                                          let startDateStr = splitDate[0];
+                                          let endDateStr = splitDate[1];
+                                          if (
+                                            moment(startDateStr, 'DD/MM/yyyy').isValid() &&
+                                            moment(endDateStr, 'DD/MM/yyyy').isValid()
+                                          ) {
+                                            setSelectedDates({
+                                              start: moment(startDateStr, 'DD/MM/yyyy').toDate(),
+                                              end: moment(endDateStr, 'DD/MM/yyyy').toDate(),
+                                            });
+                                            setDate({
+                                              month: moment(endDateStr, 'DD/MM/yyyy').month(),
+                                              year: moment(endDateStr, 'DD/MM/yyyy').year(),
+                                            });
+                                          }
+                                        }}
+                                        plain
+                                        icon={PolarisIcons.CalendarMajor}
+                                      />
+                                    }
+                                    onClose={() => setDateRangeActive(false)}
+                                  >
+                                    <div className='Custom-DatePicker'>
+                                      <div className='date_range'>
+                                        <div className='pre_option'>
+                                          <div className='list_option'>
+                                            <div className='list_content'>
+                                              <OptionList
+                                                title=''
+                                                onChange={(selected) => {
+                                                  setRangeSelected(selected);
+                                                  if (selected[0] == 'today') {
+                                                    setSelectedDates({
+                                                      start: moment().toDate(),
+                                                      end: moment().toDate(),
+                                                    });
+                                                    setDate({ month: moment().month(), year: moment().year() });
+                                                  } else if (selected[0] == 'yesterday') {
+                                                    setSelectedDates({
+                                                      start: moment().subtract(1, 'day').toDate(),
+                                                      end: moment().subtract(1, 'day').toDate(),
+                                                    });
+                                                    setDate({
+                                                      month: moment().subtract(1, 'day').month(),
+                                                      year: moment().subtract(1, 'day').year(),
+                                                    });
+                                                  } else if (selected[0] == 'last_7_days') {
+                                                    setSelectedDates({
+                                                      start: moment().subtract(7, 'day').toDate(),
+                                                      end: moment().toDate(),
+                                                    });
+                                                    setDate({
+                                                      month: moment().subtract(7, 'day').month(),
+                                                      year: moment().subtract(7, 'day').year(),
+                                                    });
+                                                  } else if (selected[0] == 'last_30_days') {
+                                                    setSelectedDates({
+                                                      start: moment().subtract(30, 'day').toDate(),
+                                                      end: moment().toDate(),
+                                                    });
+                                                    setDate({
+                                                      month: moment().subtract(30, 'day').month(),
+                                                      year: moment().subtract(30, 'day').year(),
+                                                    });
+                                                  } else if (selected[0] == 'last_90_days') {
+                                                    setSelectedDates({
+                                                      start: moment().subtract(90, 'day').toDate(),
+                                                      end: moment().toDate(),
+                                                    });
+                                                    setDate({
+                                                      month: moment().subtract(90, 'day').month(),
+                                                      year: moment().subtract(90, 'day').year(),
+                                                    });
+                                                  }
+                                                }}
+                                                options={[
+                                                  { value: 'today', label: 'Hôm nay' },
+                                                  { value: 'yesterday', label: 'Hôm qua' },
+                                                  { value: 'last_7_days', label: '7 ngày trước' },
+                                                  { value: 'last_30_days', label: '30 ngày trước' },
+                                                  { value: 'last_90_days', label: '90 ngày trước' },
+                                                ]}
+                                                selected={rangeSelected}
+                                              />
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div className='pick_date'>
+                                          <DatePicker
+                                            disableDatesAfter={new Date()}
+                                            weekStartsOn={1}
+                                            month={month}
+                                            year={year}
+                                            onChange={setSelectedDates}
+                                            onMonthChange={handleMonthChange}
+                                            selected={selectedDates}
+                                            multiMonth
+                                            allowRange
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className='actions'>
+                                        <LegacyStack distribution={'trailing'}>
+                                          <Button onClick={() => setDateRangeActive(false)}>Đóng</Button>
+                                          <Button primary onClick={applyDateRange}>
+                                            Áp dụng
+                                          </Button>
+                                        </LegacyStack>
+                                      </div>
+                                    </div>
+                                  </Popover>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* show feature */}
+                        {/* <div className='Show_Feature'>
+                          <Popover
+                            active={!popoverActive}
+                            activator={activator}
+                            autofocusTarget='first-node'
+                            onClose={togglePopoverActive}
+                            preferredAlignment='right'
+                          >
+                            <div style={{ width: '100px'}}>
+                              <ActionList
+                                actionRole='menuitem'
+                                items={[
+                                  {
+                                    prefix: (
+                                      <div className='Style_Icon_Show_Feature'>
+                                        <IconPrint /> Print
+                                      </div>
+                                    ),
+                                  },
+                                  {
+                                    prefix: (
+                                      <div className='Style_Icon_Show_Feature' style={{ marginLeft: '48px' }}>
+                                        <IconExcel /> Export
+                                      </div>
+                                    ),
+                                  },
+                                  {
+                                    prefix: (
+                                      <div className='Style_Icon_Show_Feature' style={{ marginLeft: '32px' }}>
+                                        <IconPDF /> PDF
+                                      </div>
+                                    ),
+                                  },
+                                ]}
+                              />
+                            </div>
+                          </Popover>
+                        </div> */}
+                      </div>
+                    </div>
+
+                    {/* Data table */}
+                    <div className='SQTWallet_Data_Table IndexTable--NoSticky'>
+                      <IndexTable
+                        selectable={false}
+                        resourceName={resourceName}
+                        loading={sqtWalletState.data_loading}
+                        itemCount={sqtWalletState.data.length}
+                        selectedItemsCount={allResourcesSelected ? 'All' : selectedResources.length}
+                        onSelectionChange={handleSelectionChange}
+                        headings={[
+                          { title: '', alignment: 'center' },
+                          { title: 'Số tiền', alignment: 'center' },
+                          { title: 'Thời gian', alignment: 'center' },
+                          { title: 'Nội dung', alignment: 'center' },
+                        ]}
+                      >
+                        {rowMarkup}
+                      </IndexTable>
+
+                      {/* phân trang */}
+                      {sqtWalletState.data_length ? (
+                        <div className='Ecommerce_Pagination'>
+                          <NumberPagination
+                            totalItems={sqtWalletState.data_length}
+                            currentPage={currentPage}
+                            goToPage={(pageNumber) => goToPage(pageNumber)}
+                            pageSize={pageSize}
+                          />
+                        </div>
+                      ) : null}
+                    </div>
+                    {/* MODAL NẠP TIỀN */}
+                    <Modal
+                      open={activeDeposit}
+                      onClose={toggleModalDeposit}
+                      title='Nạp tiền vào tài khoản'
+                      primaryAction={{
+                        content: 'Tạo yêu cầu nạp tiền',
+                        onAction: handleDeposit,
+                        // loading: loadingDeposit,
+                      }}
+                      secondaryActions={[
+                        {
+                          content: 'Hủy',
+                          onAction: toggleModalDeposit,
+                        },
+                      ]}
+                    >
+                      <Modal.Section>
+                        <LegacyStack vertical>
+                          <LegacyStack.Item>
+                            <TextContainer>
+                              <div className='Modal_Deposit'>
+                                <p className='Modal_Text'>
+                                  Để nạp điểm vào tài khoản, quý khách vui lòng chuyển khoản cho SHIPQUOCTE và điền đầy
+                                  đủ thông tin theo mẫu dưới đây. Chúng tôi sẽ xác minh thông tin ngay sau khi nhận được
+                                  thông báo này.
+                                </p>
+                                <div style={{ marginBottom: '20px' }}>
+                                  <SharedDivider />
+                                </div>
+                                <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                                  {[500000, 1000000, 2000000, 3000000, 5000000].map((value) => (
+                                    <div
+                                      key={value}
+                                      className='Style_Deposit_Amount'
+                                      onClick={() => handleAmountClick(value)}
+                                      style={{
+                                        cursor: 'pointer',
+                                        color: selectedAmount === value ? '#0B3558' : 'inherit',
+                                        backgroundColor: selectedAmount === value ? '#D0D5DF' : 'inherit',
+                                        fontWeight: selectedAmount === value ? 'bold' : 'normal',
+                                        transition: 'all 0.3s ease',
+                                      }}
+                                      onMouseEnter={(e) => {
+                                        e.currentTarget.style.backgroundColor = '#D0D5DF';
+                                        e.currentTarget.style.color = '#0B3558';
+                                      }}
+                                      onMouseLeave={(e) => {
+                                        if (selectedAmount !== value) {
+                                          e.currentTarget.style.backgroundColor = 'inherit';
+                                          e.currentTarget.style.color = 'inherit';
+                                        }
+                                      }}
+                                    >
+                                      {formatAmount(value)}
+                                    </div>
+                                  ))}
+                                </div>
+                                <div style={{ marginTop: '20px' }}>
+                                  <div>Số tiền nạp phải tối thiểu là 100,000đ</div>
+                                  <div style={{ marginTop: '12px', display: 'flex' }}>
+                                    <input
+                                      type='text'
+                                      placeholder='Số tiền cần nạp'
+                                      className='Style_Input_Deposit'
+                                      value={formatAmount(amount)}
+                                      onChange={handleInputChange}
+                                    />
+                                    <div
+                                      style={{
+                                        padding: '13px 18px',
+                                        border: '1px solid #D1D5DB',
+                                        borderRadius: '0 4px 4px 0',
+                                      }}
+                                    >
+                                      đ
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </TextContainer>
+                          </LegacyStack.Item>
+                        </LegacyStack>
+                      </Modal.Section>
+                    </Modal>
+                  </div>
+                </LegacyCard.Section>
+              </LegacyCard>
+            </Layout.Section>
+          </Layout>
+        ) : null}
+      </Page>
+    </div>
+  );
+};
+
+export default SQTWallet;

@@ -1,6 +1,6 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 23/08/2024
+Ngày cập nhật: 26/08/2024
 -------------------------
 Tổng số (5)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
@@ -16,15 +16,14 @@ ________________________________________________________________________________
 **CÁC MÀN GIAO DIỆN
 -----------------
 GIAO DIỆN NHÌN:
-- header-> ở chỗ navbar phóng to, có thêm 1 cái đường border mờ cắt ngang nằm dưới CollapIcon	/ KHÓ
-- header-> accountUser chỉnh cái mũi tên như ở bên xổ xuống chỗ navbar tổng			/ SỬA ĐƯỢC
+- header-> ở chỗ navbar phóng to, có thêm 1 cái đường border mờ cắt ngang nằm ẩn dưới CollapIcon/ KHÓ
+- header-> accountUser chỉnh cái mũi tên như ở bên xổ xuống chỗ navbar tổng
 - navbar-> kẻ làm sao cho nó borderRadius chia tách theo figma (border tách)			/ CỰC KHÓ
-- navbar-> khi nhấn vào 2 cái mở rộng kia chưa chuyển trang ngay mà khi nhấn vào trong		/ SỬA LUÔN
-- navbar-> khi hover vào 2 cái nút IconUp/Down sẽ ko di chuyển nó				/ SỬA LUÔN
+- navbar-> khi hover vào 2 cái nút IconUp/Down sẽ ko di chuyển nó do hover border lệch 1px
 - search tổng-> đang chỉ search 1 lần!
 - header-> badge giỏ hàng màu đỏ #A91116
 - LỖI LOGIC: lịch các màn đang truyền -7h so với time quốc tế, thời gian trả ra đang sai	/ hỏi a Dũng
-- 
+-------------------------------------------------------------------------------------------------
 Màn 2. Dashboard
 -------------------------------------------------------------------------------------------------
 Màn 3. Shopping:
@@ -33,9 +32,9 @@ Màn 3. Shopping:
 	*23/08/2024 - from a Khánh:
 		- chỉnh sửa lại danh mục sản phẩm có hình ảnh tách ra làm 2 layout hoặc section modal	/ LUÔN
 		- vào danh mục sản phẩm ẩn cái cuộn đi hoặc thay bằng React Slick			/ LUÔN
+		- chỉnh sửa lại màn chi tiết sản phẩm theo tk figma					/ DÀI
 -------------------------------------------------------------------------------------------------
 Màn 4: Đơn hàng Ecommerce:
-	- chỉ dám sửa màn danh sách đầu tiên!
 	- màn tạo đơn	-> cái đoạn hình ảnh sp thì thêm chữ hoặc button upload ảnh nhấn vào	/ SỬA LUÔN
 	- màn chi tiết Modal và chuyển tab sửa lại theo thiết kế				/ DÀI x2
 -------------------------------------------------------------------------------------------------
@@ -45,10 +44,8 @@ Màn 5. Đơn hàng vận chuyển:
  *Màn tạo đơn:
 	- tạo nhiều đơn Import -> nếu TH trùng thì đang chỉ + cái dòng trùng, những dòng dư thì + vào đâu?
    step 1:
-	- khi mà chọn đc từ sổ địa chỉ thì nó đã ăn luôn vào phần hiển thị!			/ SỬA SAU
    step 2:
-	- 
-   step 3: chỉ là review lại thông tin
+   step 3:
    step 4:
 	- chưa check trùng tracking nên là khi nhập xong vẫn ko trả ra tracking ở màn danh sách
 		- nếu khác tuyến thì nó vẫn ăn; nếu tạo rồi cùng tuyến tạo lại ko ăn
@@ -57,15 +54,16 @@ Màn 7. Danh sách phiếu xuất (PXK)
 -------------------------------------------------------------------------------------------------
 Màn Tra cứu đơn hàng:
 	- ngăn cách các tracking bằng dấu , hoặc ; thay vì dấu cách
-	- co nhỏ cái chỗ ko có dữ liệu								/ XONG
+	- co nhỏ cái chỗ ko có dữ liệu
 -------------------------------------------------------------------------------------------------
 Màn 8. Ví SQT:
 	- chia lại layout
 -------------------------------------------------------------------------------------------------
 Màn 9. Lịch sử giao dịch:
-	- nội dung bỏ giới hạn									/ XONG
+	- nội dung bỏ giới hạn
 	- giống bên Ví SQT và chuyển tab
+	- chuyển tab nạp tiền đang ở sqt-wallet
 -------------------------------------------------------------------------------------------------
 Màn 10. Website mua hàng:
-	- hover nội dung có underline								/ XONG
+	- hover nội dung có underline
 ___________________________________________________________________________________________________________

@@ -1,0 +1,682 @@
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../store';
+import { ecommerceOrderAction } from '../../store/reducers/ecommerceOrderReducer';
+import LoadingMarkup from '../LoadingMarkup';
+import Empty from '../NoData/Empty.tsx';
+import { Icon, IndexTable, Layout, LegacyCard, LegacyStack, PolarisIcons, Text, Thumbnail } from 'pcs-polaris';
+import { formatMoney } from '../../helpers/currency.ts';
+import { datetimeFormat } from '../../helpers/date.ts';
+
+type Props = {
+  data: any;
+};
+
+const Detail = (props: Props) => {
+  const dispatch = useDispatch();
+  const ecommerceOrderState = useSelector((state: AppState) => state.ecommerceOrder);
+  useEffect(() => {
+    dispatch(
+      ecommerceOrderAction.fetchOrder({
+        orderCode: props.data.orderCode,
+      }),
+    );
+  }, [props.data.orderCode]);
+
+  const [receiveInfo, setReceiveInfo] = useState<any>(null);
+  const [transportInfo, setTransportInfo] = useState<any>(null);
+  const [services, setServices] = useState<any>([]);
+  const [orderInfo, setOrderInfo] = useState<any>(null);
+  const [paymentHistories, setPaymentHistories] = useState([]);
+  const [orderHistories, setOrderHistories] = useState<any>([]);
+  console.log('payment', paymentHistories);
+
+  const isLarge = window.innerWidth > 1400;
+
+  const [expandPrice, setExpandPrice] = useState(false);
+  const [expandSurcharge, setExpandSurcharge] = useState(false);
+
+  useEffect(() => {
+    if (ecommerceOrderState.detail) {
+      let detail = ecommerceOrderState.detail;
+      console.log(detail);
+      setReceiveInfo(detail.receiveInfo);
+      setTransportInfo(detail.transportInfo);
+      setServices(detail.services);
+      setPaymentHistories(detail.paymentHistories || []);
+      setOrderInfo(detail.orderInfo);
+      let data = [...detail.orderHistories];
+
+      data.sort((a: any, b: any) => {
+        let time1: any = new Date(a.TraceTime);
+        let time2: any = new Date(b.TraceTime);
+        let diff = time2 - time1;
+        return diff;
+      });
+      setOrderHistories(data);
+    }
+  }, [ecommerceOrderState.detail]);
+
+  const getAttributes = (attrStr: string) => {
+    let attributes = JSON.parse(attrStr);
+    if (attributes && Object.keys(attributes).length) {
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          {Object.keys(attributes).map((key: string, idx: number) => (
+            <div key={idx}>
+              <Text as={'p'} variant={'bodySm'}>
+                {key}: {attributes[key]}
+              </Text>
+            </div>
+          ))}
+        </div>
+      );
+    }
+    return '';
+  };
+  return (
+    <div className={'Polaris-Custom OrderDetail'}>
+      {ecommerceOrderState.detail_loading ? (
+        <LoadingMarkup />
+      ) : (
+        <>
+          {ecommerceOrderState.detail ? (
+            <Layout>
+              <Layout.Section oneHalf={!isLarge} secondary={isLarge}>
+                <LegacyCard>
+                  {/* <LegacyCard.Section title={'Thông tin người nhận'}>
+                    {receiveInfo ? (
+                      <table className='table-fixed'>
+                        <tbody>
+                          <tr>
+                            <td>Người nhận</td>
+                            <td>{receiveInfo['Name']}</td>
+                          </tr>
+                          <tr>
+                            <td>Địa chỉ</td>
+                            <td>{receiveInfo['Address']}</td>
+                          </tr>
+                          <tr>
+                            <td>Điện thoại</td>
+                            <td>{receiveInfo['Phone']}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    ) : (
+                      <Text as={'p'} variant={'bodyMd'}>
+                        Không có thông tin người nhận
+                      </Text>
+                    )}
+                  </LegacyCard.Section> */}
+
+                 <LegacyCard.Section>
+                 {receiveInfo ? (
+                    <table className='Info_Table_Shipping_Details'>
+                      <thead>
+                        <tr>
+                          <th colSpan={2}>
+                            <div className='Header_Container'>
+                              <div>Thông tin đơn hàng</div>
+                            </div>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Người nhận</td>
+                          <td>{receiveInfo['Name']}</td>
+                        </tr>
+                        <tr>
+                          <td>Địa chỉ</td>
+                          <td>{receiveInfo['Address']}</td>
+                        </tr>
+                        <tr>
+                          <td>Điện thoại</td>
+                          <td>{receiveInfo['Phone']}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  ) : (
+                    <Text as={'p'} variant={'bodyMd'}>
+                      Không có thông tin người nhận
+                    </Text>
+                  )}
+                 </LegacyCard.Section>
+                 
+                  <LegacyCard.Section title={'Thông tin vận chuyển'}>
+                    {transportInfo ? (
+                      <table className='table-fixed'>
+                        <tbody>
+                          <tr>
+                            <td>Tracking No.</td>
+                            <td>{transportInfo['tracking']}</td>
+                          </tr>
+                          <tr>
+                            <td>DIM</td>
+                            <td>{transportInfo['Dim']}</td>
+                          </tr>
+                          <tr>
+                            <td>Trọng lượng thực</td>
+                            <td>{transportInfo['Weight']} kg</td>
+                          </tr>
+                          <tr>
+                            <td>Trọng lượng tính giá</td>
+                            <td>{transportInfo['WeightQuote']} kg</td>
+                          </tr>
+                          <tr>
+                            <td>Chênh lệch CK</td>
+                            <td>{Math.abs(transportInfo['WeightQuote'] - transportInfo['Weight'])} kg</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    ) : (
+                      <Text as={'p'} variant={'bodyMd'}>
+                        Không có thông tin vận chuyển
+                      </Text>
+                    )}
+                  </LegacyCard.Section>
+                  {/* <LegacyCard.Section title={'Dịch vụ cộng thêm'}>
+                    {services.length ? (
+                      <table className='table-fixed'>
+                        <tbody>
+                          {services.map((service: any, index: number) => (
+                            <tr key={index}>
+                              <td>{index + 1}</td>
+                              <td>{service['Title']}</td>
+                              <td>{service['Value']}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    ) : (
+                      <Text as={'p'} variant={'bodyMd'}>
+                        Không có dịch vụ cộng thêm
+                      </Text>
+                    )}
+                  </LegacyCard.Section> */}
+                  <LegacyCard.Section title={'Dịch vụ cộng thêm'}>
+                    {services.length ? (
+                      <table className='table-fixed' style={{ width: '100%', borderCollapse: 'collapse' }}>
+                        <tbody>
+                          {services.map((service: any, index: number) => (
+                            <tr key={index}>
+                              <td style={{ width: '40px', textAlign: 'center', padding: '4px' }}>{index + 1}</td>
+                              <td style={{ padding: '8px' }}>{service['Title']}</td>
+                              <td style={{ padding: '8px', textAlign: 'right', width: '150px' }}>
+                                {service['Title'] === 'Check hàng & chụp ảnh'
+                                  ? `${Number(service['Value']).toLocaleString('vi-VN')}đ/lần`
+                                  : service['Title'] === 'Thùng xốp, Nẹp V'
+                                  ? `${Number(service['Value']).toLocaleString('vi-VN')}đ/cái`
+                                  : `${Number(service['Value']).toLocaleString('vi-VN')}đ`}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    ) : (
+                      <Text as={'p'} variant={'bodyMd'}>
+                        Không có dịch vụ cộng thêm
+                      </Text>
+                    )}
+                  </LegacyCard.Section>
+                </LegacyCard>
+              </Layout.Section>
+              <Layout.Section oneHalf={!isLarge}>
+                {orderInfo ? (
+                  <LegacyCard>
+                    <LegacyCard.Section title={'Thông tin đơn hàng'}>
+                      <div className={'IndexTable--NoSticky'}>
+                        <IndexTable
+                          selectable={false}
+                          headings={[
+                            { title: 'Sản phẩm', alignment: 'start' },
+                            { title: 'Đơn giá', alignment: 'center' },
+                            { title: 'Số lượng', alignment: 'center' },
+                            { title: 'Thành tiền', alignment: 'center' },
+                          ]}
+                          itemCount={1}
+                        >
+                          <IndexTable.Row id={'0'} position={0}>
+                            <IndexTable.Cell>
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'flex-start',
+                                  gap: 8,
+                                }}
+                              >
+                                <div>
+                                  <Thumbnail transparent size={'small'} source={orderInfo.Image} alt={''} />
+                                </div>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                                  <div className={'Cell-ProductName'}>{orderInfo.ProductName}</div>
+                                  {getAttributes(orderInfo.Attributes)}
+                                </div>
+                              </div>
+                            </IndexTable.Cell>
+                            <IndexTable.Cell>
+                              <Text alignment={'center'} as={'span'} variant={'bodyMd'}>
+                                {formatMoney(orderInfo.Price, orderInfo.Currency)}
+                              </Text>
+                            </IndexTable.Cell>
+                            <IndexTable.Cell>
+                              <Text alignment={'center'} as={'span'} variant={'bodyMd'}>
+                                {orderInfo.Quantity}
+                              </Text>
+                            </IndexTable.Cell>
+                            <IndexTable.Cell>
+                              <Text alignment={'center'} as={'span'} variant={'bodyMd'}>
+                                {formatMoney(orderInfo.AmountProduct, 'VND')}
+                              </Text>
+                            </IndexTable.Cell>
+                          </IndexTable.Row>
+                        </IndexTable>
+                      </div>
+                    </LegacyCard.Section>
+                    <LegacyCard.Section title={'Ghi chú'}>
+                      <Text as={'p'} variant={'bodyMd'}>
+                        {orderInfo.Note}
+                      </Text>
+                    </LegacyCard.Section>
+                    <LegacyCard.Section title={'Hình ảnh'}>
+                      {orderInfo.Image ? (
+                        <LegacyStack spacing={'tight'}>
+                          <div
+                            style={{
+                              border: '1px solid #eff1f4',
+                              padding: 4,
+                              borderRadius: 4,
+                              position: 'relative',
+                            }}
+                          >
+                            <Thumbnail size={'large'} source={orderInfo.Image} alt={''} />
+                          </div>
+                        </LegacyStack>
+                      ) : (
+                        <Text as={'p'} variant={'bodyMd'}>
+                          Không có thông tin hình ảnh
+                        </Text>
+                      )}
+                    </LegacyCard.Section>
+                    <LegacyCard.Section title={'Chi phí đơn hàng'}>
+                      <table className='table-fixed'>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <div
+                                style={{
+                                  cursor: 'pointer',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'flex-start',
+                                  gap: 0,
+                                }}
+                                onClick={() => setExpandPrice(!expandPrice)}
+                              >
+                                <Text as={'p'} variant={'bodyMd'} fontWeight={'semibold'}>
+                                  Tổng tiền sản phẩm
+                                </Text>
+                                <span>
+                                  <Icon
+                                    source={expandPrice ? PolarisIcons.CaretUpMinor : PolarisIcons.CaretDownMinor}
+                                  />
+                                </span>
+                              </div>
+                            </td>
+                            <td className={'td--right'}>
+                              <Text as={'p'} variant={'bodyMd'} fontWeight={'semibold'}>
+                                {formatMoney(
+                                  orderInfo.AmountProduct + orderInfo.TaxAmount + orderInfo.FeeNDAmount,
+                                  'VND',
+                                )}
+                              </Text>
+                            </td>
+                          </tr>
+                          {expandPrice ? (
+                            <>
+                              <tr>
+                                <td>
+                                  <Text as={'p'} variant={'bodyMd'}>
+                                    -- Tiền hàng
+                                  </Text>
+                                </td>
+                                <td className={'td--right'}>
+                                  <Text as={'p'} variant={'bodyMd'}>
+                                    {formatMoney(orderInfo.AmountProduct, 'VND')}
+                                  </Text>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <Text as={'p'} variant={'bodyMd'}>
+                                    -- Thuế ({orderInfo.Tax}%)
+                                  </Text>
+                                </td>
+                                <td className={'td--right'}>
+                                  <Text as={'p'} variant={'bodyMd'}>
+                                    {formatMoney(orderInfo.TaxAmount, 'VND')}
+                                  </Text>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <Text as={'p'} variant={'bodyMd'}>
+                                    -- Phí vận chuyển nội địa
+                                  </Text>
+                                </td>
+                                <td className={'td--right'}>
+                                  <Text as={'p'} variant={'bodyMd'}>
+                                    {formatMoney(orderInfo.FeeNDAmount, 'VND')}
+                                  </Text>
+                                </td>
+                              </tr>
+                            </>
+                          ) : null}
+
+                          <tr>
+                            <td>
+                              <div
+                                style={{
+                                  cursor: 'pointer',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'flex-start',
+                                  gap: 0,
+                                }}
+                                onClick={() => setExpandSurcharge(!expandSurcharge)}
+                              >
+                                <Text as={'p'} variant={'bodyMd'} fontWeight={'semibold'}>
+                                  Phụ phí
+                                </Text>
+                                <span>
+                                  <Icon
+                                    source={expandSurcharge ? PolarisIcons.CaretUpMinor : PolarisIcons.CaretDownMinor}
+                                  />
+                                </span>
+                              </div>
+                            </td>
+                            <td className={'td--right'}>
+                              <Text as={'p'} variant={'bodyMd'} fontWeight={'semibold'}>
+                                {formatMoney(
+                                  orderInfo.FeeBuyAmount +
+                                    orderInfo.SurchargeFee +
+                                    orderInfo.ServiceFee +
+                                    orderInfo.StandardFee,
+                                  'VND',
+                                )}
+                              </Text>
+                            </td>
+                          </tr>
+                          {expandSurcharge ? (
+                            <>
+                              <tr>
+                                <td>
+                                  <Text as={'p'} variant={'bodyMd'}>
+                                    -- Công mua ({orderInfo.FeeBuy}%)
+                                  </Text>
+                                </td>
+                                <td className={'td--right'}>
+                                  <Text as={'p'} variant={'bodyMd'}>
+                                    {formatMoney(orderInfo.FeeBuyAmount, 'VND')}
+                                  </Text>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <Text as={'p'} variant={'bodyMd'}>
+                                    -- Shipping COD
+                                  </Text>
+                                </td>
+                                <td className={'td--right'}>
+                                  <Text as={'p'} variant={'bodyMd'}>
+                                    {formatMoney(orderInfo.SurchargeFee, 'VND')}
+                                  </Text>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <Text as={'p'} variant={'bodyMd'}>
+                                    -- Dịch vụ cộng thêm
+                                  </Text>
+                                </td>
+                                <td className={'td--right'}>
+                                  <Text as={'p'} variant={'bodyMd'}>
+                                    {formatMoney(orderInfo.ServiceFee, 'VND')}
+                                  </Text>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <Text as={'p'} variant={'bodyMd'}>
+                                    -- Phụ thu sản phẩm
+                                  </Text>
+                                </td>
+                                <td className={'td--right'}>
+                                  <Text as={'p'} variant={'bodyMd'}>
+                                    {formatMoney(orderInfo.StandardFee, 'VND')}
+                                  </Text>
+                                </td>
+                              </tr>
+                            </>
+                          ) : null}
+                          <tr>
+                            <td>
+                              <Text as={'p'} variant={'bodyMd'} fontWeight={'semibold'}>
+                                Cước vận chuyển
+                              </Text>
+                            </td>
+                            <td className={'td--right'}>
+                              <Text as={'p'} variant={'bodyMd'} fontWeight={'semibold'}>
+                                {formatMoney(orderInfo.FeeTranpost, 'VND')}
+                              </Text>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <Text as={'p'} variant={'bodyMd'} fontWeight={'semibold'}>
+                                Phí giao hàng
+                              </Text>
+                            </td>
+                            <td className={'td--right'}>
+                              <Text as={'p'} variant={'bodyMd'} fontWeight={'semibold'}>
+                                {formatMoney(orderInfo.DeliveryFee, 'VND')}
+                              </Text>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <Text as={'p'} variant={'bodyMd'} fontWeight={'semibold'}>
+                                Tổng tiền
+                              </Text>
+                            </td>
+                            <td className={'td--right'}>
+                              <Text as={'p'} variant={'bodyMd'} fontWeight={'semibold'}>
+                                {formatMoney(orderInfo.TotalAmount, 'VND')}
+                              </Text>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <Text as={'p'} variant={'bodyMd'}>
+                                -- Đã thanh toán
+                              </Text>
+                            </td>
+                            <td className={'td--right'}>
+                              <Text as={'p'} variant={'bodyMd'}>
+                                {formatMoney(orderInfo.TotalPayment, 'VND')}
+                              </Text>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <Text as={'p'} variant={'bodyMd'} color={'critical'}>
+                                -- Số tiền còn lại
+                              </Text>
+                            </td>
+                            <td className={'td--right'}>
+                              <Text as={'p'} variant={'bodyMd'} color={'critical'}>
+                                {formatMoney(orderInfo.TotalNeedPay, 'VND')}
+                              </Text>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </LegacyCard.Section>
+                  </LegacyCard>
+                ) : (
+                  <Text as={'p'} variant={'bodyMd'}>
+                    Không có thông tin sản phẩm
+                  </Text>
+                )}
+              </Layout.Section>
+              <Layout.Section fullWidth>
+                <LegacyCard>
+                  {/* <LegacyCard.Section title={'Thông tin thanh toán'}>
+                    {paymentHistories.length > 0 ? (
+                      <table className='table-fixed'>
+                        <thead style={{ background: '#D1D5DB', textAlign: 'center', fontWeight: '700' }}>
+                          <td style={{ width: '10%' }}>Số tiền</td>
+                          <td style={{ width: '60%' }}>Nội dung</td>
+                          <td style={{ width: '15%' }}>Ngày tạo</td>
+                          <td style={{ width: '15%' }}>Trạng thái</td>
+                        </thead>
+                        <tbody style={{ textAlign: 'center' }}>
+                          {paymentHistories.map((payment: any, index: number) => (
+                            <tr key={index}>
+                              <td style={{ textAlign: 'right' }}>
+                                {payment.Amount !== null && payment.Amount !== undefined ? payment.Amount : '0'}
+                              </td>
+                              <td style={{ textAlign: 'left' }}>{payment.Description || 'Không có mô tả'}</td>
+                              <td>{payment.CreatedDate || 'Không có ngày tạo'}</td>
+                              <td>
+                                {payment.Status !== null && payment.Status !== undefined
+                                  ? payment.Status
+                                  : 'Không có trạng thái'}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    ) : (
+                      <Text as={'p'} variant={'bodyMd'}>
+                        Chưa có thông tin thanh toán
+                      </Text>
+                    )}
+                  </LegacyCard.Section> */}
+                  <LegacyCard.Section title={'Thông tin thanh toán'}>
+                    {paymentHistories.length > 0 ? (
+                      <table className='table-fixed' style={{ width: '100%', borderCollapse: 'collapse' }}>
+                        <thead style={{ background: '#D1D5DB', textAlign: 'center', fontWeight: '700' }}>
+                          <tr>
+                            <td style={{ width: '10%', padding: '8px' }}>Số tiền</td>
+                            <td style={{ width: '60%', padding: '8px' }}>Nội dung</td>
+                            <td style={{ width: '15%', padding: '8px' }}>Ngày tạo</td>
+                            <td style={{ width: '15%', padding: '8px' }}>Trạng thái</td>
+                          </tr>
+                        </thead>
+                        <tbody style={{ textAlign: 'center' }}>
+                          {paymentHistories.map((payment: any, index: number) => (
+                            <tr key={index} style={{ borderBottom: '1px solid #D1D5DB' }}>
+                              <td style={{ textAlign: 'right', padding: '8px' }}>
+                                {payment.Amount !== null && payment.Amount !== undefined
+                                  ? `${Number(payment.Amount)
+                                      .toLocaleString('vi-VN', { style: 'decimal', maximumFractionDigits: 0 })
+                                      .replace(/\./g, ',')}đ`
+                                  : '0đ'}
+                              </td>
+                              <td style={{ textAlign: 'left', padding: '8px' }}>
+                                {payment.Description || 'Không có mô tả'}
+                              </td>
+                              <td style={{ padding: '8px' }}>
+                                {payment.CreatedDate
+                                  ? new Date(
+                                      new Date(payment.CreatedDate).getTime() + 7 * 60 * 60 * 1000,
+                                    ).toLocaleDateString('vi-VN') +
+                                    ' ' +
+                                    new Date(
+                                      new Date(payment.CreatedDate).getTime() + 7 * 60 * 60 * 1000,
+                                    ).toLocaleTimeString('vi-VN', {
+                                      hour: '2-digit',
+                                      minute: '2-digit',
+                                    })
+                                  : 'Không có ngày tạo'}
+                              </td>
+                              <td style={{ padding: '8px', color: '#ffffff', fontSize: '10px' }}>
+                                {payment.Status === 1 ? (
+                                  <span style={{ background: '#238832', padding: '4px 8px', borderRadius: '4px' }}>
+                                    Đã duyệt
+                                  </span>
+                                ) : payment.Status === 2 ? (
+                                  <span style={{ background: '#A91116', padding: '4px 14px', borderRadius: '4px' }}>
+                                    Đã hủy
+                                  </span>
+                                ) : (
+                                  ''
+                                )}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    ) : (
+                      <Text as={'p'} variant={'bodyMd'}>
+                        Chưa có thông tin thanh toán
+                      </Text>
+                    )}
+                  </LegacyCard.Section>
+                </LegacyCard>
+              </Layout.Section>
+              <Layout.Section fullWidth>
+                <LegacyCard>
+                  <LegacyCard.Section title={'Lịch sử đơn hàng'}>
+                    {orderHistories.length ? (
+                      <div className={'changelog'}>
+                        {orderHistories.map((item: any, index: number) => (
+                          <div key={index} className={'log'}>
+                            <Text as={'p'} variant={'bodyMd'}>
+                              {item.TraceDesc}
+                            </Text>
+                            <Text as={'span'} variant={'bodyMd'} color={'subdued'}>
+                              {datetimeFormat(item.TraceTime)}
+                            </Text>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <Text as={'p'} variant={'bodyMd'}>
+                        Không có lịch sử đơn hàng
+                      </Text>
+                    )}
+                  </LegacyCard.Section>
+                </LegacyCard>
+              </Layout.Section>
+            </Layout>
+          ) : (
+            <Layout>
+              <Layout.Section>
+                <LegacyCard>
+                  <LegacyCard.Section>
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <div style={{ flex: 1, maxWidth: 500 }}>
+                        <Empty />
+                      </div>
+                    </div>
+                  </LegacyCard.Section>
+                </LegacyCard>
+              </Layout.Section>
+            </Layout>
+          )}
+        </>
+      )}
+    </div>
+  );
+};
+
+export default Detail;
