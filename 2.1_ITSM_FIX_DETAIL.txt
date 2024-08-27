@@ -1,13 +1,7 @@
-- Thông báo:
-	- làm lại (chỉnh sửa sau khi có figma)
-- AccountUser:
-	- xóa scroll vì có ít tab
-============================
 - shopping:
 	- chia thành 2 bên danh mục sẽ lấy hình ảnh cuộn 2 bên
 	- vào trong 1 bước nếu dài thử làm cuộn luôn
-- ecommerce:
-	- tạo đơn cái chỗ upload ảnh sửa lại chút-------------------	> chưa tìm thấy icon ở đâu mà sửa
-	- api chi tiết -> đang thiếu trường 'image'
+	- chỉnh sửa màn chi tiết sản phẩm
 - Ví SQT:
 	- CHỈNH LẠI TIME
+
