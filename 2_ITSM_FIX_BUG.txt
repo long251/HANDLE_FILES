@@ -1,6 +1,6 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 27/08/2024
+Ngày cập nhật: 28/08/2024
 -------------------------
 Tổng số (3)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
@@ -11,7 +11,7 @@ SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 *CHỈNH SỬA THEO YÊU CẦU:
 *Họp Trans 15/08/2024:
  -> thiếu field 'tổng tiền nạp trong tháng' ở màn 2.dashboard; 8.Ví SQT; 9.Lịch sử giao dịch
- -> lấy ra mã đơn từ nội dung 'ví SQT' và khi action chuyển đến màn chi tiết mua hộ	
+ -> lấy ra mã đơn từ nội dung 'ví SQT' và khi action chuyển đến màn chi tiết mua hộ		/ lịch sử
  -> thiếu trường (vị trí 2)'image' khi chụp từ APP 'Đơn hàng Ecommerce'
 ___________________________________________________________________________________________________________
 **CÁC MÀN GIAO DIỆN
