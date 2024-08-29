@@ -1,15 +1,16 @@
 CTY_PCS
 -------
-Ngày cập nhật: 28/08/2024
+Ngày cập nhật: 29/08/2024
 -------------------------
 ! Đầu tiên vào PC (PCS) cập nhật check_day_list!
 
 - hộp bánh danisa
 - Cốc thuốc:
 	- xịt mũi x1 -> 20%
-	- nhỏ mũi x1 -> 50%
+	- nhỏ mũi x1 -> 50% + (10%)
+	- (hồ dán khô) x1
 	- thuốc đỏ nhỏ x1 -> 40%
-	- kéo nhỏ x1
+	- kéo nhỏ x1 -> đang chưa thấy
 	- âu gâu nhỏ x5
 - chai nước
 - (chai nước ngọt)
@@ -30,22 +31,30 @@ Ngày cập nhật: 28/08/2024
  - [HANDLE_FILES]	-> lưu file (github)
  - [TRANSONLINE-PORTAL] -> thiết kế UI, connect API (gitlab)
  - [PO] 		-> tham khảo cho PORTAL mới
- - [Pictures] -> [Screenshots] -> xóa ảnh chụp 1 tuần / lần
+ - [Pictures] -> [Screenshots] -> xóa ảnh chụp 1 ngày / lần
  - *Skype:
-	- thứ 7 hàng tuần gửi báo cáo a Dũng
-	- cn xem xét báo a Hưng về bể cá
-	- c Đào, a Đạt, a Khánh tester, a Khánh FE => check issues
+	- gửi anh Dũng báo cáo hàng tuần vào chiều tối thứ 7 (nhắc nhở báo thức)
+	- 4/9-m2/t8 âm - thứ 4, đi làm trở lại cbi sẵn cho a Hưng 1 bộ (a đặt 400k trước tự tính toán, 433 thg) xem alagod trước r mới lên thg toàn làm bể giá cả phải thật chuẩn (nhắc nhở báo thức)
+	- sang tháng 8 âm tặng anh Dũng bể cá + cá (nhắc nhở báo thức)
+	- a Đạt, c Đào, a Khánh tester, a Khánh FE, nhóm PORTAL NEW -> check issues giao diện -> 29/08/2024 đã xong giờ tự check
  - Cốc cốc:
 	- [gmail] -> check thư điện tử hàng ngày!
      *[KHÁC]
-	- [Client LMHT] -> check cập nhật bản mới thỉnh thoảng	-> 14/08/2024 => bản 14.16
-				-> Tướng: 	Vi Q | Wukong giáp, E
-				-> Trang bị: 	Rìu đen ok | gươm vô danh X
+	- [Client LMHT] -> 14/08/2024 => bản 14.16
+				- Tướng: 	Vi Q | Wukong giáp, E
+				- Trang bị: 	Rìu đen ok | gươm vô danh X
+			-> 29/08/2024 => bản 14.17
+				- Tướng:	cait ADC/W | 
+				- Trang bị: 	giáp máu X | 
+				- Ngọc:	farm X | đốn hạ X | bước chân X 
+===================================================================================
 	- [alagod cá] 	-> check đồ mới hàng ngày!				 -> tối
 	- [ITSM] 	-> check lỗi, cập nhật hàng ngày!			 -> 20/08/2024 = 3 lỗi
-	- [gitlab] 	-> check a Khánh FE cập nhật thỉnh thoảng!
+	- [gitlab] 	-> check a Khánh FE cập nhật. Tự Merge lên UAT
 ----------------------------------------------------------------------------
 *TRIỂN KHAI:
- - MANG -> bánh kẹo lên cty
  - M -> kẹo xylitol 52k tím
+ - Zalo: 
+	- check cá cảnh hà nội xem ntn
+	- 
 ----------------------------------------------------------------------------

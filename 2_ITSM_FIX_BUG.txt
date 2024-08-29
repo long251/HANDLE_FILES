@@ -7,6 +7,8 @@ SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 1-163	/ footer	/ chưa có link 'câu hỏi thường gặp'			/ SAU
 2-164	/ footer	/ chưa có link 'điều khoản quy định'			/ SAU
 3-169	/ 3.Shopping	/ chi tiết -> Breadcrumb -> quá dài			/ hỏi a Khánh vì dùng chung
+4-278	/ 4.Ecommerce	/ chi tiết đơn mua hộ thiếu time tạo đơn		/ làm cả modal và detail
+5-279	/ 4.Ecommerce	/ chi tiết đơn mua hộ sắp xếp theo time ở tt thanh toán	/ làm cả modal và detail
 -------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
 *Họp Trans 15/08/2024:
