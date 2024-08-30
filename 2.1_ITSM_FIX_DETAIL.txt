@@ -1,7 +1,0 @@
-- shopping:
-	- chia thành 2 bên danh mục sẽ lấy hình ảnh cuộn 2 bên
-	- vào trong 1 bước nếu dài thử làm cuộn luôn
-	- chỉnh sửa màn chi tiết sản phẩm
-- Ví SQT:
-	- CHỈNH LẠI TIME
-

@@ -2,18 +2,32 @@
 -----------------------------------
 ISSUES PORTAL NEW
 -----------------
-Cập nhật ngày: 29/08/2024
+Cập nhật ngày: 30/08/2024
 -------------------------
 *Sửa chung:
- - lọc time các màn: 8.ví sqt; 
+ - font-family: 'Oswald', sans-serif !important;
+ - lọc time các màn: 8.ví sqt; 7.PXK; 
  ! khi lọc time chú ý cái thời gian xem format đúng chưa có khi sai cả format cả time!
  - thiếu field tiền nạp trong tháng các màn: 9.lịch sử giao dịch; 8.Ví SQT; 
 đi từ dưới lên:
-*Màn 10. Website mua hàng: OK
-*Màn 9. PaymentHistory: index.tsx
+*Màn 10.Website mua hàng: OK
+*Màn 9.PaymentHistory: index.tsx
 	- lấy cái này làm chuẩn sửa lại toàn bộ bộ lọc thời gian		/ SỬA LUÔN
 	- thiếu field tiền nạp trong tháng					/ yc API
-*Màn 8. Ví SQT:
+*Màn 8.Ví SQT:
 	- giống bên lịch sử nhưng khác là nó ko có nội dung đơn được
 	- thiếu field tiền nạp trong tháng					/ yc API
+*Màn Tra cứu đơn hàng: OK
+*Màn 7.Phiếu xuất kho:
+	- lọc time								/ SỬA LUÔN
+	- Tuyến chưa trỏ đúng							/ SỬA LUÔN
+	- thời gian đang sai lệch do không được sắp xếp đúng cách		/ SỬA LUÔN
+*Màn 5.Đơn vận chuyển:
+	- lọc time								/ SỬA LUÔN
+	- bỏ cái cùng trang giờ blank luôn thì ko cần phải lưu time URL		/ SỬA LUÔN
 	- 
+*màn 4.Ecommerce: OK
+*Màn 3.Shopping:
+	- vào trong 1 cấp category để sửa lại cuộn theo Slick			/ SỬA LUÔN
+	- chi tiết sản phẩm							/ SỬA LUÔN
+

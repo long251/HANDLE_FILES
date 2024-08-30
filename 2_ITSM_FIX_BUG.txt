@@ -1,6 +1,6 @@
 ITSM_FIX_BUG
 ------------
-Ngày cập nhật: 28/08/2024
+Ngày cập nhật: 30/08/2024
 -------------------------
 Tổng số (3)
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
