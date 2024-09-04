@@ -1,0 +1,17 @@
+CHỈNH SỬA LỖI BETA
+------------------
+Ngày cập nhật: 04/09/2024
+-------------------------
+TÊN MÀN		/ 				LỖI				/ KẾT LUẬN
+------------------------------------------------------------------------------------------
+- field		/ 'tổng tiền nạp trong tháng': dashboard, ví, lịch sử		/    API
+- field		/ 'image khai thác': ecommerce-tạo đơn				/    API
+- lọc time	/ lọc time							/ _blank
+
+- Giỏ hàng	/ transform, chữ bằng nhau, thêm đường kẻ, close đảo		/ TRUNG
+- 3.shopping	/ chi tiết sản phẩm > breadcrumb quá dài => giới hạn		/ SỬA ĐƯỢC
+- 3.shopping	/ CHI TIẾT SẢN PHẨM THEO FIGMA					/ VỪA
+- 3.shopping	/ phần danh mục sp chia lại 1 số màn sao cho ko bị dính		/ SỬA ĐƯỢC
+
+- 5.Đơn VC	/ bỏ url time thay vào đó _blank đơn chi tiết			/ SỬA ĐƯỢC
+		

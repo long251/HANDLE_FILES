@@ -21,6 +21,7 @@ CÁC MÀN GIAO DIỆN
 GIAO DIỆN NHÌN:
 - header-> ở chỗ navbar phóng to, có thêm 1 cái đường border mờ cắt ngang nằm ẩn dưới CollapIcon/     KHÓ
 - navbar-> kẻ làm sao cho nó borderRadius chia tách theo figma (border tách)			/     KHÓ
+- navbar-> chưa chọn ngay, cái này chưa làm được						/     KHÓ
 - thông báo: cái thông báo đang là dữ liệu thật nên từ từ hẵng sửa				/ từ từ
 -------------------------------------------------------------------------------------------------------------------
 Màn 2. Dashboard
