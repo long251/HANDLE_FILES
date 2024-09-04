@@ -1,0 +1,58 @@
+ITSM BUG
+--------
+Ngày cập nhật: 04/09/2024
+-------------------------
+Tổng số (6); 50% UAT lên BETA mới 100%
+SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
+1-163	/ footer	/ chưa có link, nội dung 'câu hỏi thường gặp'		/ SAU
+2-164	/ footer	/ chưa có link, nội dung 'điều khoản quy định'		/ SAU
+3-283	/ user		/ sổ địa chỉ > nút thêm địa chỉ ko đúng thiết kế	/ SỬA ĐƯỢC
+4-169	/ 3.shopping	/ detail > Breadcrum: quá dài dắt ngắn bớt		/ SỬA ĐƯỢC
+5-280	/ header > sear	/ thanh search tổng: đang y/c điều chỉnh mới khác ITSM	/ CHỜ YÊU CẦU THAY ĐỔI?
+6-284	/ 4.Ecommerce	/ tạo đơn giới hạn ảnh chọn 6 ảnh			/ CHỜ XEM CÓ THAY ĐỔI?
+-------------------------
+*CHỈNH SỬA THEO YÊU CẦU:
+*Họp Trans 15/08/2024:
+ -> thiếu field 'tổng tiền nạp trong tháng' ở màn 2.dashboard; 8.Ví SQT; 9.Lịch sử giao dịch
+ -> thiếu trường (vị trí 2)'image' khi chụp từ APP 'Đơn hàng Ecommerce'
+___________________________________________________________________________________________________________________
+CÁC MÀN GIAO DIỆN
+-----------------
+GIAO DIỆN NHÌN:
+- header-> ở chỗ navbar phóng to, có thêm 1 cái đường border mờ cắt ngang nằm ẩn dưới CollapIcon/     KHÓ
+- navbar-> kẻ làm sao cho nó borderRadius chia tách theo figma (border tách)			/     KHÓ
+- thông báo: cái thông báo đang là dữ liệu thật nên từ từ hẵng sửa				/ từ từ
+-------------------------------------------------------------------------------------------------------------------
+Màn 2. Dashboard
+-------------------------------------------------------------------------------------------------------------------
+Màn 3. Shopping:
+	- Breadcrumb màn chi tiết quá dài -> 100px cắt ngắn		/ SAU - từ từ
+	- xóa log shopping						/ SAU - từ từ
+	- CHI TIẾT SẢN PHẨM THEO FIGMA + sửa luôn lỗi Breadcrumb	/ LUÔN
+		- font-family: 'Oswald', sans-serif !important;
+		- 
+-------------------------------------------------------------------------------------------------------------------
+Màn 4: Đơn hàng Ecommerce
+-------------------------------------------------------------------------------------------------------------------
+Màn 5. Đơn hàng vận chuyển:
+ *Màn danh sách:
+ *Màn chi tiết:
+ *Màn tạo đơn:
+	- tạo nhiều đơn Import -> nếu TH trùng thì đang chỉ + cái dòng trùng, những dòng dư thì + vào đâu?
+   step 1-chọn kho, chọn địa chỉ:
+   step 2-tạo tracking, import:
+   step 3-review lại kết quả:
+   step 4-gửi form đi:
+	- chưa check trùng tracking nên là khi nhập xong vẫn ko trả ra tracking ở màn danh sách
+		- nếu khác tuyến thì nó vẫn ăn; nếu tạo rồi cùng tuyến tạo lại ko ăn
+-------------------------------------------------------------------------------------------------------------------
+Màn 7. Danh sách phiếu xuất (PXK)
+-------------------------------------------------------------------------------------------------------------------
+Màn Tra cứu đơn hàng
+-------------------------------------------------------------------------------------------------------------------
+Màn 8. Ví SQT
+-------------------------------------------------------------------------------------------------------------------
+Màn 9. Lịch sử giao dịch
+-------------------------------------------------------------------------------------------------------------------
+Màn 10. Website mua hàng
+___________________________________________________________________________________________________________________

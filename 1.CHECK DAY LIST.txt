@@ -1,23 +1,21 @@
-CTY_PCS
+CTY PCS
 -------
-Ngày cập nhật: 30/08/2024
+Ngày cập nhật: 04/09/2024
 -------------------------
-! Đầu tiên vào PC (PCS) cập nhật check_day_list!
-
-- hộp bánh danisa
+- hộp bánh danisa -> nhiều
 - Cốc thuốc:
 	- xịt mũi x1 -> 20%
-	- nhỏ mũi x1 -> 50% + (10%)
-	- (hồ dán khô) x1
+	- nhỏ mũi x1 -> 50%
 	- thuốc đỏ nhỏ x1 -> 40%
-	- kéo nhỏ x1 -> đang chưa thấy
 	- âu gâu nhỏ x5
+	- kéo nhỏ x1 -> đang chưa thấy
+	- (hồ dán khô x1)
 - chai nước
 - (chai nước ngọt)
-- case máy tính -> hơi lỏng dây
-- gối cong => gối ô tô
+- case máy tính lỏng dây
+- gối ô tô
 - balo* -> MANG thuốc nâu axit
-- kẹo xilytol x1 hộp
+- kẹo xilytol x1 hộp -> to, xanh lá 52k
 - giấy ăn x1 bịch nhỏ
 - tai nghe có dây x1
 - bút bi x3
@@ -26,7 +24,7 @@ Ngày cập nhật: 30/08/2024
 - Màn PC (PCS) x2
 - chuột công thái học
 - bàn phím rapoo
-- giấy note
+- giấy note -> hết, lấy thêm ở bảng họp 
 *PC (PCS):
  - [HANDLE_FILES]	-> lưu file (github)
  - [TRANSONLINE-PORTAL] -> thiết kế UI, connect API (gitlab)
@@ -47,32 +45,10 @@ Ngày cập nhật: 30/08/2024
 				- Tướng:	cait ADC/W | 
 				- Trang bị: 	giáp máu X | 
 				- Ngọc:	farm X | đốn hạ X | bước chân X 
-===================================================================================
 	- [alagod cá] 	-> check đồ mới hàng ngày!				 -> tối
-	- [ITSM] 	-> check lỗi, cập nhật hàng ngày!			 -> 20/08/2024 = 3 lỗi
+	- [ITSM] 	-> check lỗi, cập nhật hàng ngày!			 -> 
 	- [gitlab] 	-> check a Khánh FE cập nhật. Tự Merge lên UAT
-----------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
 *TRIỂN KHAI:
- - M -> kẹo xylitol 52k tím
- - Zalo: 
-	- check cá cảnh hà nội xem ntn
-	- 
-----------------------------------------------------------------------------
-*ĐỒ CÁ ANH HƯNG*
- - bể 433:			150 (36 lít)
- - (đèn: d-1s 3 chế độ: 45k)	45
- - lót cao su: 			10
- - sủi YTZ-300			50
- - van điều chỉnh, quả sủi, dây sủi, hít giữ dây, em cho
- - thanh sủi phun kiểu mưa	15
- - lọc thác xp-06		50
- - vật liệu lọc	sứ bi		25
- - bông lọc, than hoạt tính	em cho
- - vi sinh			40
- - thuốc phòng bệnh		26
- - thức ăn			em cho
- - vợt				10
- - nhiệt kế			10
- - đồ chơi			em cho
-				
- 			tổng	431
+ - LẤY -> thêm giấy note
+-------------------------------------------------------------------------------------------------------------------
