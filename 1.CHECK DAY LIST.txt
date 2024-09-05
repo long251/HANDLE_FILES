@@ -1,6 +1,6 @@
 CTY PCS
 -------
-Ngày cập nhật: 04/09/2024
+Ngày cập nhật: 05/09/2024
 -------------------------
 - hộp bánh danisa -> nhiều
 - Cốc thuốc:
@@ -8,8 +8,8 @@ Ngày cập nhật: 04/09/2024
 	- nhỏ mũi x1 -> 50%
 	- thuốc đỏ nhỏ x1 -> 40%
 	- âu gâu nhỏ x5
-	- kéo nhỏ x1 -> đang chưa thấy
 	- (hồ dán khô x1)
+	- kéo nhỏ x1 -> đang chưa thấy
 - chai nước
 - (chai nước ngọt)
 - case máy tính lỏng dây
@@ -17,7 +17,7 @@ Ngày cập nhật: 04/09/2024
 - balo* -> MANG thuốc nâu axit
 - kẹo xilytol x1 hộp -> to, xanh lá 52k
 - giấy ăn x1 bịch nhỏ
-- tai nghe có dây x1
+- (tai nghe bluetooth)
 - bút bi x3
 - vở ghi
 - iphone*
@@ -50,5 +50,6 @@ Ngày cập nhật: 04/09/2024
 	- [gitlab] 	-> check a Khánh FE cập nhật. Tự Merge lên UAT
 -------------------------------------------------------------------------------------------------------------------
 *TRIỂN KHAI:
+ - MANG -> tai nghe bluetooth đi hoặc M mới
  - LẤY -> thêm giấy note
 -------------------------------------------------------------------------------------------------------------------
