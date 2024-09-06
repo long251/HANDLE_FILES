@@ -1,29 +1,28 @@
 ITSM BUG
 --------
-Ngày cập nhật: 05/09/2024
+Ngày cập nhật: 06/09/2024
 -------------------------
 Tổng số (3); 50% UAT lên BETA mới 100%
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 1-163	/ footer	/ chưa có link, nội dung 'câu hỏi thường gặp'		/ SAU
 2-164	/ footer	/ chưa có link, nội dung 'điều khoản quy định'		/ SAU
 3-169	/ 3.shopping	/ detail > Breadcrum: quá dài dắt ngắn bớt		/ SỬA ĐƯỢC
+4-284	/ 4.Ecommerce	/ tạo đơn > upload file đang cho nhiều hơn 6 ảnh	/ 50% do xóa đi ko up lại đc
 -------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
 **field:
  -> thiếu field 'tổng tiền nạp trong tháng' ở màn 2.dashboard; 8.Ví SQT; 9.Lịch sử giao dịch
  -> thiếu trường (vị trí 2)'image' khi chụp từ APP 'Đơn hàng Ecommerce'
 **CHUNG:
- -> lọc time đang sai lệch 1 ngày và ko đưa lên URL nữa						/ hỏi a Khánh bé
+ -> lọc time đang sai lệch 1 ngày và ko đưa lên URL nữa				/ hỏi a Khánh bé
 ___________________________________________________________________________________________________________________
 CÁC MÀN GIAO DIỆN
 -----------------
 GIAO DIỆN NHÌN:
-- header-> thanh search tổng để nền khác vì đang trùng (figma)					/	LUÔN
 - header-> thông báo: hỏi xem có cần để ko							/	hỏi a Khánh
 - header-> ở chỗ navbar phóng to, có thêm 1 cái đường border mờ cắt ngang nằm ẩn dưới CollapIcon/     KHÓ
 - navbar-> kẻ làm sao cho nó borderRadius chia tách theo figma (border tách)			/     KHÓ
 - navbar-> chưa chọn ngay, cái này chưa làm được						/     KHÓ
-- thông báo: cái thông báo đang là dữ liệu thật nên từ từ hẵng sửa				/ từ từ
 - Giỏ hàng	/ transform, chữ bằng nhau, thêm đường kẻ, close đảo		/ TRUNG
 -------------------------------------------------------------------------------------------------------------------
 Màn 2. Dashboard:
