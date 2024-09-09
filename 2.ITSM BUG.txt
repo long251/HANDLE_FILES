@@ -1,13 +1,13 @@
 ITSM BUG
 --------
-Ngày cập nhật: 06/09/2024
+Ngày cập nhật: 09/09/2024
 -------------------------
 Tổng số (3); 50% UAT lên BETA mới 100%
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 1-163	/ footer	/ chưa có link, nội dung 'câu hỏi thường gặp'		/ SAU
 2-164	/ footer	/ chưa có link, nội dung 'điều khoản quy định'		/ SAU
-3-169	/ 3.shopping	/ detail > Breadcrum: quá dài dắt ngắn bớt		/ SỬA ĐƯỢC
-4-284	/ 4.Ecommerce	/ tạo đơn > upload file đang cho nhiều hơn 6 ảnh	/ 50% do xóa đi ko up lại đc
+3-169	/ 3.shopping	/ detail > Breadcrum: quá dài cắt ngắn bớt		/ SỬA ĐƯỢC
+4-284	/ 4.Ecommerce	/ tạo đơn > upload file đang cho nhiều hơn 6 ảnh	/ tạm thời bỏ đk đó vì lấy mỗi ảnh đầu
 -------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
 **field:
@@ -15,34 +15,31 @@ SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
  -> thiếu trường (vị trí 2)'image' khi chụp từ APP 'Đơn hàng Ecommerce'
 **CHUNG:
  -> lọc time đang sai lệch 1 ngày và ko đưa lên URL nữa				/ hỏi a Khánh bé
+ -> xóa url time cho nó đồng bộ với các màn					/ xóa URL time
+ -> Title Breadcrumb tăng lên size 24 class: Title_Breadcrumb đặt tại dashboard.scss	=> SỬA FULL CÁC MÀN
 ___________________________________________________________________________________________________________________
 CÁC MÀN GIAO DIỆN
 -----------------
 GIAO DIỆN NHÌN:
-- header-> thông báo: hỏi xem có cần để ko							/	hỏi a Khánh
-- header-> ở chỗ navbar phóng to, có thêm 1 cái đường border mờ cắt ngang nằm ẩn dưới CollapIcon/     KHÓ
-- navbar-> kẻ làm sao cho nó borderRadius chia tách theo figma (border tách)			/     KHÓ
-- navbar-> chưa chọn ngay, cái này chưa làm được						/     KHÓ
-- Giỏ hàng	/ transform, chữ bằng nhau, thêm đường kẻ, close đảo		/ TRUNG
+- header	-> ở chỗ navbar phóng to, có thêm 1 cái đường border mờ cắt ngang nằm ẩn dưới CollapIcon/     KHÓ
+- header	-> thông báo: hỏi xem có cần để ko							/ chưa có
+- header	-> giỏ hàng > khi F5 hoặc load lần đầu thì tranform đang ko hoạt động đúng cách		/ sửa ngay
+- navbar	-> kẻ làm sao cho nó borderRadius chia tách theo figma (border tách)			/ sửa sau
+- navbar	-> chưa chọn ngay, cái này chưa làm được						/     KHÓ
 -------------------------------------------------------------------------------------------------------------------
 Màn 2. Dashboard:
-- dãn thêm 1 chút ở mấy bảng phân tích tăng giảm						/ DỄ
-- Title Breadcrumb tăng lên size 24								/	LUÔN
-- đơn hàng gần đây tăng lên size 20								/ DỄ
-- thiếu gạch ngang										/ hỏi a Khánh
-- button refresh bảng tỷ giá ngoại tệ								/ hỏi a Đạt
-- giao dịch gần nhất size 20									/ DỄ
-- AutoComplete gọn lại										
-- gạch chân giao dịch
+- đã sửa xong yêu cầu nhưng khi cái autoCom bị giới hạn nó sẽ bị kiểu thiếu chữ!			/ bằng nhau
 -------------------------------------------------------------------------------------------------------------------
 Màn 3. Shopping:
-	- Breadcrumb màn chi tiết quá dài -> 100px cắt ngắn		/ SAU - từ từ
+- search đầu vào											/ hỏi lại tke
+- nhét cái css thay đổi ở shopping > index.scss								/ sửa luôn
 	- CHI TIẾT SẢN PHẨM THEO FIGMA + sửa luôn lỗi Breadcrumb	/ LUÔN
 		- font-family: 'Oswald', sans-serif !important;
 	- DANH MỤC SẢN PHẨM: chia lại 1 số mục sao cho ko bị dính vào nhau
 	- DANH MỤC SẢN PHẨM: hình ảnh đang ko đều làm cho nó đều đi
 	- DANH MỤC SẢN PHẨM: thanh search làm cho đẹp hơn
 	- DETAIL: làm lại như figma  / hỏi a Khánh bé về Breadcrumb / có thêm sản phẩm tương tự
+	- SEARCH: tổng cho nhỏ lại
 -------------------------------------------------------------------------------------------------------------------
 Màn 4: Đơn hàng Ecommerce
 -------------------------------------------------------------------------------------------------------------------

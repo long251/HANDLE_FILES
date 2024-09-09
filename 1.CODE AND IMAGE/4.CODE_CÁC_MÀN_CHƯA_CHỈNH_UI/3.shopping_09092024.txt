@@ -1,0 +1,892 @@
+import {
+  Button,
+  Divider,
+  Layout,
+  LegacyCard,
+  LegacyStack,
+  Link,
+  Page,
+  PolarisIcons,
+  ProgressBar,
+  Spinner,
+  Tabs,
+  Text,
+  TextField,
+} from 'pcs-polaris';
+import React, { useEffect, useState } from 'react';
+import { IconCart, IconLike } from '../../../components/Icons';
+import { StarRating2 } from '../_components/StarRating';
+import { apiClient, shopApiClient } from '../../../utils/api.ts';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import Breadcrumbs from '../_components/Breadcrumbs.tsx';
+import { clearToast, showToast } from '../../../helpers/toast.ts';
+import { useDispatch } from 'react-redux';
+import { cartAction } from '../../../store/reducers/cartReducer';
+import { formatMoney } from '../../../helpers/currency.ts';
+import Empty from '../../../components/NoData/Empty.tsx';
+import { findPathDealCategory } from '../../../helpers/shoppingCategory.ts';
+import { VITE_SHOP_API } from '../../../config/env.ts';
+
+const Product = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const formatTotalReviews = (totalReviews: number) => {
+    if (totalReviews < 1000) {
+      return totalReviews.toString();
+    } else if (totalReviews < 1000000) {
+      const kValue = Math.floor(totalReviews / 1000);
+      const remainder = Math.floor((totalReviews % 1000) / 100);
+      if (remainder > 0) {
+        return `${kValue}.${remainder}k`;
+      } else {
+        return `${kValue}k`;
+      }
+    } else {
+      return Math.floor(totalReviews / 1000000) + 'M';
+    }
+  };
+  //-------cuộn đến đầu trang-----------
+  useEffect(() => {
+    const categoryElement = document.getElementById('product');
+    if (categoryElement) {
+      categoryElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, []);
+  //-------bộ đếm sản phẩm--------------
+  const [count, setCount] = useState('1');
+  //----------active like----------------------
+  const [liked, setLiked] = useState(false);
+
+  const handleLikeClick = () => {
+    setLiked(!liked);
+  };
+  //----------tab mobile-----------------------
+  const [selected, setSelected] = useState(0);
+  //------------title Page----------------------
+  const params = useParams();
+
+  const [pageLoading, setPageLoading] = useState(false);
+  const [name, setName] = useState('');
+  const [source] = useState('Ebay');
+  const [id, setId] = useState('');
+  const [sourceUrl, setSourceUrl] = useState('');
+  const [images, setImages] = useState([]);
+
+  const [price, setPrice] = useState<any>(null);
+  const [originalPrice, setOriginalPrice] = useState<any>(null);
+  const [outOfStock, setOutOfStock] = useState(false);
+  const [variantInfo, setVariantInfo] = useState('');
+  const [options, setOptions] = useState<any>([]);
+  const [discountPercentage, setDiscountPercentage] = useState(null);
+  const [brand, setBrand] = useState('');
+  const [averageReview, setAverageReview] = useState(0);
+  const [totalReview, setTotalReview] = useState(0);
+  const [totalSold, setTotalSold] = useState(null);
+
+  const [shortDescription, setShortDescription] = useState('');
+
+  const [variants, setVariants] = useState([]);
+
+  const [productData, setProductData] = useState<any>({});
+
+  const [selectedOptionValues, setSelectedOptionValues] = useState<any>([]);
+
+  const [sellerInfoData, setSellerInfoData] = useState(null);
+
+  const [breadcrumbs, setBreadcrumbs] = useState([{ title: 'Shopping', url: '/shopping' }]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const fetchData = async () => {
+    setPageLoading(true);
+    let tmpBreadcrumbs = [{ title: 'Shopping', url: '/shopping' }];
+    try {
+      let utmSource = searchParams.get('utm_source');
+      let utmContent = searchParams.get('utm_content');
+
+      if (utmSource == 'deal' && utmContent) {
+        const urlMenu = `/api/ebay/trending-deals/filter`;
+        let menuResponse = await shopApiClient.get(urlMenu);
+        let allCategories = menuResponse.data.allCategories;
+        if (Array.isArray(allCategories)) {
+          let pathCategory = findPathDealCategory(allCategories, utmContent);
+          // console.log(pathCategory);
+          if (pathCategory.length >= 2) {
+            for (let i = 1; i < pathCategory.length; i++) {
+              tmpBreadcrumbs.push({
+                title: pathCategory[i].displayName,
+                url: `/shopping/deal/${pathCategory[i].categoryId}`,
+              });
+            }
+            setBreadcrumbs(tmpBreadcrumbs);
+          }
+        }
+      } else if (utmSource == 'category' && utmContent) {
+        const urlCategory = `${VITE_SHOP_API}/api/ebay/category-products?categoryId=${utmContent}&page=1`;
+        let categoryResponse = await shopApiClient.get(urlCategory);
+        let sitemaps = categoryResponse.data.sitemaps;
+        Object.keys(sitemaps).map((key: string) => {
+          tmpBreadcrumbs.push({
+            title: sitemaps[key],
+            url: key != '#' ? `/shopping/category/${key}` : `/shopping/category/${utmContent}`,
+          });
+        });
+        setBreadcrumbs(tmpBreadcrumbs);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    try {
+      const url = `/api/ebay/product-detail/${params.id}`;
+      let response = await shopApiClient.get(url);
+      if (response.data) {
+        let data = response.data;
+        setProductData(data);
+        tmpBreadcrumbs.push({
+          title: data.name,
+          url: '',
+        });
+        setName(data.name);
+        setId(data.code);
+        setSourceUrl(data.linkInfo);
+        setImages(data.images);
+        setPrice(data.price);
+        setOriginalPrice(data.originalPrice);
+        setDiscountPercentage(data.discountPercent);
+        setBrand(data.brand);
+        setShortDescription(data.shortDescription);
+
+        if (data.selectMenu) {
+          let menuItemMap = data.menuItemMap;
+          let selectMenu = data.selectMenu;
+          let tmp = [];
+          for (let i = 0; i < selectMenu.length; i++) {
+            let options = [];
+            let menuItemValueIds = selectMenu[i].menuItemValueIds;
+            for (let j = 0; j < menuItemValueIds.length; j++) {
+              let option = {};
+              for (let key in menuItemMap) {
+                if (menuItemValueIds[j] == menuItemMap[key].valueId) {
+                  option = {
+                    name: menuItemMap[key].valueName,
+                    value: menuItemMap[key].valueId,
+                  };
+                  break;
+                }
+              }
+              options.push(option);
+            }
+
+            tmp.push({
+              label: selectMenu[i].displayLabel,
+              options: options,
+            });
+          }
+          setOptions(tmp);
+        }
+
+        if (Array.isArray(data.variationsMap)) {
+          let tmp: any = [];
+          let variantsMap = data.variationsMap;
+          let variationCombinations = data.variationCombinations;
+          let variationCombinationsArr = Object.keys(variationCombinations).map((key: string) => {
+            return { key: key, value: variationCombinations[key] };
+          });
+          for (let i = 0; i < variantsMap.length; i++) {
+            let variantId = variantsMap[i]['variationId'];
+            for (let j = 0; j < variationCombinationsArr.length; j++) {
+              if (variationCombinationsArr[j]['value'].toString() == variantId) {
+                variantsMap[i]['option'] = variationCombinationsArr[j]['key'];
+                break;
+              }
+            }
+            tmp.push(variantsMap[i]);
+          }
+          setVariants(tmp);
+        }
+
+        if (data.shopInfo) {
+          let storeNameQuery = data.shopInfo.storeNameQuery;
+          shopApiClient.get(`/api/ebay/seller-info/${storeNameQuery}`).then((r2) => {
+            if (r2.data && r2.data.sellerId) {
+              setSellerInfoData(r2.data);
+            }
+          });
+        }
+      }
+      setTimeout(function () {
+        jsListener();
+      }, 1500);
+    } catch (e) {
+      console.log(e);
+    }
+    setBreadcrumbs(tmpBreadcrumbs);
+    setPageLoading(false);
+  };
+
+  const handleChangeOption = (changeThumbnail = true) => {
+    let selectedOptions = [];
+    let selectors: any = document.querySelectorAll('.select_product_detail');
+    for (let i = 0; i < selectors.length; i++) {
+      let value = selectors[i].value;
+      if (value) {
+        selectedOptions.push(value);
+      }
+    }
+    setSelectedOptionValues(selectedOptions);
+    let isOutOfStock = selectedOptions.length > 0;
+    for (let i = 0; i < selectedOptions.length; i++) {
+      let optionValue = selectedOptions[i];
+      if (productData.menuItemMap[optionValue].outOfStock == false) {
+        isOutOfStock = false;
+        break;
+      }
+    }
+    setOutOfStock(isOutOfStock);
+    setPrice(productData.price);
+    setOriginalPrice(productData.price);
+    setVariantInfo('');
+    if (!isOutOfStock) {
+      if (selectedOptions.length == selectors.length) {
+        let selectedOptionStr = selectedOptions.join('_');
+        for (let i = 0; i < variants.length; i++) {
+          if (variants[i]['option'] == selectedOptionStr) {
+            setPrice(variants[i]['price']);
+            setOriginalPrice(variants[i]['priceBeforeDiscount']);
+            setOutOfStock(variants[i]['outOfStock']);
+            setVariantInfo(variants[i]['description']);
+            break;
+          }
+        }
+      }
+    }
+
+    if (changeThumbnail) {
+      let imageIndex = 0;
+      let menuItemPictureIndexMap = productData.menuItemPictureIndexMap;
+      for (let i = 0; i < selectedOptions.length; i++) {
+        let optionValue = selectedOptions[i];
+        let imageIndexes = menuItemPictureIndexMap[optionValue];
+        if (Array.isArray(imageIndexes) && imageIndexes.length) {
+          imageIndex = imageIndexes[0];
+          break;
+        }
+      }
+      setActiveImageIndex(imageIndex);
+      scrollToImage(imageIndex);
+    }
+  };
+
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const handlePrev = () => {
+    if (activeImageIndex > 0) {
+      let newIndex = activeImageIndex - 1;
+      setActiveImageIndex(newIndex);
+      setOptionByActiveImage(newIndex);
+      scrollToImage(newIndex);
+    }
+  };
+  const handleNext = () => {
+    if (activeImageIndex < images.length - 1) {
+      let newIndex = activeImageIndex + 1;
+      setActiveImageIndex(newIndex);
+      setOptionByActiveImage(newIndex);
+      scrollToImage(newIndex);
+    }
+  };
+
+  const scrollToImage = (idx: number) => {
+    let gallery: HTMLDivElement | null = document.querySelector('.GalleryImage');
+    if (gallery) {
+      gallery.scrollLeft = 128 * idx;
+    }
+  };
+
+  const handleSelectImage = (idx: number) => {
+    setActiveImageIndex(idx);
+    setOptionByActiveImage(idx);
+  };
+
+  const setOptionByActiveImage = (index: number) => {
+    let menuItemPictureIndexMap = productData.menuItemPictureIndexMap;
+    if (menuItemPictureIndexMap) {
+      let menuItemPictureIndexMapArr = Object.keys(menuItemPictureIndexMap).map((key: string) => {
+        return { key: key, value: menuItemPictureIndexMap[key] };
+      });
+      console.log(menuItemPictureIndexMapArr);
+      let optionValues = [];
+      for (let i = 0; i < menuItemPictureIndexMapArr.length; i++) {
+        let indexValues = menuItemPictureIndexMapArr[i]['value'];
+        for (let j = 0; j < indexValues.length; j++) {
+          if (index == indexValues[j]) {
+            optionValues.push(menuItemPictureIndexMapArr[i]['key']);
+          }
+        }
+      }
+      console.log(optionValues);
+
+      let optionEls: NodeListOf<HTMLOptionElement> = document.querySelectorAll('.select_product_detail option');
+      for (let i = 0; i < optionEls.length; i++) {
+        optionEls[i].selected = false;
+        if (optionEls[i].value == optionValues[0]) {
+          optionEls[i].selected = true;
+        }
+      }
+      handleChangeOption(false);
+    }
+  };
+  const handleAddToCart = (type: string) => {
+    console.log(selectedOptionValues);
+    clearToast();
+    let selectors: any = document.querySelectorAll('.select_product_detail');
+    if (selectors.length != selectedOptionValues.length) {
+      showToast('Vui lòng chọn đầy đủ thông tin sản phẩm', 'error');
+    } else {
+      handleProcessCart(type);
+    }
+  };
+
+  const [loadingProcessCart, setLoadingProcessCart] = useState('');
+  const handleProcessCart = async (type: string) => {
+    clearToast();
+    let attributes: any = {};
+    for (let i = 0; i < options.length; i++) {
+      let label: string = options[i]['label'];
+      let optionList = options[i]['options'];
+      for (let j = 0; j < optionList.length; j++) {
+        if (optionList[j]['value'] == selectedOptionValues[i]) {
+          attributes[label] = optionList[j]['name'];
+          break;
+        }
+      }
+    }
+    setLoadingProcessCart(type);
+    let payload = {
+      url: sourceUrl,
+      name: name,
+      images: images,
+      image: images[activeImageIndex],
+      note: '',
+      price: price,
+      quantity: count,
+      serviceCode: [],
+      shippingFee: null,
+      route: 'US-VN',
+      attributes: attributes,
+      input_from: 'shopping',
+    };
+    let response = await apiClient.post('/api/ShoppingCart/AddShoppingCart', payload);
+    if (response.data.status) {
+      if (type == 'add_to_cart') {
+        showToast('Thêm vào giỏ hàng thành công', 'success');
+      }
+      dispatch(cartAction.fetchCart());
+      if (type == 'checkout') {
+        navigate(`/shopping/checkout?items=${response.data.data.id}`);
+      }
+    } else {
+      showToast('Thêm vào giỏ hàng thất bại', 'error');
+    }
+    setLoadingProcessCart('');
+  };
+
+  const jsListener = () => {
+    let elExpandBtn = document.querySelector('.ux-expandable-textual-display-block-inline__control');
+    if (elExpandBtn) {
+      elExpandBtn.addEventListener('click', function () {
+        let elHide = document.querySelector('.ux-expandable-textual-display-block-inline.hide');
+        let elShow = document.querySelector('.ux-expandable-textual-display-block-inline');
+        if (elHide && elShow) {
+          elHide.classList.remove('hide');
+          elShow?.classList.add('hide');
+        }
+      });
+    } else {
+      setTimeout(function () {
+        jsListener();
+      }, 1000);
+    }
+  };
+  const processRawHtml = (text: string) => {
+    return text;
+  };
+
+  return (
+    <div className='Polaris-Custom Title_Breadcrumb' id='product'>
+      <Page
+        //@ts-ignore
+        title={<Breadcrumbs breadcrumbs={breadcrumbs} />}
+      >
+        <Layout>
+          <Layout.Section>
+            {pageLoading ? (
+              <LegacyStack distribution={'center'}>
+                <LegacyStack.Item>
+                  <Spinner size={'small'} />
+                </LegacyStack.Item>
+              </LegacyStack>
+            ) : (
+              <>
+                {Object.keys(productData).length ? (
+                  <LegacyCard>
+                    <LegacyCard.Section>
+                      <div className={'ProductDetail'}>
+                        <div className='ProductDetail__Info'>
+                          <div className='ProductDetail__Info__Media'>
+                            <div className='ProductDetail__Info__Media--Thumbnail'>
+                              <img src={images[activeImageIndex]} width={'100%'} alt={name} />
+                            </div>
+                            <div className='ProductDetail__Info__Media--Gallery'>
+                              <div className={'SlideControl SlideControl--Prev'} onClick={() => handlePrev()}>
+                                <svg
+                                  width='6'
+                                  height='10'
+                                  viewBox='0 0 6 10'
+                                  fill='none'
+                                  xmlns='http://www.w3.org/2000/svg'
+                                >
+                                  <path
+                                    d='M4.5 1.25L1.5 5L4.5 8.75'
+                                    stroke='#0B3558'
+                                    strokeWidth='1.5'
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                  />
+                                </svg>
+                              </div>
+                              <div className='GalleryImage'>
+                                {images.map((img: string, index: number) => (
+                                  <div className={'GalleryImageItem'} key={index}>
+                                    <img
+                                      className={`${index == activeImageIndex ? 'Active' : ''}`}
+                                      onClick={() => handleSelectImage(index)}
+                                      alt={''}
+                                      src={img}
+                                    />
+                                  </div>
+                                ))}
+                              </div>
+                              <div className={'SlideControl SlideControl--Next'} onClick={() => handleNext()}>
+                                <svg
+                                  width='6'
+                                  height='10'
+                                  viewBox='0 0 6 10'
+                                  fill='none'
+                                  xmlns='http://www.w3.org/2000/svg'
+                                >
+                                  <path
+                                    d='M1.5 1.25L4.5 5L1.5 8.75'
+                                    stroke='#0B3558'
+                                    strokeWidth='1.5'
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                          <div className='ProductDetail__Info__General'>
+                            <div className='ProductDetail__Info__General--Name'>
+                              {/*<div*/}
+                              {/*  className={'ProductDetail__Info__General--Name__Tag'}*/}
+                              {/*  onClick={() => window.open(sourceUrl, '_blank')}*/}
+                              {/*>*/}
+                              {/*  <Tag title={'Ebay'} />*/}
+                              {/*</div>*/}
+                              <Text as={'p'} variant={'bodyMd'} fontWeight={'semibold'}>
+                                {name}
+                              </Text>
+                              {/* <Button primary={liked} icon={IconLike} onClick={handleLikeClick} /> */}
+                            </div>
+                            <Divider />
+                            <div className='ProductDetail__Info__General--Price'>
+                              <div>
+                                {formatMoney(price, 'USD')}{' '}
+                                {originalPrice > price ? (
+                                  <span className={`ProductDetail__Info__General--Price--Original`}>
+                                    {originalPrice ? `${formatMoney(originalPrice, 'USD')}` : ''}
+                                  </span>
+                                ) : null}
+                              </div>
+                              <div className={'ProductDetail__Info__General--Price--ProductId'}>
+                                <Link url={sourceUrl} target={'_blank'} removeUnderline monochrome>
+                                  Product ID: {id}
+                                </Link>
+                              </div>
+                            </div>
+                            {discountPercentage ? (
+                              <div className='ProductDetail__Info__General--Discount'>Giảm {discountPercentage}%</div>
+                            ) : null}
+
+                            {productData.shopInfo ? (
+                              <div className='ProductDetail__Info__General--Seller'>
+                                <div className='SellerInfo'>
+                                  <div className='SellerInfo__Avatar'>
+                                    <img src={productData.shopInfo.avatar} alt={productData.shopInfo.shopName} />
+                                  </div>
+                                  <div className='SellerInfo__Description'>
+                                    <div className={'SellerInfo__Description--Name'}>
+                                      <Link
+                                        removeUnderline
+                                        target={'_blank'}
+                                        monochrome
+                                        url={productData.shopInfo.shopUrl}
+                                      >
+                                        {productData.shopInfo.shopName}
+                                      </Link>
+                                      {sellerInfoData ? (
+                                        <div className={'SellerDetail'}>
+                                          <div className={'SellerDetail__Head'}>
+                                            <div className={'Avatar'}>
+                                              <img src={sellerInfoData['avatar']} alt={sellerInfoData['displayName']} />
+                                            </div>
+                                            <div className={'Info'}>
+                                              <div className={'Name'}>
+                                                <Link
+                                                  removeUnderline
+                                                  target={'_blank'}
+                                                  monochrome
+                                                  url={productData.shopInfo.shopUrl}
+                                                >
+                                                  {sellerInfoData['displayName']}
+                                                </Link>
+                                              </div>
+                                              <div className={'Statistic'}>
+                                                {sellerInfoData['summary']['followers']} followers,{' '}
+                                                {sellerInfoData['summary']['positiveFeedback']} positive,{' '}
+                                                {sellerInfoData['summary']['itemsSold']} sold
+                                              </div>
+                                            </div>
+                                          </div>
+                                          {sellerInfoData['feedbackRatings'] ? (
+                                            <div className={'SellerDetail__Feedback'}>
+                                              <div className={'SellerDetail__Feedback--Label'}>Feedbacks:</div>
+                                              <div className={'FeedbackItem'}>
+                                                <div className={'FeedbackItem--Label'}>Positive feedback</div>
+                                                <div className={'FeedbackItem--Progress'}>
+                                                  <ProgressBar
+                                                    color={'primary'}
+                                                    progress={
+                                                      (sellerInfoData['feedbackRatings']['positiveFeedback'] /
+                                                        (sellerInfoData['feedbackRatings']['positiveFeedback'] +
+                                                          sellerInfoData['feedbackRatings']['neutralFeedback'] +
+                                                          sellerInfoData['feedbackRatings']['negativeFeedback'])) *
+                                                      100
+                                                    }
+                                                    size={'small'}
+                                                  />
+                                                </div>
+                                                <div className={'FeedbackItem--Value'}>
+                                                  {sellerInfoData['feedbackRatings']['positiveFeedback']}
+                                                </div>
+                                              </div>
+                                              <div className={'FeedbackItem'}>
+                                                <div className={'FeedbackItem--Label'}>Neutral feedback</div>
+                                                <div className={'FeedbackItem--Progress'}>
+                                                  <ProgressBar
+                                                    color={'primary'}
+                                                    progress={
+                                                      (sellerInfoData['feedbackRatings']['neutralFeedback'] /
+                                                        (sellerInfoData['feedbackRatings']['positiveFeedback'] +
+                                                          sellerInfoData['feedbackRatings']['neutralFeedback'] +
+                                                          sellerInfoData['feedbackRatings']['negativeFeedback'])) *
+                                                      100
+                                                    }
+                                                    size={'small'}
+                                                  />
+                                                </div>
+                                                <div className={'FeedbackItem--Value'}>
+                                                  {sellerInfoData['feedbackRatings']['neutralFeedback']}
+                                                </div>
+                                              </div>
+                                              <div className={'FeedbackItem'}>
+                                                <div className={'FeedbackItem--Label'}>Negative feedback</div>
+                                                <div className={'FeedbackItem--Progress'}>
+                                                  <ProgressBar
+                                                    color={'primary'}
+                                                    progress={
+                                                      (sellerInfoData['feedbackRatings']['negativeFeedback'] /
+                                                        (sellerInfoData['feedbackRatings']['positiveFeedback'] +
+                                                          sellerInfoData['feedbackRatings']['neutralFeedback'] +
+                                                          sellerInfoData['feedbackRatings']['negativeFeedback'])) *
+                                                      100
+                                                    }
+                                                    size={'small'}
+                                                  />
+                                                </div>
+                                                <div className={'FeedbackItem--Value'}>
+                                                  {sellerInfoData['feedbackRatings']['negativeFeedback']}
+                                                </div>
+                                              </div>
+                                            </div>
+                                          ) : null}
+                                          {sellerInfoData['detailedSellerRatings'] ? (
+                                            <div className={'SellerDetail__Feedback'}>
+                                              <div className={'SellerDetail__Feedback--Label'}>Reviews:</div>
+                                              <div className={'FeedbackItem'}>
+                                                <div className={'FeedbackItem--Label'}>Accurate description</div>
+                                                <div className={'FeedbackItem--Progress'}>
+                                                  <ProgressBar
+                                                    color={'primary'}
+                                                    progress={
+                                                      (sellerInfoData['detailedSellerRatings']['accurateDescription'] /
+                                                        5) *
+                                                      100
+                                                    }
+                                                    size={'small'}
+                                                  />
+                                                </div>
+                                                <div className={'FeedbackItem--Value'}>
+                                                  {sellerInfoData['detailedSellerRatings']['accurateDescription']}
+                                                </div>
+                                              </div>
+                                              <div className={'FeedbackItem'}>
+                                                <div className={'FeedbackItem--Label'}>Reasonable shipping cost</div>
+                                                <div className={'FeedbackItem--Progress'}>
+                                                  <ProgressBar
+                                                    color={'primary'}
+                                                    progress={
+                                                      (sellerInfoData['detailedSellerRatings'][
+                                                        'reasonableShippingCost'
+                                                      ] /
+                                                        5) *
+                                                      100
+                                                    }
+                                                    size={'small'}
+                                                  />
+                                                </div>
+                                                <div className={'FeedbackItem--Value'}>
+                                                  {sellerInfoData['detailedSellerRatings']['reasonableShippingCost']}
+                                                </div>
+                                              </div>
+                                              <div className={'FeedbackItem'}>
+                                                <div className={'FeedbackItem--Label'}>Shipping speed</div>
+                                                <div className={'FeedbackItem--Progress'}>
+                                                  <ProgressBar
+                                                    color={'primary'}
+                                                    progress={
+                                                      (sellerInfoData['detailedSellerRatings']['shippingSpeed'] / 5) *
+                                                      100
+                                                    }
+                                                    size={'small'}
+                                                  />
+                                                </div>
+                                                <div className={'FeedbackItem--Value'}>
+                                                  {sellerInfoData['detailedSellerRatings']['shippingSpeed']}
+                                                </div>
+                                              </div>
+                                              <div className={'FeedbackItem'}>
+                                                <div className={'FeedbackItem--Label'}>Communication</div>
+                                                <div className={'FeedbackItem--Progress'}>
+                                                  <ProgressBar
+                                                    color={'primary'}
+                                                    progress={
+                                                      (sellerInfoData['detailedSellerRatings']['communication'] / 5) *
+                                                      100
+                                                    }
+                                                    size={'small'}
+                                                  />
+                                                </div>
+                                                <div className={'FeedbackItem--Value'}>
+                                                  {sellerInfoData['detailedSellerRatings']['communication']}
+                                                </div>
+                                              </div>
+                                            </div>
+                                          ) : null}
+                                        </div>
+                                      ) : null}
+                                    </div>
+                                    <div className={'SellerInfo__Description--Info'}>
+                                      {productData.shopInfo.positiveFeedbackPercent} positive,{' '}
+                                      {productData.shopInfo.itemSold} sold
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ) : null}
+
+                            <div className='ProductDetail__Info__General--Brand'>
+                              Thương hiệu:{' '}
+                              <Text as={'span'} variant={'headingMd'} fontWeight={'bold'}>
+                                {brand}
+                              </Text>
+                            </div>
+                            <div className='ProductDetail__Info__General--Review'>
+                              <StarRating2 star={averageReview} />
+                              {formatTotalReviews(totalReview)}
+                            </div>
+                            <div className='ProductDetail__Info__General--Variant'>
+                              {options.map((item: any, index: number) => (
+                                <div key={index} style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                  <label htmlFor=''>{item.label}</label>
+                                  <select className='select_product_detail' onChange={() => handleChangeOption()}>
+                                    <option key={`select${index}-option`} value={''}>
+                                      - Select -
+                                    </option>
+                                    {item.options.map((option: any, idx: number) => (
+                                      <option key={`select${index}-option${idx}`} value={option.value}>
+                                        {option.name}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+                              ))}
+                            </div>
+                            <div className='ProductDetail__Info__General--Quantity'>
+                              {outOfStock && selectedOptionValues.length ? (
+                                <div className='ProductDetail__Info__General--Quantity--OutOfStock'>Out of stock</div>
+                              ) : (
+                                <>
+                                  <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+                                    <Button
+                                      plain
+                                      icon={PolarisIcons.MinusMinor}
+                                      onClick={() => {
+                                        let numVal = Number(count);
+                                        if (numVal > 1) {
+                                          numVal = numVal - 1;
+                                          setCount(`${numVal}`);
+                                        }
+                                      }}
+                                    />
+                                    <div
+                                      style={{ width: '60px' }}
+                                      onKeyDown={(e) => {
+                                        console.log(e.key);
+                                        if (e.key == 'ArrowUp') {
+                                          let numVal = Number(count);
+                                          numVal = numVal + 1;
+                                          setCount(`${numVal}`);
+                                        } else if (e.key == 'ArrowDown') {
+                                          let numVal = Number(count);
+                                          if (numVal > 1) {
+                                            numVal = numVal - 1;
+                                            setCount(`${numVal}`);
+                                          }
+                                        }
+                                      }}
+                                    >
+                                      <TextField
+                                        align={'center'}
+                                        label={''}
+                                        autoComplete={'off'}
+                                        value={count}
+                                        onChange={(value) => {
+                                          let numValue = Number(value);
+                                          if (Number.isInteger(numValue)) {
+                                            setCount(`${numValue}`);
+                                          }
+                                        }}
+                                        onBlur={(event: any) => {
+                                          let numValue = Number(event.target.value);
+                                          if (numValue <= 0) {
+                                            setCount('1');
+                                          }
+                                        }}
+                                      />
+                                    </div>
+                                    <Button
+                                      plain
+                                      icon={PolarisIcons.PlusMinor}
+                                      onClick={() => {
+                                        let numVal = Number(count);
+                                        numVal = numVal + 1;
+                                        setCount(`${numVal}`);
+                                      }}
+                                    />
+                                    <div className={'ProductDetail__Info__General--Quantity--Text'}>{variantInfo}</div>
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                            <div className='ProductDetail__Info__General--Action'>
+                              <div className='AddToCart'>
+                                <Button
+                                  onClick={() => handleAddToCart('add_to_cart')}
+                                  icon={IconCart}
+                                  loading={loadingProcessCart == 'add_to_cart'}
+                                  disabled={outOfStock}
+                                >
+                                  Thêm vào giỏ hàng
+                                </Button>
+                              </div>
+                              <div className='BuyNow'>
+                                <Button
+                                  loading={loadingProcessCart == 'checkout'}
+                                  onClick={() => handleAddToCart('checkout')}
+                                  disabled={outOfStock}
+                                >
+                                  Mua ngay
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </LegacyCard.Section>
+                    <div className='Tabs_Custom'>
+                      <Tabs
+                        tabs={[
+                          { content: 'Mô tả sản phẩm', id: 'mo-ta-san-pham' },
+                          { content: 'Đánh giá và bình luận', id: 'danh-gia-va-binh-luan' },
+                        ]}
+                        selected={selected}
+                        onSelect={(selectedTabIndex) => setSelected(selectedTabIndex)}
+                      />
+                    </div>
+
+                    {selected === 0 ? (
+                      <LegacyCard.Section>
+                        <div
+                          className={'EbayHtmlRaw'}
+                          dangerouslySetInnerHTML={{ __html: processRawHtml(shortDescription) }}
+                        />
+                      </LegacyCard.Section>
+                    ) : (
+                      ''
+                    )}
+
+                    {selected == 1 ? (
+                      <LegacyCard.Section>
+                        <Text as={'p'} variant={'bodyMd'}>
+                          Không có thông tin đánh giá
+                        </Text>
+                      </LegacyCard.Section>
+                    ) : null}
+                  </LegacyCard>
+                ) : (
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      flexDirection: 'column',
+                      gap: 16,
+                    }}
+                  >
+                    <div style={{ flex: 1, width: 250 }}>
+                      <Empty />
+                    </div>
+                    <Text as={'p'} variant={'bodyMd'}>
+                      Không có thông tin sản phẩm
+                    </Text>
+                    <Button primary url={'/shopping'}>
+                      Quay lại trang chủ Shopping
+                    </Button>
+                  </div>
+                )}
+              </>
+            )}
+          </Layout.Section>
+        </Layout>
+      </Page>
+    </div>
+  );
+};
+
+export default Product;
