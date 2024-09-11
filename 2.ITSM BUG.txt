@@ -1,47 +1,38 @@
 ITSM BUG
 --------
-Ngày cập nhật: 09/09/2024
+Ngày cập nhật: 11/09/2024
 -------------------------
 Tổng số (3); 50% UAT lên BETA mới 100%
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
 1-163	/ footer	/ chưa có link, nội dung 'câu hỏi thường gặp'		/ SAU
 2-164	/ footer	/ chưa có link, nội dung 'điều khoản quy định'		/ SAU
-3-169	/ 3.shopping	/ detail > Breadcrum: quá dài cắt ngắn bớt		/ SỬA ĐƯỢC
-4-284	/ 4.Ecommerce	/ tạo đơn > upload file đang cho nhiều hơn 6 ảnh	/ tạm thời bỏ đk đó vì lấy mỗi ảnh đầu
+4-284	/ 4.Ecommerce	/ tạo đơn > upload file đang cho nhiều hơn 6 ảnh	/ 50% tạm thời bỏ đk vì lấy mỗi ảnh đầu
 -------------------------
 *CHỈNH SỬA THEO YÊU CẦU:
 **field:
  -> thiếu field 'tổng tiền nạp trong tháng' ở màn 2.dashboard; 8.Ví SQT; 9.Lịch sử giao dịch
  -> thiếu trường (vị trí 2)'image' khi chụp từ APP 'Đơn hàng Ecommerce'
 **CHUNG:
- -> lọc time đang sai lệch 1 ngày và ko đưa lên URL nữa				/ hỏi a Khánh bé
- -> xóa url time cho nó đồng bộ với các màn					/ xóa URL time
- -> Title Breadcrumb tăng lên size 24 class: Title_Breadcrumb đặt tại dashboard.scss	=> SỬA FULL CÁC MÀN
+ -> lọc time đang sai lệch 1 ngày và ko đưa lên URL nữa				/ xóa đưa lên URL
 ___________________________________________________________________________________________________________________
 CÁC MÀN GIAO DIỆN
 -----------------
 GIAO DIỆN NHÌN:
 - header	-> ở chỗ navbar phóng to, có thêm 1 cái đường border mờ cắt ngang nằm ẩn dưới CollapIcon/     KHÓ
 - header	-> thông báo: hỏi xem có cần để ko							/ chưa có
-- header	-> giỏ hàng > khi F5 hoặc load lần đầu thì tranform đang ko hoạt động đúng cách		/ sửa ngay
+- header	-> giỏ hàng > khi F5 hoặc load lần đầu thì tranform đang ko hoạt động đúng cách		/ chưa ai thấy
 - navbar	-> kẻ làm sao cho nó borderRadius chia tách theo figma (border tách)			/ sửa sau
-- navbar	-> chưa chọn ngay, cái này chưa làm được						/     KHÓ
+- navbar	-> chưa chọn ngay, cái này chưa làm được						/ sửa sau
 -------------------------------------------------------------------------------------------------------------------
 Màn 2. Dashboard:
 - đã sửa xong yêu cầu nhưng khi cái autoCom bị giới hạn nó sẽ bị kiểu thiếu chữ!			/ bằng nhau
 -------------------------------------------------------------------------------------------------------------------
 Màn 3. Shopping:
 - search đầu vào											/ hỏi lại tke
-- nhét cái css thay đổi ở shopping > index.scss								/ sửa luôn
-	- CHI TIẾT SẢN PHẨM THEO FIGMA + sửa luôn lỗi Breadcrumb	/ LUÔN
-		- font-family: 'Oswald', sans-serif !important;
-	- DANH MỤC SẢN PHẨM: chia lại 1 số mục sao cho ko bị dính vào nhau
-	- DANH MỤC SẢN PHẨM: hình ảnh đang ko đều làm cho nó đều đi
-	- DANH MỤC SẢN PHẨM: thanh search làm cho đẹp hơn
-	- DETAIL: làm lại như figma  / hỏi a Khánh bé về Breadcrumb / có thêm sản phẩm tương tự
-	- SEARCH: tổng cho nhỏ lại
 -------------------------------------------------------------------------------------------------------------------
 Màn 4: Đơn hàng Ecommerce
+- tạo đơn mục chọn địa chỉ 										/ chia tuyến
+- tạo đơn lúc thành công rồi										/ Làm lại theo
 -------------------------------------------------------------------------------------------------------------------
 Màn 5. Đơn hàng vận chuyển:
  *Màn danh sách:
@@ -65,8 +56,3 @@ Màn 9. Lịch sử giao dịch
 -------------------------------------------------------------------------------------------------------------------
 Màn 10. Website mua hàng
 ___________________________________________________________________________________________________________________
-*CÁC VIỆC ĐANG LÀM*
-- LỌC TIME CÁC MÀN!
-- 3.Shopping > chỉnh sửa 1 số màn đang bị dính
-- 3.Shopping > product detail > Breadcrumb > quá dài > cắt ngắn / figma / fontFamily /
-- Giỏ hàng > transform / chữ bằng nhau / thêm đường kẻ
