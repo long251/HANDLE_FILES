@@ -1,0 +1,25 @@
+*FIX LỖI 11/09*
+---------------
+CHUNG	/ Breadcrumb ALL > fontSize=24px							/ rà soát dần
+CHUNG	/ showToast > chỉnh lại theo figma							/ từ từ
+nav tổng/ khoảng cách border									/ khó	
+2.dash	/ 4 bảng phân tích nhỏ khi res cao ko bằng						/ xóa grid (ưu tiên 2)
+3.Shop	/ search tổng > sửa lại cho đẹp								/ hỏi lại tke
+*3.Shop	/ chi tiết sản phẩm > làm lại các chức năng và thiết kế					/ ĐANG LÀM...
+4.Ec	/ tạo đơn > chọn tối đa 6 ảnh
+4.Ec	/ tạo đơn > khi chọn ảnh thì bỏ error đỏ
+4.Ec	/ tạo đơn > TH đỏ đưa vào nhập thì hết đỏ
+4.Ec	/ tạo đơn > màn review + chọn địa chỉ (ảnh 5)
+4.Ec	/ tạo đơn > lúc tạo thành công rồi (ảnh 7)
+4.Ec	/ list	> làm cho cái mục chọn nhiều đẹp hơn
+4.Ec	/ tạo đơn > chọn phân loại đang đỏ nhấp chọn xong hết đỏ
+4.Ec	/ tạo đơn > chỉnh lại theo thiết kế (ảnh 'tạo đơn ecom')
+4.Ec	/ tạo đơn > lúc nó màu đỏ các thứ design lại (ảnh 'tạo đơn ecom2')
+7.PXK	/ cái chọn index nhiều phiếu tke lại cho đẹp
+!	/ shippingFee > phí nội địa tạm tính / màn chi tiết sp đẩy vào hàm xử lý
+------------------------------------------------------------------------------------------------
+NHỮNG MỤC ĐÃ HOÀN THÀNH:
+header	/ Icon giỏ hàng > thiết kế lại sticky giống figma					/ [XONG]
+3.Shop	/ danh sách shopping đẩy lại các mẫu sản phẩm						/ [XONG]
+3.Shop	/ list > category tổng > sau_làm lại các sp theo kiểu cân đối resp nhất có thể		/ [XONG] ac check
+4.Ec	/ tạo đơn > button 'thêm giỏ hàng thành công'						/ nghiệp vụ nên ko sửa

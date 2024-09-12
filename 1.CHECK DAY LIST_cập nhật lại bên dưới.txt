@@ -1,8 +1,8 @@
 CTY PCS
 -------
-Ngày cập nhật: 11/09/2024
+Ngày cập nhật: 12/09/2024
 -------------------------
-- hộp bánh danisa -> nhiều
+- hộp bánh danisa
 - Cốc thuốc:
 	- xịt mũi x1 -> 20%
 	- nhỏ mũi x1 -> 50%
@@ -13,10 +13,11 @@ Ngày cập nhật: 11/09/2024
 - chai nước
 - (chai nước ngọt)
 - case máy tính lỏng dây
-- gối ô tô
+- gối ô tô	->	thay vì nằm đau đầu quá
 - balo* -> MANG thuốc nâu axit
 - kẹo xilytol x1 hộp -> to, xanh lá 52k
 - giấy ăn x1 bịch nhỏ
+- tai nghe có dây
 - (tai nghe bluetooth)
 - bút bi x3
 - vở ghi
@@ -50,6 +51,7 @@ Ngày cập nhật: 11/09/2024
 	- [gitlab] 	-> check a Khánh FE cập nhật. Tự Merge lên UAT
 -------------------------------------------------------------------------------------------------------------------
 *TRIỂN KHAI:
- - M	-> tai nghe có dây mới
- - LẤY 	-> thêm giấy note
+ - MANG	-> thêm bánh kẹo lên cty
+ - THAY	-> thay gối ô tô vì nằm đau đầu quá
+ - MANG	-> giấy ăn lên cty x2
 -------------------------------------------------------------------------------------------------------------------
