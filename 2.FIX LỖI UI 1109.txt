@@ -43,3 +43,10 @@ SHOPPING > DETAIL PRODUCT: 13/09
 - sản phẩm tương tự: chưa vì ko đủ thời gian							/ bắt đầu 14/09
 *Khác:
 - logic > xử lý logic beta (khi mà từ tab hủy sang lại các tab khác bị delay dữ liệu ko mong muốn)/ xong
+------------------------------------------------------------------------------------------------
+- dữ liệu sold gần count số lượng 								/ giảm độ dày, weight
+- 600px -> xem thêm -> bỏ scroll Y								/ ĐANG LÀM...
+- bị dôi 1 ảnh											/ media responsive lại
+- xóa pointer khi hover feedback								/ 
+- phí ship add giỏ hàng chưa có									/
+- buy ing | thuế ship										/
