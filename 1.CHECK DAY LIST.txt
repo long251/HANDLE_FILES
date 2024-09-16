@@ -1,8 +1,8 @@
 CTY PCS
 -------
-Ngày cập nhật: 14/09/2024
+Ngày cập nhật: 16/09/2024
 -------------------------
-- hộp bánh danisa					/
+- hộp bánh danisa					/ hết
 - Cốc thuốc:
 	- xịt mũi x1 -> 20%
 	- nhỏ mũi x1 -> 50%
@@ -13,10 +13,10 @@ Ngày cập nhật: 14/09/2024
 - chai nước
 - (chai nước ngọt)
 - case máy tính lỏng dây
-- gối ô tô	->	thay vì nằm đau đầu quá		/
+- gối cong
 - balo* -> MANG thuốc nâu axit
-- kẹo xilytol x1 hộp -> to, xanh lá 52k			/ M hộp khổng lồ cho tiết kiệm
-- giấy ăn x1 bịch nhỏ					/ 
+- kẹo xilytol x1 hộp -> to, xanh lá 52k			/ M hộp khổng lồ cho tiết kiệm	/ hết
+- giấy ăn x1 bịch nhỏ
 - tai nghe có dây
 - (tai nghe bluetooth)
 - bút bi x3
@@ -33,28 +33,15 @@ Ngày cập nhật: 14/09/2024
  - [Pictures] -> [Screenshots] -> xóa ảnh chụp 1 ngày / lần
  - *Skype:
 	- gửi anh Dũng báo cáo hàng tuần vào chiều tối thứ 7 (nhắc nhở báo thức)
-	- 4/9-m2/t8 âm - thứ 4, đi làm trở lại cbi sẵn cho a Hưng 1 bộ (a đặt 400k trước tự tính toán, 433 thg) xem alagod trước r mới lên thg toàn làm bể giá cả phải thật chuẩn (nhắc nhở báo thức)
-	- sang tháng 8 âm tặng anh Dũng bể cá + cá (nhắc nhở báo thức)
-	- a Đạt, c Đào, a Khánh tester, a Khánh FE, nhóm PORTAL NEW -> check issues giao diện -> 29/08/2024 đã xong giờ tự check
  - Cốc cốc:
 	- [gmail] -> check thư điện tử hàng ngày!
      *[KHÁC]
-	- [Client LMHT] -> 14/08/2024 => bản 14.16
-				- Tướng: 	Vi Q | Wukong giáp, E
-				- Trang bị: 	Rìu đen ok | gươm vô danh X
-			-> 29/08/2024 => bản 14.17
-				- Tướng:	cait ADC/W | 
-				- Trang bị: 	giáp máu X | 
-				- Ngọc:	farm X | đốn hạ X | bước chân X 
+	- [Client LMHT] -> 
 	- [alagod cá] 	-> check đồ mới hàng ngày!				 -> tối
-	- [ITSM] 	-> check lỗi, cập nhật hàng ngày!			 -> 
+	- [ITSM] 	-> check lỗi, cập nhật hàng ngày!
 	- [gitlab] 	-> check a Khánh FE cập nhật. Tự Merge lên UAT
 -------------------------------------------------------------------------------------------------------------------
 *TRIỂN KHAI:
  - MANG	-> thêm bánh kẹo lên cty
- - THAY	-> thay gối ô tô vì nằm đau đầu quá
  - M	-> kẹo xylitol to cho tiết kiệm
- - MANG	-> giấy ăn lên cty x2
- ---------
- - 
 -------------------------------------------------------------------------------------------------------------------
