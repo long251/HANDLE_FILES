@@ -1,14 +1,9 @@
 *FIX LỖI 11/09*
 ---------------
-Ngày cập nhật: 16/09/2024
+Ngày cập nhật: 17/09/2024
 -------------------------
-CHUNG	/ Breadcrumb ALL > fontSize=24px							/ rà soát
-CHUNG	/ showToast > chỉnh lại theo figma							/ SAU
+CHUNG	/ showToast > chỉnh lại theo figma							/ SAU - vì đang dùng chung
 nav tổng/ khoảng cách border									/ khó	
-2.dash	/ 4 bảng phân tích nhỏ khi res cao ko bằng						/ chưa ai thấy hơi khó do tv
-3.Shop	/ search tổng > sửa lại cho đẹp								/ hỏi lại tke-có API sample
-*3.Shop	/ chi tiết sản phẩm > làm lại các chức năng và thiết kế					/ ĐANG LÀM...CHỜ THÊM SAMPLE
-3.Shop	/ Search tổng: khi mà search chưa đúng hay gì gì đó sẽ bung ra popover chọn dưới	/ nhận y/c 13/09...ưu tiên 2
 4.Ec	/ tạo đơn > chọn tối đa 6 ảnh							/ bđ 16-09
 4.Ec	/ tạo đơn > khi chọn ảnh thì bỏ error đỏ					/ 16-09
 4.Ec	/ tạo đơn > TH đỏ đưa vào nhập thì hết đỏ					/ 16-09
@@ -18,8 +13,6 @@ nav tổng/ khoảng cách border									/ khó
 4.Ec	/ tạo đơn > chọn phân loại đang đỏ nhấp chọn xong hết đỏ			/ 16-09
 4.Ec	/ tạo đơn > chỉnh lại theo thiết kế (ảnh 'tạo đơn ecom')			/ 16-09
 4.Ec	/ tạo đơn > lúc nó màu đỏ các thứ design lại (ảnh 'tạo đơn ecom2')		/ 16-09
-!	/ shippingFee > phí nội địa tạm tính / màn chi tiết sp đẩy vào hàm xử lý/ ĐANG ĐẨY VÀO... ưu tiên 2
-a Khánh	/ xóa line-height (bởi vì đang dùng chung trong dự án)					/ rà soát dần
 ------------------------------------------------------------------------------------------------
 NHỮNG MỤC ĐÃ HOÀN THÀNH:
 header	/ Icon giỏ hàng > thiết kế lại sticky giống figma					/ [XONG]
@@ -42,7 +35,7 @@ SHOPPING > DETAIL PRODUCT: 13/09
 - khi nhấn thêm giỏ hàng thì cái thông báo đẩy xuống để xem luôn giỏ hàng  40px			/ xong
 - đánh giá và bình luận hình ảnh ko có nội dung							/ xong
 - đường kẻ tab: chưa giống figma nên ẩn vì nó bị đè lên màu trắng				/ 	CHƯA
-- sản phẩm tương tự: chưa vì ko đủ thời gian							/ bắt đầu 14/09
+- sản phẩm tương tự: chưa vì ko đủ thời gian							/ bắt đầu 14/09- xong
 *Khác:
 - logic > xử lý logic beta (khi mà từ tab hủy sang lại các tab khác bị delay dữ liệu ko mong muốn)/ xong
 ------------------------
@@ -61,4 +54,13 @@ SHOPPING > DETAIL PRODUCT: 16/09
 - phí ship add giỏ hàng chưa có						/ những trường hợp phí khác đẩy về: Free - xong 
 - dãn dòng name											/ xong
 - loading bị 2 lần										/ xong
+*3.Shop	/ chi tiết sản phẩm > làm lại các chức năng và thiết kế					/ xong
 ------------------------------------------------------------------------------------------------
+FIX UI: 17/09
+CHUNG	/ Breadcrumb ALL > fontSize=24px							/ xong
+3.Shop	/ chi tiết sản phẩm lùi vào chút							/ xong
+3.Shop	/ select > khi active có màu xanh nước biển						/  CHƯA
+a Khánh	/ xóa line-height (bởi vì đang dùng chung trong dự án)					/ rà soát dần
+!	/ shippingFee > phí nội địa tạm tính / màn chi tiết sp đẩy vào hàm xử lý		/ xong
+3.Shop	/ chi tiết sản phẩm respon lùi 2 cái nút vào chút					/ xong
+
