@@ -1,6 +1,6 @@
 ITSM BUG
 --------
-Ngày cập nhật: 12/09/2024
+Ngày cập nhật: 18/09/2024
 -------------------------
 Tổng số (3); 50% UAT lên BETA mới 100%
 SỐ	/ TÊN MÀN	/ LỖI							/ KẾT LUẬN
@@ -58,3 +58,18 @@ Màn 9. Lịch sử giao dịch
 -------------------------------------------------------------------------------------------------------------------
 Màn 10. Website mua hàng
 ___________________________________________________________________________________________________________________
+TÓM LẠI:
+ -> thiếu field 'tổng tiền nạp trong tháng' ở màn 2.dashboard; 8.Ví SQT; 9.Lịch sử giao dịch
+- header	-> ở chỗ navbar phóng to, có thêm 1 cái đường border mờ cắt ngang nằm ẩn dưới CollapIcon/ KHÓ
+- header	-> thông báo: hỏi xem có cần để ko							/ chưa có
+- navbar	-> kẻ làm sao cho nó borderRadius chia tách theo figma (border tách)			/ sửa sau
+- navbar	-> chưa chọn ngay, cái này chưa làm được						/ sửa sau
+2.dashboard:
+- 4 bảng phân tích dữ liệu khi respon về đang ko bằng nhau						/ sửa lại grid
+3.Search đầu vào:
+- search đầu vào											/ hỏi lại tke
+4.Ec:
+- tạo đơn mục chọn địa chỉ 										/ chia tuyến
+- tạo đơn lúc thành công rồi										/ Làm lại theo
+7.PXK:
+- cái chọn checkbox tải nhiều phiếu làm lại cho đẹp							/ SAU tự có bug

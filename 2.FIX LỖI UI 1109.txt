@@ -1,8 +1,24 @@
 *FIX LỖI 11/09*
 ---------------
-Ngày cập nhật: 17/09/2024
+Ngày cập nhật: 18/09/2024
 -------------------------
-CHUNG	/ showToast > chỉnh lại theo figma							/ SAU - vì đang dùng chung
+*GIAO DIỆN CÒN THIẾU:
+ -> thiếu field 'tổng tiền nạp trong tháng' ở màn 2.dashboard; 8.Ví SQT; 9.Lịch sử giao dịch
+- header	-> ở chỗ navbar phóng to, có thêm 1 cái đường border mờ cắt ngang nằm ẩn dưới CollapIcon/ KHÓ
+- header	-> thông báo: hỏi xem có cần để ko							/ chưa có
+- navbar	-> kẻ làm sao cho nó borderRadius chia tách theo figma (border tách)			/ sửa sau
+- navbar	-> chưa chọn ngay, cái này chưa làm được						/ sửa sau
+2.dashboard:
+- 4 bảng phân tích dữ liệu khi respon về đang ko bằng nhau						/ sửa lại grid
+3.Search đầu vào:
+- search đầu vào											/ hỏi lại tke
+4.Ec:
+- tạo đơn mục chọn địa chỉ 										/ chia tuyến
+- tạo đơn lúc thành công rồi										/ Làm lại theo
+7.PXK:
+- cái chọn checkbox tải nhiều phiếu làm lại cho đẹp							/ SAU tự có bug
+
+CHUNG	/ showToast > chỉnh lại theo figma						/ SAU - vì đang dùng chung
 nav tổng/ khoảng cách border									/ khó	
 4.Ec	/ tạo đơn > chọn tối đa 6 ảnh							/ bđ 16-09
 4.Ec	/ tạo đơn > khi chọn ảnh thì bỏ error đỏ					/ 16-09

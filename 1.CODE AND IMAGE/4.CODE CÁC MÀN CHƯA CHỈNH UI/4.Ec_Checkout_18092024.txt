@@ -1,0 +1,683 @@
+import React, { useEffect, useState } from 'react';
+import {
+  Button,
+  ButtonGroup,
+  FormLayout,
+  IndexTable,
+  Layout,
+  LegacyCard,
+  LegacyStack,
+  Link,
+  List,
+  Modal,
+  Page,
+  Spinner,
+  Sticky,
+  Text,
+  useIndexResourceState,
+} from 'pcs-polaris';
+import Breadcrumbs from '../_components/Breadcrumbs.tsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../../store';
+import { cartAction } from '../../../store/reducers/cartReducer';
+import Empty from '../../../components/NoData/Empty.tsx';
+import CustomImage from '../../../components/CustomImage';
+import { formatMoney } from '../../../helpers/currency.ts';
+import { apiClient } from '../../../utils/api.ts';
+import { clearToast, showToast } from '../../../helpers/toast.ts';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { accountAction } from '../../../store/reducers/accountReducer';
+import { modalAction } from '../../../store/reducers/modalReducer';
+import { moneyAction } from '../../../store/reducers/moneyReducer';
+
+const Checkout = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const dispatch = useDispatch();
+  const cartState = useSelector((state: AppState) => state.cart);
+  const moneyState = useSelector((state: AppState) => state.money);
+  const accountState = useSelector((state: AppState) => state.account);
+
+  const [cartItems, setCartItems] = useState<any>([]);
+
+  const [address, setAddress] = useState<any>(null);
+  const [paymentMethod, setPaymentMethod] = useState('bank_transfer');
+
+  const [qrCodeData, setQrCodeData] = useState<any>(null);
+  const [orderReturn, setOrderReturn] = useState<any>(null);
+
+  const [allAmount, setAllAmount] = useState(0);
+  const [allTotalAmount, setAllTotalAmount] = useState(0);
+  const [allAmountFeeBuy, setAllAmountFeeBuy] = useState(0);
+  const [allAmountTax, setAllAmountTax] = useState(0);
+  const [allAmountVCND, setAllAmountVCND] = useState(0);
+  useEffect(() => {
+    let tmpAllAmount = 0;
+    let tmpAllTotalAmount = 0;
+    let tmpAllAmountFeeBuy = 0;
+    let tmpAllAmountTax = 0;
+    let tmpAllAmountVCND = 0;
+    for (let i = 0; i < cartItems.length; i++) {
+      tmpAllAmount += cartItems[i]['amount'];
+      tmpAllTotalAmount += cartItems[i]['totalAmount'];
+      tmpAllAmountFeeBuy += cartItems[i]['amountFeeBuy'];
+      tmpAllAmountTax += cartItems[i]['amountTax'];
+      tmpAllAmountVCND += cartItems[i]['amountVCND'];
+    }
+    setAllAmount(tmpAllAmount);
+    setAllTotalAmount(tmpAllTotalAmount);
+    setAllAmountFeeBuy(tmpAllAmountFeeBuy);
+    setAllAmountTax(tmpAllAmountTax);
+    setAllAmountVCND(tmpAllAmountVCND);
+  }, [cartItems]);
+
+  useEffect(() => {
+    dispatch(cartAction.fetchCart());
+    dispatch(accountAction.fetchAddresses());
+    dispatch(moneyAction.fetchWallet());
+  }, []);
+
+  useEffect(() => {
+    let addresses = accountState.addresses;
+    if (addresses.length) {
+      let defaultAddress = addresses[0];
+      for (let i = 0; i < addresses.length; i++) {
+        if (addresses[i]['active']) {
+          defaultAddress = addresses[i];
+          break;
+        }
+      }
+      setAddress(defaultAddress);
+    }
+  }, [accountState.addresses]);
+
+  useEffect(() => {
+    let items = searchParams.get('items');
+    if (items) {
+      let tmp = [];
+      let ids = items.split(',');
+      let cartData = cartState.data;
+      for (let i = 0; i < cartData.length; i++) {
+        if (ids.includes(cartData[i].id.toString())) {
+          tmp.push(cartData[i]);
+        }
+      }
+      setCartItems(tmp);
+    } else {
+      navigate('/shopping/cart');
+    }
+  }, [cartState.data]);
+
+  const [openModalRemoveCartItem, setOpenModalRemoveCartItem] = useState(false);
+  const [loadingRemoveCartItem, setLoadingRemoveCartItem] = useState(false);
+  const [removeCartItem, setRemoveCartItem] = useState<any>(null);
+
+  const handleRemoveCartItem = async () => {
+    setLoadingRemoveCartItem(true);
+    let payload = {
+      id: removeCartItem.id,
+    };
+    const response = await apiClient.post('/api/ShoppingCart/DeleteShoppingCart', payload);
+    if (response.data.status) {
+      dispatch(cartAction.fetchCart());
+      setOpenModalRemoveCartItem(false);
+      showToast('Xoá sản phẩm thành công', 'success');
+    } else {
+      showToast('Xoá sản phẩm thất bại', 'error');
+    }
+    setLoadingRemoveCartItem(false);
+  };
+
+  const { selectedResources, allResourcesSelected, handleSelectionChange, clearSelection } = useIndexResourceState(
+    cartState.data,
+  );
+
+  const rowMarkup = cartItems.map((item: any, index: number) => {
+    let attributes = item.attributes;
+    let url = item.url;
+    if(item.input_from == "shopping") {
+      let itemUrlSplit = item.url.split('/itm/');
+      if (itemUrlSplit.length > 1) {
+        url = `/shopping/product/${itemUrlSplit[1]}`;
+      }
+    }
+    return (
+      <IndexTable.Row
+        id={item.id}
+        key={index}
+        selected={selectedResources.includes(item.id)}
+        position={index}
+        onClick={() => {
+          console.log('');
+        }}
+      >
+        <IndexTable.Cell>
+          <div>
+            <CustomImage src={item.image} alt={item.name} />
+          </div>
+        </IndexTable.Cell>
+        <IndexTable.Cell>
+          <div className={'Cell-ProductName'}>
+            <Link onClick={() => window.open(url, '_blank')} removeUnderline url={'#'}>
+              {item.name}
+            </Link>
+          </div>
+          {Object.keys(attributes).length ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+              {Object.keys(attributes).map((key: string, idx: number) => (
+                <div key={idx}>
+                  <Text as={'p'} variant={'bodySm'}>
+                    {key}: {attributes[key]}
+                  </Text>
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </IndexTable.Cell>
+        <IndexTable.Cell>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            <Text as={'p'} variant={'bodyMd'}>
+              {formatMoney(item.priceVND, 'VND')}
+            </Text>
+            <Text as={'p'} variant={'bodySm'}>
+              ~{formatMoney(item.price, item.currency)}
+            </Text>
+          </div>
+        </IndexTable.Cell>
+        <IndexTable.Cell>{item.quantity}</IndexTable.Cell>
+        <IndexTable.Cell>{formatMoney(item.amount, 'VND')}</IndexTable.Cell>
+      </IndexTable.Row>
+    );
+  });
+
+  const [loadingOrder, setLoadingOrder] = useState(false);
+  const handleOrder = async () => {
+    clearToast();
+    if (!cartItems.length) {
+      navigate('/shopping/cart');
+      return;
+    }
+    if (!address) {
+      showToast('Vui lòng chọn địa chỉ nhận hàng', 'error');
+      return;
+    }
+    if (loadingOrder) {
+      return;
+    }
+    if (paymentMethod == 'shipquocte_wallet') {
+      let wallet = moneyState.wallet?.cash ?? 0;
+      if (wallet < allTotalAmount) {
+        showToast('Số dư ví không đủ', 'error');
+        return;
+      }
+    }
+    setLoadingOrder(true);
+    try {
+      let payload = {
+        customerDistrict: address?.district,
+        customerAddress: address?.address,
+        customerPhone: address?.phone,
+        customerName: address?.name,
+        customerProvince: address?.province,
+        customerWard: address?.ward,
+        cartIds: cartItems.map((item: any) => item.id),
+        note: '',
+        paymentMethod: paymentMethod,
+      };
+      let response = await apiClient.post('/api/Order/AddNewOrderECM', payload);
+      if (response.data.status) {
+        let data = response.data.data;
+        setQrCodeData(data.qrCodeData);
+        setOrderReturn(data.ordersReturn);
+        showToast('Tạo đơn hàng mới thành công', 'success');
+        dispatch(cartAction.fetchCart());
+        navigate('/shopping/thank-you', {
+          state: {
+            checkout: {
+              qrCodeData: data.qrCodeData,
+              orderReturn: data.ordersReturn,
+            },
+          },
+        });
+      } else {
+        showToast('Tạo đơn hàng mới thất bại', 'error');
+      }
+    } catch (e) {
+      console.log(e);
+      showToast('Tạo đơn hàng mới thất bại', 'error');
+    }
+    setLoadingOrder(false);
+  };
+
+  const [openModalSelectAddress, setOpenModalSelectAddress] = useState(false);
+
+  return (
+    <div className={'Polaris-Custom Title_Breadcrumb'}>
+      <Page
+        //@ts-ignore
+        title={
+          <Breadcrumbs
+            breadcrumbs={[
+              {
+                title: 'Shopping',
+                url: '/shopping',
+              },
+              {
+                title: 'Giỏ hàng',
+                url: '/shopping/cart',
+              },
+              {
+                title: 'Đặt hàng',
+                url: '/shopping/checkout',
+              },
+            ]}
+          />
+        }
+      >
+        <Layout>
+          <Layout.Section>
+            <LegacyCard>
+              <LegacyCard.Section title={'Danh sách sản phẩm'}>
+                {cartState.data_loading ? (
+                  <LegacyStack distribution={'center'}>
+                    <Spinner size={'small'} />
+                  </LegacyStack>
+                ) : (
+                  <>
+                    {cartState.data.length ? (
+                      <div className={'IndexTable--NoSticky'}>
+                        <IndexTable
+                          selectable={false}
+                          headings={[
+                            { title: 'Ảnh sản phẩm' },
+                            { title: 'Tên sản phẩm' },
+                            { title: 'Đơn giá' },
+                            { title: 'Số lượng' },
+                            { title: 'Tổng tiền' },
+                          ]}
+                          itemCount={cartState.data.length}
+                          loading={cartState.data_loading}
+                          selectedItemsCount={allResourcesSelected ? 'All' : selectedResources.length}
+                          onSelectionChange={handleSelectionChange}
+                        >
+                          {rowMarkup}
+                        </IndexTable>
+                      </div>
+                    ) : (
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          flexDirection: 'column',
+                          gap: 16,
+                        }}
+                      >
+                        <div style={{ flex: 1, width: 250 }}>
+                          <Empty />
+                        </div>
+                        <Text as={'p'} variant={'bodyMd'}>
+                          Chưa có sản phẩm nào
+                        </Text>
+                        <Button primary url={'/shopping'}>
+                          Tiếp tục mua sắm
+                        </Button>
+                      </div>
+                    )}
+                  </>
+                )}
+              </LegacyCard.Section>
+              <LegacyCard.Section
+                title={'Địa chỉ nhận hàng'}
+                actions={[
+                  {
+                    content: 'Danh sách địa chỉ',
+                    onAction() {
+                      setOpenModalSelectAddress(true);
+                    },
+                  },
+                ]}
+              >
+                {accountState.addresses_loading ? (
+                  <LegacyStack distribution={'center'}>
+                    <Spinner size={'small'} />
+                  </LegacyStack>
+                ) : (
+                  <>
+                    {address ? (
+                      <LegacyStack>
+                        <LegacyStack.Item fill>
+                          <LegacyStack vertical spacing={'extraTight'}>
+                            <Text as={'p'} variant={'bodyMd'} fontWeight={'semibold'}>
+                              {address.name}
+                            </Text>
+                            <Text as={'p'} variant={'bodyMd'}>
+                              {address.phone}
+                            </Text>
+                            <Text as={'p'} variant={'bodyMd'}>
+                              {address.fullAddress}
+                            </Text>
+                          </LegacyStack>
+                        </LegacyStack.Item>
+                        {/*<LegacyStack.Item>*/}
+                        {/*  <Button*/}
+                        {/*    icon={PolarisIcons.EditMajor}*/}
+                        {/*    plain*/}
+                        {/*    onClick={() => {*/}
+                        {/*      let tmpAddress = { ...address };*/}
+                        {/*      tmpAddress = Object.assign(tmpAddress, {*/}
+                        {/*        callback: (data: any) => setAddress(data),*/}
+                        {/*        is_post_update: false,*/}
+                        {/*      });*/}
+                        {/*      dispatch(*/}
+                        {/*        modalAction.openModal({*/}
+                        {/*          type: 'edit_address',*/}
+                        {/*          title: 'Sửa địa chỉ nhận hàng',*/}
+                        {/*          data: tmpAddress,*/}
+                        {/*        }),*/}
+                        {/*      );*/}
+                        {/*    }}*/}
+                        {/*  />*/}
+                        {/*</LegacyStack.Item>*/}
+                      </LegacyStack>
+                    ) : (
+                      <Text as={'span'} variant={'bodyMd'}>
+                        Chưa có địa chỉ nhận hàng
+                      </Text>
+                    )}
+                  </>
+                )}
+              </LegacyCard.Section>
+              <LegacyCard.Section title={'Phương thức thanh toán'}>
+                <LegacyStack spacing={'tight'}>
+                  <LegacyStack.Item>
+                    <div
+                      style={{
+                        background: paymentMethod == 'bank_transfer' ? '#0B3558' : '#EFF1F4',
+                        color: paymentMethod == 'bank_transfer' ? 'white' : '#0B3558',
+                        display: 'flex',
+                        padding: '8px 16px',
+                        borderRadius: 4,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: 8,
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => setPaymentMethod('bank_transfer')}
+                    >
+                      <svg width='22' height='20' viewBox='0 0 22 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                        <path
+                          d='M1 10.6099H18'
+                          stroke='currentColor'
+                          strokeWidth='1.5'
+                          strokeMiterlimit='10'
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                        />
+                        <path
+                          d='M18 8.28005V15.43C17.97 18.28 17.19 19 14.22 19H4.78003C1.76003 19 1 18.2501 1 15.2701V8.28005C1 5.58005 1.63 4.71005 4 4.57005C4.24 4.56005 4.50003 4.55005 4.78003 4.55005H14.22C17.24 4.55005 18 5.30005 18 8.28005Z'
+                          stroke='currentColor'
+                          strokeWidth='1.5'
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                        />
+                        <path
+                          d='M21 4.73V11.72C21 14.42 20.37 15.29 18 15.43V8.28C18 5.3 17.24 4.55 14.22 4.55H4.78003C4.50003 4.55 4.24 4.56 4 4.57C4.03 1.72 4.81003 1 7.78003 1H17.22C20.24 1 21 1.75 21 4.73Z'
+                          stroke='currentColor'
+                          strokeWidth='1.5'
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                        />
+                        <path
+                          d='M4.25 15.8101H5.96997'
+                          stroke='currentColor'
+                          strokeWidth='1.5'
+                          strokeMiterlimit='10'
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                        />
+                        <path
+                          d='M8.10986 15.8101H11.5499'
+                          stroke='currentColor'
+                          strokeWidth='1.5'
+                          strokeMiterlimit='10'
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                        />
+                      </svg>
+                      <span>Chuyển khoản ngân hàng</span>
+                    </div>
+                  </LegacyStack.Item>
+                  <LegacyStack.Item>
+                    <div
+                      style={{
+                        background: paymentMethod == 'shipquocte_wallet' ? '#0B3558' : '#EFF1F4',
+                        color: paymentMethod == 'shipquocte_wallet' ? 'white' : '#0B3558',
+                        display: 'flex',
+                        padding: '8px 16px',
+                        borderRadius: 4,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: 8,
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => setPaymentMethod('shipquocte_wallet')}
+                    >
+                      <svg width='22' height='20' viewBox='0 0 22 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                        <path
+                          d='M12 9.16919H6'
+                          stroke='currentColor'
+                          strokeWidth='1.5'
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                        />
+                        <path
+                          d='M1 9.16939V4.62757C1 2.62208 2.65 1 4.69 1H10.31C12.35 1 14 2.24851 14 4.25399'
+                          stroke='currentColor'
+                          strokeWidth='1.5'
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                        />
+                        <path
+                          d='M16.48 10.2015C15.98 10.6734 15.74 11.4009 15.94 12.148C16.19 13.0623 17.11 13.6423 18.07 13.6423H19V15.0678C19 17.2404 17.21 19.0001 15 19.0001H5C2.79 19.0001 1 17.2404 1 15.0678V8.18622C1 6.01362 2.79 4.25391 5 4.25391H15C17.2 4.25391 19 6.02345 19 8.18622V9.61164H17.92C17.36 9.61164 16.85 9.82795 16.48 10.2015Z'
+                          stroke='currentColor'
+                          strokeWidth='1.5'
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                        />
+                        <path
+                          d='M21 10.6146V12.6397C21 13.1902 20.5399 13.6425 19.9699 13.6425H18.0399C16.9599 13.6425 15.97 12.8658 15.88 11.8041C15.82 11.1848 16.0599 10.6048 16.4799 10.2017C16.8499 9.82813 17.36 9.61182 17.92 9.61182H19.9699C20.5399 9.61182 21 10.0641 21 10.6146Z'
+                          stroke='currentColor'
+                          strokeWidth='1.5'
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                        />
+                      </svg>
+                      <span>{`Ví SHIPQUOCTE (số dư: ${formatMoney(moneyState.wallet?.cash ?? 0, 'VND')})`}</span>
+                    </div>
+                  </LegacyStack.Item>
+                </LegacyStack>
+              </LegacyCard.Section>
+            </LegacyCard>
+          </Layout.Section>
+          <Layout.Section secondary>
+            <Sticky>
+              <LegacyCard>
+                <LegacyCard.Section title={'Thông tin thanh toán'}>
+                  <FormLayout>
+                    <LegacyStack>
+                      <LegacyStack.Item fill>Tổng tiền sản phẩm</LegacyStack.Item>
+                      <LegacyStack.Item>
+                        <Text as={'span'} variant={'bodyMd'} fontWeight={'semibold'}>
+                          {formatMoney(allAmount, 'VND')}
+                        </Text>
+                      </LegacyStack.Item>
+                    </LegacyStack>
+                    <LegacyStack>
+                      <LegacyStack.Item fill>Phụ phí</LegacyStack.Item>
+                      <LegacyStack.Item>
+                        <Text as={'span'} variant={'bodyMd'} fontWeight={'semibold'}>
+                          {formatMoney(allAmountFeeBuy + allAmountTax + allAmountVCND, 'VND')}
+                        </Text>
+                      </LegacyStack.Item>
+                    </LegacyStack>
+                    <List>
+                      <List.Item>
+                        <LegacyStack>
+                          <LegacyStack.Item fill>Công mua</LegacyStack.Item>
+                          <LegacyStack.Item>{formatMoney(allAmountFeeBuy, 'VND')}</LegacyStack.Item>
+                        </LegacyStack>
+                      </List.Item>
+                      <List.Item>
+                        <LegacyStack>
+                          <LegacyStack.Item fill>Thuế</LegacyStack.Item>
+                          <LegacyStack.Item>{formatMoney(allAmountTax, 'VND')}</LegacyStack.Item>
+                        </LegacyStack>
+                      </List.Item>
+                      <List.Item>
+                        <LegacyStack>
+                          <LegacyStack.Item fill>Phí vận chuyển nội địa</LegacyStack.Item>
+                          <LegacyStack.Item>{formatMoney(allAmountVCND, 'VND')}</LegacyStack.Item>
+                        </LegacyStack>
+                      </List.Item>
+                    </List>
+                  </FormLayout>
+                </LegacyCard.Section>
+                <LegacyCard.Section>
+                  <LegacyStack>
+                    <LegacyStack.Item fill>Tổng tiền tạm tính</LegacyStack.Item>
+                    <LegacyStack.Item>
+                      <Text as={'span'} variant={'bodyMd'} fontWeight={'semibold'}>
+                        {formatMoney(allTotalAmount, 'VND')}
+                      </Text>
+                    </LegacyStack.Item>
+                  </LegacyStack>
+                </LegacyCard.Section>
+              </LegacyCard>
+            </Sticky>
+          </Layout.Section>
+        </Layout>
+      </Page>
+
+      <div className={'BottomActions'}>
+        <LegacyCard>
+          <LegacyCard.Section>
+            <LegacyStack distribution={'equalSpacing'} alignment={'center'}>
+              <LegacyStack.Item fill>
+                <Button url={'/shopping/cart'}>Quay lại giỏ hàng</Button>
+              </LegacyStack.Item>
+              <LegacyStack.Item>
+                <ButtonGroup>
+                  {cartItems.length ? (
+                    <Button
+                      primary
+                      loading={loadingOrder}
+                      onClick={() => {
+                        handleOrder();
+                      }}
+                    >
+                      {`Đặt hàng và thanh toán (${formatMoney(allTotalAmount, 'VND')})`}
+                    </Button>
+                  ) : null}
+                </ButtonGroup>
+              </LegacyStack.Item>
+            </LegacyStack>
+          </LegacyCard.Section>
+        </LegacyCard>
+      </div>
+
+      {removeCartItem ? (
+        <Modal
+          open={openModalRemoveCartItem}
+          title={'Xác nhận xoá sản phẩm'}
+          primaryAction={{
+            content: 'Xoá',
+            destructive: true,
+            loading: loadingRemoveCartItem,
+            onAction() {
+              handleRemoveCartItem();
+            },
+          }}
+          secondaryActions={[
+            {
+              content: 'Huỷ',
+              onAction() {
+                setOpenModalRemoveCartItem(false);
+                setRemoveCartItem(null);
+              },
+            },
+          ]}
+          onClose={() => {
+            setOpenModalRemoveCartItem(false);
+            setRemoveCartItem(null);
+          }}
+        >
+          <Modal.Section>
+            <Text as={'p'} variant={'bodyMd'}>
+              Bạn muốn xoá sản phẩm{' '}
+              <Text as={'span'} variant={'bodyMd'} fontWeight={'bold'}>
+                {removeCartItem.name}
+              </Text>{' '}
+              khỏi giỏ hàng?
+            </Text>
+          </Modal.Section>
+        </Modal>
+      ) : null}
+
+      <Modal
+        title={'Chọn địa chỉ nhận hàng'}
+        open={openModalSelectAddress}
+        onClose={() => setOpenModalSelectAddress(false)}
+      >
+        <Modal.Section flush>
+          <LegacyCard
+            actions={[
+              {
+                content: 'Thêm địa chỉ mới',
+                onAction() {
+                  setOpenModalSelectAddress(false);
+                  dispatch(
+                    modalAction.openModal({
+                      type: 'create_address',
+                      title: 'Thêm địa chỉ nhận hàng',
+                      data: {
+                        callback: () => {
+                          setOpenModalSelectAddress(true);
+                        },
+                      },
+                    }),
+                  );
+                },
+              },
+            ]}
+          >
+            {accountState.addresses.map((item: any, index: number) => (
+              <LegacyCard.Section key={index} flush subdued={address && item.id == address.id}>
+                <div
+                  style={{
+                    cursor: 'pointer',
+                    width: '100%',
+                    padding: '12px 20px',
+                  }}
+                  onClick={() => {
+                    setAddress(item);
+                    setOpenModalSelectAddress(false);
+                  }}
+                >
+                  <Text as={'h2'} variant={'bodyMd'} fontWeight={'semibold'}>
+                    {item.name}
+                  </Text>
+                  <div>{item.phone}</div>
+                  <div>{item.fullAddress}</div>
+                </div>
+              </LegacyCard.Section>
+            ))}
+          </LegacyCard>
+        </Modal.Section>
+      </Modal>
+    </div>
+  );
+};
+
+export default Checkout;

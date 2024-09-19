@@ -1,0 +1,39 @@
+*FIX LỖI 11/09 NEW*
+---------------
+Ngày cập nhật: 18/09/2024
+-------------------------
+- field	/ 'tổng tiền nạp trong tháng' ở các màn 2.dashboard; 8.Ví SQT; 9.Lịch sử giao dịch		/ sau-chưa có
+- header/ Icon thông báo > chưa có UI và nội dung							/ sau-chưa có
+- navbar/ border > chưa bo góc cạnh cắt như figma							/ sau
+- navbar/ tính năng chưa chọn ngay ở các đầu mục mở chi tiết						/ sau
+- 2.dash/ 4 bảng dữ liệu khi responsive về chiều cao chưa được đều					/ sau
+- 7.PXK	/ sửa lại modal khi tích chọn checkbox nhiều							/ sau
+- chung	/ showToast > sửa lại theo thiết kế							/ sau vì dùng chung
+---------
+- 4.Ec	/ list > tích checkbox nhiều > modal sửa lại sao cho đẹp			/ 
+- 4.Ec	/ tạo đơn > step1 > sửa lại theo ảnh 'tạo đơn ecom.png'				/ 
+- 4.Ec 	/ tạo đơn > step1 > chọn tối đa 6 ảnh						/ ITSM -đang conflic đk
+- 4.Ec	/ tạo đơn > báo đỏ > sửa lại theo ảnh 'tạo đơn ecom2.png'			/ xong
+- 4.Ec	/ tạo đơn > báo đỏ > ảnh > khi nhập ảnh hết đỏ; đổi iconTrash sang IconX	/ 2 issues - ITSM - xong
+- 4.Ec	/ tạo đơn > báo đỏ > giá trị khác > nhập hết báo đỏ				/ ITSM - xong
+- 4.Ec	/ tạo đơn > báo đỏ > phân loại > nhập thì hết đỏ				/ ITSM - xong
+- 4.Ec	/ tạo đơn > step1 > các button tăng kích thước từ 36px -> 40px			/ 
+=========================================================================================================
+*Việc từ 16/09:
+- 3.shop/ chi tiết sp > đường kẻ tab									/  CHƯA
+- 3.shop/ select > khi active có màu xanh nước biển							/  CHƯA
+- 3.shop/ search sản phẩm > keydown lên xuống, tab ra ngoài tắt phần mở rộng, tắt mở rộng trc loading	/ xong - keyDown
+---------------------------------------------------------------------------------------------------------
+*Việc từ 18/09:
+- SFee	/ bỏ shippingFee các chỗ khi không có giá trị null hoặc =0					/ xong
+- 3.shop/ chi tiết sp > Breadcrumb quá dài ở màn 600px đã nhỏ lại					/ xong - ITSM
+- 4.Ec	/ tạo đơn > icon thông báo > Modal thông báo					/ nghiệp vụ nên ko sửa - xong
+- 4.Ec	/ tạo đơn > step2 > sửa lại theo figma						/ xong
+	KHÓ -> đưa cái kẻ ngang thưa vào cái đoạn phương thức thanh toán giống figma	/ chưa
+- 4.Ec	/ tạo đơn > step3 > sửa lại theo figma						/ xong
+- 4.Ec	/ giỏ hàng > mua nhanh > sửa lại theo figma					/ xong
+- 4.Ec	/ giỏ hàng > mua nhanh > thank-you > sửa lại theo figma				/ xong
+
+---------------------------------------------------------------------------------------------------------
+
+

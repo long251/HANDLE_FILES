@@ -1,6 +1,6 @@
 CTY PCS
 -------
-Ngày cập nhật: 16/09/2024
+Ngày cập nhật: 18/09/2024
 -------------------------
 - hộp bánh danisa					/ hết
 - Cốc thuốc:
@@ -16,7 +16,8 @@ Ngày cập nhật: 16/09/2024
 - gối cong
 - balo* -> MANG thuốc nâu axit
 - kẹo xilytol x1 hộp -> to, xanh lá 52k			/ M hộp khổng lồ cho tiết kiệm	/ hết
-- giấy ăn x1 bịch nhỏ
+- giấy ăn x1 bịch nhỏ					/ +2
+- cốc uống nước
 - tai nghe có dây
 - (tai nghe bluetooth)
 - bút bi x3
@@ -25,7 +26,7 @@ Ngày cập nhật: 16/09/2024
 - Màn PC (PCS) x2
 - chuột công thái học
 - bàn phím rapoo
-- giấy note -> hết, lấy thêm ở bảng họp 
+- giấy note
 *PC (PCS):
  - [HANDLE_FILES]	-> lưu file (github)
  - [TRANSONLINE-PORTAL] -> thiết kế UI, connect API (gitlab)
@@ -36,7 +37,7 @@ Ngày cập nhật: 16/09/2024
  - Cốc cốc:
 	- [gmail] -> check thư điện tử hàng ngày!
      *[KHÁC]
-	- [Client LMHT] -> 
+	- [Client LMHT] -> cuối tuần chơi lại!
 	- [alagod cá] 	-> check đồ mới hàng ngày!				 -> tối
 	- [ITSM] 	-> check lỗi, cập nhật hàng ngày!
 	- [gitlab] 	-> check a Khánh FE cập nhật. Tự Merge lên UAT
