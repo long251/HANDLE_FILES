@@ -1,0 +1,21 @@
+Skype
+-----
+Ngày cập nhật: 23/09/2024
+-------------------------
+
+  TÊN MÀN	/ CỤ THỂ	/		LỖI PHÁT SINH, CHỈNH UI			/ KẾT LUẬN
+- 3.shop	/ chi tiết sp	/ 'dịch' văn bản và nút chuyển (hover)			/ hỏi lại ở cả mô tả và bluan?-từ từ
+- 4.Ec		/ tạo đơn 1	/ hover nút trên cùng, đang bị đè nền			/ chưa can thiệp đc/hỏi lại
+- 4.Ec		/ tạo đơn 2	/ đóng khung sổ địa chỉ lại theo 5.VC			/ dài
+- 5.Ec		/ tạo đơn 2	/ sửa lại theo figma mới				/ sau dài
+- 4+5		/ sổ địa chỉ	/ thêm button mặc định vào với cái nào trạng thái true 	/ 50-
+- shop		/ list		/ search đẩy xuống Breadcrumb, màu place nhạt hơn 	/ a Khánh? xem cách nào đẩy xuống?
+=========================================================================================
+- shop/giỏ hàng	/ vào giỏ hàng	/ thay lại icon Edit và Delete theo figma		/ xong
+- shop/giỏ hàng	/		/ thay theo Style chung + thêm nút hủy nhiều		/ hủy nhiều?-xong logic
+- 5.VC		/ tạo đơn step1	/ sổ địa chỉ => chọn địa chỉ				/ xong
+- 4.Ec		/ tạo đơn 2	/ hover đổi màu						/ xong 
+- 4.Ec		/ tạo đơn 2	/ khi mà số dư thiếu mới hiện -> xóa dòng text xanh lá	/ xong
+- 4.Ec		/ create 2	/ nút mà từ tuyến ra thì hãy >> đổi lại chút		/ xong
+- 4.Ec		/ create 2	/ neo sticky cách ra 1 chút thay vì dính quá		/ xong
+- 600px chung	/ 		/ cho bé lại khi ở màn nhỏ				/ xong-check kĩ hơn

@@ -1,6 +1,6 @@
 *FIX LỖI 11/09*
 ---------------
-Ngày cập nhật: 18/09/2024
+Ngày cập nhật: 23/09/2024
 -------------------------
 *GIAO DIỆN CÒN THIẾU:
  -> thiếu field 'tổng tiền nạp trong tháng' ở màn 2.dashboard; 8.Ví SQT; 9.Lịch sử giao dịch
