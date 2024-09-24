@@ -1,15 +1,15 @@
 CTY PCS
 -------
-Ngày cập nhật: 23/09/2024
+Ngày cập nhật: 24/09/2024
 -------------------------
 - hộp bánh danisa					/ hết
 - Cốc thuốc:
 	- xịt mũi x1 -> 20%
-	- nhỏ mũi x1 -> 50%
+	- nhỏ mũi x1 -> 50%				/ hết
 	- thuốc đỏ nhỏ x1 -> 40%
 	- âu gâu nhỏ x5
 	- (hồ dán khô x1)
-	- kéo nhỏ x1 -> đang chưa thấy
+	- kéo nhỏ x1 -> đang trong tủ đồ marketing
 - chai nước
 - (chai nước ngọt)
 - case máy tính lỏng dây
@@ -44,5 +44,6 @@ Ngày cập nhật: 23/09/2024
 -------------------------------------------------------------------------------------------------------------------
 *TRIỂN KHAI:
  - MANG	-> thêm bánh kẹo lên cty
+ - MANG -> nhỏ mũi x1~2
  - M	-> kẹo xylitol to cho tiết kiệm
 -------------------------------------------------------------------------------------------------------------------
