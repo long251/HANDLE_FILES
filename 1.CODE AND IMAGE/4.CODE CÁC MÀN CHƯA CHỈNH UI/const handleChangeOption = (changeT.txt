@@ -1,0 +1,181 @@
+ const handleChangeOption = (changeThumbnail = true) => {
+    let selectedOptions = [];
+    let selectors: any = document.querySelectorAll('.select_product_detail');
+    for (let i = 0; i < selectors.length; i++) {
+      let value = selectors[i].value;
+      if (value) {
+        selectedOptions.push(value);
+      }
+    }
+    setSelectedOptionValues(selectedOptions);
+    let isOutOfStock = selectedOptions.length > 0;
+    for (let i = 0; i < selectedOptions.length; i++) {
+      let optionValue = selectedOptions[i];
+      if (productData.menuItemMap[optionValue].outOfStock == false) {
+        isOutOfStock = false;
+        break;
+      }
+    }
+    setOutOfStock(isOutOfStock);
+    setPrice(productData.price);
+    setOriginalPrice(productData.price);
+    setVariantInfo('');
+    if (!isOutOfStock) {
+      if (selectedOptions.length == selectors.length) {
+        let selectedOptionStr = selectedOptions.join('_');
+        for (let i = 0; i < variants.length; i++) {
+          if (variants[i]['option'] == selectedOptionStr) {
+            setPrice(variants[i]['price']);
+            setOriginalPrice(variants[i]['priceBeforeDiscount']);
+            setOutOfStock(variants[i]['outOfStock']);
+            setVariantInfo(variants[i]['description']);
+            break;
+          }
+        }
+      }
+    }
+
+    if (changeThumbnail) {
+      let imageIndex = 0;
+      let menuItemPictureIndexMap = productData.menuItemPictureIndexMap;
+      for (let i = 0; i < selectedOptions.length; i++) {
+        let optionValue = selectedOptions[i];
+        let imageIndexes = menuItemPictureIndexMap[optionValue];
+        if (Array.isArray(imageIndexes) && imageIndexes.length) {
+          imageIndex = imageIndexes[0];
+          break;
+        }
+      }
+      setActiveImageIndex(imageIndex);
+      scrollToImage(imageIndex);
+        // const direction = (imageIndex < activeImageIndex) ? 'up' : 'down';
+        // scrollToImage(imageIndex, direction);
+    }
+  };
+
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const galleryRef = useRef<HTMLDivElement>(null); 
+  useEffect(() => {
+    scrollToImage(activeImageIndex);
+    scrollToActiveImage(activeImageIndex);
+  }, [activeImageIndex]);
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+      event.preventDefault();
+    }
+    if (event.key === 'ArrowUp') {
+      handlePrev();
+    } else if (event.key === 'ArrowDown') {
+      handleNext();
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [activeImageIndex]);
+  
+  // const handlePrev = () => {
+  //   if (activeImageIndex > 0) {
+  //     let newIndex = activeImageIndex - 1;
+  //     setActiveImageIndex(newIndex);
+  //     setOptionByActiveImage(newIndex);
+  //     scrollToImage(newIndex);
+  //   }
+  // };
+  const scrollToActiveImage = (index: number) => {
+    const gallery = galleryRef.current;
+    const activeImage = document.querySelectorAll('.GalleryImageItem')[index] as HTMLElement;
+  
+    if (gallery && activeImage) {
+      const galleryRect = gallery.getBoundingClientRect();
+      const activeImageRect = activeImage.getBoundingClientRect();
+      
+      // Nếu ảnh active nằm ngoài vùng nhìn thấy
+      if (activeImageRect.top < galleryRect.top || activeImageRect.bottom > galleryRect.bottom) {
+        // Cuộn đến ảnh
+        activeImage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+  };
+  const handlePrev = () => {
+    if (images.length > 1) {
+      let newIndex = activeImageIndex - 1;
+      if (newIndex < 0) newIndex = images.length - 1;
+      setActiveImageIndex(newIndex);
+      setOptionByActiveImage(newIndex);
+      scrollToImage(newIndex);
+      scrollToActiveImage(newIndex);
+    }
+  };
+const handleNext = () => {
+    if (images.length > 1) {
+      let newIndex = activeImageIndex + 1;
+      if (newIndex >= images.length) newIndex = 0;
+      setActiveImageIndex(newIndex);
+      setOptionByActiveImage(newIndex);
+      scrollToImage(newIndex);
+      scrollToActiveImage(newIndex);
+    }
+  };
+const scrollToImage = (idx: number) => {
+    const gallery: HTMLDivElement | null = document.querySelector('.GalleryImageContainer');
+    const selectedImage = document.querySelectorAll('.GalleryImage')[idx];
+    if (gallery && selectedImage) {
+      const selectedImageRect = selectedImage.getBoundingClientRect();
+      const galleryRect = gallery.getBoundingClientRect();
+      const offset = selectedImageRect.top - galleryRect.top;
+      gallery.scrollTop += offset;
+    }
+  };
+
+  const handleSelectImage = (idx: number) => {
+    setActiveImageIndex(idx);
+    setOptionByActiveImage(idx);
+    scrollToImage(idx);
+    scrollToActiveImage(idx);
+  };
+  const setOptionByActiveImage = (index: number) => {
+    let menuItemPictureIndexMap = productData.menuItemPictureIndexMap;
+    if (menuItemPictureIndexMap) {
+      let menuItemPictureIndexMapArr = Object.keys(menuItemPictureIndexMap).map((key: string) => {
+        return { key: key, value: menuItemPictureIndexMap[key] };
+      });
+      let optionValues = [];
+      for (let i = 0; i < menuItemPictureIndexMapArr.length; i++) {
+        let indexValues = menuItemPictureIndexMapArr[i]['value'];
+        for (let j = 0; j < indexValues.length; j++) {
+          if (index == indexValues[j]) {
+            optionValues.push(menuItemPictureIndexMapArr[i]['key']);
+          }
+        }
+      }
+      let optionEls: NodeListOf<HTMLOptionElement> = document.querySelectorAll('.select_product_detail option');
+      for (let i = 0; i < optionEls.length; i++) {
+        optionEls[i].selected = false;
+        if (optionEls[i].value == optionValues[0]) {
+          optionEls[i].selected = true;
+        }
+      }
+      handleChangeOption(false);
+    }
+  };
+==================================================
+RETURN
+                            <div className='ProductDetail__Info__Media--Gallery'>
+                              {images.length > 1 ? (
+                                <div className='GalleryImage' ref={galleryRef}>
+                                  {images.map((img: string, index: number) => (
+                                    <div className={'GalleryImageItem'} key={index}>
+                                      <img
+                                        className={`${index == activeImageIndex ? 'Active' : ''}`}
+                                        onClick={() => handleSelectImage(index)}
+                                        alt={''}
+                                        src={img}
+                                      />
+                                    </div>
+                                  ))}
+                                </div>
+                              ) : null}
+                            </div>

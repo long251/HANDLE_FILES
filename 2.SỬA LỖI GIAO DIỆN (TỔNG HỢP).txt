@@ -1,6 +1,6 @@
 SỬA LỖI GIAO DIỆN (TỔNG HỢP)
 ----------------------------
-Ngày cập nhật: 26/09/2024
+Ngày cập nhật: 27/09/2024
 -------------------------
 ! mấy cái icon, button mà trỏ vào có cần hover toàn bộ??
 

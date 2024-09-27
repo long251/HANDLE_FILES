@@ -1,0 +1,4 @@
+- xóa log
+- tra cứu	/ tăng khoảng trắng ảnh Empty1
+- Ec		/ tạo đơn 1 > thêm giỏ > giảm màu trắng ~ Làm mới dữ liệu
+- 
