@@ -23,3 +23,10 @@ Ngày cập nhật: 27/09/2024
 - 4.Ec > create 1	/ nền trắng hòa vào nền						/ xong
 - 7.PXK 		/ tiền 								/ xong
 - xem thêm x2		/ bỏ border							/ xong
+
+
+- chung	> xóa log	/ 								/ rà soát lại
+- màn tra cứu		/ tăng khoảng trắng cách ảnh Empty1				/
+- Ec			/ tạo đơn 1 > thêm giỏ > giảm màu trắng ~ Làm mới dữ liệu	/
+- Vc > step1 > sổ adds	/ chọn ẩn Modal ko cần nhấn					/
+- 

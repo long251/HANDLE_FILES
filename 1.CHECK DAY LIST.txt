@@ -4,18 +4,18 @@ Ngày cập nhật: 27/09/2024
 -------------------------
 - hộp bánh danisa					/ hết
 - Cốc thuốc:
-	- xịt mũi x1 -> 20%
-	- nhỏ mũi x1 -> 50%
-	- thuốc đỏ nhỏ x1 -> 40%
-	- âu gâu nhỏ x5
+	- xịt mũi x1					/ hết
+	- nhỏ mũi x1					/
+	- thuốc đỏ nhỏ x1
 	- (hồ dán khô x1)
+	- âu gâu nhỏ x5
 	- kéo nhỏ x1 -> đang trong tủ đồ marketing
 - chai nước
 - (chai nước ngọt)
 - case máy tính lỏng dây
 - gối cong
 - balo* -> MANG thuốc nâu axit
-- kẹo xilytol x1 hộp -> to, xanh lá 52k			/ M hộp khổng lồ cho tiết kiệm	/ hết
+- kẹo xilytol x1 hộp -> to, xanh lá 52k			/ +1
 - giấy ăn x1 bịch nhỏ					/ +1
 - cốc uống nước
 - tai nghe có dây
@@ -45,5 +45,4 @@ Ngày cập nhật: 27/09/2024
 *TRIỂN KHAI:
  - MANG	-> thêm bánh kẹo lên cty
  - MANG -> nhỏ mũi x1~2
- - M	-> kẹo xylitol to cho tiết kiệm
--------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------
