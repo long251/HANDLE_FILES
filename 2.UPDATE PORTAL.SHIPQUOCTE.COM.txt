@@ -1,0 +1,48 @@
+UPDATE portal.shipquocte.com
+----------------------------
+Ngày cập nhật: 01/10/2024
+-------------------------
+
+- (NEW) xử lý khiếu nại	/ thiết kế giao diện 3 màn ở component				/ 02/10/2024
+
+	TÊN MÀN		/ 			LỖI, ĐIỀU CHỈNH				/ NHẬN XÉT
+*CHUNG:
+- field_chung		/ 'tổng tiền nạp trong tháng' 2.dash_8.Ví_9.Lịch sử		/ chưa có
+- lọc time_chung	/ khi lọc lệch về trước 1 ngày (thừa)				/ ko sửa
+- xóa log_chung		/ rà soát dần dần						/ dần dần
+________________________________________________________________________________________________________
+*SAU:
+- header_IconCollap	/ kẻ dọc 1 đường bên dưới hình tròn này để cho nó có nét riêng	/ sau
+- header_search		/ chưa có yc sửa lại, chỉ đang search 1 mã tracking ra lịch sử	/ sau +thêm clearButton
+- header_IconNotifica	/ chưa có yc							/ sau
+- navbar_border		/ chưa chia cắt như figma được					/ KHÓ_sau
+- navbar_border		/ đang chọn ngay mà yc muốn chưa chọn ngay			/ KHO_sau
+- 2.dashboard_4 bảng	/ chưa đều nhau, đang sử dụng thư viện (grid) mà ko ai care lắm	/ sau
+- 4.Ec_create1		/ TextField tăng size từ 36->40px				/ sau
+________________________________________________________________________________________________________
+- 5.Vc_create1_book adds/ sửa lại chọn luôn ko cần accept				/ bỏ chọn_sau
+- màn thank-you		/ làm lại theo figma						/ tối 01/10
+- lọc time 3 tháng	/ giới hạn mọi chỗ lọc time 3 tháng				/ sau
+- 11_304		/ 4.Ec > chưa validate đầu vào file Import Excel		/ 
+- accountUser2_Image	/ điều chỉnh kích thước ảnh		/ em sẽ cho nhỏ lại còn form khả năng mình giữ thế này ạ (đã sửa khác figma)
+------------------------------------------------------------------------------------------------------------
+*ITSM
+- 1_163			/ chưa có 'câu hỏi thg gặp'					/ chưa có
+- 2_164			/ chưa có 'điều khoản quy định'					/ chưa có
+- 3_284			/ 4.Ec_create1_Upload ảnh đối đa 6 ảnh				/ sau
+- 5_191			/ 3.Shop_search > search uat thì ra /shopping			/		100
+- 6_155			/ UI đăng ký mới chưa có					/ sau
+- 7_246			/ 2.dashboard > dữ liệu đơn hàng gần đây chỉ trả về Đơn mới Ec	/ cần full data (chưa có)
+- 8_276			/ Đăng nhập > đăng nhập lỗi ko báo mà bug ra màn Error		/ sau
+- 9_252			/ UI đăng ký mới chưa có					/ sau
+- 10_264		/ 2.dashboard > chưa có tổng tiền nạp trong tháng		/ field
+============================================================================================================
+- api_chung		/ search 'beta-portal-api' xóa các đường dẫn cố định		/ 		xong
+- 3.shopping_ảnh link	/ các ảnh grid (6) gán thêm link: home/search/deals/product 5*	/ 		xong
+! thay đoạn code hotjar	/ lấy link từ skype						/ 		xong
+- accountUser1_IconNav	/ thay thế nó theo icon của figma				/ 		xong
+- accountUser1_Avatar	/ thêm nút sửa ảnh, sửa luôn					/	ko sửa vì logic
+- accountUser1_fullName	/ bắt buộc							/ 		xong
+- accountUser1_IconDate	/ chỉnh sửa lại Icon nhập ngày sinh				/ 	CHƯA
+- accountUser4_passW	/ nhập sai xác nhận mk -> mới ko thấy báo cáo			/	có báo_xong
+- xác thực ngay_User	/ có cần thiét				/ em có trao đổi trc là a Đạt bảo bỏ xác thực

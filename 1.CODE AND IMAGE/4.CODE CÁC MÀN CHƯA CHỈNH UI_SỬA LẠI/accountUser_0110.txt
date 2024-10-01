@@ -1,0 +1,1162 @@
+import React, { useEffect, useState } from 'react';
+import {
+  Badge,
+  Button,
+  ButtonGroup,
+  Divider,
+  DropZone,
+  FormLayout,
+  Grid,
+  Layout,
+  LegacyCard,
+  LegacyStack,
+  Modal,
+  Page,
+  PolarisIcons,
+  RadioButton,
+  Spinner,
+  Text,
+  TextField,
+} from 'pcs-polaris';
+import TitleBreadcrumbs from '../../components/Breadcrumb/TitleBreadcrumb.tsx';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { clearToast, showToast } from '../../helpers/toast.ts';
+import { apiClient } from '../../utils/api.ts';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../store';
+import { accountAction } from '../../store/reducers/accountReducer';
+import { modalAction } from '../../store/reducers/modalReducer';
+import Empty from '../../components/NoData/Empty.tsx';
+import moment from 'moment/moment';
+import { getCustomerLevelImage } from '../../helpers/level.ts';
+import { IconAddAddress, IconAddressBook, IconChangePassword, IconDelete, IconEdit, IconUser, IconVerify } from './_components/Icon.tsx';
+import { IconEditAvatarSVG, IconV } from './IconAccount.tsx';
+
+const Account = () => {
+  const dispatch = useDispatch();
+  const accountState = useSelector((state: AppState) => state.account);
+  const authState = useSelector((state: AppState) => state.auth);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const [activeTab, setActiveTab] = useState('thong-tin-tai-khoan');
+
+  useEffect(() => {
+    let tab = searchParams.get('tab') ?? 'thong-tin-ca-nhan';
+    setActiveTab(tab);
+    dispatch(accountAction.fetchAddresses());
+    dispatch(accountAction.fetchContract());
+  }, []);
+
+  useEffect(() => {
+    let tab = searchParams.get('tab') ?? 'thong-tin-ca-nhan';
+    setActiveTab(tab);
+  }, [location.search]);
+
+  const updateUrl = (key: string, value: string) => {
+    searchParams.set(key, value);
+    navigate({ search: searchParams.toString() });
+  };
+
+  const [avatar, setAvatar] = useState('');
+  const [idCard, setIdCard] = useState('');
+  const [idCardImgFront, setIdCardImgFront] = useState('');
+  const [idCardImgBack, setIdCardImgBack] = useState('');
+
+  const [loadingUploadAvatar, setLoadingUploadAvatar] = useState(false);
+  const uploadAvatar = async (file: File) => {
+    setLoadingUploadAvatar(true);
+    let url = await uploadImage(file);
+    setAvatar(url);
+    setLoadingUploadAvatar(false);
+  };
+
+  const [loadingUploadIdCardImgFront, setLoadingUploadIdCardImgFront] = useState(false);
+  const uploadIdCardImgFront = async (file: File) => {
+    setLoadingUploadIdCardImgFront(true);
+    let url = await uploadImage(file);
+    setIdCardImgFront(url);
+    setLoadingUploadIdCardImgFront(false);
+  };
+
+  const [loadingUploadIdCardImgBack, setLoadingUploadIdCardImgBack] = useState(false);
+  const uploadIdCardImgBack = async (file: File) => {
+    setLoadingUploadIdCardImgBack(true);
+    let url = await uploadImage(file);
+    setIdCardImgBack(url);
+    setLoadingUploadIdCardImgBack(false);
+  };
+
+  const uploadImage = async (file: File) => {
+    let url = '';
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const response = await apiClient.post('api/File/UploadImage', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      if (response.data.status) {
+        url = response.data.fullUrl;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    return url;
+  };
+
+  const [loadingUpdateVerify, setLoadingUpdateVerify] = useState(false);
+  const handleUpdateVerify = async () => {
+    if (loadingUpdateVerify) {
+      return;
+    }
+    setLoadingUpdateVerify(true);
+    try {
+      let payload = {
+        contract: {
+          idCard: idCard,
+          idCardImgFront: idCardImgFront,
+          idCardImgBack: idCardImgBack,
+          avatar: avatar,
+        },
+      };
+      let response = await apiClient.post('/api/Customer/VerifyAccount', payload);
+      if (response.data.status) {
+        showToast('Cập nhật thông tin cá nhân thành công', 'success');
+        dispatch(accountAction.fetchContract());
+      } else {
+        showToast(response.data.errorCode, 'error');
+      }
+    } catch (e) {
+      console.log(e);
+      showToast('Cập nhật thông tin cá nhân thất bại', 'error');
+    }
+    setLoadingUpdateVerify(false);
+  };
+
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [birthday, setBirthday] = useState<any>('');
+  const [gender, setGender] = useState('');
+  const [email, setEmail] = useState('');
+
+  const [loadingUpdateInfo, setLoadingUpdateInfo] = useState(false);
+  // const handleUpdateInfo = async () => {
+  //   if (loadingUpdateInfo) {
+  //     return;
+  //   }
+  //   setLoadingUpdateInfo(true);
+  //   try {
+  //     let payload = {
+  //       contract: {
+  //         name: name,
+  //         phone: phone,
+  //         birthday: birthday,
+  //         gender: gender,
+  //         avatar: avatar,
+  //       },
+  //     };
+  //     let response = await apiClient.post('/api/Customer/UpdateInformationt', payload);
+  //     if (response.data.status) {
+  //       showToast('Cập nhật thông tin cá nhân thành công', 'success');
+  //       dispatch(accountAction.fetchContract());
+  //     } else {
+  //       showToast(response.data.errorCode, 'error');
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //     showToast('Cập nhật thông tin cá nhân thất bại', 'error');
+  //   }
+  //   setLoadingUpdateInfo(false);
+  // };
+
+  const handleUpdateInfo = async () => {
+    if (loadingUpdateInfo) return;
+    setLoadingUpdateInfo(true);
+
+    try {
+      const payload = {
+        contract: {
+          name,
+          phone,
+          birthday,
+          gender,
+          avatar, // This should now be the updated avatar URL
+        },
+      };
+      const response = await apiClient.post('/api/Customer/UpdateInformationt', payload);
+      if (response.data.status) {
+        showToast('Cập nhật thông tin cá nhân thành công', 'success');
+        dispatch(accountAction.fetchContract());
+      } else {
+        showToast(response.data.errorCode, 'error');
+      }
+    } catch (e) {
+      console.log(e);
+      showToast('Cập nhật thông tin cá nhân thất bại', 'error');
+    }
+
+    setLoadingUpdateInfo(false);
+  };
+
+  useEffect(() => {
+    if (accountState.contract) {
+      let contractInfo = accountState.contract;
+
+      setName(contractInfo['name']);
+      setPhone(contractInfo['phone']);
+      if (contractInfo['birthDay'] && moment(contractInfo['birthDay']).isValid()) {
+        setBirthday(moment(contractInfo['birthDay']).format('YYYY-MM-DD'));
+      }
+      setGender(`${contractInfo['gender']}`);
+      setEmail(contractInfo['email']);
+
+      setAvatar(contractInfo['avatar']);
+      setIdCard(contractInfo['idCard']);
+      setIdCardImgBack(contractInfo['idCardImgBack']);
+      setIdCardImgFront(contractInfo['idCardImgFront']);
+    }
+  }, [accountState.contract]);
+
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [errorChangePassword, setErrorChangePassword] = useState<string[]>([]);
+  const [loadingChangePassword, setLoadingChangePassword] = useState(false);
+  const handleChangePassword = async () => {
+    let errors = [];
+    clearToast();
+    if (loadingChangePassword) {
+      return;
+    }
+    if (!currentPassword) {
+      errors.push('current_password');
+    }
+    if (!newPassword) {
+      errors.push('new_password');
+    } else {
+      if (newPassword != confirmPassword) {
+        errors.push('confirm_password');
+      }
+    }
+    setErrorChangePassword(errors);
+    if (errors.length) {
+      return;
+    }
+    setLoadingChangePassword(true);
+    try {
+      let response = await apiClient.post('https://id.shipquocte.com/api/account/change-password', {
+        OldPassword: currentPassword,
+        NewPassword: newPassword,
+      });
+
+      if (response.data.succeeded) {
+        showToast('Đổi mật khẩu thành công', 'success');
+        setNewPassword('');
+        setConfirmPassword('');
+        setCurrentPassword('');
+      } else {
+        showToast(response.data.error, 'error');
+      }
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+      showToast('Đổi mật khẩu thất bại', 'error');
+    }
+    setLoadingChangePassword(false);
+  };
+
+  const [openModalDeleteAddress, setOpenModalDeleteAddress] = useState(-1);
+  const [loadingDeleteAdddress, setLoadingDeleteAdddress] = useState(false);
+  const handleDeleteAddress = async () => {
+    setLoadingDeleteAdddress(true);
+    try {
+      let response = await apiClient.post('api/CustomerAddress/Delete', {
+        id: openModalDeleteAddress,
+      });
+      if (response.data.status) {
+        showToast('Xoá địa chỉ thành công', 'success');
+        dispatch(accountAction.fetchAddresses());
+      } else {
+        showToast('Xoá địa chỉ thất bại', 'error');
+      }
+    } catch (e) {
+      console.log(e);
+      showToast('Xoá địa chỉ thất bại', 'error');
+    }
+    setOpenModalDeleteAddress(-1);
+    setLoadingDeleteAdddress(false);
+  };
+
+  const [loadingUpdateDefaultAddress, setLoadingUpdateDefaultAddress] = useState(-1);
+  const updateDefaultAddress = async (address: any) => {
+    if (loadingUpdateDefaultAddress > -1) {
+      return;
+    }
+    clearToast();
+    setLoadingUpdateDefaultAddress(address.id);
+    try {
+      let payload = { ...address };
+      payload.active = true;
+      let response = await apiClient.post('api/CustomerAddress/UpdateAddressDefault', payload);
+      if (response.data.status) {
+        showToast('Cập nhật địa chỉ mặc định thành công', 'success');
+        dispatch(accountAction.fetchAddresses());
+      } else {
+        showToast('Cập nhật địa chỉ mặc định thất bại', 'error');
+      }
+    } catch (e) {
+      console.log(e);
+      showToast('Cập nhật địa chỉ mặc định thất bại', 'error');
+    }
+    setLoadingUpdateDefaultAddress(-1);
+  };
+  // const [loadingUpdateDefaultAddress, setLoadingUpdateDefaultAddress] = useState<number | null>(null);
+  // const updateDefaultAddress = async (address: any) => {
+  //   if (loadingUpdateDefaultAddress !== null) {
+  //     return;
+  //   }
+
+  //   clearToast();
+  //   setLoadingUpdateDefaultAddress(address.id);
+
+  //   try {
+  //     let payload = { ...address };
+  //     payload.active = true; // Set active status to true
+
+  //     // Gửi yêu cầu cập nhật địa chỉ mặc định
+  //     let response = await apiClient.post('api/CustomerAddress/UpdateAddressDefault', payload);
+
+  //     if (response.data.status) {
+  //       showToast('Cập nhật địa chỉ mặc định thành công', 'success');
+
+  //       // Cập nhật địa chỉ mặc định trong danh sách mà không thay đổi thứ tự
+  //       dispatch(accountAction.fetchAddresses({ ...address, active: true }));
+  //     } else {
+  //       showToast('Cập nhật địa chỉ mặc định thất bại', 'error');
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //     showToast('Cập nhật địa chỉ mặc định thất bại', 'error');
+  //   }
+
+  //   setLoadingUpdateDefaultAddress(null);
+  // };
+
+  const handleAvatar = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setLoadingUpload(event.target.id);
+      let file = event.target.files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+      const response = await apiClient.post('api/File/UploadImage', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(response);
+      if (response.data.status) {
+        let url = response.data.fullUrl;
+        try {
+          let payload = {
+            contract: {
+              name: name,
+              phone: phone,
+              birthday: birthday,
+              gender: gender,
+              avatar: url,
+            },
+          };
+          let response = await apiClient.post('/api/Customer/UpdateInformationt', payload);
+          if (response.data.status) {
+            showToast('Cập nhật ảnh đại diện thành công', 'success');
+            setAvatar(url);
+          } else {
+            showToast(response.data.errorCode, 'error');
+          }
+        } catch (e) {
+          console.log(e);
+          showToast('Cập nhật ảnh đại diện thất bại', 'error');
+        }
+      }
+      setLoadingUpload('');
+    }
+  };
+  const [loadingUpload, setLoadingUpload] = useState('');
+  return (
+    <div className={'Polaris-Custom Title_Breadcrumb'}>
+      <Page
+        /*@ts-ignore*/
+        title={<TitleBreadcrumbs breadcrumbs={[{ title: 'Tài khoản', url: '' }]} />}
+      >
+        <div>
+          <Layout>
+            <Layout.Section>
+              <Grid>
+                <Grid.Cell columnSpan={{ xs: 6, sm: 6, md: 6, lg: 4, xl: 3 }}>
+                  <LegacyCard title={'Cài đặt'}>
+                    <LegacyCard.Section>
+                      <Grid>
+                        <Grid.Cell columnSpan={{ xs: 6, sm: 3, md: 3, lg: 12 }}>
+                          <div className={'Button-Custom--NoBorder'}>
+                            <Button
+                              onClick={() => {
+                                setActiveTab('thong-tin-ca-nhan');
+                                updateUrl('tab', 'thong-tin-ca-nhan');
+                              }}
+                              primary={activeTab == 'thong-tin-ca-nhan'}
+                              icon={<IconUser isActive={activeTab === 'thong-tin-ca-nhan'} />}
+                              size={'large'}
+                              fullWidth
+                              textAlign={'left'}
+                            >
+                              Thông tin cá nhân
+                            </Button>
+                          </div>
+                        </Grid.Cell>
+                        <Grid.Cell columnSpan={{ xs: 6, sm: 3, md: 3, lg: 12 }}>
+                          <div className={'Button-Custom--NoBorder'}>
+                            <Button
+                              onClick={() => {
+                                setActiveTab('xac-thuc-tai-khoan');
+                                updateUrl('tab', 'xac-thuc-tai-khoan');
+                              }}
+                              primary={activeTab == 'xac-thuc-tai-khoan'}
+                              icon={<IconVerify isActive={activeTab === 'xac-thuc-tai-khoan'}/>}
+                              size={'large'}
+                              fullWidth
+                              textAlign={'left'}
+                            >
+                              Cập nhật tài khoản
+                            </Button>
+                          </div>
+                        </Grid.Cell>
+                        <Grid.Cell columnSpan={{ xs: 6, sm: 3, md: 3, lg: 12 }}>
+                          <div className={'Button-Custom--NoBorder'}>
+                            <Button
+                              onClick={() => {
+                                setActiveTab('so-dia-chi');
+                                updateUrl('tab', 'so-dia-chi');
+                              }}
+                              primary={activeTab == 'so-dia-chi'}
+                              icon={<IconAddressBook isActive={activeTab === 'so-dia-chi'}/>}
+                              size={'large'}
+                              fullWidth
+                              textAlign={'left'}
+                            >
+                              Sổ địa chỉ
+                            </Button>
+                          </div>
+                        </Grid.Cell>
+                        <Grid.Cell columnSpan={{ xs: 6, sm: 3, md: 3, lg: 12 }}>
+                          <div className={'Button-Custom--NoBorder'}>
+                            <Button
+                              onClick={() => {
+                                setActiveTab('doi-mat-khau');
+                                updateUrl('tab', 'doi-mat-khau');
+                              }}
+                              primary={activeTab == 'doi-mat-khau'}
+                              icon={<IconChangePassword isActive={activeTab === 'doi-mat-khau'}/>}
+                              size={'large'}
+                              fullWidth
+                              textAlign={'left'}
+                            >
+                              Đổi mật khẩu
+                            </Button>
+                          </div>
+                        </Grid.Cell>
+                      </Grid>
+                    </LegacyCard.Section>
+                  </LegacyCard>
+                </Grid.Cell>
+                <Grid.Cell columnSpan={{ xs: 6, sm: 6, md: 6, lg: 8, xl: 9 }}>
+                  {activeTab == 'thong-tin-ca-nhan' ? (
+                    <LegacyCard>
+                      <LegacyCard.Section flush>
+                        <div
+                          style={{
+                            position: 'relative',
+                            marginBottom: '40px',
+                          }}
+                        >
+                          <img
+                            alt={''}
+                            src={getCustomerLevelImage(authState.user?.customer?.level, 'banner')}
+                            style={{
+                              width: '100%',
+                              objectFit: 'cover',
+                              objectPosition: 'right',
+                              height: 160,
+                            }}
+                          />
+                          <div
+                            style={{
+                              position: 'absolute',
+                              bottom: 20,
+                              left: 20,
+                            }}
+                          >
+                            <div
+                              style={{
+                                background: '#ffff',
+                                borderRadius: 4,
+                                padding: '2px 12px',
+                              }}
+                            >
+                              <Text as={'p'} variant={'bodyMd'}>
+                                {authState.user?.customer?.code}
+                              </Text>
+                            </div>
+                          </div>
+                          {/* avatar */}
+                          <div
+                            style={{
+                              position: 'absolute',
+                              top: 'calc(100% - 92px)',
+                              left: 'calc(50% - 50px)',
+                              width: 124,
+                              height: 124,
+                              background: '#fff',
+                              borderRadius: '50%',
+                              padding: 2,
+                              objectFit: 'contain',
+                            }}
+                          >
+                            {avatar && (
+                              <img
+                                src={avatar}
+                                alt='avatar'
+                                style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }}
+                              />
+                            )}
+                            {/* <div className='IconEditAvatarWrapper'>
+                              <input id='avatarInput' type='file' style={{ display: 'none' }} onChange={handleAvatar} />
+                              <div onClick={() => document.getElementById('avatarInput')?.click()}>
+                                {loadingUpload == 'avatarInput' ? <Spinner size={'small'} /> : <IconEditAvatarSVG />}
+                              </div>
+                            </div> */}
+                          </div>
+                        </div>
+                      </LegacyCard.Section>
+                      <LegacyCard.Section title={'Thông tin cá nhân'}>
+                        <FormLayout>
+                          <FormLayout.Group>
+                            <TextField
+
+                              label={<div>Họ và tên <span style={{color: '#A91116'}}>*</span></div>}
+                              autoComplete={'off'}
+                              value={name}
+                              onChange={(value) => setName(value)}
+                            />
+                            <TextField
+                              label={<div>Điện thoại <span style={{color: '#A91116'}}>*</span></div>}
+                              autoComplete={'off'}
+                              value={phone}
+                              onChange={(value) => setPhone(value)}
+                            />
+                          </FormLayout.Group>
+                          <FormLayout.Group>
+                            <TextField
+                              type={'date'}
+                              label={'Ngày sinh'}
+                              autoComplete={'off'}
+                              value={birthday}
+                              onChange={(value) => setBirthday(value)}
+                            />
+                            <div>
+                              <div className='Polaris-Labelled__LabelWrapper'>
+                                <div className='Polaris-Label'>
+                                  <label className='Polaris-Label__Text'>Giới tính</label>
+                                </div>
+                              </div>
+                              <LegacyStack>
+                                <RadioButton label={'Nam'} checked={gender == '1'} onChange={() => setGender('1')} />
+                                <RadioButton label={'Nữ'} checked={gender == '0'} onChange={() => setGender('0')} />
+                                <RadioButton label={'Khác'} checked={gender == '3'} onChange={() => setGender('3')} />
+                              </LegacyStack>
+                            </div>
+                          </FormLayout.Group>
+                          <FormLayout.Group>
+                            <TextField label={'Email'} autoComplete={'off'} disabled value={email} />
+                          </FormLayout.Group>
+                          <Button primary loading={loadingUpdateInfo} onClick={() => handleUpdateInfo()}>
+                            Cập nhật
+                          </Button>
+                        </FormLayout>
+                      </LegacyCard.Section>
+                    </LegacyCard>
+                  ) : null}
+                  {activeTab == 'xac-thuc-tai-khoan' ? (
+                    <LegacyCard
+                      // title={'Xác thực tài khoản'}
+                      title={'Cập nhật thông tin tài khoản'}
+                      // actions={[
+                      //   {
+                      //     // @ts-ignore
+                      //     content: accountState.contract_verified ? (
+                      //       <Badge status={'info'} size={'large-experimental'}>
+                      //         Đã xác thực
+                      //       </Badge>
+                      //     ) : (
+                      //       <Badge status={'critical'} size={'large-experimental'}>
+                      //         Chưa xác thực
+                      //       </Badge>
+                      //     ),
+                      //     onAction() {
+                      //       return;
+                      //     },
+                      //   },
+                      // ]}
+                    >
+                      <LegacyCard.Section>
+                        <Grid>
+                          <Grid.Cell columnSpan={{ xs: 4, sm: 4, md: 4, lg: 8, xl: 8 }}>
+                            <FormLayout>
+                              <TextField
+                                label={'Số CMND/CCCD'}
+                                autoComplete={'off'}
+                                placeholder={'Nhập số CMND/CCCD'}
+                                value={idCard}
+                                onChange={(value) => setIdCard(value)}
+                              />
+                              {idCardImgFront ? (
+                                <div>
+                                  <div className='Polaris-Labelled__LabelWrapper'>
+                                    <div
+                                      className='Polaris-Label'
+                                      style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between',
+                                        width: '100%',
+                                        gap: '16px',
+                                      }}
+                                    >
+                                      <label className='Polaris-Label__Text'>Ảnh CMND/CCCD mặt trước</label>
+                                      <Button plain destructive onClick={() => setIdCardImgFront('')}>
+                                        Xoá
+                                      </Button>
+                                    </div>
+                                  </div>
+                                  <div>
+                                    <img
+                                      style={{
+                                        maxWidth: '100%',
+                                        // maxHeight: 200,
+                                        objectFit: 'contain',
+                                        objectPosition: 'left',
+                                      }}
+                                      alt={''}
+                                      src={idCardImgFront}
+                                    />
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className={'DropZone-Custom'}>
+                                  <DropZone
+                                    disabled={loadingUploadIdCardImgFront}
+                                    onDrop={(files) => {
+                                      let file = files[0];
+                                      uploadIdCardImgFront(file);
+                                    }}
+                                    accept='image/*'
+                                    type='image'
+                                    label={'Ảnh CMND/CCCD mặt trước'}
+                                  >
+                                    {loadingUploadIdCardImgFront ? (
+                                      <LegacyStack distribution={'center'}>
+                                        <Spinner size={'small'} />
+                                      </LegacyStack>
+                                    ) : (
+                                      <DropZone.FileUpload />
+                                    )}
+                                  </DropZone>
+                                </div>
+                              )}
+
+                              {idCardImgBack ? (
+                                <div>
+                                  <div className='Polaris-Labelled__LabelWrapper'>
+                                    <div
+                                      className='Polaris-Label'
+                                      style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between',
+                                        width: '100%',
+                                        gap: '16px',
+                                      }}
+                                    >
+                                      <label className='Polaris-Label__Text'>Ảnh CMND/CCCD mặt sau</label>
+                                      <Button plain destructive onClick={() => setIdCardImgBack('')}>
+                                        Xoá
+                                      </Button>
+                                    </div>
+                                  </div>
+                                  <div>
+                                    <img
+                                      style={{
+                                        maxWidth: '100%',
+                                        // maxHeight: 200,
+                                        objectFit: 'contain',
+                                        objectPosition: 'left',
+                                      }}
+                                      alt={''}
+                                      src={idCardImgBack}
+                                    />
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className={'DropZone-Custom'}>
+                                  <DropZone
+                                    disabled={loadingUploadIdCardImgBack}
+                                    onDrop={(files) => {
+                                      let file = files[0];
+                                      uploadIdCardImgBack(file);
+                                    }}
+                                    accept='image/*'
+                                    type='image'
+                                    label={'Ảnh CMND/CCCD mặt sau'}
+                                  >
+                                    {loadingUploadIdCardImgBack ? (
+                                      <LegacyStack distribution={'center'}>
+                                        <Spinner size={'small'} />
+                                      </LegacyStack>
+                                    ) : (
+                                      <DropZone.FileUpload />
+                                    )}
+                                  </DropZone>
+                                </div>
+                              )}
+                            </FormLayout>
+                          </Grid.Cell>
+                          <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 4, xl: 4 }}>
+                            {avatar ? (
+                              <div>
+                                <div className='Polaris-Labelled__LabelWrapper'>
+                                  <div
+                                    className='Polaris-Label'
+                                    style={{
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'space-between',
+                                      width: '100%',
+                                      gap: '16px',
+                                    }}
+                                  >
+                                    <label className='Polaris-Label__Text'>Ảnh chân dung</label>
+                                    <div className='Delete_Image_AccountUser'>
+                                    <Button plain destructive onClick={() => setAvatar('')}>
+                                      Xoá
+                                    </Button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <img
+                                  style={{
+                                    maxWidth: '100%',
+                                    // maxHeight: 200,
+                                    objectFit: 'contain',
+                                    objectPosition: 'left',
+                                  }}
+                                  src={avatar}
+                                  alt={''}
+                                />
+                              </div>
+                            ) : (
+                              <div className={'DropZone-Custom'}>
+                                <DropZone
+                                  disabled={loadingUploadAvatar}
+                                  onDrop={(files) => {
+                                    let file = files[0];
+                                    uploadAvatar(file);
+                                  }}
+                                  accept='image/*'
+                                  type='image'
+                                  label={'Tải ảnh chân dung'}
+                                >
+                                  {loadingUploadAvatar ? (
+                                    <LegacyStack distribution={'center'}>
+                                      <Spinner size={'small'} />
+                                    </LegacyStack>
+                                  ) : (
+                                    <DropZone.FileUpload />
+                                  )}
+                                </DropZone>
+                              </div>
+                            )}
+                          </Grid.Cell>
+                          <Grid.Cell columnSpan={{ xs: 6, sm: 6, md: 6, lg: 12, xl: 12 }}>
+                            <Button primary loading={loadingUpdateVerify} onClick={() => handleUpdateVerify()}>
+                              Cập nhật
+                            </Button>
+                          </Grid.Cell>
+                        </Grid>
+                      </LegacyCard.Section>
+                    </LegacyCard>
+                  ) : null}
+                  {activeTab == 'so-dia-chi' ? (
+                    <LegacyCard
+                      title={'Sổ địa chỉ'}
+                      actions={[
+                        {
+                          // content: 'Thêm địa chỉ mới',
+                          //@ts-ignore
+                          content: (
+                            <div
+                              style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                backgroundColor: '#0050A6',
+                                padding: '4px 12px',
+                                borderRadius: '4px',
+                                gap: '4px',
+                                cursor: 'pointer',
+                                userSelect: 'none',
+                              }}
+                            >
+                              <div style={{ marginTop: '4px' }}>
+                                <IconAddAddress />
+                              </div>
+                              <div style={{ color: '#FFFFFF' }}>Tạo địa chỉ mới</div>
+                            </div>
+                          ),
+                          onAction() {
+                            dispatch(
+                              modalAction.openModal({
+                                type: 'create_address',
+                                title: 'Thêm địa chỉ nhận hàng',
+                                data: null,
+                              }),
+                            );
+                          },
+                        },
+                      ]}
+                    >
+                      <LegacyCard.Section>
+                        {accountState.addresses_loading ? (
+                          <LegacyStack distribution={'center'}>
+                            <Spinner size={'small'} />
+                          </LegacyStack>
+                        ) : (
+                          <>
+                            {/* {accountState.addresses.length ? (
+                              <Grid
+                                gap={{
+                                  xs: '20px 20px',
+                                  sm: '20px 20px',
+                                  md: '20px 20px',
+                                  lg: '20px 20px',
+                                  xl: '20px 60px',
+                                }}
+                              >
+                                {accountState.addresses.map((item: any, index: number) => (
+                                  <Grid.Cell key={index} columnSpan={{ xs: 6, sm: 6, md: 6, lg: 12, xl: 6 }}>
+                                    <LegacyStack vertical>
+                                      <LegacyStack>
+                                        <LegacyStack.Item fill>
+                                          <LegacyStack vertical spacing={'tight'}>
+                                            <Text as={'p'} variant={'bodyLg'} fontWeight={'semibold'}>
+                                              {item.name} {item.active ? <Badge status={'info'}>Mặc định</Badge> : ''}
+                                            </Text>
+                                            <Text as={'p'} variant={'bodyLg'}>
+                                              {item.phone}
+                                            </Text>
+                                            <Text as={'p'} variant={'bodyLg'}>
+                                              {item.fullAddress}
+                                            </Text>
+                                          </LegacyStack>
+                                        </LegacyStack.Item>
+                                        <LegacyStack.Item>
+                                          <LegacyStack vertical alignment={'trailing'}>
+                                            <ButtonGroup spacing={'extraTight'}>
+                                              <Button
+                                                onClick={() => {
+                                                  dispatch(
+                                                    modalAction.openModal({
+                                                      type: 'edit_address',
+                                                      title: `Chỉnh sửa địa chỉ ${item.name}`,
+                                                      data: Object.assign({ ...item }, { is_post_update: true }),
+                                                    }),
+                                                  );
+                                                }}
+                                                plain
+                                                icon={PolarisIcons.EditMajor}
+                                              />
+                                              <Button
+                                                onClick={() => {
+                                                  setOpenModalDeleteAddress(item.id);
+                                                }}
+                                                destructive
+                                                plain
+                                                icon={PolarisIcons.DeleteMinor}
+                                              />
+                                            </ButtonGroup>
+                                            {!item.active ? (
+                                              <Button
+                                                loading={loadingUpdateDefaultAddress == item.id}
+                                                onClick={() => updateDefaultAddress(item)}
+                                                plain
+                                                removeUnderline
+                                              >
+                                                Chọn mặc định
+                                              </Button>
+                                            ) : null}
+                                          </LegacyStack>
+                                        </LegacyStack.Item>
+                                      </LegacyStack>
+                                      <Divider />
+                                    </LegacyStack>
+                                  </Grid.Cell>
+                                ))}
+                              </Grid>
+                            ) : (
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  flexDirection: 'column',
+                                  gap: 16,
+                                }}
+                              >
+                                <div style={{ flex: 1, width: 250 }}>
+                                  <Empty />
+                                </div>
+                                <Text as={'p'} variant={'bodyMd'}>
+                                  Chưa có địa chỉ nào
+                                </Text>
+                              </div>
+                            )} */}
+                            {accountState.addresses.length ? (
+                              <div className='Style_Address_Book_Account'>
+                                {accountState.addresses.map((item: any, index: number) => (
+                                  <div
+                                    key={index}
+                                    style={{
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      padding: '20px',
+                                      border: '1px solid #e1e1e1',
+                                      borderRadius: '8px',
+                                    }}
+                                  >
+                                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                      <p style={{ fontWeight: '600', display: 'flex', flexWrap: 'wrap' }}>
+                                        <div>{item.name} </div>
+                                        <div></div>
+                                      </p>
+                                      <div style={{ display: 'flex', gap: '8px' }}>
+                                        <div
+                                          onClick={() => {
+                                            dispatch(
+                                              modalAction.openModal({
+                                                type: 'edit_address',
+                                                title: `Chỉnh sửa địa chỉ ${item.name}`,
+                                                data: Object.assign({ ...item }, { is_post_update: true }),
+                                              }),
+                                            );
+                                          }}
+                                          style={{
+                                            background: 'transparent',
+                                            border: 'none',
+                                            cursor: 'pointer',
+                                          }}
+                                        >
+                                          {/* <img src={PolarisIcons.EditMajor} alt="Edit" /> */}
+                                          <IconEdit />
+                                        </div>
+                                        <div
+                                          onClick={() => {
+                                            setOpenModalDeleteAddress(item.id);
+                                          }}
+                                          style={{
+                                            background: 'transparent',
+                                            border: 'none',
+                                            cursor: 'pointer',
+                                            color: '#d72a2a',
+                                          }}
+                                        >
+                                          {/* <img src={PolarisIcons.DeleteMinor} alt="Delete" /> */}
+                                          <IconDelete />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <p>{item.phone}</p>
+                                    <div
+                                      style={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        flexWrap: 'wrap',
+                                        gap: '8px'
+                                      }}
+                                    >
+                                      <p>{item.fullAddress}</p>
+                                      {!item.active ? (
+                                        <div
+                                          onClick={() => updateDefaultAddress(item)}
+                                          style={{
+                                            background: '#EFF1F4',
+                                            border: 'none',
+                                            cursor: 'pointer',
+                                            color: '#A0ACBE',
+                                            padding: '4px 8px',
+                                            userSelect: 'none',
+                                            fontSize: '10px',
+                                            borderRadius: '4px',
+                                          }}
+                                        >
+                                          Chọn làm mặc định
+                                        </div>
+                                      ) : null}
+                                      {item.active ? (
+                                        <div
+                                          style={{
+                                            display: 'flex',
+                                            gap: '4px',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            // marginTop: '4px',
+                                            padding: '4px 8px',
+                                            backgroundColor: '#EAF0F7',
+                                            borderRadius: '4px',
+                                            fontSize: '10px',
+                                            color: '#0050A6',
+                                          }}
+                                        >
+                                          <div
+                                            style={{
+                                              display: 'flex',
+                                              flex: '1',
+                                              justifyContent: 'center',
+                                              alignItems: 'center',
+                                              verticalAlign: 'middle',
+                                            }}
+                                          >
+                                            <IconV />
+                                          </div>
+                                          <div>Mặc định</div>
+                                        </div>
+                                      ) : (
+                                        ''
+                                      )}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : (
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  flexDirection: 'column',
+                                  gap: '16px',
+                                }}
+                              >
+                                <div style={{ flex: 1, width: 250 }}>
+                                  <Empty />
+                                </div>
+                                <p>Chưa có địa chỉ nào</p>
+                              </div>
+                            )}
+                          </>
+                        )}
+                      </LegacyCard.Section>
+                    </LegacyCard>
+                  ) : null}
+                  {activeTab == 'doi-mat-khau' ? (
+                    <LegacyCard title={'Đổi mật khẩu'}>
+                      <LegacyCard.Section>
+                        <FormLayout>
+                          <TextField
+                            error={
+                              errorChangePassword.includes('current_password')
+                                ? 'Vui lòng nhập mật khẩu hiện tại'
+                                : false
+                            }
+                            placeholder={'Nhập mật khẩu hiện tại'}
+                            type={'password'}
+                            label={'Mật khẩu hiện tại'}
+                            autoComplete={'off'}
+                            value={currentPassword}
+                            onChange={(value) => setCurrentPassword(value)}
+                          />
+                          <TextField
+                            error={errorChangePassword.includes('new_password') ? 'Vui lòng nhập mật khẩu mới' : false}
+                            type={'password'}
+                            placeholder={'Nhập mật khẩu mới'}
+                            label={'Mật khẩu mới'}
+                            autoComplete={'off'}
+                            value={newPassword}
+                            onChange={(value) => setNewPassword(value)}
+                          />
+                          <TextField
+                            error={
+                              errorChangePassword.includes('confirm_password') ? 'Xác nhận mật khẩu không đúng' : false
+                            }
+                            type={'password'}
+                            label={'Xác nhận mật khẩu mới'}
+                            placeholder={'Nhập mật khẩu mới'}
+                            autoComplete={'off'}
+                            value={confirmPassword}
+                            onChange={(value) => setConfirmPassword(value)}
+                          />
+                          <Button primary onClick={() => handleChangePassword()} loading={loadingChangePassword}>
+                            Đổi mật khẩu
+                          </Button>
+                        </FormLayout>
+                      </LegacyCard.Section>
+                    </LegacyCard>
+                  ) : null}
+                </Grid.Cell>
+              </Grid>
+            </Layout.Section>
+          </Layout>
+        </div>
+      </Page>
+
+      <Modal
+        open={openModalDeleteAddress > -1}
+        onClose={() => setOpenModalDeleteAddress(-1)}
+        title='Xác nhận xoá địa chỉ'
+        primaryAction={{
+          content: 'Xoá',
+          destructive: true,
+          onAction() {
+            handleDeleteAddress();
+          },
+          loading: loadingDeleteAdddress,
+        }}
+        secondaryActions={[
+          {
+            content: 'Huỷ',
+            onAction() {
+              setOpenModalDeleteAddress(-1);
+            },
+          },
+        ]}
+      >
+        <Modal.Section>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              fontWeight: '700',
+              color: '#A91116',
+              fontSize: '16px',
+            }}
+          >
+            Bạn chắc chắn muốn xoá địa chỉ này?
+          </div>
+        </Modal.Section>
+      </Modal>
+    </div>
+  );
+};
+
+export default Account;
