@@ -1,10 +1,7 @@
 UPDATE portal.shipquocte.com
 ----------------------------
-Ngày cập nhật: 01/10/2024
+Ngày cập nhật: 02/10/2024
 -------------------------
-
-- (NEW) xử lý khiếu nại	/ thiết kế giao diện 3 màn ở component				/ 02/10/2024
-
 	TÊN MÀN		/ 			LỖI, ĐIỀU CHỈNH				/ NHẬN XÉT
 *CHUNG:
 - field_chung		/ 'tổng tiền nạp trong tháng' 2.dash_8.Ví_9.Lịch sử		/ chưa có
@@ -20,11 +17,11 @@ ________________________________________________________________________________
 - 2.dashboard_4 bảng	/ chưa đều nhau, đang sử dụng thư viện (grid) mà ko ai care lắm	/ sau
 - 4.Ec_create1		/ TextField tăng size từ 36->40px				/ sau
 ________________________________________________________________________________________________________
-- 5.Vc_create1_book adds/ sửa lại chọn luôn ko cần accept				/ bỏ chọn_sau
-- màn thank-you		/ làm lại theo figma						/ tối 01/10
-- lọc time 3 tháng	/ giới hạn mọi chỗ lọc time 3 tháng				/ sau
-- 11_304		/ 4.Ec > chưa validate đầu vào file Import Excel		/ 
-- accountUser2_Image	/ điều chỉnh kích thước ảnh		/ em sẽ cho nhỏ lại còn form khả năng mình giữ thế này ạ (đã sửa khác figma)
+- (NEW) xử lý khiếu nại	/ thiết kế giao diện 3 màn ở component				/ 02/10/2024
+- 5.Vc_create1_book adds/ sửa lại chọn luôn ko cần accept				/ bỏ chọn_nhanh_sau đi
+- lọc time 3 tháng	/ giới hạn mọi chỗ lọc time 3 tháng				/ sau khi xong khiếu nại
+- 11_304		/ 4.Ec > chưa validate đầu vào file Import Excel		/ sau_hỏi a Khánh bé
+- accountUser2_Image	/ điều chỉnh kích thước ảnh và đưa button thêm ra đầu ngoài	/ sau khi xong khiếu nại
 ------------------------------------------------------------------------------------------------------------
 *ITSM
 - 1_163			/ chưa có 'câu hỏi thg gặp'					/ chưa có
@@ -46,3 +43,4 @@ ________________________________________________________________________________
 - accountUser1_IconDate	/ chỉnh sửa lại Icon nhập ngày sinh				/ 	CHƯA
 - accountUser4_passW	/ nhập sai xác nhận mk -> mới ko thấy báo cáo			/	có báo_xong
 - xác thực ngay_User	/ có cần thiét				/ em có trao đổi trc là a Đạt bảo bỏ xác thực
+- màn thank-you		/ làm lại theo figma						/ cart-ecommerce-thanh toán tại list
