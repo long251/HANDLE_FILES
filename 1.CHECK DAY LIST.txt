@@ -1,8 +1,8 @@
 CTY PCS
 -------
-Ngày cập nhật: 02/10/2024
+Ngày cập nhật: 03/10/2024_m1
 -------------------------
-- hộp bánh danisa					/ hết
+- hộp bánh danisa					/ ít
 - Cốc thuốc:
 	- xịt mũi x1					/ hết
 	- nhỏ mũi x1					/ +1
@@ -16,7 +16,7 @@ Ngày cập nhật: 02/10/2024
 - gối cong
 - balo* -> MANG thuốc nâu axit
 - kẹo xilytol x1 hộp -> to, xanh lá 52k			/ +1
-- giấy ăn x1 bịch nhỏ					/ +1
+- giấy ăn x1 bịch nhỏ					/ +1.5
 - cốc uống nước
 - tai nghe có dây
 - (tai nghe bluetooth)

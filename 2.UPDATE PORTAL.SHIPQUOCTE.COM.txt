@@ -1,7 +1,11 @@
 UPDATE portal.shipquocte.com
 ----------------------------
-Ngày cập nhật: 02/10/2024
+Ngày cập nhật: 03/10/2024
 -------------------------
+- 5.Vc_create1_book adds/ sửa lại chọn luôn ko cần accept				/ bỏ chọn_nhanh_sau đi
+- 11_304		/ 4.Ec > chưa validate đầu vào file Import Excel		/ sau_hỏi a Khánh lớn nv
+- xử lý cài source cho a Dũng lấy code Portal						/ chờ a Hưng cài máy lại
+________________________________________________________________________________________________________________
 	TÊN MÀN		/ 			LỖI, ĐIỀU CHỈNH				/ NHẬN XÉT
 *CHUNG:
 - field_chung		/ 'tổng tiền nạp trong tháng' 2.dash_8.Ví_9.Lịch sử		/ chưa có
@@ -17,10 +21,11 @@ ________________________________________________________________________________
 - 2.dashboard_4 bảng	/ chưa đều nhau, đang sử dụng thư viện (grid) mà ko ai care lắm	/ sau
 - 4.Ec_create1		/ TextField tăng size từ 36->40px				/ sau
 ________________________________________________________________________________________________________
-- (NEW) xử lý khiếu nại	/ thiết kế giao diện 3 màn ở component				/ 02/10/2024
-- 5.Vc_create1_book adds/ sửa lại chọn luôn ko cần accept				/ bỏ chọn_nhanh_sau đi
-- lọc time 3 tháng	/ giới hạn mọi chỗ lọc time 3 tháng				/ sau khi xong khiếu nại
-- 11_304		/ 4.Ec > chưa validate đầu vào file Import Excel		/ sau_hỏi a Khánh bé
+- (NEW) xử lý khiếu nại	/ thiết kế giao diện 3 màn ở component				/ còn ở View Ec,Vc
+- (++) thế lại thêm modal chi tiết của cái thg Vận chuyển giống Ecommerce		/ sau time
+- lọc time 3 tháng	/ giới hạn mọi chỗ lọc time 3 tháng				/ ĐANG LÀM...
+- 4.Ec_step2		/ cái ảnh ko có bấm mở rộng hay gì mà có cursor			/ xóa cursor
+- 5.Vc_step2		/ khi nhập tracking đầu sổ luôn icon Edit ra các cái thứ khác ẩn/ sau
 - accountUser2_Image	/ điều chỉnh kích thước ảnh và đưa button thêm ra đầu ngoài	/ sau khi xong khiếu nại
 ------------------------------------------------------------------------------------------------------------
 *ITSM
@@ -44,3 +49,4 @@ ________________________________________________________________________________
 - accountUser4_passW	/ nhập sai xác nhận mk -> mới ko thấy báo cáo			/	có báo_xong
 - xác thực ngay_User	/ có cần thiét				/ em có trao đổi trc là a Đạt bảo bỏ xác thực
 - màn thank-you		/ làm lại theo figma						/ cart-ecommerce-thanh toán tại list
+- 
