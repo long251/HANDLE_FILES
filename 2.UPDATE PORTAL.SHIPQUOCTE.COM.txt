@@ -1,8 +1,8 @@
 UPDATE portal.shipquocte.com
 ----------------------------
-Ngày cập nhật: 04/10/2024
+Ngày cập nhật: 05/10/2024
 -------------------------
-- 5.Vc_create1_book adds/ sửa lại chọn luôn ko cần accept				/ bỏ chọn_nhanh_sau đi
+- 5.Vc_create1_book adds/ sửa lại chọn luôn ko cần accept				/ bỏ chọn_nhanh_để sau
 - 11_304		/ 4.Ec > chưa validate đầu vào file Import Excel		/ sau_hỏi a Khánh lớn nv
 - xử lý cài source cho a Dũng lấy code Portal						/ chờ a Hưng cài máy lại
 ------------------------------------------------------------------------------------------------------------
