@@ -1,6 +1,6 @@
 TRICK NOTE UI
 -------------
-Ngày cập nhật: 16/09/2024
+Ngày cập nhật: 07/10/2024
 -------------------------
 
 I. Giao diện: FE, html, css
@@ -95,3 +95,8 @@ b6: khi đã cập nhật xong nó đẩy lại về UI cập nhật dữ liệu
 	- địa chỉ nhận hàng
 	- tracking[]
 => Xem kĩ hơn ở code
+----------------------------------------------------------------------------------------------------------------
+*Build chương trình với trình ENV
+env
+run build
+preview
