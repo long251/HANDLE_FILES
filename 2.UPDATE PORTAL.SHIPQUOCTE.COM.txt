@@ -1,6 +1,6 @@
 UPDATE portal.shipquocte.com
 ----------------------------
-Ngày cập nhật: 07/10/2024
+Ngày cập nhật: 08/10/2024 
 -------------------------
 - 11_304		/ 4.Ec > chưa validate đầu vào file Import Excel		/ sau_hỏi a Khánh lớn nv
 - xử lý cài source cho a Dũng lấy code Portal						/ chờ a Hưng cài máy lại
