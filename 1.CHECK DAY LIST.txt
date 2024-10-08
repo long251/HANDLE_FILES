@@ -1,27 +1,27 @@
 CTY PCS
 -------
-Ngày cập nhật: 07/10/2024
+Ngày cập nhật: 08/10/2024
 -------------------------
-- hộp bánh danisa					/ vài
+- hộp bánh danisa					/ 
 - Cốc thuốc:
 	- xịt mũi x1					/ hết
 	- nhỏ mũi x1					/ +1
 	- thuốc đỏ nhỏ x1
-	- (hồ dán khô x1)
 	- âu gâu nhỏ x5
+	- (hồ dán khô x1)
 	- kéo nhỏ x1 -> đang trong tủ đồ marketing
 - chai nước
 - (chai nước ngọt)
 - case máy tính lỏng dây
 - gối cong
 - balo* -> MANG thuốc nâu axit
-- kẹo xilytol x1 hộp -> to, xanh lá 52k			/ +1
+- kẹo xilytol x1 hộp -> to, xanh lá 52k			/ 20%
 - giấy ăn x1 bịch nhỏ					/ +1
 - cốc uống nước
-- tai nghe có dây					/ mang về đi đám cưới a Sơn
+- tai nghe có dây
 - (tai nghe bluetooth)
 - bút bi x3
-- vở ghi
+- vở ghi						/ hết
 - iphone*
 - Màn PC (PCS) x2
 - chuột công thái học
@@ -43,6 +43,6 @@ Ngày cập nhật: 07/10/2024
 	- [gitlab] 	-> check a Khánh FE cập nhật. Tự Merge lên UAT
 -----------------------------------------------------------------------------------------------------------------
 *TRIỂN KHAI:
- - MANG -> bánh kẹo lên cty
- - MANG -> 1 số đồ liên quan lên cty
+ - MANG -> xịt mũi 	-> thuốc xịt mũi xylogen lên cty x1 (đầy)
+ - MANG -> vở ghi 	-> vở ghi mới lên cty hoặc tờ nháp khoảng 20-40 trang x1
 -----------------------------------------------------------------------------------------------------------------
