@@ -1,6 +1,6 @@
 UPDATE portal.shipquocte.com
 ----------------------------
-Ngày cập nhật: 08/10/2024 
+Ngày cập nhật: 09/10/2024 
 -------------------------
 - 11_304		/ 4.Ec > chưa validate đầu vào file Import Excel		/ sau_hỏi a Khánh lớn nv
 - xử lý cài source cho a Dũng lấy code Portal						/ chờ a Hưng cài máy lại
@@ -33,20 +33,4 @@ ________________________________________________________________________________
 - 9_252			/ UI đăng ký mới chưa có					/ sau
 - 10_264		/ 2.dashboard > chưa có tổng tiền nạp trong tháng		/ field
 ============================================================================================================
-- api_chung		/ search 'beta-portal-api' xóa các đường dẫn cố định		/ 		xong
-- 3.shopping_ảnh link	/ các ảnh grid (6) gán thêm link: home/search/deals/product 5*	/ 		xong
-! thay đoạn code hotjar	/ lấy link từ skype						/ 		xong
-- accountUser1_IconNav	/ thay thế nó theo icon của figma				/ 		xong
-- accountUser1_Avatar	/ thêm nút sửa ảnh, sửa luôn					/	ko sửa vì logic
-- accountUser1_fullName	/ bắt buộc							/ 		xong
-- accountUser1_IconDate	/ chỉnh sửa lại Icon nhập ngày sinh				/ 	CHƯA
-- accountUser4_passW	/ nhập sai xác nhận mk -> mới ko thấy báo cáo			/	có báo_xong
-- xác thực ngay_User	/ có cần thiét				/ em có trao đổi trc là a Đạt bảo bỏ xác thực
-- màn thank-you		/ làm lại theo figma						/ cart-ecommerce-thanh toán tại list
-- accountUser2_Image	/ điều chỉnh kích thước ảnh và đưa button thêm ra đầu ngoài	/ xong
-- 4.Ec_step2		/ cái ảnh ko có bấm mở rộng hay gì mà có cursor			/ xóa cursor
-- (NEW) xử lý khiếu nại	/ thiết kế giao diện 3 màn ở component				/ còn ở View Ec,Vc - xong
-- 5.Vc_create1_book adds/ sửa lại chọn luôn ko cần accept				/ bỏ chọn_nhanh_để sau nhưng nhận thấy đơn Vc nhiều đơn nên là cứ để chọn cho chắc
-- 5.Vc_step2		/ khi nhập tracking đầu sổ luôn icon Edit ra các cái thứ khác ẩn/ sau	- xong
-- (++) thế lại thêm modal chi tiết của cái thg Vận chuyển giống Ecommerce		/ sau time - xong
 

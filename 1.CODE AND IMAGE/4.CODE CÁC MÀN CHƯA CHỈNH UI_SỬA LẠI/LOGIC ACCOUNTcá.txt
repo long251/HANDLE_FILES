@@ -1,0 +1,312 @@
+LOGIC ACCOUNTcá
+--------
+  const [avatar, setAvatar] = useState('');
+  const [idCard, setIdCard] = useState('');
+  const [idCardImgFront, setIdCardImgFront] = useState('');
+  const [idCardImgBack, setIdCardImgBack] = useState('');
+
+  const [loadingUploadAvatar, setLoadingUploadAvatar] = useState(false);
+  const uploadAvatar = async (file: File) => {
+    setLoadingUploadAvatar(true);
+    let url = await uploadImage(file);
+    setAvatar(url);
+    setLoadingUploadAvatar(false);
+  };
+
+  const [loadingUploadIdCardImgFront, setLoadingUploadIdCardImgFront] = useState(false);
+  const uploadIdCardImgFront = async (file: File) => {
+    setLoadingUploadIdCardImgFront(true);
+    let url = await uploadImage(file);
+    setIdCardImgFront(url);
+    setLoadingUploadIdCardImgFront(false);
+  };
+
+  const [loadingUploadIdCardImgBack, setLoadingUploadIdCardImgBack] = useState(false);
+  const uploadIdCardImgBack = async (file: File) => {
+    setLoadingUploadIdCardImgBack(true);
+    let url = await uploadImage(file);
+    setIdCardImgBack(url);
+    setLoadingUploadIdCardImgBack(false);
+  };
+
+  const uploadImage = async (file: File) => {
+    let url = '';
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const response = await apiClient.post('api/File/UploadImage', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      if (response.data.status) {
+        url = response.data.fullUrl;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    return url;
+  };
+const [loadingUpdateVerify, setLoadingUpdateVerify] = useState(false);
+  const handleUpdateVerify = async () => {
+    if (loadingUpdateVerify) {
+      return;
+    }
+    setLoadingUpdateVerify(true);
+    try {
+      let payload = {
+        contract: {
+          idCard: idCard,
+          idCardImgFront: idCardImgFront,
+          idCardImgBack: idCardImgBack,
+          avatar: avatar,
+        },
+      };
+      let response = await apiClient.post('/api/Customer/VerifyAccount', payload);
+      if (response.data.status) {
+        showToast('Cập nhật thông tin cá nhân thành công', 'success');
+        dispatch(accountAction.fetchContract());
+      } else {
+        showToast(response.data.errorCode, 'error');
+      }
+    } catch (e) {
+      console.log(e);
+      showToast('Cập nhật thông tin cá nhân thất bại', 'error');
+    }
+    setLoadingUpdateVerify(false);
+  };
+========================
+RETURN
+------
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                              {/* Mặt trước */}
+                              <div className='Flex_Image_ID_Front'>
+                                <div
+                                  className='Flex_Label_Image'
+                                >
+                                  <label style={{ whiteSpace: 'nowrap' }}>
+                                    Ảnh CMND/CCCD mặt trước <span style={{ color: '#A91116' }}>*</span>
+                                  </label>
+                                  <div
+                                    onClick={() => {
+                                      const uploadInput = document.getElementById('uploadFront');
+                                      if (uploadInput) uploadInput.click();
+                                    }}
+                                    style={{ cursor: 'pointer' }}
+                                  >
+                                    <IconUpImage />
+                                  </div>
+                                </div>
+
+                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                                  <div
+                                    style={{
+                                      border: '1px solid #D1D5DB',
+                                      width: '244px',
+                                      height: '156px',
+                                      display: 'flex',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      overflow: 'hidden',
+                                      position: 'relative',
+                                      borderRadius: '4px',
+                                    }}
+                                  >
+                                    {loadingUploadIdCardImgFront ? (
+                                      <Spinner size='small' />
+                                    ) : idCardImgFront ? (
+                                      <img
+                                        src={idCardImgFront}
+                                        alt='CMND mặt trước'
+                                        style={{
+                                          width: '100%',
+                                          height: '100%',
+                                          objectFit: 'cover',
+                                          // objectPosition: 'top',
+                                        }}
+                                      />
+                                    ) : (
+                                      <div
+                                        style={{
+                                          width: '100%',
+                                          height: '100%',
+                                          backgroundColor: '#F9FAFB',
+                                          display: 'flex',
+                                          justifyContent: 'center',
+                                          alignItems: 'center',
+                                        }}
+                                      ></div>
+                                    )}
+                                    <input
+                                      id='uploadFront'
+                                      type='file'
+                                      style={{ display: 'none' }}
+                                      accept='image/*'
+                                      onChange={(event) => {
+                                        const file = event.target.files && event.target.files[0];
+                                        if (file) {
+                                          uploadIdCardImgFront(file);
+                                        }
+                                      }}
+                                    />
+                                  </div>
+                                  {idCardImgFront && (
+                                    <Button
+                                      plain
+                                      destructive
+                                      onClick={() => {
+                                        setIdCardImgFront('');
+                                        const uploadInput = document.getElementById('uploadFront');
+                                        if (uploadInput) (uploadInput as HTMLInputElement).value = '';
+                                      }}
+                                    >
+                                      Xóa
+                                    </Button>
+                                  )}
+                                </div>
+                              </div>
+                              {/* mặt sau */}
+                              <div className='Flex_Image_ID_Back'>
+                                <div
+                                  className='Flex_Label_Image'
+                                >
+                                  <label style={{ whiteSpace: 'nowrap' }}>
+                                    Ảnh CMND/CCCD mặt sau <span style={{ color: '#A91116' }}>*</span>
+                                  </label>
+                                  <div
+                                    onClick={() => {
+                                      const uploadInput = document.getElementById('uploadBack');
+                                      if (uploadInput) uploadInput.click();
+                                    }}
+                                    className='Image_Id_Back'
+                                  >
+                                    <IconUpImage />
+                                  </div>
+                                </div>
+
+                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                                  <div
+                                    style={{
+                                      border: '1px solid #D1D5DB',
+                                      width: '244px',
+                                      height: '156px',
+                                      display: 'flex',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      overflow: 'hidden',
+                                      position: 'relative',
+                                      borderRadius: '4px',
+                                    }}
+                                  >
+                                    {loadingUploadIdCardImgBack ? (
+                                      <Spinner size='small' />
+                                    ) : idCardImgBack ? (
+                                      <img
+                                        src={idCardImgBack}
+                                        alt='CMND mặt sau'
+                                        style={{
+                                          width: '100%',
+                                          height: '100%',
+                                          objectFit: 'cover',
+                                          // objectPosition: 'top',
+                                        }}
+                                      />
+                                    ) : (
+                                      <div
+                                        style={{
+                                          width: '100%',
+                                          height: '100%',
+                                          backgroundColor: '#F9FAFB',
+                                          display: 'flex',
+                                          justifyContent: 'center',
+                                          alignItems: 'center',
+                                        }}
+                                      ></div>
+                                    )}
+                                  </div>
+                                  {idCardImgBack && (
+                                    <Button
+                                      plain
+                                      destructive
+                                      onClick={() => {
+                                        setIdCardImgBack('');
+                                        const uploadInput = document.getElementById('uploadBack');
+                                        if (uploadInput) (uploadInput as HTMLInputElement).value = '';
+                                      }}
+                                    >
+                                      Xóa
+                                    </Button>
+                                  )}
+                                </div>
+                                <input
+                                  id='uploadBack'
+                                  type='file'
+                                  style={{ display: 'none' }}
+                                  accept='image/*'
+                                  onChange={(event) => {
+                                    const file = event.target.files && event.target.files[0];
+                                    if (file) {
+                                      uploadIdCardImgBack(file);
+                                    }
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          {avatar ? (
+                            <div>
+                              <div className='Polaris-Labelled__LabelWrapper'>
+                                <div
+                                  className='Polaris-Label'
+                                  style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    width: '100%',
+                                    gap: '16px',
+                                  }}
+                                >
+                                  <label className='Polaris-Label__Text' style={{ whiteSpace: 'nowrap' }}>
+                                    Ảnh chân dung
+                                  </label>
+                                  <div className='Delete_Image_AccountUser'>
+                                    <Button plain destructive onClick={() => setAvatar('')}>
+                                      Xoá
+                                    </Button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <img
+                                  style={{
+                                    maxWidth: '100%',
+                                    maxHeight: 400,
+                                    objectFit: 'contain',
+                                    objectPosition: 'left',
+                                  }}
+                                  src={avatar}
+                                  alt={''}
+                                />
+                              </div>
+                            </div>
+                          ) : (
+                            <div className={'DropZone-Custom'}>
+                              <DropZone
+                                disabled={loadingUploadAvatar}
+                                onDrop={(files) => {
+                                  let file = files[0];
+                                  uploadAvatar(file);
+                                }}
+                                accept='image/*'
+                                type='image'
+                                label={'Tải ảnh chân dung'}
+                              >
+                                {loadingUploadAvatar ? (
+                                  <LegacyStack distribution={'center'}>
+                                    <Spinner size={'small'} />
+                                  </LegacyStack>
+                                ) : (
+                                  <DropZone.FileUpload />
+                                )}
+                              </DropZone>
+                            </div>
+                          )}
