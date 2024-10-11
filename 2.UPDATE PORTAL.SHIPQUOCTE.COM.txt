@@ -1,6 +1,6 @@
 UPDATE portal.shipquocte.com
 ----------------------------
-Ngày cập nhật: 10/10/2024 
+Ngày cập nhật: 11/10/2024 
 -------------------------
 - 11_304		/ 4.Ec > chưa validate đầu vào file Import Excel		/ sau_hỏi a Khánh lớn nv
 - xử lý cài source cho a Dũng lấy code Portal						/ chờ a Hưng cài máy lại
@@ -33,4 +33,10 @@ ________________________________________________________________________________
 - 9_252			/ UI đăng ký mới chưa có					/ sau
 - 10_264		/ 2.dashboard > chưa có tổng tiền nạp trong tháng		/ field
 ============================================================================================================
-
+- Ec_View Detail Ec	/ màn mở nhanh đang quá rộng					/
+- Ec_View Detail Ec	/ time tăng 1 size						/
+- Ec_View Detail Ec	/ khoảng cách biến thể hơi xa 'thông tin cá nhân'		/
+- AccountUser		/ button xóa thay giống địa chỉ					/ thử trước
+- PXK			/ view list bỏ đường kẻ cuối
+- Vc			/ view list bỏ đường kẻ cuối
+- Sửa lại KN chi tiết, 	/ x2 màn chi tiết
