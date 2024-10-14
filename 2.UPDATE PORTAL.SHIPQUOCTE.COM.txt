@@ -2,6 +2,16 @@ UPDATE portal.shipquocte.com
 ----------------------------
 Ngày cập nhật: 12/10/2024 
 -------------------------
+14/10:
+*Tập trung màn khiếu nại:
+ - all list		/ khi tạo đơn ở ngay chính chỗ này thì chưa load lại trang	/ sửa modal mới
+ - all list		/ chuyển tab đang bị sai					/ API
+ - tạo đơn		/ validate cho người dùng biết thiếu trường gì			/ thêm validate
+ - view nhanh		/ lưu, gửi feedback chưa có API					/ thêm
+ - view nhanh		/ chưa có sticky 'thông tin' phải				/ ĐANG LÀM...
+ - view nhanh		/ time đóng, người xử lý					/ API
+ - view nhanh		/ responsive, wrap						/ sửa lại
+=========================
 - 11_304		/ 4.Ec > chưa validate đầu vào file Import Excel		/ sau_hỏi a Khánh lớn nv
 - xử lý cài source cho a Dũng lấy code Portal						/ chờ a Hưng cài máy lại
 ------------------------------------------------------------------------------------------------------------

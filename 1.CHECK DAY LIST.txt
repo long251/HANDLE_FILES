@@ -1,6 +1,6 @@
 CTY PCS
 -------
-Ngày cập nhật: 12/10/2024
+Ngày cập nhật: 14/10/2024
 -------------------------
 - hộp bánh danisa					/ 
 - Cốc thuốc:
@@ -44,9 +44,10 @@ Ngày cập nhật: 12/10/2024
 -----------------------------------------------------------------------------------------------------------------
 *TRIỂN KHAI:
  - M	-> kẹo cao su	-> xilytol lọ to đùng x1
- - MANG -> vở ghi 	-> vở ghi mới lên cty hoặc tờ nháp khoảng 20-40 trang x1
 -----------------------------------------------------------------------------------------------------------------
 *WORK NHANH:
+ - QL2	-> PC	-> đổi mật khẩu máy tính tại nhà từ 1 sang ???
+ - 
  - SX thanh Cốc cốc
  - SX thanh Chrome
  - Xóa LOL tại nhà
