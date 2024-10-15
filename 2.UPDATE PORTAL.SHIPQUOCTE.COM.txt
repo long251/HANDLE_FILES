@@ -1,21 +1,10 @@
 UPDATE portal.shipquocte.com
 ----------------------------
-Ngày cập nhật: 12/10/2024 
+Ngày cập nhật: 15/10/2024 
 -------------------------
-14/10:
-*Tập trung màn khiếu nại:
- - all list		/ khi tạo đơn ở ngay chính chỗ này thì chưa load lại trang	/ sửa modal mới
- - all list		/ chuyển tab đang bị sai					/ API
- - tạo đơn		/ validate cho người dùng biết thiếu trường gì			/ thêm validate
- - view nhanh		/ lưu, gửi feedback chưa có API					/ thêm
- - view nhanh		/ chưa có sticky 'thông tin' phải				/ ĐANG LÀM...
- - view nhanh		/ time đóng, người xử lý					/ API
- - view nhanh		/ responsive, wrap						/ sửa lại
-=========================
-- 11_304		/ 4.Ec > chưa validate đầu vào file Import Excel		/ sau_hỏi a Khánh lớn nv
 - xử lý cài source cho a Dũng lấy code Portal						/ chờ a Hưng cài máy lại
 ------------------------------------------------------------------------------------------------------------
-- lọc time 3 tháng	/ giới hạn mọi chỗ lọc time 3 tháng (sửa 3 màn)			/ còn fix ngày đúng
+- lọc time 3 tháng	/ giới hạn mọi chỗ lọc time 3 tháng (sửa 3 màn)			/ 90% - còn fix ngày đúng
 ________________________________________________________________________________________________________________
 	TÊN MÀN		/ 			LỖI, ĐIỀU CHỈNH				/ NHẬN XÉT
 *CHUNG:
@@ -25,7 +14,7 @@ ________________________________________________________________________________
 ________________________________________________________________________________________________________
 *SAU:
 - header_IconCollap	/ kẻ dọc 1 đường bên dưới hình tròn này để cho nó có nét riêng	/ sau
-- header_search		/ chưa có yc sửa lại, chỉ đang search 1 mã tracking ra lịch sử	/ sau +thêm clearButton
+- header_search		/ chưa có yc sửa lại, chỉ đang search 1 mã tracking ra lịch sử	/ sau
 - header_IconNotifica	/ chưa có yc							/ sau
 - navbar_border		/ chưa chia cắt như figma được					/ KHÓ_sau
 - navbar_border		/ đang chọn ngay mà yc muốn chưa chọn ngay			/ KHO_sau
@@ -42,6 +31,7 @@ ________________________________________________________________________________
 - 8_276			/ Đăng nhập > đăng nhập lỗi ko báo mà bug ra màn Error		/ sau
 - 9_252			/ UI đăng ký mới chưa có					/ sau
 - 10_264		/ 2.dashboard > chưa có tổng tiền nạp trong tháng		/ field
+- 11_304		/ 4.Ec > chưa validate đầu vào file Import Excel		/ sau_hỏi a Khánh lớn nv
 ============================================================================================================
 - Ec_View Detail Ec	/ màn mở nhanh đang quá rộng					/
 - Ec_View Detail Ec	/ time tăng 1 size						/
@@ -50,3 +40,14 @@ ________________________________________________________________________________
 - PXK			/ view list bỏ đường kẻ cuối
 - Vc			/ view list bỏ đường kẻ cuối
 - Sửa lại KN chi tiết, 	/ x2 màn chi tiết
+Màn khiếu nại:
+ - list		/ chưa chuyển được tab							/ API
+ - view		/ bình luận > chưa có API nói chuyện, gửi phản hồi, list bình luận	/ API
+ - field	/ time đóng đơn, người xử lý						/ API
+ - view	+detail	/ sticky > thông tin ticket bên phải để khi cuộn luôn luôn ở đó		/ sau
+ - tạo đơn	/ validate textField các trường nhập					/ dễ dùng hơn
+-----------------
+ - view		/ hình ảnh > thêm cái modal mở to cái ảnh ra				/ sau
+ - view	+ detail/ khi chỉ có 2 bình luận bỏ cái seeLess đi 				/ ĐANG LÀM...
+ - view Ec,Vc	/ thêm button gửi khiểu nại						/ ĐANG LÀM...
+============================================================================================================
