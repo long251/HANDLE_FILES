@@ -1,6 +1,6 @@
 CTY PCS
 -------
-Ngày cập nhật: 15/10/2024
+Ngày cập nhật: 16/10/2024
 -------------------------
 - hộp bánh danisa					/ vài
 - Cốc thuốc:
@@ -37,8 +37,7 @@ Ngày cập nhật: 15/10/2024
  - Cốc cốc:
 	- [gmail] -> check thư điện tử hàng ngày!
      *[KHÁC]
-	- [Client LMHT] -> cuối tuần chơi lại!
-	- [alagod cá] 	-> check đồ mới hàng ngày!				 -> tối
+	- [alagod cá] 	-> check đồ mới hàng ngày!				 -> thỉnh thoảng
 	- [ITSM] 	-> check lỗi, cập nhật hàng ngày!
 	- [gitlab] 	-> check a Khánh FE cập nhật. Tự Merge lên UAT
 -----------------------------------------------------------------------------------------------------------------
@@ -46,11 +45,8 @@ Ngày cập nhật: 15/10/2024
  - M	-> kẹo cao su	-> xilytol lọ to đùng x1
 -----------------------------------------------------------------------------------------------------------------
 *WORK NHANH:
- - QL2	-> PC	-> đổi mật khẩu máy tính tại nhà từ 1 sang ???
- - 
+ - QL2 -> PC > đổi mật khẩu
  - SX thanh Cốc cốc
  - SX thanh Chrome
- - Xóa LOL tại nhà
- - Zalo	-> lịch hẹn cô Duyên (b chú Khánh) -> X
  - két panda size 50k/1
  - 

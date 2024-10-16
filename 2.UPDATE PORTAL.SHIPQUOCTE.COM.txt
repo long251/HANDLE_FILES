@@ -1,6 +1,6 @@
 UPDATE portal.shipquocte.com
 ----------------------------
-Ngày cập nhật: 15/10/2024 
+Ngày cập nhật: 16/10/2024 
 -------------------------
 - xử lý cài source cho a Dũng lấy code Portal						/ chờ a Hưng cài máy lại
 ------------------------------------------------------------------------------------------------------------
@@ -41,7 +41,6 @@ ________________________________________________________________________________
 - Vc			/ view list bỏ đường kẻ cuối
 - Sửa lại KN chi tiết, 	/ x2 màn chi tiết
 Màn khiếu nại:
- - list		/ chưa chuyển được tab							/ API
  - view		/ bình luận > chưa có API nói chuyện, gửi phản hồi, list bình luận	/ API
  - field	/ time đóng đơn, người xử lý						/ API
  - view	+detail	/ sticky > thông tin ticket bên phải để khi cuộn luôn luôn ở đó		/ sau
@@ -50,4 +49,11 @@ Màn khiếu nại:
  - view		/ hình ảnh > thêm cái modal mở to cái ảnh ra				/ sau
  - view	+ detail/ khi chỉ có 2 bình luận bỏ cái seeLess đi 				/ ĐANG LÀM...
  - view Ec,Vc	/ thêm button gửi khiểu nại						/ ĐANG LÀM...
+*16/10:
+ - họp		/ yêu cầu bỏ cấp độ rank chờ a Đạt duyệt qua				/ a Đạt - chốt
+ - list		/ 
+ - list		/ modal create > validate						/ validate
+ - view		/ ảnh > có nên để full??						/
+ - view		/ bình luận > khi chỉ có đúng 2 thì hãy bỏ seeLess			/
+ - 
 ============================================================================================================
