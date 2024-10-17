@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lịch sử đơn hàng</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+      }
+
+      .container {
+        width: 800px;
+        margin: 40px auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+
+      .header {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 20px;
+        text-align: center;
+        background-color: #f0f0f0;
+        padding: 12px;
+        border-radius: 8px;
+      }
+
+      .timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        position: relative;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 15px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background-color: #d1d5db;
+      }
+
+      .timeline-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        position: relative;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        position: relative;
+        top: 4px;
+        left: 10px;
+      }
+
+      .dot-blue {
+        background-color: #2563eb; /* Màu xanh */
+      }
+
+      .dot-red {
+        background-color: #ef4444; /* Màu đỏ */
+      }
+
+      .content {
+        display: flex;
+        flex-direction: row;
+        gap: 24px;
+      }
+
+      .time {
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .time-red {
+        color: #ef4444; /* Màu đỏ cho thời gian cuối */
+      }
+
+      .time-blue {
+        color: #0b3d5d; /* Màu mặc định cho thời gian khác */
+      }
+
+      .desc {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .image-gallery {
+        display: flex;
+        gap: 24px;
+        margin-top: 8px;
+        flex-wrap: wrap;
+      }
+
+      .image-gallery img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .view-more {
+        font-size: 14px;
+        color: #2563eb;
+        cursor: pointer;
+        margin-top: 4px;
+      }
+
+      .hidden {
+        display: none; /* Ẩn ảnh */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">Lịch sử đơn hàng</div>
+      <div class="timeline">
+        <!-- Item 1 -->
+        <div class="timeline-item">
+          <div class="dot dot-red"></div>
+          <!-- Đổi màu dot thành đỏ -->
+          <div class="content">
+            <div class="time time-red">2024-10-17 15:23 PM</div>
+            <!-- Thay đổi màu thời gian thành đỏ -->
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div class="desc">Giao hàng thành công</div>
+              <div class="image-gallery">
+                <img src="https://via.placeholder.com/60" alt="Ảnh 1" />
+                <img src="https://via.placeholder.com/60" alt="Ảnh 2" />
+                <img src="https://via.placeholder.com/60" alt="Ảnh 3" />
+              </div>
+              <span class="view-more">Xem thêm ảnh</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="timeline-item">
+          <div class="dot dot-blue"></div>
+          <!-- Màu xanh cho dot -->
+          <div class="content">
+            <div class="time time-blue">2024-10-16 12:15 PM</div>
+            <!-- Thay đổi màu thời gian -->
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div class="desc">Đang giao hàng</div>
+              <div class="image-gallery">
+                <img src="https://via.placeholder.com/60" alt="Ảnh 4" />
+              </div>
+              <span class="view-more">Xem thêm ảnh</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

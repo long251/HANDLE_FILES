@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lịch sử đơn hàng</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      width: 800px;
+      margin: 40px auto;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    .header {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 20px;
+      text-align: center;
+      background-color: #f0f0f0;
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background-color: #d1d5db;
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      position: relative;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      position: relative;
+      top: 4px;
+      left: 10px;
+    }
+
+    .dot-blue {
+      background-color: #2563eb;
+    }
+
+    .dot-red {
+      background-color: #ef4444;
+    }
+
+    .content {
+      display: flex;
+      gap: 24px;
+      flex-direction: column;
+    }
+
+    .time {
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .time-red {
+      color: #ef4444;
+    }
+
+    .time-blue {
+      color: #0B3D5D;
+    }
+
+    .desc {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .image-gallery {
+      display: flex;
+      gap: 24px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .image-gallery img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .view-more {
+      font-size: 14px;
+      color: #2563eb;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 400px;
+      text-align: center;
+    }
+
+    .modal-content img {
+      width: 400px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .close-btn {
+      margin-top: 10px;
+      padding: 8px 16px;
+      background-color: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">Lịch sử đơn hàng</div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+
+  <!-- Modal -->
+  <div id="imageModal" class="modal">
+    <div class="modal-content">
+      <img src="" alt="Ảnh mở rộng" id="modalImage">
+      <button class="close-btn" onclick="closeModal()">Đóng</button>
+    </div>
+  </div>
+
+  <script>
+    // Data giả từ API
+    const timelineData = [
+      {
+        time: '2024-10-17 15:23 PM',
+        description: 'Giao hàng thành công',
+        images: ['https://via.placeholder.com/60', 'https://via.placeholder.com/60'],
+        isCompleted: true
+      },
+      {
+        time: '2024-10-16 12:15 PM',
+        description: 'Đang giao hàng',
+        images: ['https://via.placeholder.com/60'],
+        isCompleted: false
+      },
+      {
+        time: '2024-10-15 10:00 AM',
+        description: 'Đã khai thác hàng',
+        images: [],
+        isCompleted: false
+      }
+    ];
+
+    // Render timeline từ data
+    const timelineContainer = document.getElementById('timeline');
+
+    timelineData.forEach((item, index) => {
+      const isLastItem = index === 0;
+
+      const timelineItem = document.createElement('div');
+      timelineItem.className = 'timeline-item';
+
+      const dot = document.createElement('div');
+      dot.className = `dot ${isLastItem ? 'dot-red' : 'dot-blue'}`;
+
+      const content = document.createElement('div');
+      content.className = 'content';
+
+      const time = document.createElement('div');
+      time.className = `time ${isLastItem ? 'time-red' : 'time-blue'}`;
+      time.textContent = item.time;
+
+      const desc = document.createElement('div');
+      desc.className = 'desc';
+      desc.textContent = item.description;
+
+      const gallery = document.createElement('div');
+      gallery.className = 'image-gallery hidden';
+      gallery.id = `gallery-${index}`;
+
+      item.images.forEach((imgSrc) => {
+        const img = document.createElement('img');
+        img.src = imgSrc;
+        img.onclick = () => openModal(img);
+        gallery.appendChild(img);
+      });
+
+      const viewMore = document.createElement('span');
+      viewMore.className = 'view-more';
+      viewMore.textContent = 'Xem thêm ảnh';
+      viewMore.onclick = () => toggleGallery(`gallery-${index}`);
+
+      content.appendChild(time);
+      content.appendChild(desc);
+      content.appendChild(gallery);
+      content.appendChild(viewMore);
+
+      timelineItem.appendChild(dot);
+      timelineItem.appendChild(content);
+      timelineContainer.appendChild(timelineItem);
+    });
+
+    function toggleGallery(galleryId) {
+      const gallery = document.getElementById(galleryId);
+      gallery.classList.toggle('hidden');
+    }
+
+    function openModal(imgElement) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = imgElement.src;
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('imageModal').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 CTY PCS
 -------
-Ngày cập nhật: 16/10/2024
+Ngày cập nhật: 17/10/2024
 -------------------------
 - hộp bánh danisa					/ vài
 - Cốc thuốc:
@@ -15,13 +15,13 @@ Ngày cập nhật: 16/10/2024
 - case máy tính lỏng dây
 - gối cong
 - balo* -> MANG thuốc nâu axit
-- kẹo xilytol x1 hộp -> to, xanh lá 52k			/ hết
+- kẹo xilytol x1 hộp -> to, xanh lá 52k			/ +1 lọ vừa
 - giấy ăn x1 bịch nhỏ					/ 
 - cốc uống nước
 - tai nghe có dây
 - (tai nghe bluetooth)
 - bút bi x3
-- vở ghi						/ hết
+- vở ghi						/ 1 vở 7k
 - iphone*
 - Màn PC (PCS) x2
 - chuột công thái học
@@ -42,7 +42,7 @@ Ngày cập nhật: 16/10/2024
 	- [gitlab] 	-> check a Khánh FE cập nhật. Tự Merge lên UAT
 -----------------------------------------------------------------------------------------------------------------
 *TRIỂN KHAI:
- - M	-> kẹo cao su	-> xilytol lọ to đùng x1
+ - 
 -----------------------------------------------------------------------------------------------------------------
 *WORK NHANH:
  - QL2 -> PC > đổi mật khẩu
