@@ -1,6 +1,6 @@
 UPDATE portal.shipquocte.com
 ----------------------------
-Ngày cập nhật: 17/10/2024 
+Ngày cập nhật: 18/10/2024 
 -------------------------
 - xử lý cài source cho a Dũng lấy code Portal						/ chờ a Hưng cài máy lại
 ------------------------------------------------------------------------------------------------------------
@@ -32,23 +32,11 @@ ________________________________________________________________________________
 - 9_252			/ UI đăng ký mới chưa có					/ sau
 - 10_264		/ 2.dashboard > chưa có tổng tiền nạp trong tháng		/ field
 - 11_304		/ 4.Ec > chưa validate đầu vào file Import Excel		/ sau_hỏi a Khánh lớn nv
-============================================================================================================
-- Sửa lại KN chi tiết, 	/ x2 màn chi tiết
+=============================================================================================================
 Màn khiếu nại:
- - view		/ bình luận > chưa có API nói chuyện, gửi phản hồi, list bình luận	/ API
+ - view		/ bình luận > chưa có API nói chuyện, gửi phản hồi			/ API
  - field	/ time đóng đơn, người xử lý						/ API
  - view	+detail	/ sticky > thông tin ticket bên phải để khi cuộn luôn luôn ở đó		/ sau
- - tạo đơn	/ validate textField các trường nhập					/ dễ dùng hơn
------------------
- - view		/ hình ảnh > thêm cái modal mở to cái ảnh ra				/ sau
- - view	+ detail/ khi chỉ có 2 bình luận bỏ cái seeLess đi 				/ ĐANG LÀM...
-*16/10:
- - họp		/ yêu cầu bỏ cấp độ rank chờ a Đạt duyệt qua				/ a Đạt - chốt
- - list		/ 
- - list		/ modal create > validate						/ validate
- - view		/ ảnh > có nên để full??						/
- - view		/ bình luận > khi chỉ có đúng 2 thì hãy bỏ seeLess			/
- - hiệu suất	/ loading tắt button bên detail Ec					/ hỏi a Khánh bé
 ============================================================================================================
 - view Ec,Vc	/ thêm button gửi khiểu nại						/ xong
 - Ec_View Detail Ec	/ time tăng 1 size						/ 12->13 view,detailEc,Vc
@@ -56,3 +44,9 @@ Màn khiếu nại:
 - Ec_View Detail Ec	/ khoảng cách biến thể hơi xa 'thông tin cá nhân'    / do còn biến thể khác chưa hiển thị
 - Ec,Vc,PXK		/ bỏ đường sticky cuối						/ trao dổi lại a Đạt
 - AccountUser		/ button xóa thay giống địa chỉ					/ thử trước -xấu giữ cũ
+- view	+ detail/ khi chỉ có 2 bình luận bỏ cái seeLess đi 				/ xong thêm bl từ so
+- họp		/ yêu cầu bỏ cấp độ rank chờ a Đạt duyệt qua				/ a Đạt - chốt - xong
+- view		/ ảnh > có nên để full??						/ xong
+- hiệu suất	/ loading tắt button bên detail Ec					/ đi cùng Breadcrumb
+ - view		/ hình ảnh > thêm cái modal mở to cái ảnh ra				/ sau - mua việc
+ - list		/ modal create > validate						/ xong

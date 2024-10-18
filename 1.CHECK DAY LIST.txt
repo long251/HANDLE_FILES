@@ -1,6 +1,6 @@
 CTY PCS
 -------
-Ngày cập nhật: 17/10/2024
+Ngày cập nhật: 18/10/2024
 -------------------------
 - hộp bánh danisa					/ vài
 - Cốc thuốc:
@@ -10,7 +10,7 @@ Ngày cập nhật: 17/10/2024
 	- âu gâu nhỏ x5
 	- (hồ dán khô x1)
 	- kéo nhỏ x1
-- chai nước
+- chai nước						/ lấy chai khác mới sạch vỏ
 - (chai nước ngọt)
 - case máy tính lỏng dây
 - gối cong
@@ -42,7 +42,7 @@ Ngày cập nhật: 17/10/2024
 	- [gitlab] 	-> check a Khánh FE cập nhật. Tự Merge lên UAT
 -----------------------------------------------------------------------------------------------------------------
 *TRIỂN KHAI:
- - 
+ - LẤY	-> chai nước khác x1 sạch vỏ
 -----------------------------------------------------------------------------------------------------------------
 *WORK NHANH:
  - QL2 -> PC > đổi mật khẩu
