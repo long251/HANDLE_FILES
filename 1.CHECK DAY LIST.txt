@@ -1,8 +1,8 @@
 CTY PCS
 -------
-Ngày cập nhật: 18/10/2024
+Ngày cập nhật: 19/10/2024
 -------------------------
-- hộp bánh danisa					/ vài
+- hộp bánh danisa					/ hết
 - Cốc thuốc:
 	- xịt mũi x1					/ vài
 	- nhỏ mũi x1					/ 
@@ -10,6 +10,7 @@ Ngày cập nhật: 18/10/2024
 	- âu gâu nhỏ x5
 	- (hồ dán khô x1)
 	- kéo nhỏ x1
+	- bút bi x2
 - chai nước						/ lấy chai khác mới sạch vỏ
 - (chai nước ngọt)
 - case máy tính lỏng dây
@@ -20,7 +21,7 @@ Ngày cập nhật: 18/10/2024
 - cốc uống nước
 - tai nghe có dây
 - (tai nghe bluetooth)
-- bút bi x3
+- bút bi x1
 - vở ghi						/ 1 vở 7k
 - iphone*
 - Màn PC (PCS) x2
@@ -42,11 +43,10 @@ Ngày cập nhật: 18/10/2024
 	- [gitlab] 	-> check a Khánh FE cập nhật. Tự Merge lên UAT
 -----------------------------------------------------------------------------------------------------------------
 *TRIỂN KHAI:
+ - MANG	-> bánh kẹo lên cty
  - LẤY	-> chai nước khác x1 sạch vỏ
 -----------------------------------------------------------------------------------------------------------------
 *WORK NHANH:
  - QL2 -> PC > đổi mật khẩu
- - SX thanh Cốc cốc
- - SX thanh Chrome
  - két panda size 50k/1
- - 
+ - M -> betta nhà Đức Phạm
