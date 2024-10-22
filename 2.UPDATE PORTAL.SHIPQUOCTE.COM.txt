@@ -1,8 +1,15 @@
 UPDATE portal.shipquocte.com
 ----------------------------
-Ngày cập nhật: 18/10/2024 
+Ngày cập nhật: 22/10/2024 
 -------------------------
 - xử lý cài source cho a Dũng lấy code Portal						/ chờ a Hưng cài máy lại
+Màn khiếu nại:
+ - view		/ bình luận > chưa có API nói chuyện, gửi phản hồi			/ API
+ - field	/ time đóng đơn, người xử lý						/ API
+ - view	+detail	/ sticky > thông tin ticket bên phải để khi cuộn luôn luôn ở đó		/ sau
+Màn import file Ec:
+ - step2	/ thêm bọc sản phẩm
+ - 
 ------------------------------------------------------------------------------------------------------------
 - lọc time 3 tháng	/ giới hạn mọi chỗ lọc time 3 tháng (sửa 3 màn)			/ 90% - còn fix ngày đúng
 ________________________________________________________________________________________________________________
@@ -33,11 +40,6 @@ ________________________________________________________________________________
 - 10_264		/ 2.dashboard > chưa có tổng tiền nạp trong tháng		/ field
 - 11_304		/ 4.Ec > chưa validate đầu vào file Import Excel		/ sau_hỏi a Khánh lớn nv
 =============================================================================================================
-Màn khiếu nại:
- - view		/ bình luận > chưa có API nói chuyện, gửi phản hồi			/ API
- - field	/ time đóng đơn, người xử lý						/ API
- - view	+detail	/ sticky > thông tin ticket bên phải để khi cuộn luôn luôn ở đó		/ sau
-============================================================================================================
 - view Ec,Vc	/ thêm button gửi khiểu nại						/ xong
 - Ec_View Detail Ec	/ time tăng 1 size						/ 12->13 view,detailEc,Vc
 - Ec_View Detail Ec	/ màn mở nhanh đang quá rộng					/

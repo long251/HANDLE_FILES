@@ -1,8 +1,8 @@
 CTY PCS
 -------
-Ngày cập nhật: 19/10/2024
+Ngày cập nhật: 22/10/2024
 -------------------------
-- hộp bánh danisa					/ hết
+- hộp bánh danisa					/ 
 - Cốc thuốc:
 	- xịt mũi x1					/ vài
 	- nhỏ mũi x1					/ 
@@ -43,10 +43,10 @@ Ngày cập nhật: 19/10/2024
 	- [gitlab] 	-> check a Khánh FE cập nhật. Tự Merge lên UAT
 -----------------------------------------------------------------------------------------------------------------
 *TRIỂN KHAI:
- - MANG	-> bánh kẹo lên cty
  - LẤY	-> chai nước khác x1 sạch vỏ
 -----------------------------------------------------------------------------------------------------------------
 *WORK NHANH:
  - QL2 -> PC > đổi mật khẩu
  - két panda size 50k/1
- - M -> betta nhà Đức Phạm
+ - M -> betta nhà Đức Phạm -> xấu vcl xanh blue + full red nhợt nhìn ko lực, cá ko kè nhau nữa chứ :)
+ - 
