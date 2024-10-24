@@ -1,6 +1,6 @@
 UPDATE portal.shipquocte.com
 ----------------------------
-Ngày cập nhật: 22/10/2024 
+Ngày cập nhật: 24/10/2024 
 -------------------------
 - xử lý cài source cho a Dũng lấy code Portal						/ chờ a Hưng cài máy lại
 Màn khiếu nại:
