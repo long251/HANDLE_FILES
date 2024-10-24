@@ -3,34 +3,8 @@ UPDATE portal.shipquocte.com
 Ngày cập nhật: 24/10/2024 
 -------------------------
 - xử lý cài source cho a Dũng lấy code Portal						/ chờ a Hưng cài máy lại
-Màn khiếu nại:
- - view		/ bình luận > chưa có API nói chuyện, gửi phản hồi			/ API
- - field	/ time đóng đơn, người xử lý						/ API
- - view	+detail	/ sticky > thông tin ticket bên phải để khi cuộn luôn luôn ở đó		/ sau
-Màn import file Ec:
- - step2	/ thêm bọc sản phẩm
-Màn khiếu nại:
-- loại type đang chưa đỏ cái ấy nó nhìn ko thống nhất
-- nút update ảnh khi mà đến ảnh thứ 5 chọn lại ảnh cũ kia ko showToast
-- 
-	UI:
-		- view	/ chưa có Loading trang
-		- view	/ reverse map bình luận và chỉ hiển thị time ngày cuối
-		- view	/ chưa neo cột cuối
-		- view	/ thiếu field: time đóng - sale - người xử lý
-		- detail/ như trên
 ------------------------------------------------------------------------------------------------------------
 - lọc time 3 tháng	/ giới hạn mọi chỗ lọc time 3 tháng (sửa 3 màn)			/ 90% - còn fix ngày đúng
-------------------------------------------------------------------------------------------------------------
-Màn khiếu nại:
- - tạo đơn	/ loại khiếu nại đổi thành AutoComplete do validate đang hỏng
- - tạo đơn	/ update ảnh hiện nếu đủ 5 mà chọn tiếp ảnh đó sẽ ko chọn được	/ 1 là disable_2 là logic_3 là ẩn
- - view		/ phản hồi khiếu nại > trim text và validate			/ tiếng việt? giới hạn kí tự
- - view		/ phản hồi khiếu nại > đảo lại và chỉ hiển thị ngày tạo mới	/ xong
- - view		/ phản hồi khiếu nại > hiển thị avatar ==			/ 
- - view		/ thông tin ticket > neo 					/ ko cần cx đc
- - view		/ thông tin ticket > field > time đóng_sale_người xử lý		/ chờ API hoặc hỏi trc
- - 
 ________________________________________________________________________________________________________________
 	TÊN MÀN		/ 			LỖI, ĐIỀU CHỈNH				/ NHẬN XÉT
 *CHUNG:
@@ -71,3 +45,25 @@ ________________________________________________________________________________
 - hiệu suất	/ loading tắt button bên detail Ec					/ đi cùng Breadcrumb
  - view		/ hình ảnh > thêm cái modal mở to cái ảnh ra				/ sau - mua việc
  - list		/ modal create > validate						/ xong
+0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+-Ec > import
+ - thêm bọc bảng dữ liệu sản phẩm		/ chưa ai thấy
+ - Xét 'Ví' mặc định				/ xong
+ - validate chọn tuyến				/ xong
+ - zIndex cái bảng tiếp theo bên dưới		/ xong
+- Vc:
+ - follow theo Skype chị Đào
+	- Import file -> tuyến vận chuyển	/ xong
+	- textField tuyến -> disable ko label	/ xong
+	- chuyển Tải File mẫu lên Breadcrumb	/ 
+	- nội dung hàng dịch trái		/ xong
+	- căn giữa: SL, trọng lượng		/ xong
+- Khiếu nại:
+ - tạo > cái loại thì hãy dùng AutoComplete	/
+ - list > tiêu đề				/ xong
+ - phóng to mọi ảnh				/
+ - ẩn label khi ko có ảnh đính kèm		/ xong
+ - sticky cột bảng trái				/
+ - loading detail; loading list			/
+ - tạo đơn	/ update ảnh hiện nếu đủ 5 mà chọn tiếp ảnh đó sẽ ko chọn được	/ 1 là disable_2 là logic_3 là ẩn
+ - view		/ phản hồi khiếu nại > trim text và validate			/ tiếng việt? giới hạn kí tự
