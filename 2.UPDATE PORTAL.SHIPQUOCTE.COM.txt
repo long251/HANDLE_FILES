@@ -1,6 +1,6 @@
 UPDATE portal.shipquocte.com
 ----------------------------
-Ngày cập nhật: 24/10/2024 
+Ngày cập nhật: 25/10/2024 
 -------------------------
 - xử lý cài source cho a Dũng lấy code Portal						/ chờ a Hưng cài máy lại
 ------------------------------------------------------------------------------------------------------------
@@ -47,6 +47,7 @@ ________________________________________________________________________________
  - list		/ modal create > validate						/ xong
 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 -Ec > import
+ - button import chỉ hiển thị trên step == 1	/ xong - nhưng báo đỏ
  - thêm bọc bảng dữ liệu sản phẩm		/ chưa ai thấy
  - Xét 'Ví' mặc định				/ xong
  - validate chọn tuyến				/ xong
@@ -55,15 +56,18 @@ ________________________________________________________________________________
  - follow theo Skype chị Đào
 	- Import file -> tuyến vận chuyển	/ xong
 	- textField tuyến -> disable ko label	/ xong
-	- chuyển Tải File mẫu lên Breadcrumb	/ 
+	- chuyển Tải File mẫu lên Breadcrumb	/ xong
 	- nội dung hàng dịch trái		/ xong
 	- căn giữa: SL, trọng lượng		/ xong
+	=> xử lý lại UI trong đó nữa selected == 5	/ 
 - Khiếu nại:
- - tạo > cái loại thì hãy dùng AutoComplete	/
+ - giữ time					/ xong
+ - tạo > màu place nhạt hơn			/ xong
+ - tạo > cái loại thì hãy dùng AutoComplete	/ xong
  - list > tiêu đề				/ xong
- - phóng to mọi ảnh				/
+ - phóng to mọi ảnh				/ xong
  - ẩn label khi ko có ảnh đính kèm		/ xong
- - sticky cột bảng trái				/
- - loading detail; loading list			/
+ - sticky cột bảng trái				/ xong
+ - loading detail; loading list			/ xong - ở modal nó ko load mà ăn defined :)
  - tạo đơn	/ update ảnh hiện nếu đủ 5 mà chọn tiếp ảnh đó sẽ ko chọn được	/ 1 là disable_2 là logic_3 là ẩn
  - view		/ phản hồi khiếu nại > trim text và validate			/ tiếng việt? giới hạn kí tự
