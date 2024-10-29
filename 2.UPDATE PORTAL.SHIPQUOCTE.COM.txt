@@ -1,6 +1,6 @@
 UPDATE portal.shipquocte.com
 ----------------------------
-Ngày cập nhật: 25/10/2024 
+Ngày cập nhật: 29/10/2024 
 -------------------------
 - xử lý cài source cho a Dũng lấy code Portal						/ chờ a Hưng cài máy lại
 ------------------------------------------------------------------------------------------------------------
@@ -71,3 +71,16 @@ ________________________________________________________________________________
  - loading detail; loading list			/ xong - ở modal nó ko load mà ăn defined :)
  - tạo đơn	/ update ảnh hiện nếu đủ 5 mà chọn tiếp ảnh đó sẽ ko chọn được	/ 1 là disable_2 là logic_3 là ẩn
  - view		/ phản hồi khiếu nại > trim text và validate			/ tiếng việt? giới hạn kí tự
+0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+**KHIẾU NẠI:
+*portal.shipquocte.com
+! list		/ nên neo cột cuối do check ứng với id các thứ
+*cc.shipquocte.com
+- list		/ icon mở lịch thêm cursor pointer
+- list		/ loại KN > chưa có label khởi tạo
+- list		/ tìm kiếm > chưa có
+- tab		/ khi mà search loại KN thì chỉ số tab chưa chuyển status=2
+- list		/ chưa có Sale hỗ trợ__người tạo__người cập nhật
+- view + detail	/ đang load lại toàn bộ trang => chỉ cần load 
+- view + detail	/ bỏ tăng giảm, khi nhập validate , phần nghìn
+- 

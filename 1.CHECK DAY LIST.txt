@@ -1,11 +1,11 @@
 CTY PCS
 -------
-Ngày cập nhật: 25/10/2024
+Ngày cập nhật: 29/10/2024
 -------------------------
-- hộp bánh danisa					/ 
+- hộp bánh danisa					/ vài
 - Cốc thuốc:
 	- xịt mũi x1					/ vài
-	- nhỏ mũi x1					/ 
+	- nhỏ mũi x1					/ vài
 	- thuốc đỏ nhỏ x1
 	- âu gâu nhỏ x5
 	- (hồ dán khô x1)
@@ -16,8 +16,8 @@ Ngày cập nhật: 25/10/2024
 - case máy tính lỏng dây
 - gối cong
 - balo* -> MANG thuốc nâu axit
-- kẹo xilytol x1 hộp -> to, xanh lá 52k			/ +1 lọ vừa
-- giấy ăn x1 bịch nhỏ					/ 
+- kẹo xilytol x1 hộp -> to, xanh lá 52k			/ vài
+- giấy ăn x1 bịch nhỏ					/ 	hết
 - cốc uống nước
 - tai nghe có dây
 - (tai nghe bluetooth)
@@ -43,10 +43,12 @@ Ngày cập nhật: 25/10/2024
 	- [gitlab] 	-> check a Khánh FE cập nhật. Tự Merge lên UAT
 -----------------------------------------------------------------------------------------------------------------
 *TRIỂN KHAI:
- - LẤY	-> chai nước khác x1 sạch vỏ
+ - M	-> chai nước khác x1 sạch vỏ	x1
+ - M	-> kẹo cao su hộp to đùng 	x1
+ - LẤY	-> giấy ăn			x2
 -----------------------------------------------------------------------------------------------------------------
 *WORK NHANH:
- - QL2 -> PC > đổi mật khẩu
  - két panda size 50k/1
  - M -> betta nhà Đức Phạm -> xấu vcl xanh blue + full red nhợt nhìn ko lực, cá ko kè nhau nữa chứ :)
+ - M -> betta nhà Đức Phạm -> 27/10 cập nhật list mới ==> lên rồi còn toàn lại rất ít
  - 

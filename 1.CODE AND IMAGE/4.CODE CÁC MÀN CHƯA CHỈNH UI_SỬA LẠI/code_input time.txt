@@ -1,0 +1,69 @@
+  const handleInputDate = (event: any) => {
+    setDateInputValue(event.target.value);
+  };
+  
+  // Hàm xử lý khi nhấn Enter
+  const handleKeyPress = (event: any) => {
+    if (event.key === 'Enter') {
+      processDates();
+    }
+  };
+  
+  // Hàm xử lý khi mất tiêu điểm (blur)
+  const handleBlur = () => {
+    processDates();
+  };
+  
+  // Hàm xử lý và gọi API
+  const processDates = () => {
+    const splitDate = dateInputValue.split(' - ');
+    const startDateStr = splitDate[0];
+    const endDateStr = splitDate[1];
+  
+    const startDate = moment(startDateStr, 'DD/MM/yyyy');
+    const endDate = moment(endDateStr, 'DD/MM/yyyy');
+  
+    if (startDate.isValid() && endDate.isValid()) {
+      const formattedStartDate = startDate.format('DD/MM/yyyy');
+      const formattedEndDate = endDate.format('DD/MM/yyyy');
+  
+      // Cập nhật URL
+      updateUrl('fromDate', formattedStartDate);
+      updateUrl('toDate', formattedEndDate);
+      setPage(1);
+      updateUrl('page', '1');
+  
+      // Gọi API với định dạng ngày chính xác
+      debounceFetchDataFun({
+        accountId: '',
+        fromDate: startDate.toDate(),
+        toDate: endDate.add(1, 'd').toDate(),
+        status: getStatusByType(activeTab),
+        pageIndex: 1,
+        pageSize: pageSize,
+      });
+    } else {
+      showToast('Ngày không hợp lệ. Vui lòng kiểm tra lại!', 'error');
+    }
+  };
+  
+  // Hàm áp dụng khoảng thời gian ngày
+  const applyDateRange = (startDate: any, endDate: any) => {
+    let startDateStr = moment(startDate).format('DD/MM/yyyy');
+    let endDateStr = moment(endDate).format('DD/MM/yyyy');
+    setDateInputValue(`${startDateStr} - ${endDateStr}`);
+    updateUrl('fromDate', startDateStr);
+    updateUrl('toDate', endDateStr);
+    setPage(1);
+    updateUrl('page', '1');
+    setDateRangeActive(false);
+  
+    debounceFetchDataFun({
+      accountId: '',
+      fromDate: startDateStr,
+      toDate: endDateStr,
+      status: getStatusByType(activeTab),
+      pageIndex: 1,
+      pageSize: pageSize,
+    });
+  };

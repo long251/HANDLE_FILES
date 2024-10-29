@@ -1,6 +1,6 @@
 TRICK NOTE UI
 -------------
-Ngày cập nhật: 10/10/2024
+Ngày cập nhật: 28/10/2024
 -------------------------
 
 I. Giao diện: FE, html, css
@@ -97,6 +97,6 @@ b6: khi đã cập nhật xong nó đẩy lại về UI cập nhật dữ liệu
 => Xem kĩ hơn ở code
 ----------------------------------------------------------------------------------------------------------------
 *Build chương trình với trình ENV
-env
-run build
-preview
+env => từ development sang production
+run build => yarn build
+preview => yarn preview
