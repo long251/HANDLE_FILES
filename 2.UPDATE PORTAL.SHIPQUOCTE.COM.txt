@@ -1,6 +1,6 @@
 UPDATE portal.shipquocte.com
 ----------------------------
-Ngày cập nhật: 29/10/2024 
+Ngày cập nhật: 30/10/2024 
 -------------------------
 - xử lý cài source cho a Dũng lấy code Portal						/ chờ a Hưng cài máy lại
 ------------------------------------------------------------------------------------------------------------
@@ -83,4 +83,21 @@ ________________________________________________________________________________
 - list		/ chưa có Sale hỗ trợ__người tạo__người cập nhật
 - view + detail	/ đang load lại toàn bộ trang => chỉ cần load 
 - view + detail	/ bỏ tăng giảm, khi nhập validate , phần nghìn
-- 
+0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+*Cập nhật Route, URL:
+=> đi từ dưới lên:
+ - website mua hàng	/ route (tab), page
+ - xử lý KN (uat)	/ tab, page, time
+ - lịch sử giao dịch	/ time, route, page				/ ĐANG LÀM...SAU
+ - Ví SQT		/ page, time
+ - tra cứu tracking	/ đang lấy ko có url
+ - danh sách PXK	/ code px, codeTracking, time, route, page	/ ĐANG LÀM...
+ - Vc			/						/ ĐANG LÀM...
+ - Ec			/ 						/ ĐANG LÀM...
+ - shopping		/ từ từ
+ - dashboard		/ ko có gì
+*Cập nhật UI Xử lý khiếu nại:
+ - bình luận đang bị unikey, bị giới hạn		/ xong
+ - top 10 phản hồi thay vì 2 rồi sẽ có 'see more'	/ xong
+ - showToast => gửi phản hồi thành công			/ xong
+ - không giới hạn chiều KN (phần bình luận)		/ xong
