@@ -1,8 +1,8 @@
 CTY PCS
 -------
-Ngày cập nhật: 30/10/2024
+Ngày cập nhật: 31/10/2024
 -------------------------
-- hộp bánh danisa					/ vài
+- hộp bánh danisa					/ ít -> MANG
 - Cốc thuốc:
 	- xịt mũi x1					/ vài
 	- nhỏ mũi x1					/ vài
@@ -11,11 +11,11 @@ Ngày cập nhật: 30/10/2024
 	- (hồ dán khô x1)
 	- kéo nhỏ x1
 	- bút bi x1
-- chai nước						/ 
+- chai nước						/ vài
 - (chai nước ngọt)
 - case máy tính lỏng dây
 - gối cong
-- balo* -> MANG thuốc nâu axit
+- balo* -> MANG thuốc nâu axit				/ MANG -> nâu tọa
 - kẹo xilytol x1 hộp -> to, xanh lá 52k			/ hết
 - giấy ăn x1 bịch nhỏ					/ +1
 - cốc uống nước
@@ -43,7 +43,8 @@ Ngày cập nhật: 30/10/2024
 	- [gitlab] 	-> check a Khánh FE cập nhật. Tự Merge lên UAT
 -----------------------------------------------------------------------------------------------------------------
 *TRIỂN KHAI:
+ - MANG	-> bánh kẹo lên cty		x vài
  - M	-> kẹo cao su hộp to đùng 	x1
 -----------------------------------------------------------------------------------------------------------------
-*WORK NHANH:
+*WORK:
  - 

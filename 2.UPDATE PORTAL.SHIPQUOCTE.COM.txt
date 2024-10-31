@@ -1,6 +1,6 @@
 UPDATE portal.shipquocte.com
 ----------------------------
-Ngày cập nhật: 30/10/2024 
+Ngày cập nhật: 31/10/2024 
 -------------------------
 - xử lý cài source cho a Dũng lấy code Portal						/ chờ a Hưng cài máy lại
 ------------------------------------------------------------------------------------------------------------
@@ -76,7 +76,6 @@ ________________________________________________________________________________
 *portal.shipquocte.com
 ! list		/ nên neo cột cuối do check ứng với id các thứ
 *cc.shipquocte.com
-- list		/ icon mở lịch thêm cursor pointer
 - list		/ loại KN > chưa có label khởi tạo
 - list		/ tìm kiếm > chưa có
 - tab		/ khi mà search loại KN thì chỉ số tab chưa chuyển status=2
@@ -88,14 +87,14 @@ ________________________________________________________________________________
 => đi từ dưới lên:
  - website mua hàng	/ route (tab), page
  - xử lý KN (uat)	/ tab, page, time
- - lịch sử giao dịch	/ time, route, page				/ ĐANG LÀM...SAU
+ - lịch sử giao dịch	/ time, route, page				/ còn page, type chưa chuyển ra hàm
  - Ví SQT		/ page, time
  - tra cứu tracking	/ đang lấy ko có url
- - danh sách PXK	/ code px, codeTracking, time, route, page	/ ĐANG LÀM...
- - Vc			/						/ ĐANG LÀM...
- - Ec			/ 						/ ĐANG LÀM...
- - shopping		/ từ từ
- - dashboard		/ ko có gì
+ - danh sách PXK	/ code px, codeTracking, time, route, tab, page	/ ĐANG LÀM...	còn mã code
+ - Vc			/ code đơn, codeTracking, time, tab, page	/ ĐANG LÀM...	còn mã code
+ - Ec			/ 						/ ĐANG LÀM...	còn mã code
+ - shopping		/ từ từ				/ ko cho navi
+ - dashboard		/ ko có gì			/ ko cho navi
 *Cập nhật UI Xử lý khiếu nại:
  - bình luận đang bị unikey, bị giới hạn		/ xong
  - top 10 phản hồi thay vì 2 rồi sẽ có 'see more'	/ xong
