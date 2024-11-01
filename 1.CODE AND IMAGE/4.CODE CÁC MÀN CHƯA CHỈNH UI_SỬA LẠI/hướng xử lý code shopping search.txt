@@ -1,0 +1,97 @@
+<Route
+  path='/shopping/search'
+  element={
+    <ErrorBoundary FallbackComponent={ErrorComponent}>
+      <ShoppingSearch />
+    </ErrorBoundary>
+  }
+/>
+========================================================
+import { useNavigate } from 'react-router-dom';
+
+const Shopping = () => {
+  const navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
+
+  const handleSearchNavigate = () => {
+    if (searchValue) {
+      navigate(`/shopping/search?keyword=${encodeURIComponent(searchValue)}`);
+    }
+  };
+
+  return (
+    <Page
+      primaryAction={
+        <div
+          className={'HomeSearch'}
+          tabIndex={0}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' && searchValue) {
+              handleSearchNavigate();
+            }
+          }}
+        >
+          {/* ... (Giữ nguyên các phần khác) */}
+          <TextField
+            value={searchValue}
+            onChange={(value) => setSearchValue(value)}
+            onClearButtonClick={() => setSearchValue('')}
+            placeholder={'Nhập tìm kiếm sản phẩm'}
+          />
+          {/* Các phần liên quan đến suggestions */}
+        </div>
+      }
+    />
+  );
+=====================================================
+import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Page } from 'pcs-polaris';
+
+const ShoppingSearch = () => {
+  const [searchData, setSearchData] = useState([]);
+  const [loadingSearch, setLoadingSearch] = useState(false);
+  const [searchParams] = useSearchParams();
+  const keyword = searchParams.get('keyword') || '';
+
+  useEffect(() => {
+    if (keyword) {
+      setLoadingSearch(true);
+      shopApiClient
+        .get(`/api/ebay/search-products?keyword=${encodeURIComponent(keyword)}`)
+        .then((response) => {
+          const items = response.data.items;
+          setSearchData(Array.isArray(items) ? items : []);
+        })
+        .catch((e) => console.error(e))
+        .finally(() => setLoadingSearch(false));
+    }
+  }, [keyword]);
+
+  return (
+    <Page title={`Kết quả tìm kiếm cho "${keyword}"`}>
+      {loadingSearch ? (
+        <Spinner accessibilityLabel='Đang tải' size='large' />
+      ) : (
+        <div>
+          {searchData.length ? (
+            searchData.map((item, index) => (
+              <div key={index}>
+                {/* Render kết quả tìm kiếm */}
+                {item.name}
+              </div>
+            ))
+          ) : (
+            <div>Không tìm thấy kết quả nào.</div>
+          )}
+        </div>
+      )}
+    </Page>
+  );
+};
+
+export default ShoppingSearch;
+
+};
