@@ -1,0 +1,46 @@
+WORK UI
+-------
+Ngày cập nhật: 04/11/2024
+-------------------------
+**portal.shipquocte.com
+ƯU TIÊN:
+- lọc time	/ các màn ví, lịch sử, KN				/ điều chỉnh 1s, fix về ngày đúng trc nhập
+- UI: shopping	/ shopping/search > tách riêng, trả kết quả tìm kiếm,url/ shopping/search?keyword=
+====================================================================================================================
+*cc.shipquocte.com
+- filter	/ loại KN > chưa có label khởi tạo (tất cả) từ ban đầu
+- filter	/ tìm kiếm > chưa có API
+- xuất file	/ chưa có API
+- button > cột	/ chưa làm
+- checkbox	/ hỏi lại a Đạt sau khi xong hết
+- refresh route	/ nhấp lại xóa hết dữ liệu tìm kiếm? Đang gặp khó trong filter: khách hàng do ko lưu url
+- 
+====================================================================================================================
+VIỆC CHUNG:
+- field		/ tổng tiền nạp trong tháng > 2.dash_8.Ví_9.Lịch sử	/ chưa có từ API
+- xóa log	/ rà soát dần dần					/ tìm kiếm
+====================================================================================================================
+SAU:
+- xử lý cài source cho a Dũng lấy code Portal về để review				/ xử lý khi được yêu cầu
+- header_IconCollap	/ kẻ dọc 1 đường bên dưới hình tròn này để cho nó có nét riêng	/ sau
+- header_search		/ chưa có yc sửa lại, chỉ đang search 1 mã tracking ra lịch sử	/ sau
+- header_IconNotifica	/ chưa có yc							/ sau
+- navbar_border		/ chưa chia cắt như figma được					/ KHÓ_sau
+- navbar_border		/ đang chọn ngay mà yc muốn chưa chọn ngay			/ KHO_sau
+- 2.dashboard_4 bảng	/ chưa đều nhau, đang sử dụng thư viện (grid) mà ko ai care lắm	/ sau
+- 4.Ec_create1		/ TextField tăng size từ 36->40px				/ sau_ko quá qt
+====================================================================================================================
+ITSM:
+- 163	/ footer	/ chưa có link câu hỏi thường gặp
+- 164	/ footer	/ chưa có link điều khoản quy định
+- 284	/ 4.Ec > create	/ upload ảnh đang cho nhiều hơn 6 (sai vs figma)
+- 246	/ 2.dashboard	/ dữ liệu đơn hàng gần đây ko đúng (sai vì chỉ lấy đơn mới)
+- 276	/ login		/ đăng nhập lỗi khi đúng tk (sai vì nó bị bung ra trang logout)
+- 252	/ login		/ thiết kế ko giống figma (sai vì đang lấy portal cũ đăng nhập)
+- 264	/ tổng tiền nạp	/ field: tổng tiền nạp trong tháng (sai vì ko có dữ liệu)
+- 304	/ 4.Ec > import	/ chưa validate dữ liệu từ file excel
+====================================================================================================================
+LƯU Ý:
+- lọc time 3th	/ giới hạn time tịnh tiến 3 tháng: Ec, Vc, PXK		/ đang fix về ngày đúng trước
+- lọc time_chung/ đang bị lệch thừa 1 ngày quá khứ			/ nhắm mắt cho qua
+
