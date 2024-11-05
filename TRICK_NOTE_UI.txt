@@ -1,6 +1,6 @@
 TRICK NOTE UI
 -------------
-Ngày cập nhật: 28/10/2024
+Ngày cập nhật: 05/11/2024
 -------------------------
 
 I. Giao diện: FE, html, css
@@ -100,3 +100,17 @@ b6: khi đã cập nhật xong nó đẩy lại về UI cập nhật dữ liệu
 env => từ development sang production
 run build => yarn build
 preview => yarn preview
+----------------------------------------------------------------------------------------------------------------
+*Merge code từ cc.shipquocte.com
+-> từ nhánh mình:
+- git checkout develop
+- git pull origin develop
+- git checkout longddq1
+- git merge develop
+...tiếp tục code
+- git status
+- git add <file_name>
+- git commit -m'text'
+- git push origin longddq1
+- cuối: báo cáo merge lên develop => lặp lại b1
+
