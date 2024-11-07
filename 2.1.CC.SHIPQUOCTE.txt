@@ -1,9 +1,11 @@
+Ngày cập nhật: 07/11/2024
 ====================================================================================================================
 TIẾP NHẬN YÊU CẦU:
-- tách Modal	/ tách riêng Modal ra và dùng lại			/ KHÓ !!			/	1
+- tách Modal	/ tách riêng Modal ra và dùng lại			/ KHÓ !!			/ ĐANG LÀM...
 - Màn phản hồi	/ Action bỏ đi, tạo > loại p hồi gì?			/ chờ a Đạt			/ báo tùng
-- Màn phải hồi	/ ghép list						/ ĐANG LÀM...			/ báo tùng
-- ds menu	/ như po2						/ theo tab			/ chờ chốt
+- Màn phải hồi	/ ghép list						/ ĐANG LÀM...			/ ĐANG LÀM...
+- ds menu	/ như po2						/ theo tab			/ a Khánh
+- filter	/ 'Khách hàng' đang sai ở x2 màn			/ báo tùng			/ ĐANG LÀM...
 *cc.shipquocte.com
 - xóa log										/rà soát kĩ lại
 - clear button	/							/ sau
@@ -11,12 +13,15 @@ TIẾP NHẬN YÊU CẦU:
 CHUNG:
 - search tổng	/							/ chờ chốt
 --------------------
+1.dashboard:
+- khi đang ở s1 nếu nhấn checkbox bồi thg ko cho đóng			/ sau khi merge
 2.quản lý khiếu nại:
+- field: khách hàng							/ đang sai ko gọi API, keyword = ''
 - filter	/ tìm kiếm API						/ chưa có
 - xuất file	/ chưa có API						/ sau
 - button	/ cột							/ sau
 - checkbox	/ hỏi lại a Đạt						/ sau
-- refresh route								/ sau
+- refresh route								/ KHÓ do chưa có đủ cập nhật url
 -------------------
 3. quản lý chi phí:
 - field: khách hàng							/ đang sai ko gọi API, keyword = ''
@@ -29,3 +34,5 @@ CHUNG:
 - phân hệ hiển thị bao nhiêu bản ghi					/ show
 - tiêu đề	/ => nội dung rút gọn cả phần ghi nhận phản hồi		/ xong
 - Màn phản hồi	/ tạo mới						/ xong
+- dashboard	/ tiêu đề => nội dung rút gọn				/ xong
+
