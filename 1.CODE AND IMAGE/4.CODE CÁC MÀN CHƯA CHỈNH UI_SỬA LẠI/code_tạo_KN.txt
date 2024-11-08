@@ -1,0 +1,522 @@
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../store';
+import { Autocomplete, LegacyStack, Modal, Spinner, TextField } from 'pcs-polaris';
+import { modalAction } from '../../store/reducers/modalReducer';
+import { IconUploadImage, IconXEc } from '../../pages/Ecommerce/IconEcommerce';
+import CustomAutocomplete from '../CustomAutocomplete';
+import { complaintAction } from '../../store/reducers/complaintReducer';
+import { apiClient } from '../../utils/api';
+import { clearToast, showToast } from '../../helpers/toast';
+import { useNavigate } from 'react-router-dom';
+import { IconDropArrow } from '../../pages/Complaint/IconComplaint';
+
+type Props = {
+  data: {
+    orderCode: string;
+    callback(): void;
+  };
+};
+const CreateComplaintModal = (props: Props) => {
+  const dispatch = useDispatch();
+  const modalState = useSelector((state: AppState) => state.modal);
+  ////////////////////////////////////////////////////////////////////////////////////////
+  // combo box
+  const complaintState = useSelector((state: AppState) => state.complaint);
+  const [selectedType, setSelectedType] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string>('');
+  const [typeOptions, setTypeOptions] = useState<{ label: string; value: string }[]>([]);
+
+  useEffect(() => {
+    dispatch(complaintAction.fetchType());
+  }, []);
+  useEffect(() => {
+    const options =
+      complaintState?.type.map((item) => ({
+        label: item.complaintName,
+        value: item.complaintId.toString(),
+      })) || [];
+    setTypeOptions(options);
+  }, [complaintState]);
+
+  const handleSelect = (selected: string[]) => {
+    const selectedValue = selected[0] || '';
+    setSelectedType(selectedValue);
+
+    const selectedLabel = typeOptions.find((option) => option.value === selectedValue)?.label || '';
+    setInputValue(selectedLabel);
+
+    setErrors((prev) => ({
+      ...prev,
+      selectedType: selectedValue ? '' : 'Vui lòng chọn loại khiếu nại',
+    }));
+  };
+
+  const handleInputChange = (value: string) => {
+    setInputValue(value);
+    setSelectedType('');
+
+    setErrors((prev) => ({
+      ...prev,
+      selectedType: value ? '' : 'Vui lòng chọn loại khiếu nại',
+    }));
+
+    // Lọc danh sách theo từ khóa
+    if (value) {
+      const filteredOptions = complaintState?.type
+        .filter((item) => item.complaintName.toLowerCase().includes(value.toLowerCase()))
+        .map((item) => ({
+          label: item.complaintName,
+          value: item.complaintId.toString(),
+        }));
+      setTypeOptions(filteredOptions);
+    } else {
+      setTypeOptions(
+        complaintState?.type.map((item) => ({
+          label: item.complaintName,
+          value: item.complaintId.toString(),
+        })) || [],
+      );
+    }
+  };
+
+  // hình ảnh------------------------------------------------------------
+  const [uploadedImageUrls, setUploadedImageUrls] = useState<string[]>([]);
+  const [loadingImages, setLoadingImages] = useState<boolean[]>([]);
+  // loading upload
+  const [isLoading, setIsLoading] = useState(false);
+
+  const uploadFile = async (file: File) => {
+    let url = '';
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const response = await apiClient.post('api/File/UploadFile', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.data.status) {
+        url = response.data.fullUrl;
+      } else {
+        showToast('Upload file thất bại', 'error');
+      }
+    } catch (e) {
+      console.error(e);
+      showToast('Có lỗi xảy ra khi upload file', 'error');
+    }
+    return url;
+  };
+
+  // const handleUploadImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (!event.target.files) return;
+
+  //   const files = Array.from(event.target.files);
+  //   if (uploadedImageUrls.length + files.length > 5) {
+  //     showToast('Bạn chỉ được chọn tối đa 5 ảnh', 'error');
+  //     return;
+  //   }
+  //   setIsLoading(true);
+  //   // Reset loading state for each new batch of images
+  //   const newLoadingImages = files.map(() => true);
+  //   setLoadingImages((prevLoading) => [...prevLoading, ...newLoadingImages]);
+
+  //   for (let i = 0; i < files.length; i++) {
+  //     const file = files[i];
+  //     const imageUrl = await uploadImage(file);
+  //     if (imageUrl) {
+  //       setUploadedImageUrls((prevUrls) => [...prevUrls, imageUrl]);
+  //     }
+  //     setLoadingImages((prevLoading) => {
+  //       const updatedLoading = [...prevLoading];
+  //       updatedLoading[uploadedImageUrls.length + i] = false;
+  //       return updatedLoading;
+  //     });
+  //   }
+  //   setIsLoading(false);
+  //   event.target.value = '';
+  // };
+  const [uploadedVideoUrls, setUploadedVideoUrls] = useState<string[]>([]);
+  const [loadingVideos, setLoadingVideos] = useState<boolean[]>([]);
+  const handleUploadFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return;
+    const files = Array.from(event.target.files);
+    const totalFiles = uploadedImageUrls.length + uploadedVideoUrls.length + files.length;
+    if (totalFiles > 5) {
+      showToast('Bạn chỉ được chọn tối đa 5 tệp', 'error');
+      return;
+    }
+    setIsLoading(true);
+    const newLoadingFiles = files.map(() => true);
+    setLoadingImages((prevLoading) => [...prevLoading, ...newLoadingFiles]);
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      // Kiểm tra nếu là video và vượt quá 50MB
+      if (file.type.startsWith('video') && file.size > 50 * 1024 * 1024) {
+        showToast('Dung lượng tối đa cho mỗi video là 50MB', 'error');
+        continue;
+      }
+      const fileUrl = await uploadFile(file);
+      if (fileUrl) {
+        if (file.type.startsWith('image')) {
+          setUploadedImageUrls((prevUrls) => [...prevUrls, fileUrl]);
+        } else if (file.type.startsWith('video')) {
+          setUploadedVideoUrls((prevUrls) => [...prevUrls, fileUrl]);
+        }
+      }
+      setLoadingImages((prevLoading) => {
+        const updatedLoading = [...prevLoading];
+        updatedLoading[uploadedImageUrls.length + i] = false;
+        return updatedLoading;
+      });
+    }
+    setIsLoading(false);
+    event.target.value = '';
+  };
+  const handleRemoveImage = (index: number) => {
+    setUploadedImageUrls((prevUrls) => prevUrls.filter((_, i) => i !== index));
+    setLoadingImages((prevLoading) => prevLoading.filter((_, i) => i !== index));
+  };
+  const handleRemoveVideo = (index: number) => {
+    setUploadedVideoUrls((prevUrls) => prevUrls.filter((_, i) => i !== index));
+    setLoadingVideos((prevLoading) => prevLoading.filter((_, i) => i !== index));
+  };
+  const [modalVisible, setModalVisible] = useState(false);
+  ////////////////////////////////////////////////////////////////////////////////////////
+  //error
+  const [errors, setErrors] = useState({
+    codeComplaint: '',
+    selectedType: '',
+    // title: 'test',
+    content: '',
+  });
+  //handle create complaint
+  const navigate = useNavigate();
+  const validateFields = () => {
+    const newErrors: typeof errors = {
+      codeComplaint: codeComplaint ? '' : 'Vui lòng nhập mã đơn hàng',
+      selectedType: selectedType ? '' : 'Vui lòng chọn loại khiếu nại',
+      // title: title ? '' : 'Vui lòng nhập tiêu đề',
+      content: content ? '' : 'Vui lòng nhập nội dung khiếu nại',
+    };
+
+    setErrors(newErrors);
+    return Object.values(newErrors).every((error) => !error);
+  };
+  //
+  const handleSubmit = () => {
+    if (validateFields()) {
+      // Handle create complaint logic
+      console.log('Complaint submitted');
+      props.data.callback();
+      navigate('/success');
+    }
+  };
+  const handleCreateComplaint = async () => {
+    if (!validateFields()) {
+      clearToast();
+      showToast('Vui lòng nhập đầy đủ dữ liệu', 'error');
+      return;
+    }
+    const isValidType = typeOptions.some((option) => option.value === selectedType);
+    if (!isValidType) {
+      clearToast();
+      showToast('Vui lòng chọn đúng loại khiếu nại', 'error');
+      return;
+    }
+    const combinedMediaUrls = [...uploadedImageUrls, ...uploadedVideoUrls];
+    const payload = {
+      refNo: codeComplaint,
+      complaintTypeId: parseInt(selectedType, 10),
+      // complaintTitle: title,
+      complaintTitle: 'test',
+      complaintDetails: content,
+      images: combinedMediaUrls,
+    };
+
+    try {
+      const response = await apiClient.post('/api/Feedback/AddComplaint', payload);
+      if (response.data.status) {
+        showToast('Gửi khiếu nại thành công', 'success');
+        dispatch(modalAction.closeModal());
+        if (location.pathname === '/xu-ly-khieu-nai') {
+          props.data.callback();
+        } else {
+          navigate('/xu-ly-khieu-nai');
+        }
+      } else {
+        showToast('Gửi khiếu nại thất bại', 'error');
+      }
+    } catch (error) {
+      console.error('Lỗi khi gửi khiếu nại:', error);
+      showToast('Đã xảy ra lỗi khi gửi khiếu nại', 'error');
+    }
+  };
+
+  const [codeComplaint, setCodeComplaint] = useState<string>(props.data.orderCode || '');
+  const isCodeEditable = !props.data.orderCode;
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  return (
+    <div className='Modal_Complaint'>
+      <Modal
+        open={modalState.open}
+        onClose={() => dispatch(modalAction.closeModal())}
+        title={modalState.title}
+        primaryAction={{
+          content: 'Gửi khiếu nại',
+          onAction: handleCreateComplaint, // chờ API tạo khiếu nại
+        }}
+        secondaryActions={[
+          {
+            content: 'Hủy',
+            onAction() {
+              dispatch(modalAction.closeModal());
+            },
+          },
+        ]}
+      >
+        <Modal.Section>
+          <LegacyStack vertical>
+            <LegacyStack.Item>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div className='TextField_Complaint'>
+                    <TextField
+                      label={'Mã đơn hàng/Tracking'}
+                      requiredIndicator
+                      autoComplete={'off'}
+                      // onChange={(value) => setCodeComplaint(value)}
+                      onChange={(value) => {
+                        setCodeComplaint(value);
+                        if (errors.codeComplaint) {
+                          setErrors((prev) => ({ ...prev, codeComplaint: '' }));
+                        }
+                      }}
+                      value={codeComplaint}
+                      placeholder='Nhập mã đơn hàng'
+                      disabled={!isCodeEditable}
+                      error={errors.codeComplaint}
+                    />
+                  </div>
+                  {/* {options.length > 1 ? (
+                    <div style={{ position: 'relative' }}>
+                      <CustomAutocomplete
+                        id='ComplaintRoute'
+                        //@ts-ignore
+                        label={
+                          <div>
+                            Loại khiếu nại<span style={{ color: '#A91116', marginLeft: '2px' }}>*</span>
+                          </div>
+                        }
+                        allOptions={options}
+                        selected={selectedType}
+                        onSelect={(value) => {
+                          setSelectedType(value);
+                          if (errors.selectedType) {
+                            setErrors((prev) => ({ ...prev, selectedType: '' }));
+                          }
+                        }}
+                      />
+                      {errors.selectedType && (
+                        <div style={{ color: '#d72c0d', marginTop: '4px', fontSize: '14px' }}>
+                          {errors.selectedType}
+                        </div>
+                      )}
+                    </div>
+                  ) : null} */}
+                  <div className='TextField_Complaint'>
+                    <Autocomplete
+                      options={typeOptions}
+                      selected={[selectedType]}
+                      onSelect={handleSelect}
+                      textField={
+                        <Autocomplete.TextField
+                          label={
+                            <div>
+                              Loại khiếu nại<span style={{ color: '#A91116', marginLeft: '2px' }}>*</span>
+                            </div>
+                          }
+                          value={inputValue}
+                          onChange={handleInputChange}
+                          error={errors.selectedType}
+                          placeholder='Chọn loại khiếu nại'
+                          suffix={<IconDropArrow />}
+                          autoComplete='off'
+                        />
+                      }
+                    />
+                  </div>
+
+                  {/* <div className='TextField_Complaint'>
+                    <TextField
+                      label={'Tiêu đề'}
+                      requiredIndicator
+                      autoComplete={'off'}
+                      // onChange={(value) => setTitle(value)}
+                      onChange={(value) => {
+                        setTitle(value);
+                        if (errors.title) {
+                          setErrors((prev) => ({ ...prev, title: '' }));
+                        }
+                      }}
+                      value={title}
+                      placeholder='Nhập nội dung'
+                      error={errors.title}
+                    />
+                  </div> */}
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                  <div className='TextField_Complaint_Content'>
+                    <TextField
+                      label={'Nội dung khiếu nại'}
+                      requiredIndicator
+                      autoComplete={'off'}
+                      // onChange={(value) => setContent(value)}
+                      onChange={(value) => {
+                        setContent(value);
+                        if (errors.content) {
+                          setErrors((prev) => ({ ...prev, content: '' }));
+                        }
+                      }}
+                      value={content}
+                      placeholder='Nhập nội dung khiếu nại'
+                      multiline={4}
+                      error={errors.content}
+                    />
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
+                    <div style={{ fontWeight: '700' }}>Hình ảnh và video đính kèm</div>
+                    {isLoading ? (
+                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <Spinner size='small' />
+                      </div>
+                    ) : (
+                      // <>
+                      //   <input
+                      //     type='file'
+                      //     multiple
+                      //     // accept='image/jpeg, image/png, image/gif, image/jpg'
+                      //     accept="image/*, video/mp4"
+                      //     onChange={handleUploadFile}
+                      //     style={{ display: 'none' }}
+                      //     id='upload-button'
+                      //     // disabled={isLoading}
+                      //       disabled={isLoading || (uploadedImageUrls.length + uploadedVideoUrls.length >= 5)}
+                      //   />
+                      //   <label htmlFor='upload-button' className='Upload_File_Create_Ecommerce'>
+                      //     <IconUploadImage />
+                      //     Upload File
+                      //   </label>
+                      // </>
+                      <>
+                        {uploadedImageUrls.length + uploadedVideoUrls.length < 5 ? (
+                          <>
+                            <input
+                              type='file'
+                              multiple
+                              accept='image/*, video/mp4'
+                              onChange={handleUploadFile}
+                              style={{ display: 'none' }}
+                              id='upload-button'
+                              disabled={isLoading}
+                            />
+                            <label htmlFor='upload-button' className='Upload_File_Create_Ecommerce'>
+                              <IconUploadImage />
+                              Upload File
+                            </label>
+                          </>
+                        ) : null}
+                      </>
+                    )}
+                  </div>
+                  {/* <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+                    {uploadedImageUrls.map((url, index) => (
+                      <div className='Image_Complaint_Wrapper' key={index} style={{ position: 'relative' }}>
+                        <img
+                          src={url}
+                          alt={`Uploaded ${index}`}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '3px' }}
+                        />
+                        <div
+                          onClick={() => handleRemoveImage(index)}
+                          style={{
+                            position: 'absolute',
+                            top: '-10px',
+                            right: '-10px',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          <IconXEc />
+                        </div>
+                        {loadingImages[index] && <span>Loading...</span>}
+                      </div>
+                    ))}
+                  </div> */}
+                  <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+                    {uploadedImageUrls.map((url, index) => (
+                      <div key={index} className='File_Complaint_Wrapper' style={{ position: 'relative' }}>
+                        <img
+                          src={url}
+                          alt={`Uploaded Image ${index}`}
+                          style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '3px' }}
+                        />
+                        <div
+                          onClick={() => handleRemoveImage(index)}
+                          style={{
+                            position: 'absolute',
+                            top: '-10px',
+                            right: '-10px',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          <IconXEc />
+                        </div>
+                      </div>
+                    ))}
+                    {uploadedVideoUrls.map((url, index) => (
+                      <div key={index} className='File_Complaint_Wrapper' style={{ position: 'relative' }}>
+                        <video
+                          controls
+                          style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '3px' }}
+                        >
+                          <source src={url} type='video/mp4' />
+                          Your browser does not support the video tag.
+                        </video>
+                        <div
+                          onClick={() => handleRemoveVideo(index)}
+                          style={{
+                            position: 'absolute',
+                            top: '-10px',
+                            right: '-10px',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          <IconXEc />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <Modal open={!modalVisible} onClose={() => setModalVisible(false)} title='Xem video'>
+                <div style={{ maxHeight: '500px', overflowY: 'auto' }}>
+                  {uploadedVideoUrls.length > 0 &&
+                    uploadedVideoUrls.map((url, index) => (
+                      <video key={index} controls style={{ width: '100%', marginBottom: '15px' }}>
+                        <source src={url} type='video/mp4' />
+                        Your browser does not support the video tag.
+                      </video>
+                    ))}
+                </div>
+              </Modal>
+            </LegacyStack.Item>
+          </LegacyStack>
+        </Modal.Section>
+      </Modal>
+    </div>
+  );
+};
+
+export default CreateComplaintModal;

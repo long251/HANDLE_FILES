@@ -1,53 +1,11 @@
 WORK UI
 -------
-Ngày cập nhật: 07/11/2024
+Ngày cập nhật: 08/11/2024
 -------------------------
 **portal.shipquocte.com
 ƯU TIÊN:
 - lọc time	/ các màn ví, lịch sử, KN				/ điều chỉnh 1s, fix về ngày đúng trc nhập
 - UI: shopping	/ shopping/search > tách riêng, trả kết quả tìm kiếm,url/ shopping/search?keyword=
-====================================================================================================================
-TIẾP NHẬN YÊU CẦU:
-- tách Modal	/ tách riêng Modal ra và dùng lại			/ KHÓ !!
-- Màn phản hồi	/ Action bỏ đi, tạo > loại p hồi gì?			/ chờ a Đạt
-- Màn phải hồi	/ ghép list và tạo					/ ĐANG LÀM...
-- ds menu	/ như po2						/ báo lại a Khánh bé
-- label		/ filter: loại KN					/ báo lại chỗ Tùng x2 màn
-- tiêu đề	/ => nội dung rút gọn cả phần ghi nhận phản hồi		/ báo lại chỗ Tùng
-- dashboard	/ tổng, chi phí, Đã xử lý, chưa xử lý & đang xử lý chưa	/ thêm trước và responsive lại. ĐANG LÀM...
-*cc.shipquocte.com
-- xóa log
-- clear button
-- filter	/ loại KN > chưa có label khởi tạo (tất cả) từ ban đầu	/ x2
-------------
-CHUNG:
-- search tổng	/							/ hỏi a Đạt triển khai lấy dữ liệu
--------------
-1.dashboard:
---------------------
-2.quản lý khiếu nại:
-- filter	/ tìm kiếm API						/ tìm kiếm	/ chưa có
-- xuất file	/ chưa có API						/ sau
-- button	/ cột							/ sau
-- checkbox	/ hỏi lại a Đạt						/ sau
-- refresh route								/ sau
--------------------
-3. quản lý chi phí:
-- field: tổng chi phí, người tạo					/ đã xin
-- checkbox	/ hỏi a Đạt						/ sau
-- view		/							/ đơn chi tiết		/ ĐANG LÀM...
-- phân hệ hiển thị bao nhiêu bản ghi					/ x2			/ ĐANG LÀM...
-- refresh route											/ ĐANG LÀM...___________________
-XONG:
-- gửi lại và chốt bảng biểu đồ						/ hỏi chị Đào		/ chốt
-- UI data table								/ UI header
-- action: view, view modal						/ tạo đơn chi tiết	/ xong
-- responsive								/ 400px
-- field: sale								/ FullName
-- icon avatar đưa cái avatar mẫu làm chung				/ xong
-= 0611		/ điều chỉnh 4->5 màn phân tích thiết kế trước		/ xong
-- 0611		/ chỉnh sửa lại biểu đồ tròn sang biểu đồ cột		/ xong
-- 5/11		/ filter: lọc time, payload truyền lên bị lùi 7h	/ xong
 ====================================================================================================================
 VIỆC CHUNG:
 - field		/ tổng tiền nạp trong tháng > 2.dash_8.Ví_9.Lịch sử	/ chưa có từ API

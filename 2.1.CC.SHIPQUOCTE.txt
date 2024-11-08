@@ -1,38 +1,23 @@
-Ngày cập nhật: 07/11/2024
-====================================================================================================================
-TIẾP NHẬN YÊU CẦU:
-- tách Modal	/ tách riêng Modal ra và dùng lại			/ KHÓ !!			/ ĐANG LÀM...
-- Màn phản hồi	/ Action bỏ đi, tạo > loại p hồi gì?			/ chờ a Đạt			/ báo tùng
-- Màn phải hồi	/ ghép list						/ ĐANG LÀM...			/ ĐANG LÀM...
-- ds menu	/ như po2						/ theo tab			/ a Khánh
-- filter	/ 'Khách hàng' đang sai ở x2 màn			/ báo tùng			/ ĐANG LÀM...
+Ngày cập nhật: 08/11/2024
+-------------------------
 *cc.shipquocte.com
-- xóa log										/rà soát kĩ lại
-- clear button	/							/ sau
---------------------
+------------------
 CHUNG:
-- search tổng	/							/ chờ chốt
---------------------
-1.dashboard:
-- khi đang ở s1 nếu nhấn checkbox bồi thg ko cho đóng			/ sau khi merge
+- search tổng	/							/ Chờ a Dũng - ĐANG LÀM...
+- xóa log	/							/ rà soát lại_sau
+- uploadfile	/ tạo thêm file, video, ảnh 				/ ĐANG LÀM... 
+-----------------
 2.quản lý khiếu nại:
-- field: khách hàng							/ đang sai ko gọi API, keyword = ''
 - filter	/ tìm kiếm API						/ chưa có
 - xuất file	/ chưa có API						/ sau
 - button	/ cột							/ sau
 - checkbox	/ hỏi lại a Đạt						/ sau
-- refresh route								/ KHÓ do chưa có đủ cập nhật url
--------------------
+- refresh route								/ KHÓ do chưa có đủ cập nhật url - sau
+----------------
 3. quản lý chi phí:
-- field: khách hàng							/ đang sai ko gọi API, keyword = ''
-- field: tổng chi phí, người tạo					/ đã xin nhưng chưa có
 - checkbox	/ hỏi a Đạt						/ sau
-- refresh route									/ KHÓ...
-====================================================================================================================
-- filter	/ loại KN > chưa có label khởi tạo (tất cả) từ ban đầu	/ xong
-- dashboard	/ tổng, chi phí, Đã xử lý, chưa xử lý & đang xử lý chưa	/ thêm trước và responsive lại
-- phân hệ hiển thị bao nhiêu bản ghi					/ show
-- tiêu đề	/ => nội dung rút gọn cả phần ghi nhận phản hồi		/ xong
-- Màn phản hồi	/ tạo mới						/ xong
-- dashboard	/ tiêu đề => nội dung rút gọn				/ xong
-
+- refresh route								/ KHÓ do chưa có đủ cập nhật url - sau
+=========================================================================
+*uatportal.shipquocte.com
+-------------------------
+- tab		/ đang xử lý			/ chỉ số chưa đúng	/  ĐANG LÀM...
