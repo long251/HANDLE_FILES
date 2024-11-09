@@ -1,11 +1,11 @@
-Ngày cập nhật: 08/11/2024
+Ngày cập nhật: 09/11/2024
 -------------------------
 *cc.shipquocte.com
 ------------------
 CHUNG:
 - search tổng	/							/ Chờ a Dũng - ĐANG LÀM...
 - xóa log	/							/ rà soát lại_sau
-- uploadfile	/ tạo thêm file, video, ảnh 				/ ĐANG LÀM... 
+- uploadfile	/ tạo thêm file, video, ảnh 				/ ĐANG LÀM... -> báo Tùng đang bị lỗi image_vid
 -----------------
 2.quản lý khiếu nại:
 - filter	/ tìm kiếm API						/ chưa có

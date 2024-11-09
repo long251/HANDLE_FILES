@@ -1,0 +1,328 @@
+//filter Date Range Picked
+  const [dateRangeActive, setDateRangeActive] = useState(false);
+  const [{ month, year }, setDate] = useState({ month: new Date().getMonth(), year: new Date().getFullYear() });
+  const [selectedDates, setSelectedDates] = useState({
+    start: moment().subtract(30, 'days').toDate(),
+    end: moment().toDate(),
+  });
+  const handleMonthChange = useCallback((month: number, year: number) => setDate({ month, year }), []);
+  const [dateInputValue, setDateInputValue] = useState(
+    `${moment(selectedDates.start).format('DD/MM/yyyy')} - ${moment(selectedDates.end).format('DD/MM/yyyy')}`,
+  );
+  const [rangeSelected, setRangeSelected] = useState<string[]>([]);
+  const takeDate = (type: 'start' | 'end') => {
+    let splitDate = dateInputValue.split(' - ');
+    return type == 'start' ? splitDate[0] : splitDate[1];
+  };
+ useEffect(() => {
+    let pageParam: string = searchParams.get('page') ?? '1';
+    setPage(Number(pageParam));
+
+    let typeParam: string = searchParams.get('type') ?? 'DANG_XU_LY';
+    setActiveTab(typeParam);
+    setActiveTabIndex(itemIndex.indexOf(typeParam));
+
+    // let fromDateParam: string = searchParams.get('fromDate') ?? moment().startOf('month').format('DD/MM/yyyy');
+    // let toDateParam: string = searchParams.get('toDate') ?? moment().endOf('month').format('DD/MM/yyyy');
+    let fromDateParam = searchParams.get('fromDate') ?? moment().subtract(30, 'days').format('DD/MM/yyyy');
+    let toDateParam = searchParams.get('toDate') ?? moment().format('DD/MM/yyyy');
+    setDateInputValue(`${fromDateParam} - ${toDateParam}`);
+    setSelectedDates({
+      start: moment(fromDateParam, 'DD/MM/yyyy').toDate(),
+      end: moment(toDateParam, 'DD/MM/yyyy').toDate(),
+    });
+
+    debounceFetchDataFun({
+      accountId: '',
+      fromDate: moment(fromDateParam, 'DD/MM/yyyy').toDate(),
+      toDate: moment(toDateParam, 'DD/MM/yyyy').add(1, 'd').toDate(),
+      status: getStatusByType(typeParam),
+      pageIndex: Number(pageParam),
+      pageSize: pageSize,
+    });
+  }, [location.search]);
+const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(null);
+  const handleInputDate = (event: any) => {
+    const inputValue = event.target.value;
+    setDateInputValue(inputValue);
+    if (debounceTimeout) clearTimeout(debounceTimeout);
+    const timeout = setTimeout(() => {
+      processDates(inputValue);
+    }, 500);
+    setDebounceTimeout(timeout);
+  };
+const processDates = (inputValue: string) => {
+    const splitDate = inputValue.split(' - ');
+
+    if (splitDate.length !== 2) {
+      showToast('Vui lòng nhập đầy đủ khoảng thời gian', 'error');
+      return;
+    }
+
+    const [startDateStr, endDateStr] = splitDate.map((d) => d.trim());
+
+    if (startDateStr.length !== 10 || endDateStr.length !== 10) {
+      showToast('Định dạng ngày không hợp lệ. Vui lòng kiểm tra lại', 'error');
+      return;
+    }
+
+    let startDate = moment(startDateStr, 'DD/MM/yyyy', true);
+    let endDate = moment(endDateStr, 'DD/MM/yyyy', true);
+
+    if (startDate.isValid() && endDate.isValid()) {
+      if (startDate.isAfter(endDate)) {
+        // Hoán đổi ngày nếu ngày bắt đầu lớn hơn ngày kết thúc
+        [startDate, endDate] = [endDate, startDate];
+        showToast('Ngày bắt đầu không được lớn hơn ngày kết thúc', 'error');
+      }
+
+      const formattedStartDate = startDate.format('DD/MM/yyyy');
+      const formattedEndDate = endDate.format('DD/MM/yyyy');
+
+      setSelectedDates({
+        start: startDate.toDate(),
+        end: endDate.toDate(),
+      });
+
+      updateDateAndFetch(formattedStartDate, formattedEndDate);
+    } else {
+      showToast('Định dạng ngày không hợp lệ', 'error');
+
+      // Đặt khoảng thời gian mặc định là ngày hiện tại nếu không hợp lệ
+      const today = moment();
+      const formattedToday = today.format('DD/MM/yyyy');
+
+      applyDateRange(today.toDate(), today.toDate());
+    }
+  };
+  const updateDateAndFetch = (startDate: string, endDate: string) => {
+    updateUrl('fromDate', startDate);
+    updateUrl('toDate', endDate);
+    setPage(1);
+    updateUrl('page', '1');
+    debounceFetchDataFun({
+      accountId: '',
+      fromDate: moment(startDate, 'DD/MM/yyyy').toDate(),
+      toDate: moment(endDate, 'DD/MM/yyyy').add(1, 'day').toDate(),
+      status: getStatusByType(activeTab),
+      pageIndex: 1,
+      pageSize: pageSize,
+    });
+  };
+  const applyDateRange = (startDate: any, endDate: any) => {
+    const startDateStr = moment(startDate).format('DD/MM/yyyy');
+    const endDateStr = moment(endDate).format('DD/MM/yyyy');
+    setDateInputValue(`${startDateStr} - ${endDateStr}`);
+    setSelectedDates({ start: startDate, end: endDate });
+    updateDateAndFetch(startDateStr, endDateStr);
+    setDateRangeActive(false);
+  };
+================================================
+RETURN
+------
+ <div className='Date_Picked_Range_Complaint'>
+                    <div className={'DeliveryBill_Picked_Date_Range'}>
+                      <div className='Polaris-Labelled__LabelWrapper'>
+                        <div className='Polaris-Label'></div>
+                      </div>
+                      <div className='Polaris-Connected'>
+                        <div className='Polaris-Connected__Item Polaris-Connected__Item--primary'>
+                          <div className='Polaris-TextField Polaris-TextField--hasValue'>
+                            <MaskedInput
+                              mask={[
+                                /\d/,
+                                /\d/,
+                                '/',
+                                /\d/,
+                                /\d/,
+                                '/',
+                                /\d/,
+                                /\d/,
+                                /\d/,
+                                /\d/,
+                                ' ',
+                                '-',
+                                ' ',
+                                /\d/,
+                                /\d/,
+                                '/',
+                                /\d/,
+                                /\d/,
+                                '/',
+                                /\d/,
+                                /\d/,
+                                /\d/,
+                                /\d/,
+                              ]}
+                              className='Polaris-TextField__Input'
+                              placeholder='dd/mm/yyyy - dd/mm/yyyy'
+                              guide
+                              value={dateInputValue}
+                              placeholderChar={'_'}
+                              keepCharPositions
+                              id='PolarisTextField6'
+                              // onChange={(event: any) => {
+                              //   setDateInputValue(event.target.value);
+                              //   goToPage(1);
+                              // }}
+                              // onChange={(event: any) => handleInputDate(event.target.value)}
+                              onChange={handleInputDate}
+                              // onKeyPress={handleKeyPress}
+                              // onBlur={handleBlur}
+                              aria-labelledby={'PolarisTextField6Label'}
+                              aria-invalid={false}
+                            />
+                            <div className='Polaris-TextField__Backdrop' />
+                            <div className='Polaris-TextField__Suffix'>
+                              <Popover
+                                fluidContent
+                                active={dateRangeActive}
+                                activator={
+                                  <Button
+                                    onClick={() => {
+                                      setRangeSelected([]);
+                                      setDateRangeActive(!dateRangeActive);
+                                      let splitDate = dateInputValue.split(' - ');
+                                      let startDateStr = splitDate[0];
+                                      let endDateStr = splitDate[1];
+                                      if (
+                                        moment(startDateStr, 'DD/MM/yyyy').isValid() &&
+                                        moment(endDateStr, 'DD/MM/yyyy').isValid()
+                                      ) {
+                                        setSelectedDates({
+                                          start: moment(startDateStr, 'DD/MM/yyyy').toDate(),
+                                          end: moment(endDateStr, 'DD/MM/yyyy').toDate(),
+                                        });
+                                        setDate({
+                                          month: moment(endDateStr, 'DD/MM/yyyy').month(),
+                                          year: moment(endDateStr, 'DD/MM/yyyy').year(),
+                                        });
+                                      }
+                                    }}
+                                    plain
+                                    // icon={PolarisIcons.CalendarMajor}
+                                    icon={
+                                      <div
+                                        onClick={handleIconCalendarClick}
+                                        onMouseEnter={handleMouseEnter}
+                                        onMouseLeave={handleMouseLeave}
+                                      >
+                                        {/* Sử dụng điều kiện để render biểu tượng phù hợp */}
+                                        <div className='Block_Wrapper_Complaint'>
+                                          <div className='Block_Icon_Date_Range'>
+                                            <IconDateRange />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    }
+                                  />
+                                }
+                                onClose={() => setDateRangeActive(false)}
+                              >
+                                <div className='Custom-DatePicker'>
+                                  <div className='date_range'>
+                                    <div className='pre_option'>
+                                      <div className='list_option'>
+                                        <div className='list_content'>
+                                          <OptionList
+                                            title=''
+                                            onChange={(selected) => {
+                                              setRangeSelected(selected);
+                                              if (selected[0] == 'today') {
+                                                setSelectedDates({
+                                                  start: moment().toDate(),
+                                                  end: moment().toDate(),
+                                                });
+                                                setDate({ month: moment().month(), year: moment().year() });
+                                              } else if (selected[0] == 'yesterday') {
+                                                setSelectedDates({
+                                                  start: moment().subtract(1, 'day').toDate(),
+                                                  end: moment().subtract(1, 'day').toDate(),
+                                                });
+                                                setDate({
+                                                  month: moment().subtract(1, 'day').month(),
+                                                  year: moment().subtract(1, 'day').year(),
+                                                });
+                                              } else if (selected[0] == 'last_7_days') {
+                                                setSelectedDates({
+                                                  start: moment().subtract(7, 'day').toDate(),
+                                                  end: moment().toDate(),
+                                                });
+                                                setDate({
+                                                  month: moment().subtract(7, 'day').month(),
+                                                  year: moment().subtract(7, 'day').year(),
+                                                });
+                                              } else if (selected[0] == 'last_30_days') {
+                                                setSelectedDates({
+                                                  start: moment().subtract(30, 'day').toDate(),
+                                                  end: moment().toDate(),
+                                                });
+                                                setDate({
+                                                  month: moment().subtract(30, 'day').month(),
+                                                  year: moment().subtract(30, 'day').year(),
+                                                });
+                                              } else if (selected[0] == 'last_90_days') {
+                                                setSelectedDates({
+                                                  start: moment().subtract(90, 'day').toDate(),
+                                                  end: moment().toDate(),
+                                                });
+                                                setDate({
+                                                  month: moment().subtract(90, 'day').month(),
+                                                  year: moment().subtract(90, 'day').year(),
+                                                });
+                                              }
+                                            }}
+                                            options={[
+                                              { value: 'today', label: 'Hôm nay' },
+                                              { value: 'yesterday', label: 'Hôm qua' },
+                                              { value: 'last_7_days', label: '7 ngày trước' },
+                                              { value: 'last_30_days', label: '30 ngày trước' },
+                                              { value: 'last_90_days', label: '90 ngày trước' },
+                                            ]}
+                                            selected={rangeSelected}
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className='pick_date'>
+                                      <DatePicker
+                                        disableDatesAfter={new Date()}
+                                        weekStartsOn={1}
+                                        month={month}
+                                        year={year}
+                                        onChange={setSelectedDates}
+                                        onMonthChange={handleMonthChange}
+                                        selected={selectedDates}
+                                        multiMonth
+                                        allowRange
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className='actions'>
+                                    <LegacyStack distribution={'trailing'}>
+                                      <Button onClick={() => setDateRangeActive(false)}>Đóng</Button>
+                                      <Button
+                                        primary
+                                        // onClick={() => {
+                                        //       let startDate = selectedDates.start;
+                                        //       let endDate = selectedDates.end;
+                                        //       let startDateStr = moment(startDate).format('DD/MM/yyyy');
+                                        //       let endDateStr = moment(endDate).format('DD/MM/yyyy');
+                                        //       setDateInputValue(`${startDateStr} - ${endDateStr}`);
+                                        //       goToPage(1);
+                                        //       setDateRangeActive(false);
+                                        //     }}
+                                        onClick={() => applyDateRange(selectedDates.start, selectedDates.end)}
+                                      >
+                                        Áp dụng
+                                      </Button>
+                                    </LegacyStack>
+                                  </div>
+                                </div>
+                              </Popover>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
