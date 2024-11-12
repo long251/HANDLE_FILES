@@ -1,23 +1,9 @@
-Ngày cập nhật: 09/11/2024
+Ngày cập nhật: 12/11/2024
 -------------------------
-*cc.shipquocte.com
-------------------
-CHUNG:
-- search tổng	/							/ Chờ a Dũng - ĐANG LÀM...
-- xóa log	/							/ rà soát lại_sau
-- uploadfile	/ tạo thêm file, video, ảnh 				/ ĐANG LÀM... -> báo Tùng đang bị lỗi image_vid
------------------
 2.quản lý khiếu nại:
-- filter	/ tìm kiếm API						/ chưa có
-- xuất file	/ chưa có API						/ sau
+- xuất file	/ chưa có API						/ CHƯA CÓ
 - button	/ cột							/ sau
 - checkbox	/ hỏi lại a Đạt						/ sau
-- refresh route								/ KHÓ do chưa có đủ cập nhật url - sau
-----------------
+-----------------
 3. quản lý chi phí:
 - checkbox	/ hỏi a Đạt						/ sau
-- refresh route								/ KHÓ do chưa có đủ cập nhật url - sau
-=========================================================================
-*uatportal.shipquocte.com
--------------------------
-- tab		/ đang xử lý			/ chỉ số chưa đúng	/  ĐANG LÀM...

@@ -1,6 +1,6 @@
 TEST PHÂN QUYỀN CC.SHIPQUOCTE.COM
 ---------------------------------
-Ngày cập nhật: 09/11/2024
+Ngày cập nhật: 12/11/2024
 -------------------------
 
 *client (khanhvd7) -> portal SQT ->  tạo đơn (uatportal)[Đang xử lý]:

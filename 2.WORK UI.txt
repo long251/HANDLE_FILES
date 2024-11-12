@@ -1,10 +1,9 @@
 WORK UI
 -------
-Ngày cập nhật: 09/11/2024
+Ngày cập nhật: 12/11/2024
 -------------------------
 **portal.shipquocte.com
 ƯU TIÊN:
-- lọc time	/ các màn ví, lịch sử, KN				/ điều chỉnh 1s, fix về ngày đúng trc nhập
 - UI: shopping	/ shopping/search > tách riêng, trả kết quả tìm kiếm,url/ shopping/search?keyword=
 ====================================================================================================================
 VIỆC CHUNG:
@@ -33,4 +32,3 @@ ITSM:
 ====================================================================================================================
 LƯU Ý:
 - lọc time 3th	/ giới hạn time tịnh tiến 3 tháng: Ec, Vc, PXK		/ đang fix về ngày đúng trước
-- lọc time_chung/ đang bị lệch thừa 1 ngày quá khứ			/ nhắm mắt cho qua

@@ -1,6 +1,6 @@
 TRICK NOTE UI
 -------------
-Ngày cập nhật: 05/11/2024
+Ngày cập nhật: 11/11/2024
 -------------------------
 
 I. Giao diện: FE, html, css

@@ -1,0 +1,82 @@
+const testRef = useRef(null);
+  useEffect(() => {
+    const pageParam: string = searchParams.get('page') ?? '1';
+    setCurrentPage(Number(pageParam));
+
+    const pageSizeParam: string = searchParams.get('pageSize') ?? '10';
+    setPageSize(Number(pageSizeParam));
+
+    const expenseTypeParam: string = searchParams.get('expenseType') ?? '0';
+    setSelectedExpenseTypeId(Number(expenseTypeParam));
+
+    const keywordSearchParams: string = searchParams.get('keywordSearch') ?? '';
+    setSearchKeyword(keywordSearchParams);
+
+    // thêm search key: 
+    testRef.current.input.value = "123123";
+    let el = document.querySelector("#test");
+    setTimeout(function() {
+      el.value = keywordSearchParams;
+      // testRef.current.input.value = "123123";
+    }, 1000);
+
+
+    const fromDateParams = searchParams.get('fromDate');
+    const toDateParams = searchParams.get('toDate');
+    // kiểm tra chuyển đổi thành Dayjs
+    const newFromDate = fromDateParams ? dayjs(fromDateParams) : oneMonthsAgo;
+    const newToDate = toDateParams ? dayjs(toDateParams) : today;
+
+    setSelectedDates([newFromDate, newToDate]);
+
+    if (selectedDates[0] && selectedDates[1]) {
+      debounceFetchData({
+        accountId: selectedAccountId,
+        costsType: Number(expenseTypeParam),
+        search: keywordSearchParams,
+        fromDate: newFromDate.toISOString(),
+        toDate: newToDate.toISOString(),
+        pageIndex: Number(pageParam),
+        pageSize: Number(pageSizeParam),
+      });
+    }
+    dispatch(CustomerExpenseAction.fetchExpenseType(null));
+    dispatch(DashboardAction.fetchData());
+  }, [location.search]);
+================================================================================================================
+<div className='text-size-14'>Tìm kiếm</div>
+              <div className='search-wrapper margin-top-8'>
+                <div className='input-wrapper'>
+                  <ConfigProvider
+                    theme={{
+                      components: {
+                        Input: {
+                          activeShadow: 'none',
+                          fontSize: 14,
+                          controlHeight: 40,
+                          paddingBlock: 8,
+                          paddingInline: 12,
+                          borderRadius: 8,
+                          colorBorder: '#d1d5db',
+                        },
+                      },
+                    }}>
+                    <Input
+                     id='test'
+                     ref={testRef}
+                      allowClear
+                      onPressEnter={(event) =>
+                        handleSearchByKeyword(
+                          (event.target as HTMLInputElement).value,
+                        )
+                      }
+                      onBlur={(event) => {
+                        const value: string = (event.target as HTMLInputElement)
+                          .value;
+                        if (value.trim() != searchKeyword) {
+                          handleSearchByKeyword(value);
+                        }
+                      }}
+                      prefix={<SearchIcon />}
+                      placeholder='Nhập nội dung tìm kiếm'
+                    />
