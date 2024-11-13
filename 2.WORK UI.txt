@@ -1,10 +1,9 @@
 WORK UI
 -------
-Ngày cập nhật: 12/11/2024
+Ngày cập nhật: 13/11/2024
 -------------------------
-**portal.shipquocte.com
-ƯU TIÊN:
-- UI: shopping	/ shopping/search > tách riêng, trả kết quả tìm kiếm,url/ shopping/search?keyword=
+**portal.shipquocte.com:
+- 
 ====================================================================================================================
 VIỆC CHUNG:
 - field		/ tổng tiền nạp trong tháng > 2.dash_8.Ví_9.Lịch sử	/ chưa có từ API
