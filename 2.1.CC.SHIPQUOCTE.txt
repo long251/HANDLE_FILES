@@ -1,4 +1,4 @@
-Ngày cập nhật: 13/11/2024
+Ngày cập nhật: 14/11/2024
 -------------------------
 **uatportal.shipquocte.com:
 - 
@@ -18,6 +18,7 @@ _________________________________________________________________________
 	2. Dựng menu cho ACC
 	3. thiết kế các table của menu giao dịch trên ACC
 1. xóa tạm cái .git để nó ko gọi vào ấy nữa tạo git mới
+=> từ từ đã lát xem thế nào	== 8h40 - 14/11/2024
 _________________________________________________________________________
 **HỌC TẬP:
 -> SQL

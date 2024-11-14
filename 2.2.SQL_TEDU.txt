@@ -1,0 +1,179 @@
+SQL_TEDU
+--------
+Ngày cập nhật: 14/11/2024
+-------------------------
+1. giới thiẹu sql và cài đặt:
+-> cài đặt SQL server download: 2017 - bản: Express edition
+	- chọn Basic -> next -> customize -> bước đặt tên -> Mixed: đặt pass: 123456 -> xong
+	-> tiếp vào install SSMS: tải bản 2017
+	-> tiếp vào sql mana: sa, chọn optional, tích true
+	- tên miền: TOANBN/SQLEXPRESS
+-------------------------------------------------------------------------------------------
+2. khái niệm về SQL:
+- ngôn ngữ truy vấn cấu trúc từ trong CSDL QUAN HỆ
+-------------------------------------------------------------------------------------------
+3. khái niệm về CSDL:
+- phương thức lưu trữ dữ liệu: text, xml file: dữ liệu có cấu trúc	/ nhỏ
+- *dùng database: tập hợp dữ liệu được tổ chức quan hệ vs nhau
+-------------------------------------------------------------------------------------------
+4. RDBMS:
+- relation: quan hệ
+- table: 
+- field: id là 1 field, name là 1 field
+- row (record): bản ghi 1 hàng
+- null values: ko nhận thì nó null hoặc gì đó, nhưng dấu trắng, 0 thì nó sẽ khác với null
+-------------------------------------------------------------------------------------------
+5. DBMS vs RDBMS (so sánh):
+-------------------------------------------------------------------------------------------
+6. Cú pháp SQL:
+- ko pb hoa/thường
+- viết chữ hoa, tên cột thì viết lạc đà
+- SELECT, INSERT, UPDATE, DELETE, ALTER, DROP kết thúc = ;
+vd: SELECT 'tên cột' FROM 'tên bảng'
+- SELECT, UPDATE, DELETE
+- CREATE TABLE, ALTER TABLE, DROP TABLE,
+- CREATE DATABASE, ALTER DATABASE, 
+- INSERT INTO, CREATE INDEX, DROP INDEX
+-------------------------------------------------------------------------------------------
+7. kiểu dữ liệu trong SQL:
+- hình ảnh
+-------------------------------------------------------------------------------------------
+8. SQL căn bản: toán tử:
+- tính toán, so sánh, biểu thức
+- +-*/ % chia lấy dư
+- = != <> > < >= <= !< !>
+- ALL, AND, BETWEEN, IN, NOT, OR, EXISTS, LIKE
+-------------------------------------------------------------------------------------------
+9. tạo CSDL:
+- create database: 
+	- CREATE DATABASE database_name;
+	- DROP DATABASE database_name;
+	- ALTER DATABASE old_name MODIFY NAME = new_name;
+	- USE database_name;
+- CODE:
+	- view -> mở lại sidebar: object explorer
+	- sidebar: master, 
+	- chọn làm việc với master: 
+	-- comment
+	- /* content */ (comment nhiều dòng)
+- tạo DATABASE THƯ MỤC TRONG Ổ C:
+create database sales
+on
+(
+NAME = SALES_DATA,
+FILENAME = 'c:\DATABASE\SALES.MDF',
+SIZE = 10MB,
+MAXSIZE = 50MB,
+FILEGROWTH = 5MB)
+log on
+(
+NAME = SALES_LOG,
+FILENAME = 'c:\DATABASE\SALES.LDF',
+SIZE = 10MB,
+MAXSIZE = 50MB,
+FILEGROWTH = 5MB
+)
+-------------------------------------------------------------------------------------------
+10. Làm việc với bảng:
+*tạo bảng:
+- create table 'tablename'
+("cột 1" "data type", "cột 2" "data type" ...)
+use PikaPika;
+create table Student (
+Id INT,
+[Name] NVARCHAR(50),
+Age INT,
+DataOfBirth DATE,
+Gender BIT 
+)
+(ở đây BIT gồm 2 giá trị)
+- DROP TABLE Student: xóa bảng
+TẠO BẢNG:
+use PikaPika;
+create table Student (
+Id INT,
+[Name] NVARCHAR(50),
+Age INT,
+DateOfBirth DATE,
+Gender BIT 
+)
+DROP TABLE Student
+-- insert 
+INSERT INTO Student(Id, Name, Age, DateOfBirth,Gender) VALUES(1,N'Xuân Hưng',19,'1991-11-19',1);
+INSERT INTO Student(Id, Name, Age, DateOfBirth,Gender) VALUES(2,N'Đỗ Long',21,'2000-11-21',1);
+INSERT INTO Student(Id, Name, Age, DateOfBirth,Gender) VALUES(3,N'Đức Tùng',20,'2001-11-19',1);
+SELECT * FROM Student;
+
+-- delete
+DELETE FROM Student WHERE Age > 20;
+DELETE FROM Student;
+-- truncate: xóa sạch dữ liệu
+TRUNCATE TABLE Student;
+--reName table
+sp_rename 'Student1','Student';
+--copy data table
+SELECT * INTO Student1 FROM Student
+-------------------------------------------------------------------------------------------
+11. TEMP TABLE (bảng tạm):
+- bảng tạm, tổng hợp tạm
+- giống bài 10 giờ chỉ cần thêm dấu # đằng trước là được (local)
+! bảng chỉ tồn tại trong thời gian connect, logout phát bay luôn
+- bảng tạm nhưng global: thêm ##
+-------------------------------------------------------------------------------------------
+12. câu lệnh sửa bảng:
+alter table Student
+add Address nvarchar(50)
+
+alter table Student
+add Province nvarchar(50),District nvarchar(50)
+
+alter table Student
+alter column Address nvarchar(250)
+
+alter table Student
+drop column Address
+
+sp_rename 'Student.Province','Province1','Column';
+-------------------------------------------------------------------------------------------
+13. câu lệnh select:
+- Select cái gì?
+  from từ đâu
+  where điều kiện gì?
+WHERE - {GROUP BY - HAVING} - 
+select * from Student order by Id DESC
+-------------------------------------------------------------------------------------------
+14. Các câu lệnh select:
+- select distinct cột1, c2 from bảng              	 lấy ra ko muốn trùng: 
+create table Customers
+(
+CustomerId int primary key,
+CustomerName nvarchar(50),
+ContactName nvarchar(50),
+Address nvarchar(50),
+City nvarchar(50),
+PostalCode nvarchar(50),
+Country nvarchar(50)
+)
+drop table Customers;
+insert into Customers values(1, N'Đỗ  Tùng', 'gg', 'Tây Đại Mỗ', 'Hà Nội', '10000', 'VIETNAM');
+insert into Customers values(2, N'Đỗ Xuân ', 'gg', 'Tây Đại Mỗ', 'Hà Nội', '10000', 'USB');
+insert into Customers values(3, N' Xuân Tùng', 'gg', 'Tây Đại Mỗ', 'Hà Nội', '10000', 'USC');
+insert into Customers values(4, N'Đỗ 1 Tùng', 'gg', 'Tây Đại Mỗ', 'Hà Nội', '10000', 'VIETNAM');
+insert into Customers values(5, N'Đỗ 2 Tùng', 'gg', 'Tây Đại Mỗ', 'Hà Nội', '10000', 'VIETNAM');
+-- select
+Select Country from Customers;
+select distinct Country from Customers;
+-- select top (phân trang): lấy 1 phần dữ liệu tránh ảnh hưởng performance
+select top 2 CustomerName from Customers order by ContactName asc
+-- min, max
+/* select min(Price) from Customers*/
+-- avg chia các cột
+-- count
+select * from Customers where PostalCode >= 1000;
+-- những cột min, max, count... no name => alias
+ --select avg(PostalCode) as GG from Customers
+ -- union kết hợp 2 điều kiện select khác còn nếu union all thì lấy giống hết
+-------------------------------------------------------------------------------------------
+15. AND OR NOT
+! phải use đúng cái dự án mình chạy nếu ko bị lỗi
+- 
