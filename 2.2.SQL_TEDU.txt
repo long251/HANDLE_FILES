@@ -1,6 +1,6 @@
 SQL_TEDU
 --------
-Ngày cập nhật: 14/11/2024
+Ngày cập nhật: 15/11/2024
 -------------------------
 1. giới thiẹu sql và cài đặt:
 -> cài đặt SQL server download: 2017 - bản: Express edition
@@ -176,4 +176,156 @@ select * from Customers where PostalCode >= 1000;
 -------------------------------------------------------------------------------------------
 15. AND OR NOT
 ! phải use đúng cái dự án mình chạy nếu ko bị lỗi
+- kết hợp các and,or,not
+
+select * from Customers
+where Country = 'Germany' and (City='Berlin' or City='Munich')
+-------------------------------------------------------------------------------------------
+16. toán tử LIKE:
+- % đại diện 1 hoặc nhiều
+- _ địa diện 1 kí tự đơn lẻ
+- subIndex
+- not like
+-------------------------------------------------------------------------------------------
+17. giá trị NULL:
+- is NULL
+- is not NULL
+-------------------------------------------------------------------------------------------
+18. toán tử IN, BETWEEN, EXISTS, ANY:
+- IN: 		nhiều giá trị, so sánh nhiều giá trị trong cột, tìm ra
+- BETWEEN: 	tìm kiếm trong khoảng
+- EXISTS:	tìm kiếm tồn tại
+- ANY 		khớp 1 
+- ALL		khớp tất
+Vd IN:
+ - select * from Customers
+	where Country in (select Country from Supplier) 
+Supplier là 1 bảng trong con PikaPika
+- BETWEEN + AND 2 cái này kết hợp
+- 
+-------------------------------------------------------------------------------------------
+19. mệnh đề ORDER BY:
+- sx kết quả trả về theo ASC hay DESC 
+-------------------------------------------------------------------------------------------
+20. INSERT INTO:
+-------------------------------------------------------------------------------------------
+21. SQL UPDATE:
+- UPDATE tên bảng SET cột 1 = giá trị 1,
+		cột n = giá trị n
+		where giới hạn đk sửa
+-------------------------------------------------------------------------------------------
+22. SQL DELETE:
+- DELETE FROM tên bảng WHERE đk
+- sự khác biệt giữa DELETE (xóa theo đk) và TRUNCATE (xóa luôn bộ nhớ)
+- DROP xóa tất cả liên quan đến base, table...
+-------------------------------------------------------------------------------------------
+23. JOIN SQL:
+*RẤT QUANG TRỌNG - JOIN BẢNG:
+- kết hợp 2 hoặc nhiều bảng với nhau nhưng phải có điểm chung giữa chúng
+- LOẠI JOIN nào: inner join / outer join (3: trái, phải, full) / cross join
+-------------------------------------------------------------------------------------------
+24. INNER JOIN:
+- tìm điểm chung giữa 2 bảng:
+select * from Products inner join Cate on Products.cateId = Cate.id;
+- nếu trùng giữa 2 bảng thì ghi thêm tên bảng.cột
+- select p.cateId from Products p inner join Cate c on p.cateId = c.id;
+-------------------------------------------------------------------------------------------
+25. OUTER JOIN:
+-------------------------------------------------------------------------------------------
+26. FULL JOIN:
+- select c.name, o.orderId from Customers c full outer join Orders o on c.CustomerId = o.CustomerId
+nếu chọn right outer join thì ưu tiên o.orderId hơn và ngược lại với left
+-------------------------------------------------------------------------------------------
+27. SELF JOIN:
+- so sánh trong 1 table
+-------------------------------------------------------------------------------------------
+28. CROSS JOIN:
+- tích hợp bản ghi đầu ở 1 table với bảng b
+-------------------------------------------------------------------------------------------
+29. GROUP BY:
+- sd trong các câu lệnh tính toán thống kê: COUNT, MAX, MIN, SUM, AVG
+SELECT cột from bảng where đk group by cột orderby cột
+select Country, count(* HOẶC customerId) as [number of] from customers group by country
+order by count(CustomerId) desc
+> group by with join:
+- how many order for each shipper?
+-> shipper name: number of orders
+- select top 1 s.shipperName, count(o.orderId) from Orders o
+left join (đảm bảo có full order) Shippers s ON o.ShipperId = s.shipperId
+group by s.shipperName order by count(o.orderId) desc
+-------------------------------------------------------------------------------------------
+30. HAVING:
+- tương đương where nhưng having áp dụng cho hàm tính toán
+select count(id), Country from Customers GROUP BY Country HAVING COUNT (id) > 5;
+-------------------------------------------------------------------------------------------
+31. PRIMARY KEY:
+- 1 cột hoặc nhiều cột là PK định danh duy nhất trong 1 dòng trong bảng
+! NULL ko thể làm khóa chính
+- tạo ra 1 keys -> xóa -> alter table -> 
+alter table Students
+drop constraint PK__Students__3213E83F1EB0876A;
+alter table Students
+add constraint pk_id primary key (id);
+-------------------------------------------------------------------------------------------
+32. FOREIGN KEY:
+- 1 trường , 1 cột liên kết đến bảng khác trỏ đến PK của bảng khác
+- có thể null đc, duplicate được
+----
+create table Students
+(
+id int primary key,
+name nvarchar(50),
+age int,
+joinDate datetime,
+)
+create table Orders (
+id int primary key,
+cTime datetime,
+stuId int
+)
+alter table Orders
+add Foreign key (stuId) references Students(id)
+hoặc:
+ - tạo trực tiếp từ bảng phụ: id phụ foreign key references (bảng chính)(id chính)
+-------------------------------------------------------------------------------------------
+33. Unique constraint
+- giá trị trong cột là duy nhất
+vd: identiti varchar(20) unique,
+
+alter table Person
+add constraint UC_PersonId unique(PersonId)
+-------------------------------------------------------------------------------------------
+34. NOT NULL constraint
+- thêm giống unique -> là not null
+- thay: alter column Idtity varchar(20) not null
+-------------------------------------------------------------------------------------------
+35. CHECK constraint
+- đặt trên 1 cột đơn thì nó sẽ giới hạn
+-------------------------------------------------------------------------------------------
+36. DEFAULT constraint
+- khi thêm mới mà ko thêm cột đó thì nó tự thêm
+vd: City varchar(50) DEFAULT 'VietNam'
+- getdate()
+-------------------------------------------------------------------------------------------
+37. AUTO INCREMENT FIELD
+- id int IDENTITY(1,1) PRIMARY KEY,
+-------------------------------------------------------------------------------------------
+38. DATES:
+- format: YYYY-MM-DD
+- select * from Orders where OrderDate = '2018-07-10'
+- datetime
+- insert into Orders values (1,1000,getdate())
+- insert into Orders values (2,2000,'2019-09-10 10:10:20')
+FUNCTION:
+- currentTime
+- select getdate(),dateadd(day,365 or -365 ,getdate())
+-------------------------------------------------------------------------------------------
+39. INDEX:
+- rất quan trọng SQL
+- clustered: 
+create clustered index IX_Products_Id
+on Products(Id)
+ctrl + M
+-------------------------------------------------------------------------------------------
+40. Store Procedure:
 - 

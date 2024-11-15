@@ -1,24 +1,26 @@
-Ngày cập nhật: 14/11/2024
+Ngày cập nhật: 15/11/2024
 -------------------------
 **uatportal.shipquocte.com:
-- 
-_________________________________________________________________________
+- test triển khai tạo KN trên uat					/ báo a Khánh lớn
+________________________________________________________________________
 **cc.shipquocte.com:
 2.quản lý khiếu nại:
-- button xuất file	/ chưa có API					/ đã xin	/ CHƯA CÓ
-- button ẩn hiện cột	/ 						/ SAU - do chưa cần lắm
-====================
-- refresh route	/ full màn: QLKN, PHKH, QLCP				/ t
-- checkbox	/ full màn: QLKN, PHKH, QLCP				/ xin a Đạt	/ CHƯA CÓ
-- chung		/ sửa Modal tách biệt trong Main của cc			/ Long
-_________________________________________________________________________
+- button xuất file	/ 						/ CHƯA CÓ API
+- button ẩn hiện cột	/ 						/ SAU
+> chung:
+- checkbox màn QLKN	/						/ báo Tùng	/ ĐANG LÀM...
+________________________________________________________________________
 **acc.shipquocte.com:
  -> các bước dựng acc lại mới:
 	1. Clone source code của CC
 	2. Dựng menu cho ACC
 	3. thiết kế các table của menu giao dịch trên ACC
 1. xóa tạm cái .git để nó ko gọi vào ấy nữa tạo git mới
-=> từ từ đã lát xem thế nào	== 8h40 - 14/11/2024
-_________________________________________________________________________
-**HỌC TẬP:
--> SQL
+________________________________________________________________________
+**so.shipquocte.com:
+ -> dựng clone của cc -> xóa .git
+ -> bắt đầu vào:
+	- 
+________________________________________________________________________
+**HỌC TẬP: SQL:
+- 
