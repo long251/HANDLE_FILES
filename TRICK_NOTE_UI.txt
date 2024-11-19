@@ -1,6 +1,6 @@
 TRICK NOTE UI
 -------------
-Ngày cập nhật: 11/11/2024
+Ngày cập nhật: 19/11/2024
 -------------------------
 
 I. Giao diện: FE, html, css
@@ -113,4 +113,14 @@ preview => yarn preview
 - git commit -m'text'
 - git push origin longddq1
 - cuối: báo cáo merge lên develop => lặp lại b1
-
+----------------------------------------------------------------------------------------------------------------
+*Luồng code chạy (hệ thống):
+- portal	khách hàng
+- so		kinh doanh
+- acc	  	kế toán
+- po2		dịch vụ khách hàng
+- cc		chăm sóc khách hàng
+- wh		kho_khai thác
+- idm		phân quyền tk
+=>
+	khách hàng: tạo đơn portal -> so: tạo lệnh thanh toán -> acc: ktra nợ -> duyệt -> po2: cập nhật tracking, xác nhận mua hàng -> wh: khai thác > tạo bagbox > tạo mã mawb -> bay => về VN; op: khai thác ttin, nhập ttin... => chuyển về so: xuất khiếu xuất kho xác nhận có đơn hàng --> cuối cùng chuyển cho đơn vị vận chuyển: gửi hàng cho khách!

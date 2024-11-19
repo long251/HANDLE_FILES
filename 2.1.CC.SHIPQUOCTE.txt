@@ -1,14 +1,11 @@
-Ngày cập nhật: 15/11/2024
+Ngày cập nhật: 19/11/2024
 -------------------------
 **uatportal.shipquocte.com:
-- test triển khai tạo KN trên uat					/ báo a Khánh lớn
+- 
 ________________________________________________________________________
 **cc.shipquocte.com:
 2.quản lý khiếu nại:
 - button xuất file	/ 						/ CHƯA CÓ API
-- button ẩn hiện cột	/ 						/ SAU
-> chung:
-- checkbox màn QLKN	/						/ báo Tùng	/ ĐANG LÀM...
 ________________________________________________________________________
 **acc.shipquocte.com:
  -> các bước dựng acc lại mới:
@@ -16,11 +13,29 @@ ________________________________________________________________________
 	2. Dựng menu cho ACC
 	3. thiết kế các table của menu giao dịch trên ACC
 1. xóa tạm cái .git để nó ko gọi vào ấy nữa tạo git mới
+2. TẠM NGƯNG do làm so. trước
 ________________________________________________________________________
 **so.shipquocte.com:
- -> dựng clone của cc -> xóa .git
- -> bắt đầu vào:
-	- 
+-> dựng clone của cc -> xóa .git
+- lưu tạm trên 1 biến main (private): so_shipquocte
+1. header:
+- thêm chức năng F11	/						/ xong
+- thêm màn đổi mật khẩu	/						/ CHƯA..
+2. navbar trái:
+- 
+3. THÊM MỚI ĐƠN MUA HỘ:
+- thêm mới đơn hàng	/						/ CHƯA THIẾT KẾ..
+- mở nhanh chi tiết +	/ chưa có thông tin bên dưới thêm		/ CHƯA THIẾT KẾ..
+4. THÊM MỚI ĐƠN ĐẤU GIÁ:
+- thêm mới đơn hàng	/						/ CHƯA THIẾT KẾ..
+- mở nhanh chi tiết +	/ chưa có thông tin bên dưới thêm		/ CHƯA THIẾT KẾ..
+- bảng thiết kế như shit
+5. QUẢN LÝ MAWB:
+- 
 ________________________________________________________________________
 **HỌC TẬP: SQL:
-- 
+- xong 45 bài 		/						/ CHƯA THỰC HÀNH
+________________________________________________________________________
+**ÔN TẬP:
+- ôn tập lại SQL	/						/ CHƯA..
+- học lại luồng hệ thống/						/ CHƯA.. BÁO A KHÁNH

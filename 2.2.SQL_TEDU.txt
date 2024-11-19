@@ -1,6 +1,6 @@
 SQL_TEDU
 --------
-Ngày cập nhật: 15/11/2024
+Ngày cập nhật: 19/11/2024
 -------------------------
 1. giới thiẹu sql và cài đặt:
 -> cài đặt SQL server download: 2017 - bản: Express edition
@@ -328,4 +328,81 @@ on Products(Id)
 ctrl + M
 -------------------------------------------------------------------------------------------
 40. Store Procedure:
+- tập câu lệnh query sd nhiều lần, thực hiện nghiệp vụ phức tạp có tham số
+*
+create(alter, drop) procedure(proc) usp_MakeOrder
+@productId int
+as
+  begin
+// các câu lệnh bên trong
+truyền tham số xuống id chẳng hạn
+  end
+exec usp_MakeOrder 2,2,.. (giá trị tham số)
+- phân trang 1 bảng ghi
+*
+create proc GetStudentPaging
+@pageIndex int,
+@pageSize int,
+@totalRow int output
+as
+  begin
+select * from (
+select RowNumber=Row_number() over(order by Id),* from Student
+  end
+-- set nocount on; khi thực thi exe ko trả về row
+-------------------------------------------------------------------------------------------
+41. View:
+- bảng ảo, muốn lấy ra tập kết quả theo view
+*
+create view v_student_age18
+as
+select * from Student
+where age > 20
+
+select * from v_student_age18
+- update view:
+ update v_student_age18 set Province1 = 'Ha Noi' where id =1
+- insert trong view:
+ insert into v_student_age18
+...
+-------------------------------------------------------------------------------------------
+42. FUNCTIONS:
+- gọi là các server function: viết sẵn hoặc tự định nghĩa
+- cx nhận tham số, xử lý nghiệp vụ
+- khác nhau:
+		sp							function
+	- sp: trả về 0,1 hoặc more			- f:  chỉ trả về 1 giá trị duy nhất
+	- transaction					- x
+	- input/output					- chỉ có input
+	- gọi đc func					- ko gọi đc sp
+*
+create function udf_calculate(@age
+ - tạo bảng
+ - tạo nhiều bảng
+-------------------------------------------------------------------------------------------
+43. trigger:
+- kiểu được biệt của store procedure
+- insert, update, delete
+- chạy trigger ngầm: giá trị, toàn vẹn, lỗi, lưu trước và sau khi chạy 
+*
+create trigger update_t2 ON t1 FOR update
+as
+  begin
+set nocount on
+
+declare @id int, @t1_value varchar(50)
+
+select @id = id, @t1_value = t1_value from inserted
+
+  end
+== SUSER_NAME() -> lấy ra tài khoản đăng nhập vào hệ thống
 - 
+-------------------------------------------------------------------------------------------
+44. TRANSACTIONS:
+- lỗi sẽ được rollback
+- lỗi hay ko lỗi sẽ p thông báo
+- COMMIT, ROLLBACK, SAVEPOINT, SET TRANSACTION
+-------------------------------------------------------------------------------------------
+45. KẾT:
+- shopping online for mobile store, đăng nhập, đăng kí,
+=> tính năng: list, 
