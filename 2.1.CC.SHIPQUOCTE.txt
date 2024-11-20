@@ -1,4 +1,4 @@
-Ngày cập nhật: 19/11/2024
+Ngày cập nhật: 20/11/2024
 -------------------------
 **uatportal.shipquocte.com:
 - 
@@ -18,16 +18,20 @@ ________________________________________________________________________
 **so.shipquocte.com:
 -> dựng clone của cc -> xóa .git
 - lưu tạm trên 1 biến main (private): so_shipquocte
+- 20/11			/ sửa breadcrumb cái title cuối sẽ ko p là link
+- 
 1. header:
 - thêm chức năng F11	/						/ xong
-- thêm màn đổi mật khẩu	/						/ CHƯA..
+- màn đổi mật khẩu	/						/ CHƯA 
 2. navbar trái:
-- 
+- đang lộn xộn		/						/ CHỈNH LẠI..
 3. THÊM MỚI ĐƠN MUA HỘ:
-- thêm mới đơn hàng	/						/ CHƯA THIẾT KẾ..
+- thêm mới đơn hàng	/ modal						/ xong
+- thêm mới đơn hàng	/ trang riêng					/ xong
 - mở nhanh chi tiết +	/ chưa có thông tin bên dưới thêm		/ CHƯA THIẾT KẾ..
 4. THÊM MỚI ĐƠN ĐẤU GIÁ:
-- thêm mới đơn hàng	/						/ CHƯA THIẾT KẾ..
+- thêm mới đơn hàng	/ modal						/ xong
+- thêm mới đơn hàng	/ modal						/ CHƯA THIẾT KẾ..
 - mở nhanh chi tiết +	/ chưa có thông tin bên dưới thêm		/ CHƯA THIẾT KẾ..
 - bảng thiết kế như shit
 5. QUẢN LÝ MAWB:
@@ -38,4 +42,4 @@ ________________________________________________________________________
 ________________________________________________________________________
 **ÔN TẬP:
 - ôn tập lại SQL	/						/ CHƯA..
-- học lại luồng hệ thống/						/ CHƯA.. BÁO A KHÁNH
+- học lại luồng hệ thống/						/ xong
