@@ -1,27 +1,35 @@
-Ngày cập nhật: 21/11/2024
+WORK UI
+-------
+Ngày cập nhật: 26/11/2024
 -------------------------
 **uatportal.shipquocte.com:
 *họp 21/11:
-- đẩy KN lên portal
-- Portal đính kèm thông tin Invoice khách hàng kê khai
+- Portal đính kèm thông tin Invoice khách hàng kê khai > triển khai trên shippingOrder	/ CHƯA CÓ TRIỂN KHAI...
 ________________________________________________________________________
 **cc.shipquocte.com:
 2.quản lý khiếu nại:
 - button xuất file	/ 						/ CHƯA CÓ API
 ________________________________________________________________________
-**acc.shipquocte.com:
- -> các bước dựng acc lại mới:
-	1. Clone source code của CC
-	2. Dựng menu cho ACC
-	3. thiết kế các table của menu giao dịch trên ACC
-1. xóa tạm cái .git để nó ko gọi vào ấy nữa tạo git mới
-2. TẠM NGƯNG do làm so. trước
+**HỌC TẬP: SQL:
+- xong 45 bài 		/						/ CHƯA THỰC HÀNH
+________________________________________________________________________
+**ÔN TẬP:
+- ôn tập lại SQL	/						/ CHƯA..
+- học lại luồng hệ thống/						/ xong
 ________________________________________________________________________
 **so.shipquocte.com:
 -> dựng clone của cc -> xóa .git
 - lưu tạm trên 1 biến main (private): so_shipquocte
-- 20/11			/ sửa breadcrumb cái title cuối sẽ ko p là link
-- App.scss		/ điều chỉnh cả phân mục @import
+-------------------------
+- 20/11			/ sửa breadcrumb cái title cuối sẽ ko p là link	/ component chung_xong
+- App.scss		/ điều chỉnh cả phân mục @import		/ vẫn giữ tên
+*THAY ĐỔI TỪ SOURCE CODE:
+21/11/2024
+- điều chỉnh lại toàn bộ /dashboard sang /home
+- sidebar từ 320 xuống 300 cho gọn; thu gọn = 132
+- đổi mật khẩu: ChangePassword -> main: khai báo route: /doi-mat-khau	/ xong
+- học lại thư viện antd table có nghĩa là đi từ 0 lên
+=========================
 1. HEADER:
 - thêm chức năng F11	/						/ xong
 - màn đổi mật khẩu	/						/ xong -> /doi-mat-khau
@@ -37,7 +45,9 @@ ________________________________________________________________________
 3. THÊM MỚI ĐƠN MUA HỘ:
 - thêm mới đơn hàng	/ modal						/ xong
 - thêm mới đơn hàng	/ trang riêng					/ xong
-- mở nhanh chi tiết +	/ chưa có thông tin bên dưới thêm		/ CHƯA THIẾT KẾ..
+- mở nhanh chi tiết +	/ tạo action view và neo lại			/ ĐANG LÀM...
+*gộp vào Hàng chờ mua với: tuyến (filter) + tab: 7 tab			/ xong_dữ liệu tab có API thì tính tiếp
+- 
 -------------------------
 4. THÊM MỚI ĐƠN ĐẤU GIÁ:
 - thêm mới đơn hàng	/ modal						/ xong
@@ -48,17 +58,5 @@ ________________________________________________________________________
 5. QUẢN LÝ MAWB:
 - 
 -------------------------
-*THAY ĐỔI TỪ SOURCE CODE:
-21/11/2024
-- điều chỉnh lại toàn bộ /dashboard sang /home
-- sidebar từ 320 xuống 300 cho gọn; thu gọn = 132
-- đổi mật khẩu: ChangePassword -> main: khai báo route: /doi-mat-khau	/ xong
-- học lại thư viện antd table có nghĩa là đi từ 0 lên
-- 
+
 ________________________________________________________________________
-**HỌC TẬP: SQL:
-- xong 45 bài 		/						/ CHƯA THỰC HÀNH
-________________________________________________________________________
-**ÔN TẬP:
-- ôn tập lại SQL	/						/ CHƯA..
-- học lại luồng hệ thống/						/ xong

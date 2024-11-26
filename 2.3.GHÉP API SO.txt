@@ -1,0 +1,26 @@
+GHÉP API SO
+-----------
+Ngày cập nhật: 26/11/2024
+-------------------------
+*DÙNG CHUNG:
+- fetchWh	/ api gọi list kho (warehouse)							/ 26-11-2024
+- 
+-----------------
+1. QUẢN LÝ MAWB:
+-> từ page: tạo ListMAWB -> ListMawb.tsx -> lên main: tạo route (quan-ly-mawb) -> lên sidebar đẩy /link
+-> tạo reducer: ListMawbReducer > index.ts > đẩy lên root
+-> tạo saga: ListMawbSaga > index.ts > đẩy lên root
+-> ListMawb:
+- type cột
+- interface: AddNewExpense -> bỏ đi thử any; 
+- rowSelection: cột checkbox (//)
+- itemRender: điều tiết tên prev,next phân trang
+- dataIndex: ~key copy từ record lên => kiểm soát render
+- min-max-width: 100_120_126_132_140_148_150_156_160_170_180_200_218_260_280_300
+- WVN01 = Kho Mỹ Đình 1
+- 2	= Kho Mỹ Đình 2
+- 3	= Kho Đại Mỗ
+- 4	= Kho Tân Bình - HCM
+- 5	= PCS CPN
+- WHVN	= Việt Nam
+	=> hoặc sử dụng API để làm điều kiện

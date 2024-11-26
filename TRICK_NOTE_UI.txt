@@ -1,6 +1,6 @@
 TRICK NOTE UI
 -------------
-Ngày cập nhật: 21/11/2024
+Ngày cập nhật: 22/11/2024
 -------------------------
 
 I. Giao diện: FE, html, css
@@ -124,3 +124,12 @@ preview => yarn preview
 - idm		phân quyền tk
 =>
 	khách hàng: tạo đơn portal -> so: tạo lệnh thanh toán -> acc: ktra nợ -> duyệt -> po2: cập nhật tracking, xác nhận mua hàng -> wh: khai thác > tạo bagbox > tạo mã mawb -> bay => về VN; op: khai thác ttin, nhập ttin... => chuyển về so: xuất khiếu xuất kho xác nhận có đơn hàng --> cuối cùng chuyển cho đơn vị vận chuyển: gửi hàng cho khách!
+----------------------------------------------------------------------------------------------------------------
+**acc.shipquocte.com:
+ -> các bước dựng acc lại mới:
+	1. Clone source code của CC
+	2. Dựng menu cho ACC
+	3. thiết kế các table của menu giao dịch trên ACC
+1. xóa tạm cái .git để nó ko gọi vào ấy nữa tạo git mới
+2. TẠM NGƯNG do làm so. trước
+----------------------------------------------------------------------------------------------------------------
