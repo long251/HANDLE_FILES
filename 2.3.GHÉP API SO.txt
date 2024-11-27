@@ -1,6 +1,6 @@
 GHÉP API SO
 -----------
-Ngày cập nhật: 26/11/2024
+Ngày cập nhật: 27/11/2024
 -------------------------
 *DÙNG CHUNG:
 - fetchWh	/ api gọi list kho (warehouse)							/ 26-11-2024
@@ -23,4 +23,9 @@ Ngày cập nhật: 26/11/2024
 - 4	= Kho Tân Bình - HCM
 - 5	= PCS CPN
 - WHVN	= Việt Nam
-	=> hoặc sử dụng API để làm điều kiện
+	=> hoặc sử dụng API để làm điều kiện (tạm thời cập nhật = Skey)
++ lọc ngày: GPT
++ thông tin tracking chưa map: chưa bt lấy ở đâu
+- list_mawb_modal > 
+===================
+- Đơn mới, Chờ mua, Đã mua, Đơn hủy

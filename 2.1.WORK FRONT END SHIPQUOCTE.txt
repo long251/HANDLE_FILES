@@ -1,10 +1,11 @@
 WORK UI
 -------
-Ngày cập nhật: 26/11/2024
+Ngày cập nhật: 27/11/2024
 -------------------------
 **uatportal.shipquocte.com:
 *họp 21/11:
 - Portal đính kèm thông tin Invoice khách hàng kê khai > triển khai trên shippingOrder	/ CHƯA CÓ TRIỂN KHAI...
+- Ghép API check tracking phần Shipping Orders				/ chưa chốt lại bên TO
 ________________________________________________________________________
 **cc.shipquocte.com:
 2.quản lý khiếu nại:
