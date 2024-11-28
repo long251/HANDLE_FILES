@@ -1,0 +1,54 @@
+UI_SO_SHIPQUOCTE
+----------------
+Ngày cập nhật: 28/11/2024
+-------------------------
+
+1.header:
+- nhãn		/ chưa có						/ sau
+- search tổng	/ search mã track ra thông tin lịch sử xe đi		/ sau
+- icon thông báo/ chưa có						/ sau
+- icon F11	/ thu phóng trang =F11					/	xong
++ accountUser:
+  - màn đổi mk	/ mới chỉ có UI chưa có xử lý logic			/ sau
+  - logout	/ chỉnh sau hoặc có sẵn					/ sau
+-------------------------------------------------------------------------
+2.Home:
+- url trang chủ	/ điều chỉnh link sai về hết /home thay vì /dashboard	/ rà soát dần_chưa check done	/ ĐANG LÀM...
+	-> sidebar, 
+- màn		/ do so đang chỉ là màn fake nên từ từ cái này để sau	/ sau
+-------------------------------------------------------------------------
+3.Sidebar:
+- clean code	/ 							/	xong
+- mobile	/ thiết kế sau						/ sau khi ổn normal
+! customerCareMenu: là cái push tab ngoài mức 2 (mức 1 là sidebar)
+- complainGroup: nhóm của Đơn mua hộ;
+- gộp 'thêm mới đơn mua hộ + đơn đấu giá' vào làm 1;
+- tạm thời xong Sidebar khi nào bổ sung cái /link breadcrumb thì sửa hàm getKey sau
+MENU SIDEBAR:
+*change pass word	= ChangePassword
+1. home			= Home
+2. quản lý mawb:
+	- tra cứu	= SreachTrackingMawb
+	- danh sách	= ListMawb
+3. đơn mua hộ:
+	- tra cứu	= SearchEcommerce
+	- danh sách	= ListEcommerce
+	- thêm mới	= CreateEcommerce
+4. đơn vận chuyển:
+	- tra cứu	= SearchShippingOrder
+	- danh sách	= ShippingOrder
+	- thêm mới	= CreateShippingOrder
+5. danh sách pxk:
+	- ec	`	= WhReleaseNoteEcommerce
+	- vc		= WhReleaseNoteShipping
+6. danh sách sự vụ:	= IncidentList
+7. khách hàng:		= [chưa thống nhất mảng route]
+8. hàng unknown:
+	- chờ xử lý	= 
+	- đã xử lý	= 
+-------------------------------------------------------------------------
+4.Danh sách sự vụ:
+status:
+1=mới tạo
+2=đã xử lý
+3=Đang xử lý

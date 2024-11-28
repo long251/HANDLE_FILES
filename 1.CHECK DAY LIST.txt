@@ -1,6 +1,6 @@
 CTY PCS
 -------
-Ngày cập nhật: 27/11/2024
+Ngày cập nhật: 28/11/2024
 -------------------------
 - hộp bánh danisa					/ vài
 - Cốc thuốc:
@@ -48,6 +48,7 @@ Ngày cập nhật: 27/11/2024
 - MANG	-> quyển vở			x1		/ 
 -----------------------------------------------------------------------------------------------------------------
 *WORK:
+- quy hoạch lại ăn uống
 - 
 QL1:
 - PASS	-> lọ shrimp			/ 
@@ -82,6 +83,5 @@ NHẠC:
 - superOne
  - M	-> giun ; giun nhà 
 -------------------------
-- sc lắc cf	= 28
 - trà xoài đào kem cheese = 30
 - trà sen vàng kem cheese = 30
