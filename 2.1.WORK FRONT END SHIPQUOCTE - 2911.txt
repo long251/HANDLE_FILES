@@ -7,9 +7,7 @@ Ngày cập nhật: 28/11/2024
 - Portal đính kèm thông tin Invoice khách hàng kê khai > triển khai trên shippingOrder	/ CHƯA CÓ TRIỂN KHAI...
 - Ghép API check tracking phần Shipping Orders				/ chưa chốt lại bên TO
 ________________________________________________________________________
-**cc.shipquocte.com:
-2.quản lý khiếu nại:
-- button xuất file	/ 						/ CHƯA CÓ API
+**cc.shipquocte.com
 ________________________________________________________________________
 **HỌC TẬP: SQL:
 - xong 45 bài 		/						/ CHƯA THỰC HÀNH
