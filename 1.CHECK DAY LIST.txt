@@ -1,6 +1,6 @@
 CTY PCS
 -------
-Ngày cập nhật: 29/11/2024
+Ngày cập nhật: 3/12/2024
 -------------------------
 - hộp bánh danisa					/ vài
 - Cốc thuốc:
@@ -43,32 +43,12 @@ Ngày cập nhật: 29/11/2024
 	- [gitlab] 	-> check a Khánh FE cập nhật. Tự Merge lên UAT
 -----------------------------------------------------------------------------------------------------------------
 *TRIỂN KHAI:
-- MANG	-> bánh kẹo lên cty		x vài		/ DONE
-- M	-> kẹo cao su hộp to đùng 	x1		/ 
-- MANG	-> quyển vở			x1		/ 
+- MANG	-> bánh kẹo lên cty		x vài		/ 
+- MANG	-> bịch giấy ăn			x 2		/ done
+- MANG	-> quyển vở			x 1		/ done
 -----------------------------------------------------------------------------------------------------------------
-*WORK:
-- quy hoạch lại ăn uống
-- 
-QL1:
-- PASS	-> lọ shrimp			/ 
-- SX	-> quần áo mùa đông		
-- HỌC ĐÀN				/ xem xét sớm
-QL2:
-- M	-> kẹp kem đánh răng		/ đợi free ship
 - RỬA	-> đồ trong vs			/ ĐANG LÀM...
-- GHI LẠI ĐỒ CÁ CẢNH HIỆN TẠI		/ ĐANG LÀM...
-- IPHONE MỚI + TÀI KHOẢN
 - PC
-- SẠC PIN CHO MIC HÁT
--> p.khách:
- - pass -> đồ lazada
- - pass	-> sách
- - pass -> đồ bể đúc 50
- - pass -> RS680C + lọc hbl803
- - pass	-> cá betta + bể
- - RỬA	-> đá, VLL
- - pass	-> chép sư tử
 -----------------------------------------------------------------------------------------------------------------
 NHẠC:
 - 1 thời đã xa
