@@ -1,0 +1,25 @@
+so2.shipquocte.com
+------------------
+Ngày cập nhật: 05/12/2024
+-------------------------
+I.Ecommerce:
+1. Search:
+*field: TT đơn hàng, TT xử lý (mở modal), Phí vận chuyển, 
+*format: giá sp, phí vận chuyển, thành tiền
+*modal: mở ảnh
+- link sp, 
+II. 
+________________________________________________________________________________________________________________________
+1.portal:
+- tạo API check tracking trùng trong ĐƠN VẬN CHUYỂN && tạo MODAL yes/no xác nhận đi tiếp	(Shipping > Create)
+- list ShippingOrder đang thừa quá nhiều khoảng trắng do căn trái, chưa chốt thêm field		(Shipping > LIST)
+------------------------------------------------------------------------------------------------------------------------
+2. cc:
+- chưa tìm được ra cái CSS nào đang đè vào Modal						(chưa ra)
+- đang fix toàn bộ ConfigProvider lại thành div đè CSS						(rối nhằng)
+- chỉnh lại các màn, co gọn các cột lại								(SAU)
+------------------------------------------------------------------------------------------------------------------------
+3. so:
+- nhóm các cột bên ds đơn vc: route, mã track, ngày tạo || mawb, trạng thái đơn			(ds đơn vận chuyển)
+-  
+------------------------------------------------------------------------------------------------------------------------
