@@ -1,0 +1,123 @@
+HỌC ANGULAR
+-----------
+Ngày cập nhật: 11/12/2024
+-------------------------
+
+1. Luồng chạy acc (11/12/2024 - a Khánh bé chỉ cho):
+-> main.ts => Load App Module: trong app khai báo full: component, service...
+	=> App Routing -> khai báo route, home > content > (cái content là ở giữa)
+	vd: affair -> component (affair) -> export html, scss (file chính là ts)
+	khởi tạo cái OnInit nữa
+	- fix onSearch để chạy trong chương trình
+-----------------------------------------------------------------------------------------------------------------------
+2. bài tập:
+- tạo thử route mới, view mới, call API get list (loading, page) check mở 1 modal (thêm filter)
+-> tạo 1 route mới ở app-routing.module.ts (3.7)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++0++++++++++++++++++++++++++++++++++
+-> 1. tạo route:
+      {
+        path: 'newroute',
+        loadChildren: './newroute/component.module#NewRouteComponentModule',
+        canActivate: [PermissionGuard],
+        data: {
+          resourceKey: 'ACC.NEWROUTE',
+          permissionAction: 'ACCESS'
+        }
+      },
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-> 2. tạo: component.module.ts
+Bây giờ bạn cần tạo cấu trúc tương tự cho newroute:
+Tạo module: Tạo thư mục newroute và file component.module.ts bên trong.
+so sánh:
+- clarations: Đây là nơi chứa các component và directives mà module khai báo. Những thành phần này sẽ được sử dụng trong module, có thể là trong các template khác nhau của module đó.
+- imports: Đây là các module khác mà module hiện tại cần để hoạt động. Các module này sẽ được import và sẵn sàng sử dụng trong các component thuộc module đó.Các module này cung cấp những dịch vụ, directive, và khả năng mà các component bên trong cần sử dụng.
+- providers: Đây là nơi khai báo các dịch vụ (services) mà module cung cấp cho các component bên trong. Các dịch vụ này có thể là những service sử dụng chung cho nhiều component hoặc có thể được inject vào các component khác.
+- bootstrap: Đây là danh sách các component mà bạn muốn khởi động (bootstrap) khi module được khởi tạo. Những component này sẽ được ngôn ngữ Angular load đầu tiên khi module được kích hoạt, sau đó các component khác có thể load sau.
+????????????SO SÁNH???????
+- clarations: Là nơi khai báo các component và directives của module. Tất cả các thành phần được khai báo trong declarations đều có thể được sử dụng trong bất kỳ component nào thuộc module đó mà không cần import lại. Nó giúp Angular hiểu và quản lý những thành phần nào được cung cấp bởi module.
+- bootstrap: Là danh sách các component mà bạn muốn Angular load khi module được kích hoạt. Component đầu tiên trong danh sách này sẽ được khởi động ngay lập tức khi module được khởi tạo. Các component còn lại trong danh sách sẽ được khởi tạo sau này khi cần thiết.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-> 3. tạo tiếp: newroute.component.ts
+import { Component, OnInit } from "@angular/core";
+
+@Component({
+    selector: 'app-new-route',
+    templateUrl: './newroute.component.html',
+    styleUrls: ['./newroute.component.scss']
+})
+export class NewRouteComponent implements OnInit {
+    constructor(){}
+    ngOnInit(): void {
+        //gg
+    }
+}
+NGƯỢC: tạo bước 3 trước bước 2 => xong mới import cái bên kia vào
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-> 4.emplate và style cho component trong new-route.component.html và new-route.component.scss
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-> 5.xong mới gọi vào app-routing:
+const routes: Routes = [
+  // các route khác
+  {
+    path: 'newroute',
+    loadChildren: () => import('./newroute/component.module').then(m => m.NewRouteComponentModule),
+    canActivate: [PermissionGuard],
+    data: {
+      resourceKey: 'ACC.NEWROUTE',
+      permissionAction: 'ACCESS'
+    }
+  },
+];
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-> 6.Tạo API và Modal (Optional):
+Nếu cần, bạn cần tạo API endpoint để gọi dữ liệu cho new-route và thiết kế modal chứa các bộ lọc.
+Tạo service để gọi API và inject vào component NewRouteComponent:
+- vào service:
+	- tạo newroute.ts
+	-> 
+-----------------------------------------------------------------------------------------------------------------------
+3. đọc hiểu:
+3.1.main.ts
+	- chạy đầu tiên
+	- AppModule: Đây là module chính của ứng dụng (root module). Nó chứa các thông tin về thành phần (component), dịch vụ (service), và cấu hình chính của ứng dụng.
+---------------------------------------------------------
+3.2.AppModule:
+-> export class AppModule { }
+- BrowserModule: Bắt buộc cho ứng dụng Angular chạy trên trình duyệt.
+AppRoutingModule: Quản lý định tuyến trong ứng dụng.
+HttpClientModule: Cho phép thực hiện các yêu cầu HTTP.
+NgSelectModule: Cung cấp dropdown nâng cao.
+ToastrModule: Hiển thị thông báo kiểu toast.
+BlockUIModule: Tạo hiệu ứng loading.
+ChartsModule, NgxChartsModule: Hỗ trợ vẽ biểu đồ.
+---------------------------------------------------------
+3.3.AppComponent:
+- Khởi tạo cấu hình xác thực OAuth2/OIDC
+- selector: 'app-root': Đây là tên thẻ HTML đại diện cho AppComponent. Angular sẽ chèn nội dung của thành phần này vào index.html tại <app-root>.
+templateUrl và styleUrls: Chỉ định tệp HTML và CSS được sử dụng cho giao diện.
+---------------------------------------------------------
+3.4.app-routing.module.ts:
+- quản lý các tuyến của ứng dụng Angular
+- NgModule: Định nghĩa module Angular
+---------------------------------------------------------
+3.5.content:
+- #: Phân tách giữa đường dẫn file module (./pages/dashboard/dashboard.module) và tên của module (DashboardModule)
+- Khi MpayModule được tải, nó sẽ kiểm tra giá trị của path trong URL và hiển thị component phù hợp:
+/system → SystemComponent
+/employee → EmployeeComponent
+/sync → SyncComponent
+/report → ReportComponent
+---------------------------------------------------------
+3.6.mpay-routing.module.ts:
+-> liên kết:
+{
+  path: 'system',
+  loadChildren: './pages/mpay/mpay.module#MpayModule'
+}
+---------------------------------------------------------
+3.7.mpay.module.ts:
+> trong cái này đã chứa mpay-routing.module.ts rồi nên ko cần ấy
+
+
+
+

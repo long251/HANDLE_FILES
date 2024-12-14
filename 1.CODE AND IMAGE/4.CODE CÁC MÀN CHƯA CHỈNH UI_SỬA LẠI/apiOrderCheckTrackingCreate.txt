@@ -1,0 +1,4 @@
+/api/Order/CheckTrackingCreate
+payload truyền lên: ["string"]
+TH1: nếu mã tracking không trùng -> response body: {"status": true,"errorCode": null,"parameters": null}
+TH2: nếu mã tracking trùng dưới server -> res body: "status": false,"errorCode": "Tracking đã có trong hệ thống!","parameters": null}
