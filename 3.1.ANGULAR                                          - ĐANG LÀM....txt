@@ -1,6 +1,6 @@
 ANGULAR
 -------
-Ngày cập nhật: 13/12/2024
+Ngày cập nhật: 16/12/2024
 -------------------------
 
 bài 1: giới thiệu tổng quan về Angular:
@@ -54,3 +54,19 @@ bài 7: vòng đời component:
 - OnInit (implements)
 ======================================================================================================================
 bài 8: 
+======================================================================================================================
+bài 9: tương tác giữa các components:
+*7 cách tương tác trong angular:
+9.1. Input binding: @input() 
+9.2. set() get()
+9.3. ngOnChanges()
+9.4. service
+9.5. misstionConfirm
+======================================================================================================================
+bài 10: component style:
+======================================================================================================================
+bài 11: truyền dữ liệu cha con:
+- @Input(); @Output()
+- blockui: quản lý trạng thái ẩn hiện khi có thao tác bất đồng bộ
+- Constructor được sử dụng để khởi tạo các dịch vụ (service) và đối tượng ban đầu.
+- 
