@@ -1,0 +1,18 @@
+line 728
+--------
+{messages.length ? (
+              <div className={'Action'}>
+                <Tooltip placement={'left'} title={'Gán mã khách hàng'}>
+                  <Button
+                    onClick={() => setOpenModalCustomerCode(true)}
+                    icon={<TagIcon />}
+                    type={'primary'}></Button>
+                </Tooltip>
+                <Tooltip placement={'left'} title={'Chuyển CSKH khác'}>
+                  <Button
+                    onClick={() => setOpenModalStaff(true)}
+                    icon={<ChatIcon />}
+                    type={'primary'}></Button>
+                </Tooltip>
+              </div>
+            ) : null}

@@ -1,0 +1,10 @@
+FIX CC.SHIPQUOCTE.COM
+---------------------
+Ngày cập nhật: 19/12/2024
+-------------------------
+
+1.Zalo:
+- thay đổi vị trí của mã khách hàng (vd:  P1719)				/ xong
+- thêm sticky avatar neo đầu bảng						/ ĐANG LÀM...
+- combo button action						/ ĐANG LÀM... => nhưng nó ẩn/hiện đúng lúc
+- 
