@@ -1,6 +1,6 @@
 HỌC ANGULAR
 -----------
-Ngày cập nhật: 11/12/2024
+Ngày cập nhật: 19/12/2024
 -------------------------
 
 1. Luồng chạy acc (11/12/2024 - a Khánh bé chỉ cho):
@@ -117,6 +117,10 @@ templateUrl và styleUrls: Chỉ định tệp HTML và CSS được sử dụng
 ---------------------------------------------------------
 3.7.mpay.module.ts:
 > trong cái này đã chứa mpay-routing.module.ts rồi nên ko cần ấy
+___________________________________________________________________________________________________________________
+**WORK:
+- cái cuộn đang ko tự đóng sidebar mobi								/ ĐANG LÀM...
+- 
 
 
 

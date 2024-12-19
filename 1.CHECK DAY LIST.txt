@@ -1,6 +1,6 @@
 CTY PCS
 -------
-Ngày cập nhật: 16/12/2024
+Ngày cập nhật: 19/12/2024
 -------------------------
 - hộp bánh danisa					/ vài
 - Cốc thuốc:
@@ -47,10 +47,12 @@ Ngày cập nhật: 16/12/2024
 - MANG	-> bịch giấy ăn			x 2		/ done
 - MANG	-> quyển vở			x 1		/ done
 -----------------------------------------------------------------------------------------------------------------
-- RỬA	-> đồ trong vs			/ ĐANG LÀM...
-- PC	-> files			/ ĐANG LÀM...
+*WORK:
+- PC	-> sắp xếp thanh google chorme, cốc cốc		/ 
+- THAY	-> xịt mũi: ql1, cty				/ 
+- THAY	-> nhỏ mũi: cty					/ 
 -----------------------------------------------------------------------------------------------------------------
-NHẠC:
+*NHẠC:
 - 1 thời đã xa
 - 1 thuở yêu người
 - dĩ vãng nhạt nhòa

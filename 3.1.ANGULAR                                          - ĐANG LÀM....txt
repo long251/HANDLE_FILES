@@ -1,6 +1,6 @@
 ANGULAR
 -------
-Ngày cập nhật: 16/12/2024
+Ngày cập nhật: 19/12/2024
 -------------------------
 
 bài 1: giới thiệu tổng quan về Angular:

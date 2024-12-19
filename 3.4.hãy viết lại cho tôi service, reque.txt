@@ -1,0 +1,123 @@
+hãy viết lại cho tôi service, request, modal, response, query sao cho API tôi muốn thực hiện:
+/api/Employee/GetSaleMastListById
+truyền query Id =?
+Vd: https://acc-api.shipquocte.com/api/Employee/GetSaleMastListById?Id=1
+response body trả về:
+{
+  "data": "{\"Id\":1,\"AccountId\":\"4a713855-c901-4b61-aa92-64b70b3b5a76\",\"FullName\":\"Nguyễn Công Hân\",\"Phone\":\"0989748080\",\"LimitAmount\":1000.000,\"LoanAmount\":0.000,\"AmountAvai\":1000.000,\"OPNDATE\":\"2024-12-16T15:18:58.350\",\"OpenDateString\":\"16\\/12\\/2024\",\"CreatedBy\":\"313f04a5-a0a5-4290-b348-cb025aaf875e\",\"CreatedByName\":\"khanhvd1\"}",
+  "status": true,
+  "errorCode": null,
+  "parameters": null
+}
+CODE CẦN SỬA:
+1.saleguarantee.service.ts:
+@Injectable()
+export class SaleGuaranteeService {
+    constructor(private http: HttpClientService){ }
+    add(request: SaleGuaranteeAddRequest): Observable<BaseResponse>{
+        const url = ConfigSetting.SALE_GUARANTEE_ADD;
+        return this.http.postAuthorize<BaseResponse>(url, request);
+    }
+    getSaleGuarantee(request:SaleGuaranteeGetListRequest):Observable<getListSaleGuaranteeResponse>{
+        const url = ConfigSetting.SALE_GUARANTEE_LIST;
+        return this.http.postAuthorize<getListSaleGuaranteeResponse>(url, request);
+    }
+    getSaleGuaranteeById(request: SaleGuaranteeByIdRequest):Observable<BaseJSONResponse<SaleGuaranteeDetail>>{
+        const url = ConfigSetting.SALE_GUARANTEE_GET_BY_ID;
+        return this.http.postAuthorize<BaseJSONResponse<SaleGuaranteeDetail>>(url, request);
+    }
+}
+2.saleguarantee.request.ts:
+export interface SaleGuaranteeByIdRequest{
+    Id: number;
+}
+3.base.response.ts (ở đây bạn sử dụng interface nào đó cho hợp lý):
+import { KeyValue } from '../model/base.model';
+
+export interface BaseResponse {
+    status: boolean;
+    errorCode: string;
+    parameters: KeyValue[];
+}
+export interface BaseEntityResponse<TEntity> extends BaseResponse {
+    data: TEntity;
+}
+//JSON 
+export interface BaseJSONResponse<TEntity> extends BaseResponse {
+    data: TEntity | string;
+  }
+  
+export interface DataTableResponse<TEntity> {
+    data: TEntity[];
+    draw: number;
+    recordsFiltered: number;
+    recordsTotal: number;
+}
+export interface PagingResponse<TEntity> extends BaseEntityResponse<TEntity> {
+    total: number;
+    pageIndex: number;
+    pageSize: number;
+}
+export interface FileUploadResponse extends BaseResponse {
+    fullUrl: string;
+    url: string;
+    name: string;
+    fileName: string;
+    path: string;
+    hostName: string;
+    uploaded: number;
+}
+export class PagingModel {
+    public pageSize;
+    public pageIndex;
+    public totalCount;
+    public totalPages;
+
+    public static create(pageIndex = 0, pageSize = 20): PagingModel {
+        const model = new PagingModel();
+        model.pageIndex = pageIndex;
+        model.pageSize = pageSize;
+
+        return model;
+    }
+    public static fromResponse(xPaginationHeader: any): PagingModel {
+        const model = new PagingModel();
+        model.totalCount = xPaginationHeader.totalCount;
+        model.pageIndex = xPaginationHeader.pageIndex;
+        model.pageSize = xPaginationHeader.pageSize;
+        model.totalPages = xPaginationHeader.totalPages;
+
+        return model;
+    }
+    public static createNextPage(pageIndex: number, pageSize = 20): PagingModel {
+        const model = new PagingModel();
+        model.pageIndex = pageIndex + 1;
+        model.pageSize = pageSize;
+
+        return model;
+    }
+    public static createPreviousPage(pageIndex: number, pageSize: number): PagingModel {
+        const model = new PagingModel();
+        model.pageIndex = pageIndex - 1;
+        model.pageSize = pageSize;
+
+        return model;
+    }
+}
+
+4.saleguarantee.model.ts:
+ export class SaleGuaranteeDetail{
+    Id: number;
+    AccountId: string;
+    FullName: string;
+    Phone: number;
+    LimitAmount: number;
+    LoanAmount: number;
+    AmountAvai: number;
+    OPNDATE: string;
+    OpenDateString: string;
+    CreatedBy: string;
+    CreatedByName: string;
+ }
+5.config:
+  public static SALE_GUARANTEE_GET_BY_ID = env.baseUrl.cmsApi + '/Employee/GetSaleMastListById';
