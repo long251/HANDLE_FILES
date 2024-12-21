@@ -1,6 +1,6 @@
 HỌC ANGULAR
 -----------
-Ngày cập nhật: 19/12/2024
+Ngày cập nhật: 21/12/2024
 -------------------------
 
 1. Luồng chạy acc (11/12/2024 - a Khánh bé chỉ cho):
