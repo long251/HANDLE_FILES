@@ -1,0 +1,618 @@
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, AfterViewInit, EventEmitter } from '@angular/core';
+import { Subject, of } from 'rxjs';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { DataTableDirective } from 'angular-datatables';
+import { ErrorCodeDefine } from 'src/app/common/error-code-define';
+// -----------------------
+import * as model from '../../../models/model/bankic.model';
+import { UtilityService } from 'src/app/services/utility.service';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { Actions, MenuContextDefine2, PermissionCommon } from 'src/app/common/config-setting';
+import { PermissionService } from 'src/app/services/permission.service';
+import { BankicService } from 'src/app/services/bankic.service';
+import { AddNewBankIcComponent } from './addnewbankic.component';
+import { EditBankIcComponent } from './editbankic.component';
+import { bankicUpdateStatus, bankicUpdateBankFullName, bankicUpdateBravo, BankicUpdateAutoGetHistory, UpdateAllowDepositRequest } from 'src/app/models/request/bankiclist.request';
+import { ConfigBankicComponent } from './configbankic.component';
+import { TrackingInfoComponent } from './trackinginfo.component';
+import { BankTransactionHistoryUpdate } from 'src/app/models/model/banktransactionhistory.model';
+import * as moment from 'moment';
+import { startWith, switchMap, map, catchError, } from 'rxjs/operators';
+import { merge } from 'rxjs';
+@Component({
+  selector: 'app-bankic',
+  templateUrl: './index.component.html',
+  styleUrls: ['./index.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  providers: [NgbModalConfig, NgbModal]
+})
+export class IndexComponent implements AfterViewInit, OnDestroy, OnInit {
+  @BlockUI('blockui-bankic') blockUI: NgBlockUI;
+  public dtTrigger: Subject<any> = new Subject();
+  private refresh: EventEmitter<any> = new EventEmitter<any>();
+  private refreshAccount: EventEmitter<any> = new EventEmitter<any>();
+
+  // Public
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+  dtOptions: any = {};
+  public data: model.BankicEdit[];
+  public bankType: any[];
+  public pageLength: number;
+  public keyword: string;
+  public accountNumber: string;
+  public bankName: string;
+  public bankFullName: string;
+  public accAccount: string;
+  public description: string;
+  public status: boolean;
+  public stateAccount: boolean;
+  public stateDeposit: number;
+  public stateAutoGetHistory: boolean;
+  public lstBankInfo: model.BankicListDetail[];
+  public isRefreshSuccess = false;
+  public statuss = [
+    { value: 1, label: 'Theo dõi' },
+    { value: 0, label: 'Bỏ theo dõi' },
+  ]
+  public stateAccounts = [
+    { value: true, label: 'Sẵn sàng' },
+    { value: false, label: 'Chưa sẵn sàng' },
+  ];
+  public stateDeposits = [
+    { value: 1, label: 'Cho phép nạp tiền' },
+    { value: 0, label: 'Không cho phép nạp tiền' },
+  ]
+  public stateGetHistorys = [
+    { value: true, label: 'Tự động lấy sao kê' },
+    { value: false, label: 'Dừng tự động lấy sao kê' },
+  ]
+  public listServiceGroup: model.BankServiceInfo[];
+  constructor(
+    private modalService: NgbModal,
+    private ctService: BankicService,
+    private utility: UtilityService,
+    private confirmService: ConfirmationDialogService,
+    private permissionService: PermissionService
+  ) {
+    this.permissionService.ResourceKey = "ACC.BANKINFO";
+    this.pageLength = 50;
+    this.keyword = '';
+    this.bankType = [
+      { id: 'BANKING', name: 'BANKING' },
+      { id: 'WALLET', name: 'WALLET' },
+    ]
+  }
+
+  ngOnInit() {
+    this.utility.cancelProcessing(this.blockUI);
+    this.onLoadServiceGroup();
+    this.onLoadAllAccount();
+    let tblToolbar = [];
+    tblToolbar.push({
+      text: '<span data-action-target="button" data-action=' + Actions.ACCESS + '><i  class="icofont icofont-ui-add"></i> Thêm mới</span>',
+      key: 'a', shiftKey: true,
+      action: () => {
+        const modalRef = this.modalService.open(AddNewBankIcComponent, { size: 'lg' });
+        modalRef.result.then(() => {
+          this.refreshPage();
+        }, () => {
+        });
+      }
+    });
+    tblToolbar.push({
+      extend: 'print', text: '<span data-action-target="button" data-action=' + Actions.ACCESS + '><i class="icofont icofont-print"></i> In', title: 'THÔNG TIN NGÂN HÀNG'
+    });
+    tblToolbar.push({
+      extend: 'excel', text: '<span data-action-target="button" data-action=' + Actions.EXPORT + '><i class="icofont icofont-file-excel"></i> Xuất Excel</span>',
+      exportOptions: {
+        modifier: {
+          page: 'current'
+        }
+      },
+      title: 'Bank Deposit',
+    });
+    tblToolbar.push({
+      extend: 'colvis', text: '<i class="icofont icofont-table"></i> Cột hiển thị',
+      columnText: function (dt, idx, title) {
+        return (idx + 1) + ' : ' + title;
+      }
+    });
+    this.dtOptions = {
+      language: {
+        'sLengthMenu': '_MENU_ ',
+        'sSearch': 'Tìm nhanh:',
+        'oPaginate': {
+          'sFirst': '<<',
+          'sLast': '>>',
+          'sNext': '>',
+          'sPrevious': '<'
+        }
+      },
+      "lengthMenu": [[50, 100, 150, 200, 500], [50, 100, 150, 200, 500]],
+      pagingType: 'full_numbers',
+      pageLength: this.pageLength,
+      serverSide: true,
+      processing: true,
+      order: false,
+      ajax: (tblSearch: any, callback) => {
+        tblSearch.keyword = this.keyword;
+        tblSearch.accountNumber = this.accountNumber;
+        tblSearch.bankName = this.bankName;
+        tblSearch.accAccount = this.accAccount;
+        tblSearch.description = this.description;
+        tblSearch.stateAccount = this.stateAccount;
+        tblSearch.stateAutoGetHistory = this.stateAutoGetHistory;
+        tblSearch.stateDeposit = this.stateDeposit;
+        tblSearch.status = this.status;
+        this.ctService.getjTable(tblSearch)
+          .subscribe(response => {
+            callback({
+              recordsTotal: response.recordsTotal,
+              recordsFiltered: response.recordsFiltered,
+              draw: response.draw,
+              data: response.data
+            });
+          }, () => { });
+      },
+      dom: 'Blfrtip', select: true,
+      columns: [
+        {
+          data: 'IsServiceReady', title: '', orderable: false, render: function (data: any, type: any, item: model.BankicList) {
+            let html = '';
+            if (data == false) {
+              html += `<div><span class="badge badge-danger mb-1">Tài khoản chưa sẵn sàng</span></div>`;
+            } else {
+              html += `<span class="badge badge-success mb-1">Tài khoản sẵn sàng</span>`;
+            }
+            if (item.ForDeposit == 1) {
+              html += `<div><span class="badge badge-success mb-1">Cho phép nạp tiền</span></div>`;
+            } else {
+              html += `<div><span class="badge badge-warning mb-1">Không cho phép nạp tiền</span></div>`;
+            }
+            if (item.AutoGetHistory == 1) {
+              html += `<div><span class="badge badge-success">Tự động lấy sao kê</span></div>`;
+            } else {
+              html += `<div><span class="badge badge-danger">Dừng tự động lấy sao kê</span></div>`;
+            }
+            return html;
+          }
+        },
+        // {
+        //   data: 'AutoGetHistory', title: 'Tự động lấy sao kê',
+        //   render: function (data: any, type: any, item: any) {
+        //     if (item.AutoGetHistory == "1") {
+        //       return ` <div style="text-align:center" class="checkbox"><input type="checkbox"  id="checkbox-auto-'${item.Id}'" checked  data-auto style="margin-top:-10px;" /><label for="checkbox-auto-'${item.Id}'"></label></div>`
+        //     } else {
+        //       return ` <div style="text-align:center" class="checkbox"><input type="checkbox"  id="checkbox-auto-'${item.Id}'"  data-auto style="margin-top:-10px;" /><label for="checkbox-auto-'${item.Id}'"></label></div>`
+        //     }
+        //   }, orderable: false
+        // },
+        {
+          data: 'AccountNumber', title: 'Số tài khoản'
+        },
+        {
+          data: 'BankName', title: 'Mã ngân hàng',
+        },
+        {
+          data: 'BankFullName', title: 'Tên ngân hàng',
+        },
+        { data: 'Branch', title: 'Chi nhánh' },
+        { data: 'Province', title: 'Tỉnh T/P' },
+        { data: 'Address', title: 'Địa chỉ' },
+        { data: 'AccountName', title: 'Chủ tài khoản' },
+        { data: 'AccAccount', title: 'Mã trên Bravo', },
+        { data: 'Description', title: 'Ghi chú' },
+        {
+          data: 'Status', title: 'Theo dõi', orderable: false,
+          render: function (data: any, type: any, item: any) {
+            if (item.Status == "1") {
+              return ` <div class="checkbox" style="float:right;"><input type="checkbox"  id="checkbox-primary-'${item.Id}'" checked  data-items /><label for="checkbox-primary-'${item.Id}'" style=" float:right; padding-right: 15px; margin-top: 3px;"></label></div>`
+            } else {
+              return ` <div class="checkbox" style="float:right;"><input type="checkbox"  id="checkbox-primary-'${item.Id}'"  data-items /><label for="checkbox-primary-'${item.Id}'" style=" float:right; padding-right: 15px; margin-top: 3px;"></label></div>`
+            }
+          }
+        },
+      ],
+      rowCallback: (row: Node, data: model.BankicList) => {
+        const self = this;
+        let random = Math.floor(Math.random() * 1000);
+        $(row).attr('id', random + '_bankic_' + data.Id);
+        let menuItemDefines: MenuContextDefine2[] = [
+          { key: 'edit', name: 'Chỉnh sửa', icon: 'fa-edit', permissionAction: Actions.ACCESS },
+          { key: 'config', name: 'Cấu hình hệ thống', icon: 'fa-edit', permissionAction: Actions.ACCESS },
+          { key: 'trackinginfo', name: 'Lịch sử thao tác', icon: 'fa-info', permissionAction: Actions.ACCESS },
+          { key: 'restart', name: 'Khởi động lại tài khoản', icon: 'fa-refresh', permissionAction: Actions.ACCESS },
+          { key: 'delete', name: 'Xóa', icon: 'fa-recycle', permissionAction: Actions.ACCESS },
+        ];
+        const startAutoGetHistory = { key: 'startAutoGetHistory', name: 'Bật tự động lấy sao kê', icon: 'fa-reddit-alien', permissionAction: Actions.ACCESS };
+        const stopAutoGetHistory = { key: 'stopAutoGetHistory', name: 'Tạm dừng tự động lấy sao kê', icon: 'fa-stop-circle-o', permissionAction: Actions.ACCESS };
+        const allowDeposit = { key: 'allowDeposit', name: 'Cho phép nạp tiền', icon: 'fa-money', permissionAction: Actions.ACCESS };
+        const notAllowDeposit = { key: 'notAllowDeposit', name: 'Hủy cho phép nạp tiền', icon: 'fa-money', permissionAction: Actions.ACCESS };
+
+        if (data.ForDeposit == 1) {
+          menuItemDefines.push(notAllowDeposit);
+        } else {
+          menuItemDefines.push(allowDeposit);
+        }
+        if (data.AutoGetHistory == 1) {
+          menuItemDefines.push(stopAutoGetHistory);
+        } else {
+          menuItemDefines.push(startAutoGetHistory);
+        }
+        let menuItems = PermissionCommon.createMenuItems(this.permissionService, menuItemDefines);
+        $.contextMenu({
+          selector: '#' + random + '_bankic_' + data.Id,
+          build: function () {
+            return {
+              callback: function (key) {
+                if (key === 'edit') {
+                  const modalRef = self.modalService.open(EditBankIcComponent, { size: 'lg' });
+                  modalRef.componentInstance.Id = data.Id;
+                  modalRef.result.then(() => {
+                    self.rerender(false);
+                    self.refresh.emit();
+                  }, () => {
+                  });
+                }
+                if (key === 'allowDeposit') {
+                  var request: UpdateAllowDepositRequest = {
+                    id: data.Id,
+                    status: true
+                  }
+                  self.ctService.updateAllowDeposit(request).subscribe(res => {
+                    if (!res.status) {
+                      return self.utility.showError(res.errorCode, res.parameters);
+                    }
+                    self.utility.showMessage("Cho phép nạp tiền thành công")
+                    self.rerender(false);
+                  })
+                }
+                if (key === 'notAllowDeposit') {
+                  var request: UpdateAllowDepositRequest = {
+                    id: data.Id,
+                    status: false
+                  }
+                  self.ctService.updateAllowDeposit(request).subscribe(res => {
+                    if (!res.status) {
+                      return self.utility.showError(res.errorCode, res.parameters);
+                    }
+                    self.utility.showMessage("Thành công")
+                    self.rerender(false);
+                  })
+                }
+                if (key === 'config') {
+                  const modalRef = self.modalService.open(ConfigBankicComponent, { size: 'lg' });
+                  modalRef.componentInstance.Id = data.Id;
+                  modalRef.result.then(() => {
+                    self.rerender(false);
+                    self.refresh.emit();
+                  }, () => {
+                  });
+                }
+                if (key == 'trackinginfo') {
+                  const modelRef = self.modalService.open(TrackingInfoComponent, { size: 'lg' });
+                  modelRef.componentInstance.Id = data.Id;
+                  modelRef.componentInstance.UserName = data.UserName;
+                  modelRef.componentInstance.BankType = data.BankType;
+
+                  modelRef.result.then(() => {
+                    self.rerender(false);
+                    self.refresh.emit();
+                  }, () => {
+
+                  });
+                }
+                if (key === 'delete') {
+                  self.confirmService.confirm('Thông báo?', 'Bạn có chắc chắn muốn xóa thông tin trên ... ?')
+                    .then((confirmed) =>
+                      confirmed ? self.onDelete(data.Id) : self.confirmService.close()
+                    ).catch(() =>
+                      self.confirmService.close(),
+                    );
+                }
+                if (key === 'restart') {
+                  self.ctService.restart(data.Id).subscribe(res => {
+                    if (!res.status) {
+                      return self.utility.showError(res.errorCode, res.parameters);
+                    }
+                    self.utility.showMessage("Khởi động lại hệ thống thành công")
+                    self.rerender(false);
+                    self.refresh.emit();
+                  })
+                }
+                if (key === 'startAutoGetHistory') {
+                  self.ctService.startAutoGetHistory(data.Id).subscribe(res => {
+                    if (!res.status) {
+                      return self.utility.showError(res.errorCode, res.parameters);
+                    }
+                    self.utility.showMessage("Đã bật tự động lấy sao kê")
+                    self.rerender(false);
+                    self.refresh.emit();
+                  })
+                }
+                if (key === 'stopAutoGetHistory') {
+                  self.ctService.stopAutoGetHistory(data.Id).subscribe(res => {
+                    if (!res.status) {
+                      return self.utility.showError(res.errorCode, res.parameters);
+                    }
+                    self.utility.showMessage("Đã tạm dừng lấy sao kê")
+                    self.rerender(false);
+                    self.refresh.emit();
+                  })
+                }
+
+              },
+              items: menuItems,
+              'sep1': '---------',
+              'quit': {
+                name: 'Quit', icon: function () {
+                  return 'context-menu-icon context-menu-icon-quit';
+                }
+              }
+            };
+          }
+        });
+        $('[data-changebankType]', row).each((index, item) => {
+          const $this = $(item);
+          const selectedCode = $this.data('code');
+          const html = this.generateBankTypeElement(selectedCode);
+
+          $this.parent().html(html);
+        });
+        this.chooseItem(row, data);
+        this.updateAutoGetHistory(row, data);
+        this.bindBankNameEvent(row, data.Id);
+        this.bindBravoEvent(row, data.Id);
+        return row;
+      },
+      buttons: tblToolbar
+    };
+
+  }
+  onLoadAllAccount() {
+    merge(this.refreshAccount)
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          return this.ctService.getAll();
+        }),
+        map(response => {
+          if (!response.status) {
+            // TODO: show error.
+            this.utility.showError(response.errorCode,
+              response.parameters);
+          }
+          return response;
+        }),
+        catchError(() => {
+          // TODO: show error.
+          this.utility.showError(ErrorCodeDefine.UNKNOW_ERROR,
+            null);
+
+          return of(model.BankicListDetail[0]);
+        })
+      ).subscribe(res => {
+        if (res.data != null) {
+          this.lstBankInfo = res.data.map((i) => {
+            if (i.accountName != null && i.bankName != null && i.accountNumber != null) {
+              i.fName = i.accountNumber + ' - ' + i.accountName + ' - ' + i.bankName;
+              return i;
+            }
+          });
+          this.lstBankInfo = this.lstBankInfo.filter(x => x != undefined);
+        }
+      });
+  }
+  onLoadServiceGroup() {
+    merge(this.refresh)
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          this.utility.showProcessing(this.blockUI);
+          return this.ctService.getListServiceGroup();
+        }),
+        map(response => {
+          // Flip flag to show that loading has finished.
+          if (!response.status) {
+            // TODO: show error.
+            this.utility.showError(response.errorCode,
+              response.parameters);
+          }
+          return response;
+        }),
+        catchError(() => {
+          // TODO: show error.
+          this.utility.showError(ErrorCodeDefine.UNKNOW_ERROR,
+            null);
+
+          return of(null);
+        })
+      ).subscribe(res => {
+        this.utility.cancelProcessing(this.blockUI);
+        if (!res.status) {
+          this.isRefreshSuccess = false;
+          return this.utility.showError(ErrorCodeDefine.UNKNOW_ERROR);
+        }
+        this.listServiceGroup = res.data;
+        this.isRefreshSuccess = true;
+      });
+  }
+  getTotalMinutesBetweenTwoDate(dt2: Date, dt1: Date) {
+    var diff = (dt2.getTime() - dt1.getTime()) / 1000;
+    return Math.abs(Math.round(diff));
+  }
+  refreshPage() {
+    this.rerender(false);
+    this.refresh.emit();
+
+  }
+  formatTimeDisplay(date: any) {
+    return moment(date).format("DD/MM/YYYY HH:mm:ss");
+  }
+  // #endregion
+  onDelete(itemId: number): void {
+    this.ctService.delete(itemId)
+      .subscribe(response => {
+        if (!response.status) {
+          this.utility.showError(response.errorCode,
+            response.parameters);
+          return;
+        }
+        this.utility.showMessage(`Bank ${itemId} deleted`);
+        this.refreshPage();
+      });
+  }
+  updateAutoGetHistory(r: Node, data: model.BankicList): void {
+    const $element = $('[data-auto]', r);
+    $element.unbind('click').bind('click', (e) => {
+      let autoGetHistory = null;
+      if ((<HTMLInputElement>e.currentTarget).checked) {
+        autoGetHistory = true
+      } else {
+        autoGetHistory = false;
+      }
+      const request: BankicUpdateAutoGetHistory = {
+        id: data.Id,
+        autoGetHistory: autoGetHistory
+      }
+      this.ctService.updateAutoGetHistory(request).subscribe(response => {
+        if (!response.status) {
+          this.utility.showError(response.errorCode, response.parameters);
+          return;
+        } else {
+          this.utility.showMessage("Update succesfully")
+          this.refreshPage();
+        }
+
+      });
+    });
+  }
+
+  chooseItem(r: Node, data: model.BankicList): void {
+    const $element = $('[data-items]', r);
+    $element.unbind('click').bind('click', (e) => {
+      if ((<HTMLInputElement>e.currentTarget).checked) {
+        var request: bankicUpdateStatus = {
+          Id: data.Id,
+          status: 1
+        }
+        this.ctService.updateStatus(request).subscribe(response => {
+          if (!response.status) {
+            this.utility.showError(ErrorCodeDefine.UNKNOW_ERROR,
+              null);
+          }
+          this.utility.showMessage("Update succesfully")
+        });
+      } else {
+        var request: bankicUpdateStatus = {
+          Id: data.Id,
+          status: 0
+        }
+        this.ctService.updateStatus(request).subscribe(response => {
+          if (!response.status) {
+            this.utility.showError(ErrorCodeDefine.UNKNOW_ERROR,
+              null);
+          }
+          this.utility.showMessage("Update succesfully")
+        });
+      }
+    });
+  }
+
+
+  generateBankTypeElement(productoriginCode: string): string {
+    const startHtml = '<select data-changebankType class="select-custom"><option>Chọn</option>';
+    const endHtml = '</select>';
+    const optionHtml = this.bankType.map(item => {
+      let code = productoriginCode.toString();
+      const selected = item.id === code ? 'selected = "selected"' : '';
+      const option = `<option value="${item.id}"  ${selected}>${item.name}</option>`;
+
+      return option;
+    });
+    const html = [startHtml, ...optionHtml, endHtml].reduce((accumulator: string, currentValue: string) => {
+      return accumulator + currentValue;
+    }, '');
+
+    return html.toString();
+  }
+
+
+  bindBankNameEvent(row: Node, id: number) {
+    const $element = $('[change-bankFullName]', row);
+    const _this = this;
+
+    $element.unbind('change').change(function () {
+      const bankFullName = $('[change-bankFullName]', row).val();
+
+      _this.savebankFullName(id, bankFullName.toString());
+    });
+  }
+
+  private savebankFullName(id: number, bankFullName: string) {
+    var request: bankicUpdateBankFullName = {
+      Id: id,
+      BankFullName: bankFullName
+    }
+    this.ctService.updateBankFullName(request).subscribe(response => {
+      if (!response.status) {
+        this.utility.showError(response.errorCode, response.parameters);
+
+        return;
+      }
+      this.utility.showMessage('Cập nhật thông tin thành công!');
+    });
+  }
+
+
+  bindBravoEvent(row: Node, id: number) {
+    const $element = $('[data-bravo]', row);
+    const _this = this;
+
+    $element.unbind('change').change(function () {
+      const value = $('[data-bravo]', row).val();
+
+      _this.savebravo(id, value.toString());
+    });
+  }
+
+  private savebravo(id: number, AccAccountId: string) {
+    var request: bankicUpdateBravo = {
+      Id: id,
+      AccAccount: AccAccountId
+    }
+    this.ctService.updateBravo(request).subscribe(response => {
+      if (!response.status) {
+        this.utility.showError(response.errorCode, response.parameters);
+
+        return;
+      }
+      this.utility.showMessage('Cập nhật thông tin thành công!');
+    });
+  }
+
+
+
+  // #region --Render datatable callback--
+  // rerender(): void {
+  //   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+  //     dtInstance.destroy();
+  //     this.dtTrigger.next();
+  //   });
+  // }
+  rerender(reset: boolean): void {
+    this.utility.cancelProcessing(this.blockUI);
+    this.dtElement.dtInstance.then(x => x.draw(reset));
+  }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+  ngOnDestroy(): void {
+    this.refresh.complete();
+    this.refreshAccount.complete();
+    this.dtTrigger.unsubscribe();
+  }
+
+}

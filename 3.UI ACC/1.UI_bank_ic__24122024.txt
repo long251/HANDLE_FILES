@@ -1,0 +1,117 @@
+<div *blockUI="'blockui-bankic'">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-lg-12">
+                <h5>Ngân hàng nạp tiền ICHIBA</h5>
+                <div class="refreshPage" (click)="refreshPage()">
+                  <i class="fa fa-refresh"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row mt-2 mb-2">
+              <!-- <div class="col-lg-12">
+                <div class="row mt-2">
+                  <div *ngFor="let item of listServiceGroup" class="col-lg-4">
+                    <div class="card">
+                      <div
+                        [class]="item.isReady?'card-header b-l-success border-3 badge-success':'card-header b-l-danger border-3 badge-danger'">
+                        <h5>{{item.id}}</h5>
+                      </div>
+                      <div class="card-body">
+                        <table class="table table-bordered table-striped">
+                          <tr>
+                            <td>Cập nhật lần cuối</td>
+                            <td [ngStyle]="{'color':item.isReady?'#00c292':'#FF5370'}">
+                              {{formatTimeDisplay(item.updatedDate)}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Tổng tài khoản hiện có</td>
+                            <td class="orange">{{item.totalAccount}}</td>
+                          </tr>
+                          <tr>
+                            <td>Tổng tài khoản đang hoạt động</td>
+                            <td style="color:#00c292">{{item.totalAccountActive}}</td>
+                          </tr>
+                          <tr>
+                            <td>Tổng tài khoản không hoạt động</td>
+                            <td style="color:#FF5370">{{item.totalAccountUnActive}}</td>
+                          </tr>
+                          <tr>
+                            <td>Tổng tài khoản đang tự động lấy sao kê</td>
+                            <td style="color:#00c292">{{item.totalAccountAutoGetHistory}}</td>
+                          </tr>
+                          <tr>
+                            <td>Tổng tài khoản dừng lấy sao kê</td>
+                            <td style="color:#FF5370">{{item.totalAccountNotAutoGetHistory}}</td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+
+            </div>
+            <div class="search-box">
+              <div class="row mb-2">
+                <div class="col-lg-4">
+                  <ng-select [items]="lstBankInfo" [virtualScroll]="true" (change)="rerender(false)" bindLabel="fName"
+                    placeholder="Tên ngân hàng..." bindValue="accountNumber" [(ngModel)]="accountNumber">
+                  </ng-select>
+                </div>
+                <div class="col-lg-3">
+                  <ng-select [items]="stateAccounts" (change)="rerender(false)" bindLabel="label"
+                    placeholder="Trạng thái tài khoản..." bindValue="value" [(ngModel)]="stateAccount">
+                  </ng-select>
+                </div>
+                <!-- <div class="col-lg-4">
+                  <input type="text" class="form-control" (keydown.enter)="rerender(false)" (change)="rerender(false)"
+                    placeholder="Mã trên Bravo..." [(ngModel)]="accAccount" />
+                </div> -->
+                <!-- <div class="col-lg-4">
+                  <ng-select [items]="statuss" (change)="rerender(false)" bindLabel="label" placeholder="Theo dõi..."
+                    bindValue="value" [(ngModel)]="status">
+                  </ng-select>
+                </div> -->
+              </div>
+              <!-- <div class="row mb-2">
+                <div class="col-lg-3">
+                  <ng-select [items]="stateAccounts" (change)="rerender(false)" bindLabel="label"
+                    placeholder="Trạng thái tài khoản..." bindValue="value" [(ngModel)]="stateAccount">
+                  </ng-select>
+                </div>
+                <div class="col-lg-3">
+                  <ng-select [items]="stateDeposits" (change)="rerender(false)" bindLabel="label"
+                    placeholder="Trạng thái nạp tiền" bindValue="value" [(ngModel)]="stateDeposit">
+                  </ng-select>
+                </div>
+                <div class="col-lg-3">
+                  <ng-select [items]="stateGetHistorys" (change)="rerender(false)" bindLabel="label"
+                    placeholder="Trạng thái tự động lấy sao kê" [(ngModel)]="stateAutoGetHistory" bindValue="value">
+                  </ng-select>
+                </div>
+                <div class="col-lg-3">
+                  <input type="text" class="form-control" (keydown.enter)="rerender(false)" (change)="rerender(false)"
+                    placeholder="Ghi chú..." [(ngModel)]="description" />
+                </div>
+              </div> -->
+            </div>
+
+            <div class="card-body">
+
+              <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table  table-hover"> </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

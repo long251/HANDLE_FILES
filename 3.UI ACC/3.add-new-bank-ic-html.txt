@@ -1,0 +1,265 @@
+<block-ui>
+  <div class="modal-header">
+    <h4 class="modal-title">Thêm mới tài khoản ngân hàng</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('x')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form class="theme-form" name="form" [formGroup]="form">
+    <ngb-tabset>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          Thông tin cơ bản
+        </ng-template>
+        <ng-template ngbTabContent>
+          <div class="modal-body" *ngIf="!!form">
+
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Mã ngân hàng</label>
+              <div class="col-sm-4">
+                <input type="text" formControlName="bankName" [(ngModel)]="dataModel.bankName" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.bankName.errors }" required />
+                <div *ngIf="submitted && f.bankName.errors" class="invalid-feedback">
+                  <div *ngIf="f.bankName.errors.required">Mã ngân hàng không được để trống</div>
+                </div>
+              </div>
+
+              <label class="col-sm-2 col-form-label">Tên ngân hàng</label>
+              <div class="col-sm-4">
+                <input type="text" formControlName="bankFullName" [(ngModel)]="dataModel.bankFullName"
+                  class="form-control" />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Tên tài khoản</label>
+              <div class="col-sm-4">
+                <input type="text" formControlName="accountName" [(ngModel)]="dataModel.accountName"
+                  class="form-control" />
+              </div>
+              <label class="col-sm-2 col-form-label">Số tài khoản <span>(*)</span></label>
+              <div class="col-sm-4">
+                <input type="text" formControlName="accountNumber" [(ngModel)]="dataModel.accountNumber"
+                  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.accountNumber.errors }" required />
+                <div *ngIf="submitted && f.accountNumber.errors" class="invalid-feedback">
+                  <div *ngIf="f.accountNumber.errors.required">Số tài khoản không được để trống</div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Tỉnh thành</label>
+              <div class="col-sm-4">
+                <input type="text" formControlName="province" [(ngModel)]="dataModel.province" class="form-control" />
+              </div>
+              <label class="col-sm-2 col-form-label">Chi nhánh</label>
+              <div class="col-sm-4">
+                <input type="text" formControlName="branch" [(ngModel)]="dataModel.branch" class="form-control" />
+              </div>
+            </div> -->
+            <!-- <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Địa chỉ</label>
+              <div class="col-sm-4">
+                <input type="text" formControlName="address" [(ngModel)]="dataModel.address" class="form-control" />
+              </div>
+              <label class="col-sm-2 col-form-label">Mã trên Bravo</label>
+              <div class="col-sm-4">
+                <input type="text" formControlName="accAccount" [(ngModel)]="dataModel.accAccount"
+                  class="form-control" />
+              </div>
+            </div> -->
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Số dư đầu kỳ</label>
+              <div class="col-sm-4">
+                <input type="text" formControlName="beginBalance" [(ngModel)]="dataModel.beginBalance"
+                  class="form-control" />
+              </div>
+              <label class="col-sm-2 col-form-label">Ngày khởi tạo</label>
+              <div class="col-sm-4">
+                <div class="input-group">
+                  <input placeholder="Ngày khởi tạo" class="form-control" formControlName="beginBalanceDate"
+                    [(ngModel)]="dataModel.beginBalanceDate" ngbDatepicker #c="ngbDatepicker" />
+                  <div class="input-group-append">
+                    <button class="btn calendar" (click)="c.toggle()" type="button"><i
+                        class="fa fa-calendar"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Mô tả</label>
+              <div class="col-sm-4">
+                <textarea type="text" formControlName="description" [(ngModel)]="dataModel.description"
+                  class="form-control" rows="3"></textarea>
+              </div>
+              <div class="col-sm-6">
+                <div class="row">
+                  <label class="col-sm-4 col-form-label">Theo dõi</label>
+                  <div class="col-sm-8">
+                    <!-- <input type="checkbox" formControlName="status" [(ngModel)]="dataModel.status" class="form-control" /> -->
+                    <div class="checkbox" *ngIf="isCkecked"><input type="checkbox" formControlName="status"
+                        [(ngModel)]="dataModel.status" checked id="checkbox-primary" /><label
+                        for="checkbox-primary"></label>
+                    </div>
+                    <div class="checkbox" *ngIf="!isCkecked"><input type="checkbox" formControlName="status"
+                        [(ngModel)]="dataModel.status" id="checkbox-primary" /><label for="checkbox-primary"></label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-sm-4 col-form-label">Kích hoạt gửi tiền</label>
+                  <div class="col-sm-8">
+                    <div class="checkbox" *ngIf="isCkeckedForDeposit"><input type="checkbox"
+                        formControlName="forDeposit" [(ngModel)]="dataModel.forDeposit" checked
+                        id="checkbox-forDeposit" /><label for="checkbox-forDeposit"></label>
+                    </div>
+                    <div class="checkbox" *ngIf="!isCkeckedForDeposit"><input type="checkbox"
+                        formControlName="forDeposit" [(ngModel)]="dataModel.forDeposit"
+                        id="checkbox-forDeposit" /><label for="checkbox-forDeposit"></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          Cấu hình hệ thống
+        </ng-template>
+        <ng-template ngbTabContent>
+          <div class="modal-body" *ngIf="!!form">
+            <div class="row">
+              <div class="col-sm-4">
+                <fieldset>
+                  <legend>Tài khoản</legend>
+                  <div class="form-group row">
+                    <label class="col-sm-6 col-form-label">Tài khoản<span>(*)</span></label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="userName" [(ngModel)]="dataModel.userName"
+                        [ngClass]="{ 'is-invalid': submitted && f.userName.errors }" required class="form-control" />
+                      <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+                        <div *ngIf="f.userName.errors.required">Tài khoản không được để trống</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-6 col-form-label">Mật khẩu<span>(*)</span></label>
+                    <div class="col-sm-6">
+                      <div class="input-group">
+                        <input [type]="password" formControlName="password" [(ngModel)]="dataModel.password"
+                          class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" required />
+                        <div class="input-group-append" style="border: none;cursor: pointer; border-top-right-radius: 4px;
+                        border-bottom-right-radius: 4px;" (click)="showPassword()">
+                          <span *ngIf="!isPasswordShow" class="input-group-text" id="basic-addon1"> <i
+                              class="fa fa-eye-slash" aria-hidden="true"></i></span>
+                          <span *ngIf="isPasswordShow" class="input-group-text" id="basic-addon1"> <i class="fa fa-eye"
+                              aria-hidden="true"></i></span>
+                        </div>
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                          <div *ngIf="f.password.errors.required">Mật khẩu không được để trống</div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+
+              <div class="col-sm-4">
+                <fieldset>
+                  <legend>Cấu hình</legend>
+                  <div class="form-group row">
+                    <label class="col-sm-6 col-form-label">Nhóm dịch vụ<span>(*)</span></label>
+                    <div class="col-sm-6">
+                      <ng-select [items]="listServiceGroup" [virtualScroll]="true" bindLabel="id" bindValue="id"
+                        (change)="getListBank()" formControlName="serviceGroup" [(ngModel)]="dataModel.serviceGroup"
+                        placeholder="Nhóm dịch vụ..." [ngClass]="{ 'is-invalid': submitted && f.serviceGroup.errors }"
+                        class="custom-select2" required>
+                      </ng-select>
+                      <div *ngIf="submitted && f.serviceGroup.errors" class="invalid-feedback">
+                        <div *ngIf="f.serviceGroup.errors.required">Nhóm dịch vụ không được để trống</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="listBankType" class="form-group row">
+                    <label class="col-sm-6 col-form-label">Ngân hàng<span>(*)</span></label>
+                    <div class="col-sm-6">
+                      <ng-select [items]="listBankType" [virtualScroll]="true" bindLabel="item" bindValue="item"
+                        [(ngModel)]="dataModel.bankType" formControlName="bankType" placeholder="Ngân hàng..."
+                        [ngClass]="{ 'is-invalid': submitted && f.bankType.errors }" required class="custom-select2">
+                      </ng-select>
+                      <div *ngIf="submitted && f.bankType.errors" class="invalid-feedback">
+                        <div *ngIf="f.bankType.errors.required">Ngân hàng không được để trống</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-gorup row">
+                    <label class="col-sm-6 col-form-label">Tự động lấy sao kê</label>
+                    <div class="col-sm-6">
+                      <div class="checkbox" *ngIf="isCkeckedAutoGetHistory"><input type="checkbox"
+                          formControlName="autoGetHistory" [(ngModel)]="dataModel.autoGetHistory" checked
+                          id="checkbox-autoGetHistory" /><label for="checkbox-autoGetHistory"></label>
+                      </div>
+                      <div class="checkbox" *ngIf="!isCkeckedAutoGetHistory"><input type="checkbox"
+                          formControlName="autoGetHistory" [(ngModel)]="dataModel.autoGetHistory"
+                          id="checkbox-autoGetHistory" /><label for="checkbox-autoGetHistory"></label>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="col-sm-4">
+                <fieldset>
+                  <legend>Proxy</legend>
+                  <div class="form-group row">
+                    <label class="col-sm-6 col-form-label">Proxy Host</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="proxyHost" [(ngModel)]="dataModel.proxyHost"
+                        class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-6 col-form-label">Proxy Port</label>
+                    <div class="col-sm-6">
+                      <input type="number" formControlName="proxyPort" [(ngModel)]="dataModel.proxyPort"
+                        class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-6 col-form-label">Proxy UserName</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="proxyUserName" [(ngModel)]="dataModel.proxyUserName"
+                        class="form-control" />
+                    </div>
+
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-6 col-form-label">Proxy Password</label>
+                    <div class="col-sm-6">
+                      <div class="input-group">
+                        <input [type]="proxyPassword" formControlName="proxyPassword"
+                          [(ngModel)]="dataModel.proxyPassword" class="form-control" />
+                        <div class="input-group-append" style="border:none;cursor: pointer;"
+                          (click)="showProxyPassword()">
+                          <span *ngIf="!isProxyPasswordShow" class="input-group-text" id="basic-addon2"> <i
+                              class="fa fa-eye-slash" aria-hidden="true"></i></span>
+                          <span *ngIf="isProxyPasswordShow" class="input-group-text" id="basic-addon2"> <i
+                              class="fa fa-eye" aria-hidden="true"></i></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </form>
+  <div class="modal-footer">
+    <button class="btn btn-primary mr-1" (click)="onSubmit()">Submit</button>
+    <button type="button" class="btn btn-light" (click)="activeModal.dismiss('x')">Close</button>
+  </div>
+</block-ui>
