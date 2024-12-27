@@ -118,9 +118,7 @@ templateUrl và styleUrls: Chỉ định tệp HTML và CSS được sử dụng
 3.7.mpay.module.ts:
 > trong cái này đã chứa mpay-routing.module.ts rồi nên ko cần ấy
 ___________________________________________________________________________________________________________________
-**WORK:
-- cái cuộn đang ko tự đóng sidebar mobi								/ ĐANG LÀM...
-- 
+
 
 
 

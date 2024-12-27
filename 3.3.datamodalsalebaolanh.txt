@@ -1,9 +1,0 @@
-email: "thuynt@pcs.vn"
-emailConfirmed: true
-fullName: "Nguyễn Thị Thúy"
-id: "dcb51148-28b4-4949-99bd-bad56f9d77eb"
-orgId: null
-phoneNumber: "0982366612"
-phoneNumberConfirmed: true
-roles: (6) ['SALES_MH', 'SALES_GROUP_02', 'EDITQUOTE', 'SALES_VC', 'SALES_MANAGER', 'SALES_01']
-userName: "thuynt"

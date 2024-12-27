@@ -1,0 +1,16 @@
+TASK_TASK
+---------
+Ngày cập nhật: 23/12/2024
+-------------------------
+
+*23/12/2024
+1. acc: thêm xuất Excel, giữ nhập Excel (2 button)		/ đã tạo UI nhưng API hình như sai? excel ko có data
+2. cc:
+	- nếu chat liên tục thì bỏ cái avatar, name đi		/ khó
+	- group (ngày) giữa đoạn chat => bỏ ngày ở mỗi tin nhắn	/ khó do bị đảo lộn loading
+	- các scroll đang cao hơn so với mắt nhìn làm xấu	/ khó
+	- xóa border mờ đi do zalo ko có đoạn kẻ đó		/ 	xong
+________________________________________________________________________________________________________________________
+**WORK:
+- cái cuộn đang ko tự đóng sidebar mobi								/ ĐANG LÀM...
+- 

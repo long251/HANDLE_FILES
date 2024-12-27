@@ -1,6 +1,6 @@
 TRICK NOTE UI
 -------------
-Ngày cập nhật: 22/11/2024
+Ngày cập nhật: 27/12/2024
 -------------------------
 
 I. Giao diện: FE, html, css
@@ -133,3 +133,8 @@ preview => yarn preview
 1. xóa tạm cái .git để nó ko gọi vào ấy nữa tạo git mới
 2. TẠM NGƯNG do làm so. trước
 ----------------------------------------------------------------------------------------------------------------
+API:
+*URL:
+	- ? a= ...	-> query
+	- /: id		-> param
+	- { }		-> body
