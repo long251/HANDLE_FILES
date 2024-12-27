@@ -1,6 +1,6 @@
 CTY PCS
 -------
-Ngày cập nhật: 26/12/2024
+Ngày cập nhật: 27/12/2024
 -------------------------
 - hộp bánh danisa					/ vài
 - Cốc thuốc:
@@ -43,14 +43,14 @@ Ngày cập nhật: 26/12/2024
 	- [gitlab] 	-> check a Khánh FE cập nhật. Tự Merge lên UAT
 -----------------------------------------------------------------------------------------------------------------
 *TRIỂN KHAI:
-- MANG	-> bánh kẹo lên cty		x vài		/ done
-- MANG	-> bịch giấy ăn			x 2		/ done
+- MANG	-> bánh kẹo lên cty		x vài		/ 
+- MANG	-> bịch giấy ăn			x 2		/ 
 - MANG	-> quyển vở			x 1		/ 
 -----------------------------------------------------------------------------------------------------------------
 *WORK:
 - PC	-> sắp xếp thanh google chorme, cốc cốc		/ xong / 
 - THAY	-> xịt mũi: ql1, cty				/ xong / xong
-- THAY	-> nhỏ mũi: cty					/ xong 
+- THAY	-> nhỏ mũi: cty					/ xong
 -----------------------------------------------------------------------------------------------------------------
 *KARAOKE:
 - ngồi bên em (phan đình tùng)
