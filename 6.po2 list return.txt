@@ -1,0 +1,30 @@
+ListReturn=()=>{
+logic
+-----
+- dispatch
+- rowMarkup (data):
+	- chuyển action xem chi tiết -> cập nhật		/ đang làm...
+- filter:
+	- date							/ xong
+	- mã đơn hàng / shipment				/ xong
+	- customer						/ copy
+- page								/ xong
+  - chưa có url							/ ĐANG LÀM...	/ hơi lộn xộn
+- useE (ngày, khách)						/ xong
+==========================================================================
+return
+------
+- filter: time, mã x2, khách hàng
+- data
+- phân trang
+==========================================================================
+chạy sang làm pcs-logistics.com:
+- http://localhost:3000/en/about
+- .env:
+	PORT=3000
+	APP_URL="http://localhost:3000"
+- chạy npm install ++ npm run dev
+- chạy nvm list 20
+- px-paddingMobile md:px-paddingDesktop (padding cho moblie và desktop)
+==========================================================================
+- 

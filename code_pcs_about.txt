@@ -1,0 +1,209 @@
+import React, { useState } from "react";
+
+const images = [
+  {
+    year: "10/2010",
+    src: "/images/example/news_01.png",
+    description:
+      "Thành lập Công ty PCS tại Hà Nội và chi nhánh tại Hồ Chí Minh",
+  },
+  {
+    year: "2012",
+    src: "/images/example/news_02.png",
+    description: "Mở chuyên tuyến vận chuyển từ HCM đến Tokyo Nhật Bản",
+  },
+  {
+    year: "2014",
+    src: "/images/example/news_03.png",
+    description: "Phát triển hệ sinh thái dịch vụ Logistics toàn diện",
+  },
+  {
+    year: "2015-2016",
+    src: "/images/example/news_04.png",
+    description: "Đầu tư và mở rộng quy mô tại miền Trung",
+  },
+  {
+    year: "2017",
+    src: "/images/example/news_05.png",
+    description: "Tăng cường hợp tác quốc tế",
+  },
+];
+
+const About = () => {
+  //history
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const getClasses = (index: any) => {
+    if (index === selectedIndex) return "w-[100%] scale-100 z-10";
+    if (
+      index === selectedIndex - 1 ||
+      (selectedIndex === 0 && index === images.length - 1)
+    )
+      return "w-[20%] translate-x-[-30%] opacity-50"; // Ảnh bên trái
+    if (
+      index === selectedIndex + 1 ||
+      (selectedIndex === images.length - 1 && index === 0)
+    )
+      return "w-[20%] translate-x-[30%] opacity-50"; // Ảnh bên phải
+    return "hidden"; // Ẩn các ảnh khác
+  };
+  const renderPlaceholders = (position: any) => {
+    if (position === "left" && selectedIndex === 0)
+      return <div className="w-[30%] opacity-0"></div>; // Placeholder trắng bên trái
+    if (position === "right" && selectedIndex === images.length - 1)
+      return <div className="w-[30%] opacity-0"></div>; // Placeholder trắng bên phải
+    return null;
+  };
+
+  return (
+    <>
+      {/* About PCS */}
+      <div className=" relative">
+        <img
+          className="h-[280px] object-cover w-full"
+          src="/images/example/solution_2.jpeg"
+          alt="background"
+        />
+        <div className="trace-wrapper absolute bottom-6 md:bottom-14 w-full left-10 flex justify-start">
+          <div className="max-w-[900px] bg-transparent w-full md:px-10 lg:px-0">
+            <div className="px-4 md:px-0">
+              <div className="text-black text-[32px] font-bold">About PCS</div>
+              <div className="text-black text-sm flex items-center gap-2">
+                <a href="/" className="hover:underline">
+                  Home
+                </a>
+                <span>{">"}</span>
+                <a href="/" className="hover:underline">
+                  About PCS
+                </a>
+                <span>{">"}</span>
+                <span className="text-black">Company</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Company Overview */}
+      <div>
+        <div className="px-paddingMobile md:px-paddingDesktop mt-[60px] font-bold text-pcsText text-[64px]">
+          <span>Company Overview</span>
+        </div>
+        <div className="flex justify-center mt-[44px] gap-[52px]">
+          <div className="w-[423px] h-[168px]  p-4 text-pcsText text-[16px] font-normal">
+            PCS is one of the first enterprises in Vietnam to have a strong
+            transformation to become a "Green" organization operating under a
+            flexible, progressive, humane and high-performance management model.
+          </div>
+          <div className="w-[655px] h-[216px] p-4 text-pcsText text-[16px] font-normal">
+            PCS uses the energy of “devotion” to develop a logistics service
+            ecosystem, including services: Purchasing, import and export,
+            customs clearance, warehousing, packaging, storage and final
+            delivery. PCS is here to support customers to expand their
+            production and business scale and consumers to have the most
+            cost-effective products.
+          </div>
+        </div>
+      </div>
+      {/* History */}
+      <div className="px-paddingMobile md:px-paddingDesktop flex flex-col items-center">
+        {/* Carousel */}
+        <div className="relative w-full w-[900px] h-[500px] overflow-hidden flex justify-center items-center">
+          {/* Placeholder bên trái */}
+          {renderPlaceholders("left")}
+
+          {/* Ảnh */}
+          {images.map((item, index) => (
+            <div
+              key={index}
+              className={`transition-all duration-500 ease-in-out ${getClasses(
+                index
+              )}`}
+            >
+              <img
+                src={item.src}
+                alt={item.year}
+                className="w-full h-[500px] object-cover rounded-md"
+              />
+              {/* Miêu tả cho ảnh được chọn */}
+              {index === selectedIndex && (
+                <div className="absolute bottom-4 left-4 text-white text-2xl bg-black bg-opacity-50 p-2 rounded-md">
+                  {item.description}
+                </div>
+              )}
+            </div>
+          ))}
+
+          {/* Placeholder bên phải */}
+          {renderPlaceholders("right")}
+        </div>
+
+        {/* Buttons */}
+        <div className="flex gap-4 mt-6">
+          {images.map((item, index) => (
+            <button
+              key={index}
+              onClick={() => setSelectedIndex(index)}
+              className={`px-4 py-2 rounded-md border ${
+                index === selectedIndex
+                  ? "bg-black text-white"
+                  : "bg-white text-black"
+              }`}
+            >
+              {item.year}
+            </button>
+          ))}
+        </div>
+      </div>
+      {/* Action */}
+      {/* <div className=" relative mb-16">
+        <div>
+          <img
+            src="/images/example/news_01.png"
+            alt="background"
+            className=" h-auto object-cover m-4"
+          />
+           <div className="Vision_Mission_Value_Action_PCS absolute bottom-4 left-4 right-4 p-4 text-black z-10">
+          <div className="w-full mb-4">
+            <div className="font-bold">Vision</div>
+            <div>
+              PCS constantly breaks all limits to become a global multimodal
+              transport chain, connecting Vietnam and the world.
+            </div>
+          </div>
+
+          <div className="w-full mb-4">
+            <div className="font-bold">Mission</div>
+            <div>
+              Connect and deliver good values to partners and customers through
+              excellent service experiences, through a dedicated, flexible,
+              creative and deeply empathetic team.
+            </div>
+          </div>
+
+          <div className="w-full">
+            <div className="font-bold">Value System</div>
+            <div>
+              <div>PCS's 6 core cultural values:</div>
+              <div>
+                <ul>
+                  <li>Dedication</li>
+                  <li>Honesty</li>
+                  <li>Trust</li>
+                </ul>
+                <ul>
+                  <li>Empathy</li>
+                  <li>Wisdom</li>
+                  <li>Compassion</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        
+      </div> */}
+    </>
+  );
+};
+
+export default About;

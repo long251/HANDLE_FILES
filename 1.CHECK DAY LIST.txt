@@ -1,6 +1,6 @@
 CTY PCS
 -------
-Ngày cập nhật: 30/12/2024
+Ngày cập nhật: 31/12/2024
 -------------------------
 - hộp bánh danisa					/ vài
 - Cốc thuốc:
@@ -43,7 +43,7 @@ Ngày cập nhật: 30/12/2024
 	- [gitlab] 	-> check a Khánh FE cập nhật. Tự Merge lên UAT
 -----------------------------------------------------------------------------------------------------------------
 *TRIỂN KHAI:
-- MANG	-> bánh kẹo lên cty		x vài		/ chưa
+- MANG	-> bánh kẹo lên cty		x vài		/ xong
 - MANG	-> bịch giấy ăn			x 2		/ xong
 - MANG	-> quyển vở			x 1		/ xong
 -----------------------------------------------------------------------------------------------------------------
@@ -70,4 +70,5 @@ Ngày cập nhật: 30/12/2024
 - ai chung tình được mãi
 - trăm năm ko quên		?
 - anh đau từ lúc em đi		ok
+- hóa giải bằng nc mắt
 - 
