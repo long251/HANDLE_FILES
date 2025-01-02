@@ -1,0 +1,480 @@
+import React, { useEffect, useRef, useState } from "react";
+const images = [
+  {
+    year: "10/2010",
+    src: "/images/example/news_01.png",
+    description:
+      "Thành lập Công ty PCS tại Hà Nội và chi nhánh tại Hồ Chí Minh",
+  },
+  {
+    year: "2012",
+    src: "/images/example/news_02.png",
+    description: "Mở chuyên tuyến vận chuyển từ HCM đến Tokyo Nhật Bản",
+  },
+  {
+    year: "2012-2013",
+    src: "/images/example/news_03.png",
+    description: "Mở chuyên tuyến vận chuyển từ HCM đến Tokyo Nhật Bản",
+  },
+  {
+    year: "2014",
+    src: "/images/example/contact_center_1.jpeg",
+    description: "Phát triển hệ sinh thái dịch vụ Logistics toàn diện",
+  },
+  {
+    year: "2015-2016",
+    src: "/images/example/contact_center_2.jpeg",
+    description: "Đầu tư và mở rộng quy mô tại miền Trung",
+  },
+  {
+    year: "2017",
+    src: "/images/example/mega_menu.jpeg",
+    description: "Tăng cường hợp tác quốc tế",
+  },
+  {
+    year: "2018",
+    src: "/images/example/solution_1.png",
+    description: "Tăng cường hợp tác quốc tế",
+  },
+  {
+    year: "2019-2021",
+    src: "/images/example/solution_2.jpeg",
+    description: "Tăng cường hợp tác quốc tế",
+  },
+  {
+    year: "2022-2025",
+    src: "/images/example/solution_3.jpeg",
+    description: "Tăng cường hợp tác quốc tế",
+  },
+];
+const About = () => {
+
+  //history
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [dragging, setDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
+  const touchStartX = useRef(0);
+  const getStyles = (index: any) => {
+    const offset = index - selectedIndex;
+    if (offset === 0) {
+      return {
+        left: `calc(20vw + ${dragOffset}px)`,
+        width: "calc(60vw - 24px)",
+        zIndex: 5,
+        opacity: 1,
+        transform: "scale(1)",
+        filter: "blur(0px)",
+      };
+    } else if (
+      offset === -1 ||
+      (selectedIndex === 0 && index === images.length - 1)
+    ) {
+      return {
+        left: `calc(0vw - 24px + ${dragOffset}px)`,
+        width: "calc(20vw)",
+        zIndex: 5,
+        opacity: 0.5,
+        transform: "scale(1)",
+        filter: "blur(0px)",
+      };
+    } else if (
+      offset === 1 ||
+      (selectedIndex === images.length - 1 && index === 0)
+    ) {
+      return {
+        left: `calc(80vw + ${dragOffset}px)`,
+        width: "calc(20vw)",
+        zIndex: 5,
+        opacity: 0.5,
+        transform: "scale(1)",
+        filter: "blur(0px)",
+      };
+    }
+    return { display: "none" };
+  };
+  const handleTouchStartHistory = (e:any) => {
+    setDragging(true);
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const handleTouchMoveHistory = (e:any) => {
+    if (!dragging) return;
+    const moveX = e.touches[0].clientX;
+    const offset = moveX - touchStartX.current;
+    setDragOffset(offset);
+  };
+  const handleTouchEndHistory = () => {
+    setDragging(false);
+    if (dragOffset < -50) {
+      setSelectedIndex((prevIndex) => (prevIndex + 1) % images.length);
+    } else if (dragOffset > 50) {
+      setSelectedIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+    }
+    setDragOffset(0);
+  };
+
+  // portrait
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const startTouchRef = useRef(0);
+  const endTouchRef = useRef(0);
+  const items = [
+    { id: 1, name: "Leader 1", image: "/images/example/news_03.png" },
+    { id: 2, name: "Leader 2", image: "/images/example/news_02.png" },
+    { id: 3, name: "Leader 3", image: "/images/example/news_01.png" },
+    { id: 4, name: "Leader 4", image: "/images/example/news_03.png" },
+    { id: 5, name: "Leader 5", image: "/images/example/news_01.png" },
+    { id: 6, name: "Leader 6", image: "/images/example/news_02.png" },
+  ];
+  const slidesToShow = 3;
+  const maxIndex = items.length - slidesToShow+1;
+  // Hàm chuyển đến nhóm tiếp theo (Next)
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % maxIndex);
+  };
+  // Hàm chuyển đến nhóm trước đó (Prev)
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + maxIndex) % maxIndex);
+  };
+  // Hàm cảm ứng bắt đầu
+  const handleTouchStart = (e:any) => {
+    startTouchRef.current = e.touches[0].clientX;
+    console.log("Touch Start");
+  };
+  // Hàm cảm ứng di chuyển
+  const handleTouchMove = (e:any) => {
+    endTouchRef.current = e.touches[0].clientX;
+    console.log("Touch move");
+  };
+  // Hàm cảm ứng kết thúc (dựa trên di chuyển của cảm ứng để chuyển ảnh)
+  const handleTouchEnd = () => {
+    
+    const swipeDistance = startTouchRef.current - endTouchRef.current;
+    if (swipeDistance > 50) {
+      handleNext();
+    } else if (swipeDistance < -50) {
+      handlePrev();
+    }
+  };
+
+  return (
+    <>
+      {/* About PCS */}
+      <div className="relative">
+        <img
+          className="w-full h-[280px] object-cover"
+          src="/images/example/solution_2.jpeg"
+          alt="background"
+        />
+        <div className=" absolute bottom-[16px] w-full flex justify-start">
+          <div className="px-[40px]">
+            <div className="text-pcsText text-[32px] font-bold">About PCS</div>
+            <div className="text-pcsText text-sm flex items-center gap-[4px]">
+              <a href="/" className="hover:underline">
+                Home
+              </a>
+              <span>{">"}</span>
+              <a href="/" className="hover:underline">
+                About PCS
+              </a>
+              <span>{">"}</span>
+              <span>Company</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Company Overview */}
+      <div className="mb-[100px] mt-[96px]">
+        <div className="px-paddingMobile md:px-paddingDesktop font-bold text-[64px]">
+          <span>Company Overview</span>
+        </div>
+        <div className="px-paddingMobile md:px-paddingDesktop mt-[44px] gap-[52px] Wrapper_Company_Overview">
+          <div className="Wrapper_Company_Overview_Item_1 text-[16px]">
+            <span className="font-bold">
+              PCS EXPRESS TRADING AND SERVICE JOINT STOCK COMPANY - PCS - PEACE
+              COURIER SERVICE - HAPPY DELIVERY SERVICE
+            </span>
+             was established on October 21, 2010, with the aim of bringing
+            customers the experience of using happy transportation services,
+            through a team of united, professional staff, always putting the
+            interests and satisfaction of customers first.
+          </div>
+          <div className="text-[16px] Wrapper_Company_Overview_Item_2">
+            <div>
+              PCS is one of the first enterprises in Vietnam to have a strong
+              transformation to become a{" "}
+              <span className="font-bold">"Green"</span> organization operating
+              under a flexible, progressive, humane and high-performance
+              management model. We build an autonomous working environment, a
+              corporate culture that aims for good, beautiful and transparent
+              things.
+            </div>
+            <div>
+              PCS uses the energy of{" "}
+              <span className="font-bold">"devotion"</span> to develop a
+              logistics service ecosystem, including services: Purchasing,
+              import and export, customs clearance, warehousing, packaging,
+              storage and final delivery. PCS is here to support customers to
+              expand their production and business scale and consumers to have
+              the most cost-effective products.
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* History */}
+      <div className="flex flex-col items-center mt-[120px] mb-[60px]" onTouchStart={handleTouchStartHistory}
+      onTouchMove={handleTouchMoveHistory} onTouchEnd={handleTouchEndHistory}>
+        <div className="relative w-full h-[500px] overflow-hidden">
+          {images.map((item, index) => (
+            <div
+              key={index}
+              style={{
+                position: "absolute",
+                top: 0,
+                height: "100%",
+                transition: "all 0.5s ease-in-out",
+                ...getStyles(index),
+              }}
+              //  className="lg:hidden"
+            >
+              <img
+                src={item.src}
+                alt={item.year}
+                className="w-full h-full object-cover rounded-md"
+              />
+              {index === selectedIndex && (
+                <div className="flex gap-[4px] flex-col absolute bottom-[16px] left-[16px] text-white bg-black bg-opacity-50 p-[8px] rounded-md">
+                  <div className="font-bold text-[32px]">{item.year}</div>
+                  <div className="text-[20px]">{item.description}</div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        <div className="flex gap-[12px] mt-[40px] flex-wrap ml-[12px]">
+          {images.map((item, index) => (
+            <button
+              key={index}
+              onClick={() => setSelectedIndex(index)}
+              className={`px-[16px] py-[8px] rounded-md border transition-all duration-300 ${
+                index === selectedIndex
+                  ? "bg-black text-white"
+                  : "bg-white text-pcsText"
+              }`}
+            >
+              {item.year}
+            </button>
+          ))}
+        </div>
+      </div>
+      {/* Action */}
+      <div className="px-paddingMobile md:px-paddingDesktop relative mb-[98px] z-100">
+        <div>
+          <img
+            src="/images/example/news_01.png"
+            alt="background"
+            className="rounded-lg h-auto object-cover"
+          />
+          <div className="Vision_Mission_Value_Action_PCS bottom-0 left-0 m-16 mb-6 text-pcsText">
+            <div className="w-full Action_About_Item">
+              <div className="font-bold text-[20px]">Vision</div>
+              <div className="text-[16px]">
+                PCS constantly breaks all limits to become a global multimodal
+                transport chain, connecting Vietnam and the world.
+              </div>
+            </div>
+            <div className="w-full Action_About_Item">
+              <div className="font-bold text-[20px]">Mission</div>
+              <div className="text-[16px]">
+                Connect and deliver good values to partners and customers
+                through excellent service experiences, through a dedicated,
+                flexible, creative and deeply empathetic team.
+              </div>
+            </div>
+            <div className="w-full Action_About_Item">
+              <div className="font-bold text-[20px]">Value System</div>
+              <div className="text-[16px]">
+                <div className="font-bold">PCS's 6 core cultural values:</div>
+                <div className="mt-2 Action_About_ul">
+                  <ul className="list-disc ml-4">
+                    <li>Dedication</li>
+                    <li>Honesty</li>
+                    <li>Trust</li>
+                  </ul>
+                  <ul className="list-disc ml-4">
+                    <li>Empathy</li>
+                    <li>Wisdom</li>
+                    <li>Compassion</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* We delivery happiness */}
+      <div className="bg-[#DDDDDD] p-[56px] relative mb-[96px]">
+        <div className="relative">
+          <div className="text-center">
+            <img
+              src="/images/example/pcs_all.png"
+              alt="PCS"
+              className="w-[104px] h-[80px] mx-auto mb-[32px]"
+            />
+            <div className="relative">
+              {/* Connecting Lines */}
+              {/* <svg
+              className="absolute top-1/2 left-0 w-full h-16"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 400 100"
+            >
+              <line x1="50" y1="50" x2="200" y2="50" stroke="black" strokeWidth="2" />
+              <line x1="200" y1="50" x2="350" y2="50" stroke="black" strokeWidth="2" />
+              <line x1="200" y1="0" x2="200" y2="50" stroke="black" strokeWidth="2" />
+            </svg> */}
+              <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-12">
+                {/* PCS Courier */}
+                <div className="text-center">
+                  <img
+                    src="/images/example/pcs-curier.png"
+                    alt="PCS Courier"
+                    className="w-[90px] h-[58px] mx-auto mb-[8px]"
+                  />
+                  <h3 className="font-[800] text-[20px]">PCS COURIER</h3>
+                  <p className="text-pcsText w-[160px]">
+                    Provide international shipping services
+                  </p>
+                </div>
+                {/* PCS Post */}
+                <div className="text-center">
+                  <img
+                    src="/images/example/pcs_post.png"
+                    alt="PCS Post"
+                    className="w-[90px] h-[58px] mx-auto mb-[8px]"
+                  />
+                  <h3 className="font-[800] text-[20px]">PCS POST</h3>
+                  <p className="text-pcsText w-[180px]">
+                    Provide domestic transportation services
+                  </p>
+                </div>
+                {/* PCS E-Commerce */}
+                <div className="text-center">
+                  <img
+                    src="/images/example/logo_ship.png"
+                    alt="PCS E-Commerce"
+                    className="w-[90px] h-[58px] mx-auto mb-[8px]"
+                  />
+                  <h3 className="font-[800] text-[20px]">PCS E-COMMERCE</h3>
+                  <p className="text-pcsText w-[160px]">
+                    Provide commercial delivery services
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* Description Section */}
+          <div className="text-center mt-[32px]">
+            <h2 className="font-bold text-[32px] mb-[28px]">
+              We deliver happiness
+            </h2>
+            <p className="text-[16px] mb-[28px]">
+              PCS thấu hiểu rằng, khi tìm đến chúng tôi, khách hàng không chỉ có
+              nhu cầu vận chuyển hàng hóa mà còn mong muốn được đáp ứng về mặt
+              cảm xúc trong từng khâu trải nghiệm. Đó có thể là cảm giác được
+              đón chào niềm nở, cảm thấy được lắng nghe chân thành, cảm nhận
+              được tư vấn chu đáo tận tâm. Tất cả những cảm xúc tích cực ấy được
+              PCS gói gọn trong sứ mệnh "
+              <span className="font-bold">chuyển phát hạnh phúc</span>".
+            </p>
+            <button className="border p-[16px] px-[40px] rounded-lg Border_Button text-[16px] font-bold">
+              See more
+            </button>
+          </div>
+        </div>
+      </div>
+      {/* Meet Our Amazing Team */}
+      <div className="px-paddingMobile md:px-paddingDesktop mt-[98px]">
+        <div className="text-[64px]">
+          Meet Our <span className="font-bold">Amazing Team</span>
+        </div>
+        <div className="flex justify-end text-[16px]">
+          It has survived not only five centuries, but also the leap into
+          electronic typesetting, remaining essentially unchanged.
+        </div>
+      </div>
+      {/* Leader */}
+      <div
+      className="px-paddingMobile md:px-paddingDesktop mt-[98px] mb-[100px]"
+      onTouchStart={handleTouchStart} // Khi bắt đầu cảm ứng
+      onTouchMove={handleTouchMove} // Khi di chuyển cảm ứng
+      onTouchEnd={handleTouchEnd} // Khi kết thúc cảm ứng
+    >
+      <div className="slider-container relative overflow-hidden">
+        {/* Slider Content */}
+        <div
+          className="flex transition-transform duration-500"
+          style={{
+            transform: `translateX(-${(currentIndex * 100) / slidesToShow}%)`, // Điều chỉnh dịch chuyển ảnh
+          }}
+        >
+          {items.map((item) => (
+            <div
+              key={item.id}
+              className="flex-shrink-0"
+              style={{
+                width: `${100 / slidesToShow}%`, // Hiển thị 3 ảnh mỗi lần
+                padding: "0 6px", // 12px khoảng cách giữa các ảnh
+                position: "relative",
+              }}
+            >
+              <div className="rounded-lg shadow-lg overflow-hidden bg-gray-100">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full h-[455px] object-cover rounded-md"
+                />
+                <h3 className="text-center absolute bottom-4 left-10 bg-opacity-70 text-white  z-10 text-[20px]">{item.name}</h3>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Navigation Buttons */}
+        {/* <button
+          onClick={handlePrev}
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded"
+        >
+          Prev
+        </button>
+        <button
+          onClick={handleNext}
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded"
+        >
+          Next
+        </button> */}
+      </div>
+
+      {/* Dots */}
+      <div className="dots flex justify-center mt-4">
+        {/* Số lượng dot sẽ được tính dựa trên số nhóm ảnh */}
+        {Array.from({ length: Math.ceil(items.length)-2 }).map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index)} // Chuyển đến ảnh tương ứng khi click dot
+            className={`w-6 h-2 rounded-full mx-1 ${
+              currentIndex === index ? "bg-gray-800" : "bg-gray-300"
+            }`}
+          ></button>
+        ))}
+      </div>
+    </div>
+
+
+
+
+
+
+    </>
+  );
+};
+
+export default About;
