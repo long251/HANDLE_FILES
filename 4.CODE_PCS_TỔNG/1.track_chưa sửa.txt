@@ -1,0 +1,134 @@
+import React, {useState} from "react";
+import { useMatches } from "react-router";
+import Link from "~/components/Link";
+import TrackTraceItem from "~/components/TrackTraceItem";
+import { __t, getTranslation } from "~/utils/translate";
+import axios from "axios";
+
+const Track = () => {
+  const [trackingNumbers, setTrackingNumbers] = useState("");
+  const [shipmentData, setShipmentData] = useState<any[] | null>(null);
+  console.log('shi', shipmentData);
+  
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const openPopup = () => setIsPopupOpen(true);
+  const closePopup = () => setIsPopupOpen(false);
+
+  const matches = useMatches();
+  const translations = getTranslation(matches);
+  
+  const handleLookup = async () => {
+    setError(null);
+    setLoading(true);
+    setShipmentData(null);
+  
+    const trackingArray = trackingNumbers
+      .split("\n") // Tách dòng
+      .map((item) => item.trim()) // Loại bỏ khoảng trắng
+      .filter((item) => item !== ""); // Loại bỏ dòng rỗng
+  
+    if (trackingArray.length > 25) {
+      setError("You can only enter up to 25 tracking numbers.");
+      setLoading(false);
+      return;
+    }
+  
+    try {
+      // Tạo params với đúng format: OrderNumber[0]=...&OrderNumber[1]=...
+      const params: Record<string, string> = {};
+      trackingArray.forEach((tracking, index) => {
+        params[`OrderNumber[${index}]`] = tracking;
+      });
+  
+      // Gọi API với params đã xây dựng
+      const response = await axios.get(
+        `https://apiv2.pcs.vn/api/shipment-customer/track-trace-public`,
+        { params }
+      );
+  
+      // Lưu dữ liệu trả về
+      setShipmentData(response.data);
+      setIsPopupOpen(true);
+    } catch (err) {
+      setError("Failed to fetch tracking data. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  return (
+    <>
+      <div className={"px-paddingMobile md:px-paddingDesktop mt-[96px] "}>
+        <div className={"grid grid-cols-1 gap-[16px] sm:grid-cols-12 sm:gap-[32px]"}>
+          <div className="col-span-1 sm:col-span-8 rounded-[8px]">
+            <div className={"text-[24px] font-bold"}>{__t("track.track_trace", translations)}</div>
+            <div className={"flex items-start mt-[12px] flex-col gap-[4px] justify-start"}>
+              <div className={"italic font-normal text-[13px]"}>{__t("track.enter", translations)}</div>
+              <textarea rows={2} className={"w-full  border-[1px] border-[#B7B7B7] p-[12px]  rounded-[8px]"}
+              value={trackingNumbers}
+              onChange={(e) => setTrackingNumbers(e.target.value)}
+              placeholder="Enter up to 25 tracking numbers, one per line."
+/>
+            </div>
+            <div className={"mt-[16px] flex"}>
+              <button
+                // onClick={() => openPopup()}
+                onClick={handleLookup}
+                disabled={loading}
+                className={"h-[44px] bg-pcsMain hover-gradient text-white px-[28px] rounded-full flex items-center justify-center gap-[12px] cursor-pointer"}>
+                <div>
+                  {/* {__t("track.track", translations)} */}
+                  {loading ? "Loading..." : __t("track.track", translations)}
+                </div>
+                {error && <div className="text-red-500 mt-[12px]">{error}</div>}
+                <div>
+                  <svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 0.5L6 5.5L1 10.5" stroke="white" strokeLinecap="round" strokeLinejoin="round"></path>
+                  </svg>
+                </div>
+              </button>
+            </div>
+          </div>
+          <div className="col-span-1 sm:col-span-4">
+            <div className={" p-[20px] bg-[#fef3f1] rounded-[8px]"}>
+              <div className={"text-[18px] font-bold text-pcsMain"}>{__t("track.slidebar_label", translations)}</div>
+              <ul className={"flex flex-col mt-[12px] gap-[8px] list-disc pl-[20px] marker:text-pcsMain"}>
+                <li>
+                  <Link className={"text-[14px] underline underline-offset-[4px] hover:text-pcsMain"} href="/contact" title={__t("track.help_1", translations)}>{__t("track.help_1", translations)}</Link>
+                </li>
+                <li>
+                  <Link className={"text-[14px] underline underline-offset-[4px] hover:text-pcsMain"} href="/contact" title={__t("track.help_2", translations)}>{__t("track.help_2", translations)}</Link>
+                </li>
+                <li>
+                  <Link className={"text-[14px] underline underline-offset-[4px] hover:text-pcsMain"} href="/contact" title={__t("track.help_3", translations)}>{__t("track.help_3", translations)}</Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={"px-paddingMobile md:px-paddingDesktop mt-[96px]"}/>
+
+      {isPopupOpen && shipmentData && (
+        <div
+          className="z-[1000] w-full top-0 left-0 h-[100vh] fixed flex items-center justify-center bg-gray-800 bg-opacity-50"
+          onClick={closePopup}
+        >
+          <div
+            className="h-[90vh] max-w-[900px] w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={"bg-transparent"}>
+              <TrackTraceItem data={shipmentData}/>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
+
+export default Track;

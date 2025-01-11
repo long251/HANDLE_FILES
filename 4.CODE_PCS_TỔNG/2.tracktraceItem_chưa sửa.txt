@@ -1,0 +1,112 @@
+import React, { useEffect, useState } from "react";
+
+const TrackTraceItem = ({ data }: any) => {
+  const [expandedShipments, setExpandedShipments] = useState<any>({});
+  const [loading, setLoading] = useState(true); 
+
+  const toggleShipment = (hawbNo: any) => {
+    setExpandedShipments((prev: any) => ({
+      ...prev,
+      [hawbNo]: !prev[hawbNo],
+    }));
+  };
+  const shipments: any[] = Array.isArray(data?.Result) ? data.Result : [];
+  useEffect(() => {
+    if (Array.isArray(data?.Result)) {
+      setLoading(false);
+    }
+  }, [data]);
+
+  // Debug: Log dữ liệu shipment
+  useEffect(() => {
+    shipments.forEach((shipment: any) => {
+      console.log("Shipment Info:", shipment.shipmentInfo);
+      console.log("Shipment Statuses:", shipment.shipmentStatuses);
+    });
+  }, [shipments]);
+
+console.log('g', shipments);
+
+  return (
+    <div className="p-4 bg-gray-100 h-[90vh] overflow-y-scroll rounded-[8px]">
+<h2 className="text-lg font-semibold mb-4">Tracking Details</h2>
+
+{/* Hiển thị loading nếu dữ liệu đang được tải */}
+{loading ? (
+  <p className="text-gray-700">Loading...</p>
+) : shipments.length === 0 ? (
+  <p className="text-gray-700">No shipments found.</p>
+) : (
+  <ul>
+    {shipments.map((shipment: any, index: number) => {
+      const { shipmentInfo, shipmentStatuses } = shipment;
+      const isExpanded = expandedShipments[shipmentInfo.HAWB_NO];
+
+      return (
+        <li
+          key={index}
+          className="mb-[12px] p-[12px] rounded-[4px] bg-white shadow-sm"
+        >
+          {/* Basic Shipment Info */}
+          <div className="flex justify-between items-center mb-2">
+            <div>
+              <p className="font-semibold text-pcsMain">
+                Tracking Code: {shipmentInfo.HAWB_NO}
+              </p>
+              <p className="text-sm text-gray-700">
+                <strong>Last Status:</strong> {shipmentInfo.LAST_STATUS} (
+                {shipmentInfo.LAST_STATUS_TIME})
+              </p>
+              <p className="text-sm text-gray-700">
+                <strong>From:</strong> {shipmentInfo.SENDER_LOCATION}
+              </p>
+              <p className="text-sm text-gray-700">
+                <strong>To:</strong> {shipmentInfo.RECEIVER_LOCATION}
+              </p>
+            </div>
+            <button
+              onClick={() => toggleShipment(shipmentInfo.HAWB_NO)}
+              className="text-pcsMain text-sm underline hover:text-pcsDark"
+            >
+              {isExpanded ? "Hide Details" : "Show Details"}
+            </button>
+          </div>
+
+          {/* Expanded Shipment Details */}
+          {isExpanded && (
+            <div className="mt-4">
+              <h3 className="text-md font-semibold mb-2">
+                Status History
+              </h3>
+              <ul className="space-y-2">
+                {shipmentStatuses.map((status: any, idx: number) => (
+                  <li
+                    key={idx}
+                    className="p-3 bg-gray-50 border rounded-md"
+                  >
+                    <p>
+                      <strong>Status:</strong> {status.STATUS_VN}
+                    </p>
+                    <p>
+                      <strong>Location:</strong> {status.LOCATION}
+                    </p>
+                    <p>
+                      <strong>Time:</strong> {status.STRDETTIME} (
+                      {status.TIME_LOCATION})
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </li>
+      );
+    })}
+  </ul>
+)}
+
+    </div>
+  );
+};
+
+export default TrackTraceItem;

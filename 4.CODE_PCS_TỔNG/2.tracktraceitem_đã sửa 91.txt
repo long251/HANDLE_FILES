@@ -1,0 +1,162 @@
+import React, { useEffect, useState } from "react";
+
+const TrackTraceItem = ({ data }: any) => {
+  const [expandedShipments, setExpandedShipments] = useState<
+    Record<string, boolean>
+  >({});
+  const [loading, setLoading] = useState(true);
+
+  const toggleShipment = (hawbNo: string) => {
+    setExpandedShipments((prev) => ({
+      ...prev,
+      [hawbNo]: !prev[hawbNo],
+    }));
+  };
+
+  const shipments = Array.isArray(data?.Result) ? data.Result : [];
+  const invalidTrackingNumbers = data?.invalidTrackingNumbers || [];
+  // ktra loading
+  useEffect(() => {
+    if (Array.isArray(data?.Result)) {
+      setLoading(false);
+    }
+  }, [data]);
+
+  return (
+    <div className="p-4 bg-gray-100 h-[90vh] overflow-y-scroll rounded-[8px]">
+      <h2 className="text-lg font-semibold mb-[16px]">Tracking Details</h2>
+      {loading ? (
+        <p className="text-pcsText">Loading...</p>
+      ) : shipments.length === 0 ? (
+        // <p className="text-pcsText">No shipments found.</p>
+        ""
+      ) : (
+        <div>
+          {shipments.map((shipment: any, index: number) => {
+            const { shipmentInfo, shipmentStatuses } = shipment;
+            const isExpanded = expandedShipments[shipmentInfo.HAWB_NO];
+
+            return (
+              <div
+                key={index}
+                className="mb-[12px] p-[12px] rounded-[4px] bg-white shadow-sm"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-[12px]">
+                    <div className="px-[24px] py-[16px] bg-blue-500 text-white font-bold">
+                      {index + 1}
+                    </div>
+                    <div>
+                      {" "}
+                      <p className="font-semibold text-pcsText">
+                        {shipmentInfo.HAWB_NO}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => toggleShipment(shipmentInfo.HAWB_NO)}
+                    className="text-pcsMain text-sm underline hover:text-pcsDark"
+                  >
+                    {isExpanded ? (
+                      <div className="rounded-[50%]  px-[12px] py-[14px] bg-gray-300">
+                        <svg
+                        width="12"
+                        height="9"
+                        viewBox="0 0 10 7"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9.3583 6.02102C9.29307 6.08884 9.21454 6.14249 9.12765 6.17862C9.04077 6.21475 8.94738 6.23254 8.8533 6.23099C8.75881 6.23452 8.6647 6.21767 8.57736 6.18142C8.49002 6.14518 8.41154 6.09043 8.34732 6.02102L5.00131 2.694L1.67532 6.02102C1.54045 6.15114 1.35985 6.22314 1.17245 6.22146C0.985052 6.21978 0.805825 6.14451 0.673308 6.01199C0.54079 5.87947 0.465577 5.70025 0.463896 5.51285C0.462215 5.32544 0.534216 5.14491 0.664335 5.01004L4.49631 1.15701C4.6316 1.02567 4.81275 0.952177 5.00131 0.952177C5.18987 0.952177 5.37102 1.02567 5.50632 1.15701L9.35928 5.01004C9.49102 5.14539 9.56467 5.3269 9.56448 5.51578C9.56429 5.70465 9.49032 5.88594 9.3583 6.02102Z"
+                          fill="#000000"
+                        />
+                      </svg>
+                      </div>
+                    ) : (
+                      <div className="rounded-[50%]  px-[12px] py-[14px] bg-gray-300">
+                        <svg
+                        width="12"
+                        height="9"
+                        viewBox="0 0 10 7"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9.3583 0.978976C9.29307 0.911163 9.21454 0.857513 9.12765 0.821383C9.04077 0.785253 8.94738 0.767456 8.8533 0.769015C8.75881 0.765481 8.6647 0.782329 8.57736 0.818575C8.49002 0.854822 8.41154 0.909571 8.34732 0.978976L5.00131 4.306L1.67532 0.978976C1.54045 0.848856 1.35985 0.776855 1.17245 0.778536C0.985052 0.780217 0.805825 0.855491 0.673308 0.988009C0.54079 1.12053 0.465577 1.29975 0.463896 1.48715C0.462215 1.67456 0.534216 1.85509 0.664335 1.98996L4.49631 5.84299C4.6316 5.97433 4.81275 6.04782 5.00131 6.04782C5.18987 6.04782 5.37102 5.97433 5.50632 5.84299L9.35928 1.98996C9.49102 1.85461 9.56467 1.6731 9.56448 1.48422C9.56429 1.29535 9.49032 1.11406 9.3583 0.978976Z"
+                          fill="#000000"
+                        />
+                      </svg>
+                      </div>
+                    )}
+                  </button>
+                </div>
+
+                {isExpanded && (
+                  <div className="mt-4">
+                    <h3 className="text-md font-semibold mb-2">
+                      {shipmentInfo.LAST_STATUS} - Thời gian: {shipmentInfo.LAST_STATUS_TIME}
+                    </h3>
+                    <table className="min-w-full table-auto border-collapse border border-gray-300">
+  <thead className="bg-gray-200">
+    <tr>
+      <th className="py-[8px] px-[16px] text-left text-gray-700">Mã vận đơn</th>
+      <th className="py-[8px] px-[16px] text-left text-gray-700">Người nhận</th>
+      <th className="py-[8px] px-[16px] text-left text-gray-700">Ngày gửi</th>
+      <th className="py-[8px] px-[16px] text-left text-gray-700">Ngày phát</th>
+      <th className="py-[8px] px-[16px] text-left text-gray-700">Nơi đến</th>
+      <th className="py-[8px] px-[16px] text-left text-gray-700">Ký nhận</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr className="border-b">
+      <td className="py-[8px] px-[16px] text-gray-800">{shipmentInfo.HAWB_NO}</td>
+      <td className="py-[8px] px-[16px] text-gray-800">{shipmentInfo.CONSIGNEE_NAME}</td>
+      <td className="py-[8px] px-[16px] text-gray-800">{shipmentInfo.CREATED_TIME}</td>
+      <td className="py-[8px] px-[16px] text-gray-800">{shipmentInfo.DELIVERY_TIME}</td>
+      <td className="py-[8px] px-[16px] text-gray-800">{shipmentInfo.RECEIVER_LOCATION}</td>
+      <td className="py-[8px] px-[16px] text-gray-800">{shipmentInfo.TOS}</td>
+    </tr>
+  </tbody>
+</table>
+
+                    <ul className="space-y-2 mt-[8px]">
+                      {shipmentStatuses.map((status: any, idx: number) => (
+                        <li
+                          key={idx}
+                          className="p-3 bg-gray-50 border rounded-md"
+                        >
+                          <p>
+                            <strong>Status:</strong> {status.STATUS_VN}
+                          </p>
+                          <p>
+                            <strong>Location:</strong> {status.LOCATION}
+                          </p>
+                          <p>
+                            <strong>Time:</strong> {status.STRDETTIME} (
+                            {status.TIME_LOCATION})
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+      {/* {invalidTrackingNumbers.length > 0 && (
+        <div className="mb-4 p-4 border border-red-500 bg-red-100 text-red-700 rounded-md">
+          <p className="font-semibold">Invalid Tracking Numbers:</p>
+          <ul>
+            {invalidTrackingNumbers.map((tracking: string, index: number) => (
+              <li key={index}>{tracking} - Không tìm thấy mã vận đơn</li>
+            ))}
+          </ul>
+        </div>
+      )} */}
+    </div>
+  );
+};
+
+export default TrackTraceItem;
