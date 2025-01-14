@@ -1,6 +1,6 @@
 CTY PCS
 -------
-Ngày cập nhật: 13/01/2025
+Ngày cập nhật: 14/01/2025
 -------------------------
 - hộp bánh danisa					/ vài
 - Cốc thuốc:
@@ -43,7 +43,7 @@ Ngày cập nhật: 13/01/2025
 	- [gitlab] 	-> check a Khánh FE cập nhật. Tự Merge lên UAT
 -----------------------------------------------------------------------------------------------------------------
 *TRIỂN KHAI:
-- MANG	-> bánh kẹo lên cty		x vài		/ mang thêm choco tủ đông
+- MANG	-> bánh kẹo lên cty		x vài		/ xong
 - MANG	-> bịch giấy ăn			x 2		/ mang +1
 - MANG	-> quyển vở			x 1		/ mang quyển vở khác
 -----------------------------------------------------------------------------------------------------------------
