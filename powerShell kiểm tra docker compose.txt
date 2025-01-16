@@ -1,0 +1,29 @@
+powerShell kiểm tra docker compose:
+- Docker Compose version v2.31.0-desktop.2
+
+Clone dự án:
+- pcs-website-backend
+- pcs-website-cms
+
+tạo .env từ .env.example
+
+b1: vào backend trước:
+	- docker-compose up --build
+	- http://localhost:5000
+b2: vào cms:
+	- docker-compose up --build
+	- http://localhost:4000
+
+! nhớ là chạy khác nhau PORT
+dừng container: docker-compose down
+xem danh sách: docker ps
+xem lỗi: docker-compose logs
+========================================================
+remove:
+docker-compose down --volumes --remove-orphans
+docker network prune -f
+docker volume prune -f
+remove:
+docker-compose down
+-------------------------------
+docker-compose up --build

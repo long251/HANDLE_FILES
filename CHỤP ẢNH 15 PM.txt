@@ -1,0 +1,15 @@
+- giới hạn pin?
+- chụp ảnh?
+- 
+
+- bông hoa: chụp gần 
+- f: độ sâu trường ảnh, lớn bao hết, nhỏ thì sẽ mờ hậu cảnh
+
+Photo: Chế độ chụp ảnh tiêu chuẩn, tự động cân chỉnh các thông số.
+Portrait (Chân dung): Làm mờ hậu cảnh và nổi bật đối tượng.
+Night Mode (Chế độ ban đêm): Cải thiện chất lượng ảnh trong điều kiện ánh sáng yếu.
+ProRAW (RAW): Chụp ảnh với độ chi tiết cao, phù hợp để chỉnh sửa hậu kỳ.
+Panorama (Toàn cảnh): Chụp ảnh góc siêu rộng bằng cách lia máy theo hướng chỉ dẫn.
+
+- flash: điều chỉnh đèn flash
+- 
