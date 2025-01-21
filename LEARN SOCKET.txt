@@ -1,0 +1,44 @@
+LEARN SOCKET
+------------
+1. tạo khung:
+- tạo 1 folder xong sau đó cd vào
+- npm init -y			(tạo gói package.json)
+- npm install express@4	
+*dựng tạm index.js
+- chạy node index.js
+*dựng index.js
+*dựng index.html
+-----------------------------------------------------------------------
+2. tích hợp Socket.io:
+- socket.io
+- socket.io-client
+- npm install socket.io
+*dựng .js
+*dựng .html
+-----------------------------------------------------------------------
+3. 
+từ client -> server:
+socket.emit('hello', 'world');
+io.on('connection', (socket) => {
+  socket.on('hello', (arg) => {
+    console.log(arg); // 'world'
+  });
+});
+
+từ server -> client:
+io.on('connection', (socket) => {
+  socket.emit('hello', 'world');
+});
+socket.on('hello', (arg) => {
+  console.log(arg); // 'world'
+});
+
+- ko cần chuyển JSON
+
+*Xử lý ngắt kết nối:
+- kích hoạt disconnect -> 
+const io = new Server(server, {
+  connectionStateRecovery: {}
+});
+
+- 

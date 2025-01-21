@@ -1,0 +1,90 @@
+require('dotenv').config()
+const express = require('express');
+const {createServer} = require("node:http");
+const {join} = require('node:path');
+const {Server} = require('socket.io');
+
+const app = express();
+// Serve static files (optional, e.g., for serving an HTML client)
+// app.use(express.static('public'));
+const allowCors = process.env.ALLOW_CORS.split(",");
+const server = createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: allowCors,
+    }
+});
+
+const users = [];
+
+app.post("/dispatch-event/all", function (req, res) {
+    let query = req.query;
+    let itemId = req.body.itemId;  // Chuyển sang lấy từ body
+    let sockets = [];
+
+    for (let i = 0; i < users.length; i++) {
+        let userSockets = users[i]['sockets'];
+        for (let j = 0; j < userSockets.length; j++) {
+            if (!sockets.includes(userSockets[j])) {
+                sockets.push(userSockets[j]);
+            }
+        }
+    }
+
+    console.log(`Dispatch all ${sockets.length}`);
+    for (let i = 0; i < sockets.length; i++) {
+        let targetSocketId = sockets[i];
+        if (io.sockets.sockets.has(targetSocketId)) {
+            console.log(targetSocketId);
+            io.to(targetSocketId).emit("new_message", {
+                from: query.from,
+                data: { itemId: itemId },
+                time: Date.now(),
+            })
+        }
+    }
+
+    res.json({ status: true });
+});
+
+// Đảm bảo rằng bạn sử dụng POST chứ không phải GET
+app.post("/dispatch-event/:user_id", function (req, res) {
+    let params = req.params;  // Lấy params (user_id)
+    let body = req.body;  // Lấy body gửi từ client
+
+    console.log(`Dispatching message to user: ${params.user_id}`);
+    console.log(`Item ID: ${body.itemId}`);
+
+    // Xử lý thêm logic tại đây, ví dụ tìm user và gửi tin nhắn qua WebSocket
+
+    res.json({ status: "success", message: "Event dispatched" });
+});
+
+
+
+// Backend Node.js
+io.on("connection", (socket) => {
+    console.log(`User connected with socket ID: ${socket.id}`);
+
+    // Lắng nghe sự kiện 'message' từ client
+    socket.on('message', (data) => {
+        console.log('Message received:', data);  // Tin nhắn từ client
+        
+        // Phát lại tin nhắn cho tất cả các client (bao gồm client gửi)
+        io.emit('new_message', data); 
+        console.log(`Message sent to clients: ${data}`);
+    });
+
+    socket.on("disconnect", () => {
+        console.log(`User disconnected: ${socket.id}`);
+    });
+});
+
+
+
+
+const port = process.env.PORT;
+
+server.listen(port, () => {
+    console.log(`Init server socket port ${port}`);
+});
