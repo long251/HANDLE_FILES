@@ -1,6 +1,6 @@
 CTY PCS
 -------
-Ngày cập nhật: 21/01/2025
+Ngày cập nhật: 22/01/2025
 -------------------------
 - hộp bánh danisa					/ vài
 - Cốc thuốc:
@@ -45,7 +45,7 @@ Ngày cập nhật: 21/01/2025
 *TRIỂN KHAI:
 - MANG	-> bánh kẹo lên cty		x vài		/ xong
 - MANG	-> bịch giấy ăn			x 2		/ MANG +1
-- MANG	-> quyển vở			x 1		/ MANG +1
+- MANG	-> quyển vở			x 1		/ xong
 -----------------------------------------------------------------------------------------------------------------
 *WORK:
 - THAY	-> xịt mũi: ql1, cty				/ xong / xong
