@@ -1,0 +1,36 @@
+TIẾNG ANH
+---------
+- hello		/ xin chào
+- goodbye	/ tạm biệt
+- lie		/ nằm
+- sleep		/ ngủ
+- dream		/ mơ
+- want		/ muốn
+- kiss		/ hôn
+- lip		/ môi
+- eyes		/ mắt
+- long		/ dài
+- short		/ ngắn
+- tall		/ cao
+- here		/ đây
+- there		/ đó
+- which		/ nào
+- where		/ đâu
+- sentence	/ câu (*)
+- lesson	/ bài học
+- rainbow	/ cầu vồng
+- husband	/ chồng
+- daddy		/ bố
+- please dont	/ xin đừng
+- darling	/ em yêu (*)
+- merry		/ vui thích
+- horn		/ sừng
+- torn		/ rách nát
+- to sing	/ hát
+- a song	/ bài hát
+- to lie	/ npos dối
+- stand		/ đứng
+- look		/ trông
+- lie		/ nằm
+- hold		/ cầm
+- 
