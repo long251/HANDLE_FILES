@@ -1,0 +1,43 @@
+SO2.SHIPQUOCTE
+--------------
+Ngày cập nhật: 04/02/2025
+-------------------------
+
+- component: Complaint (sửa); Customer; CustomerFeedback; ... Expense; Facebook; 
+- Home: sửa lại tên, 
+------------------------------------------------------------------------------------------------------------------
+*tra cứu đơn hàng
+-----------------
+const handleSearchOrderCode = (code: any) => {
+  if (!code.trim()) {
+    showToast('Không có dữ liệu, vui lòng nhập mã đơn hàng!', 'warning'); // Hiển thị thông báo
+    return; // Không gọi API
+  }
+
+  setOrderCode(code);
+  const payload: any = {
+    code: code.trim(),
+  };
+
+  debounceSearchEcommerce(payload);
+};
+- fix data bảng
+
+-         toast.success('Xác nhận bồi thường thành công', {
+          icon: <SuccessIcon />,
+          autoClose: 2000,
+        });
+
+
+useEffect(() => {
+  const codeBillParam: string = searchParams.get('orderCode')?.trim() ?? '';
+
+  setOrderCode(codeBillParam);
+
+  if (!codeBillParam) {
+    return; // Không gọi API nếu orderCode rỗng
+  }
+
+  const payload = { code: codeBillParam };
+  debounceSearchEcommerce(payload);
+}, [location.search]);

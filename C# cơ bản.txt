@@ -1,0 +1,125 @@
+C# cơ bản
+---------
+Ngày cập nhật: 03/02/2025
+-------------------------
+*Mục tiêu:
+ - biến, kiểu dữ liệu, toán tử
+ - cấu trúc điều kiện: if-else, switch
+ - vòng lặp: for, while, foreach
+ - hàm (method) và lập trình hướng đối tượng (OOP)
+--------------------------------
+- C# (C-Sharp) => .NET Framework
+--------------------------------
+*Cú pháp C#:
+- using System (kiểu import)
+- namespace (tên ko gian)
+- {}: khối mã
+- class: container cho dữ liệu và phương thức
+- Console.WriteLine(): phương thức đc sd để xuất/in văn bản
+! nếu bỏ using System thì phải ghi System.Console.WriteLine()
+- kết thúc lệnh: ;
+- C# phân biệt chữ hoa chữ thường; "MyClass" và "myclass" có ý nghĩa khác nhau
+- // this is a comment; /* comment */
+----------------------------------------------------------------------------------------------------------------
+*Biến:
+- int- lưu trữ các số nguyên (số nguyên), không có số thập phân, chẳng hạn như 123 hoặc -123
+- double- lưu trữ các số dấu phẩy động, có phần thập phân, chẳng hạn như 19,99 hoặc -19,99
+- char- lưu trữ các ký tự đơn, chẳng hạn như 'a' hoặc 'B'. Các giá trị Char được bao quanh bởi dấu ngoặc đơn
+- string- lưu trữ văn bản, chẳng hạn như "Hello World". Các giá trị chuỗi được bao quanh bởi dấu ngoặc kép
+- bool- lưu trữ các giá trị có hai trạng thái: đúng hoặc sai
+ string name = "John";
+ Console.WriteLine(name);
+ ! nếu gán biến có thể bị ghi đè
+-------------------------------------------------------
+*Hằng số:
+const int myNum = 15;
+myNum = 20; // error
+-> ! ko bị ghi đè
+-------------------------------------------------------
+*Biến hiển thị:
+string name = "John";
+Console.WriteLine("Hello " + name);
+	string firstName = "John ";
+string lastName = "Doe";
+string fullName = firstName + lastName;
+Console.WriteLine(fullName);
+-------------------------------------------------------
+*Khai báo nhiều biến:
+int x = 5, y = 6, z = 50;
+Console.WriteLine(x + y + z);
+-------------------------------------------------------
+*đặt tên biến:
+Các quy tắc chung để đặt tên biến là:
+
+Tên có thể chứa các chữ cái, chữ số và ký tự gạch dưới (_)
+Tên phải bắt đầu bằng một chữ cái hoặc dấu gạch dưới
+Tên phải bắt đầu bằng chữ thường và không được chứa khoảng trắng
+Tên phân biệt chữ hoa chữ thường ("myVar" và "myvar" là các biến khác nhau)
+Các từ được dành riêng (như từ khóa C#, chẳng hạn như inthoặc double) không thể được sử dụng làm tên
+-------------------------------------------------------
+*kiểu dữ liệu:
+- số nguyên (có thể âm): int và long
+- phẩy động: float và double
+vd: long myNum = 15000000000L;
+Console.WriteLine(myNum);
+
+- char: kí tự đơn
+- 
+----------------------------------------------------------------------------------------------------------------
+*Chuyển kiểu:
+double myDouble = 9.78;
+int myInt = (int) myDouble;    // Manual casting: double to int
+
+Console.WriteLine(myDouble);   // Outputs 9.78
+Console.WriteLine(myInt); 
+-------------------------------------------------------
+*int myInt = 10;
+double myDouble = 5.25;
+bool myBool = true;
+
+Console.WriteLine(Convert.ToString(myInt));    // convert int to string
+Console.WriteLine(Convert.ToDouble(myInt));    // convert int to double
+Console.WriteLine(Convert.ToInt32(myDouble));  // convert double to int
+Console.WriteLine(Convert.ToString(myBool));   // convert bool to string
+-------------------------------------------------------
+*Lấy dữ liệu đầu vào:
+- Console.ReadLine()
+// Type your username and press enter
+Console.WriteLine("Enter username:");
+
+// Create a string variable and get user input from the keyboard and store it in the variable
+string userName = Console.ReadLine();
+
+// Print the value of the variable (userName), which will display the input value
+Console.WriteLine("Username is: " + userName);
+-------------------------------------------------------
+Đầu vào của người dùng và số
+Phương Console.ReadLine()pháp trả về a string. Do đó, bạn không thể lấy thông tin từ kiểu dữ liệu khác, chẳng hạn như int. Chương trình sau sẽ gây ra lỗi:
+
+Ví dụ
+Console.WriteLine("Enter your age:");
+int age = Console.ReadLine();
+Console.WriteLine("Your age is: " + age);
+Thông báo lỗi sẽ tương tự như thế này:
+
+Cannot implicitly convert type 'string' to 'int'
+-------------------------------------------------------
+Console.WriteLine("Enter your age:");
+int age = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Your age is: " + age);
+-------------------------------------------------------
+*Toán tử:
+ + - * / % ++ --
+*Toán tử gán:
+
+-------------------------------------------------------
+*&& 	Logical and	Returns True if both statements are true	x < 5 &&  x < 10	
+|| 	Logical or	Returns True if one of the statements is true	x < 5 || x < 4	
+!	Logical not	Reverse the result, returns False if the result is true	!(x < 5 && x < 10)
+-------------------------------------------------------
+Math, toUpper, toLower,... Concat, 
+-------------------------------------------------------
+string firstName = "John";
+string lastName = "Doe";
+string name = $"My full name is: {firstName} {lastName}";
+Console.WriteLine(name);
