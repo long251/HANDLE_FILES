@@ -1,0 +1,621 @@
+import React, { useCallback, useEffect, useState } from 'react';
+import Page from '@/components/Page';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ConfigProvider, Input } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
+import { debounce } from 'lodash';
+import IconV from '@/components/Icon/IconV';
+import { EcommerceAction } from '@/store/reducers/EcommerceReducer';
+import NoData from '@/components/NoData';
+
+interface RowData {
+  label: string;
+  value: string;
+}
+const SearchEcommerce: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  //dispatch
+  const dispatch = useDispatch<AppDispatch>();
+  const EcommerceSearchState = useSelector(
+    (state: RootState) => state.ecommerce,
+  );
+  const debounceSearchEcommerce = useCallback(
+    debounce((data: any) => {
+      dispatch(EcommerceAction.fetchSearch(data));
+    }, 400),
+    [],
+  );
+  // filter
+  const [orderCode, setOrderCode] = useState<string>('');
+  //
+  
+  const handleSearchOrderCode = (code: any) => {
+    setOrderCode(code);
+    updateUrl('orderCode', code);
+    const payload: any = {
+      code: code.trim(),
+    };
+    debounceSearchEcommerce(payload);
+  };
+  // update url, xử lý F5
+  const searchParams = new URLSearchParams(location.search);
+  const updateUrl = (key: string, value: string) => {
+    searchParams.set(key, value);
+    searchParams.delete('t');
+    navigate({ search: searchParams.toString() });
+  };
+  useEffect(() => {
+    //orderCode
+    const codeBillParam: string = searchParams.get('orderCode') ?? '';
+    if (codeBillParam === '') {
+      return;
+    }
+    setOrderCode(codeBillParam);
+
+    const payload: any = {
+      code: codeBillParam,
+    };
+    debounceSearchEcommerce(payload);
+    //
+  }, [location.search]);
+
+  //fake data history orderShipping
+  const orderHistories = [
+    {
+      id: 1,
+      TraceDesc: 'Đang vận chuyển nội địa',
+      TraceTime: '19/11/2024 14:59',
+    },
+    {
+      id: 2,
+      TraceDesc: 'Đã mua hàng',
+      TraceTime: '19/11/2024 09:00',
+    },
+    {
+      id: 3,
+      TraceDesc: 'Khởi tạo đơn hàng',
+      TraceTime: '19/11/2024 08:44',
+    },
+  ];
+  console.log('tra cứu Ec', EcommerceSearchState.search[0]);
+  const dataSearch = EcommerceSearchState.search[0] ?? '';
+  //fake RowData
+  const data: RowData[] = [
+    { label: 'Tổng tiền sản phẩm', value: dataSearch.totalPayment },
+    { label: 'Phụ phí', value: `${''}` },
+    { label: '-- Công mua (4%)', value: '123,000đ' },
+    { label: '-- Vận chuyển Mỹ - Việt', value: '345,000đ' },
+    { label: '-- Phí dịch vụ GTGT', value: '45,000đ' },
+    { label: 'Phí giao hàng nội địa', value: '55,000đ' },
+    { label: 'Tổng tiền', value: '100,000đ' },
+    { label: '-- Đã thanh toán', value: '123,000đ' },
+    { label: '-- Số tiền còn lại', value: '345,000đ' },
+  ];
+  return (
+    <>
+      <Page
+        title={['Tra cứu đơn hàng Ecommerce']}
+        breadcrumbs={[
+          {
+            title: 'Home',
+            url: '/home',
+          },
+          {
+            title: 'Tra cứu đơn hàng Ecommerce',
+            url: '',
+          },
+        ]}>
+        <div>
+          <div className='filters-container'>
+            <div className='filters-wrap'>
+              <div className='search-wrap'>
+                <div className='filters-item'>
+                  <div className='text-size-14'>Mã Đơn hàng</div>
+                  <div className='search-wrapper margin-top-8'>
+                    <div className='input-wrapper'>
+                      <ConfigProvider
+                        theme={{
+                          components: {
+                            Input: {
+                              activeShadow: 'none',
+                              fontSize: 14,
+                              controlHeight: 40,
+                              paddingBlock: 8,
+                              paddingInline: 12,
+                              borderRadius: 8,
+                              colorBorder: '#d1d5db',
+                            },
+                          },
+                        }}>
+                        <Input
+                          allowClear
+                          value={orderCode}
+                          // onChange={(event) => {
+                          //   handleSearchOrderCode(event.currentTarget.value);
+                          // }}
+                          onPressEnter={handleSearchOrderCode}
+                          // prefix={<SearchIcon />}
+                          placeholder='Nhập mã đơn hàng'
+                        />
+                      </ConfigProvider>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className='search-wrap'>
+                <div className='filters-item'>
+                  <div className='text-size-14'>Mã tracking</div>
+                  <div className='search-wrapper margin-top-8'>
+                    <div className='input-wrapper'>
+                      <ConfigProvider
+                        theme={{
+                          components: {
+                            Input: {
+                              activeShadow: 'none',
+                              fontSize: 14,
+                              controlHeight: 40,
+                              paddingBlock: 8,
+                              paddingInline: 12,
+                              borderRadius: 8,
+                              colorBorder: '#d1d5db',
+                            },
+                          },
+                        }}>
+                        <Input
+                          allowClear
+                          // value={orderCode ?? ''}
+                          // onChange={(event) => {
+                          //   handleSearchOrderCode(event.currentTarget.value);
+                          // }}
+                          // prefix={<SearchIcon />}
+                          placeholder='Nhập mã tracking'
+                        />
+                      </ConfigProvider>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className='search-wrap'>
+                <div className='filters-item'>
+                  <div className='text-size-14'>Mã Sản phẩm</div>
+                  <div className='search-wrapper margin-top-8'>
+                    <div className='input-wrapper'>
+                      <ConfigProvider
+                        theme={{
+                          components: {
+                            Input: {
+                              activeShadow: 'none',
+                              fontSize: 14,
+                              controlHeight: 40,
+                              paddingBlock: 8,
+                              paddingInline: 12,
+                              borderRadius: 8,
+                              colorBorder: '#d1d5db',
+                            },
+                          },
+                        }}>
+                        <Input
+                          allowClear
+                          // value={orderCode ?? ''}
+                          // onChange={(event) => {
+                          //   handleSearchOrderCode(event.currentTarget.value);
+                          // }}
+                          // prefix={<SearchIcon />}
+                          placeholder='Nhập mã sản phẩm'
+                        />
+                      </ConfigProvider>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className='search-wrap'>
+                <div className='filters-item'>
+                  <div className='text-size-14'>Shop bán</div>
+                  <div className='search-wrapper margin-top-8'>
+                    <div className='input-wrapper'>
+                      <ConfigProvider
+                        theme={{
+                          components: {
+                            Input: {
+                              activeShadow: 'none',
+                              fontSize: 14,
+                              controlHeight: 40,
+                              paddingBlock: 8,
+                              paddingInline: 12,
+                              borderRadius: 8,
+                              colorBorder: '#d1d5db',
+                            },
+                          },
+                        }}>
+                        <Input
+                          allowClear
+                          // value={orderCode ?? ''}
+                          // onChange={(event) => {
+                          //   handleSearchOrderCode(event.currentTarget.value);
+                          // }}
+                          // prefix={<SearchIcon />}
+                          placeholder='Nhập shop bán hàng'
+                        />
+                      </ConfigProvider>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {EcommerceSearchState.search_loading ? (
+            ''
+          ) : dataSearch ? (
+            <div className='Table_Search_Ecommerce'>
+              {/* dữ liệu đơn hàng, title */}
+              <div style={{ overflow: 'auto' }}>
+                <div
+                  style={{
+                    minWidth: '1200px',
+                  }}>
+                  <table className='order-table'>
+                    <thead>
+                      <tr>
+                        <th className='table-header'>Mã đơn hàng</th>
+                        <th className='table-header'>Ngày đặt</th>
+                        <th className='table-header'>Mã PXK</th>
+                        <th className='table-header'>Mã Bill</th>
+                        <th className='table-header'>Mã Mawb</th>
+                        <th className='table-header'>TT đơn hàng</th>
+                        <th className='table-header'>TT xử lý</th>
+                        <th className='table-header'>Nhân viên hỗ trợ</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className='table-cell'>{dataSearch.code}</td>
+                        <td className='table-cell'>
+                          {dataSearch.orderDateDisplay}
+                        </td>
+                        <td className='table-cell'>{dataSearch.quoteCode}</td>
+                        <td className='table-cell'>
+                          {dataSearch.deliveryCode}
+                        </td>
+                        <td className='table-cell'>{dataSearch.mawbDisplay}</td>
+                        <td className='table-cell'>{''}</td>
+                        <td className='table-cell'>{''}</td>
+                        <td className='table-cell'>
+                          {dataSearch.empployeeSupport}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              {/* dữ liệu bảng sản phẩm */}
+              <div style={{ overflow: 'auto' }}>
+                <div
+                  className='Table_Product_Search_Ecommerce'
+                  style={{ minWidth: '1200px' }}>
+                  <div className='Header_Table'>Thông tin sản phẩm</div>
+                  <table className='order-table_product'>
+                    <thead>
+                      <tr>
+                        <th className='table-header_product'>Sản phẩm</th>
+                        <th className='table-header_product'>Số lượng</th>
+                        <th className='table-header_product'>Giá sản phẩm</th>
+                        <th className='table-header_product'>Trọng lượng</th>
+                        <th className='table-header_product'>Kích thước</th>
+                        <th className='table-header_product'>Phí vận chuyển</th>
+                        <th className='table-header_product'>Thuế</th>
+                        <th className='table-header_product'>Tỉ giá</th>
+                        <th className='table-header_product'>Nick đấu</th>
+                        <th className='table-header_product'>Thành tiền</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className='table-cell' style={{ width: '200px' }}>
+                          <div className='Product_Seach_Ecommerce'>
+                            <img
+                              src={dataSearch.previewImage}
+                              alt='ảnh search ecommerce'
+                              className='Image_Search_Ecommerce'
+                            />
+                            <div className='Product_Item_Search_Ecommerce'>
+                              {dataSearch.productName}
+                            </div>
+                          </div>
+                        </td>
+                        <td className='table-cell'>{dataSearch.quantity}</td>
+                        <td className='table-cell'>{dataSearch.total}</td>
+                        <td className='table-cell'>{dataSearch.weight}g</td>
+                        <td className='table-cell'>
+                          {dataSearch.size
+                            ? dataSearch.size
+                            : '0 - 0 - 0 (cm) = 0 gam'}
+                        </td>
+
+                        <td className='table-cell'>{''}</td>
+                        <td className='table-cell'>{dataSearch.tax}%</td>
+                        <td className='table-cell'>
+                          {dataSearch.exchangeRate}đ
+                        </td>
+                        <td className='table-cell'>
+                          {dataSearch.bidAccount ? (
+                            <>
+                              <div>{dataSearch.bidAccount.split('\t')[0]}</div>
+                              <div>{dataSearch.bidAccount.split('\t')[1]}</div>
+                            </>
+                          ) : (
+                            <div>Không có dữ liệu</div>
+                          )}
+                        </td>
+
+                        <td
+                          className='table-cell'
+                          style={{ fontWeight: '700' }}>
+                          {dataSearch.totalPayment}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              {/* dữ liệu thông tin khách hàng, địa chỉ, phần phí */}
+              <div className='Table_Info_Wrapper'>
+                <div className='Table_Info_1'>
+                  {/* khách hàng */}
+                  <div>
+                    <div className='Header_Table'>Thông tin khách hàng</div>
+                    <table
+                      className='order-table_product_2'
+                      style={{ border: '1px solid #d1d5db' }}>
+                      <tbody>
+                        <tr>
+                          <td className='table-cell_User'>Họ và tên</td>
+                          <td className='table-cell_User'>
+                            {dataSearch.customer.fullname}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className='table-cell_User'>Số điện thoại</td>
+                          <td className='table-cell_User'>
+                            {dataSearch.customer.phone}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className='table-cell_User'>Tài khoản</td>
+                          <td className='table-cell_User'>
+                            {dataSearch.customer.username}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className='table-cell_User'>Email</td>
+                          <td className='table-cell_User'>
+                            {dataSearch.customer.email}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  {/* địa chỉ */}
+                  <div>
+                    <div className='Header_Table' style={{ marginTop: '20px' }}>
+                      Địa chỉ giao hàng
+                    </div>
+                    <table
+                      className='order-table_product_2'
+                      style={{ border: '1px solid #d1d5db' }}>
+                      <tbody>
+                        <tr>
+                          <td className='table-cell_User'>Họ và tên</td>
+                          <td className='table-cell_User'>
+                            {dataSearch.customerName}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className='table-cell_User'>Số điện thoại</td>
+                          <td className='table-cell_User'>
+                            {dataSearch.customerPhone}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className='table-cell_User'>Địa chỉ</td>
+                          <td className='table-cell_User'>
+                            {dataSearch.customerAddress},{' '}
+                            {dataSearch.customerProvince},{' '}
+                            {dataSearch.customerDistrict},{' '}
+                            {dataSearch.customerWard}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div className='Table_Info_2'>
+                  <table className='Table_Service_Detail'>
+                    <thead>
+                      <tr>
+                        <th
+                          colSpan={2}
+                          style={{
+                            textAlign: 'left',
+                            backgroundColor: '#D1D5DB',
+                          }}>
+                          Chi phí đơn hàng
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.map((row, index) => (
+                        <tr
+                          key={index}
+                          style={{
+                            fontWeight:
+                              index === 0 ||
+                              index === 1 ||
+                              index === 5 ||
+                              index === 6
+                                ? 700
+                                : 'normal',
+                            color: index === 8 ? '#A91116' : 'inherit',
+                          }}>
+                          <td
+                            className={
+                              row.label.endsWith('--')
+                                ? //  && row.label.endsWith('--')
+                                  'dashed-top-bottom'
+                                : ''
+                            }>
+                            {row.label}
+                          </td>
+                          <td
+                            className={
+                              row.label.endsWith('--')
+                                ? // && row.label.endsWith('--')
+                                  'dashed-top-bottom'
+                                : ''
+                            }
+                            style={{ textAlign: 'right' }}>
+                            {row.value}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Thông tin thanh toán */}
+              <div style={{ overflow: 'auto' }}>
+                <div
+                  className='Table_Product_Search_Ecommerce'
+                  style={{ minWidth: '1200px' }}>
+                  <div className='Header_Table'>Thông tin thanh toán</div>
+                  <table className='order-table_product'>
+                    <thead>
+                      <tr>
+                        <th className='table-header_product'>#</th>
+                        <th className='table-header_product'>Số tiền</th>
+                        <th className='table-header_product'>Nội dung</th>
+                        <th className='table-header_product'>Ngày tạo</th>
+                        <th className='table-header_product'>Ngày xử lý</th>
+                        <th className='table-header_product'>Trạng thái</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {dataSearch.payments.length !== 0 ? (
+                        dataSearch.payments.map(
+                          (payment: any, index: number) => (
+                            <tr key={payment.id || index}>
+                              <td className='table-cell'>{index + 1}</td>
+                              <td className='table-cell'>
+                                {payment.amountstring}
+                              </td>
+                              <td className='table-cell'>
+                                {payment.description}
+                              </td>
+                              <td className='table-cell'>
+                                {payment.createdDateDisplay}
+                              </td>
+                              <td className='table-cell'>
+                                {payment.processDateDisplay}
+                              </td>
+                              <td className='table-cell'>{}</td>
+                            </tr>
+                          ),
+                        )
+                      ) : (
+                        <div
+                          style={{
+                            display: 'flex',
+                            // justifyContent: 'center',
+                            alignItems: 'center',
+                            padding: '12px',
+                          }}>
+                          Không có dữ liệu
+                        </div>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              {/* Lịch sử đơn hàng */}
+              <div style={{ border: '1px solid #D1D5DB', marginTop: '20px' }}>
+                <div
+                  style={{
+                    backgroundColor: '#D1D5DB',
+                    padding: '12px 16px',
+                    fontWeight: '700',
+                    fontSize: '15px',
+                    lineHeight: '17.8px',
+                  }}>
+                  Lịch sử đơn hàng
+                </div>
+                <div style={{ padding: '28px 40px' }}>
+                  {orderHistories.length === 0 ? (
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        padding: '40px',
+                      }}>
+                      <div style={{ fontSize: '14px', color: '#A91116' }}>
+                        Không có dữ liệu lịch sử đơn hàng
+                      </div>
+                    </div>
+                  ) : (
+                    orderHistories
+                      .slice()
+                      .sort((a: any, b: any) => b.traceStatus - a.traceStatus)
+                      .map((trace: any, index: any) => (
+                        <div
+                          key={index}
+                          style={{ display: 'flex', gap: '20px' }}>
+                          <div className='Data_Table_Style'>
+                            <div
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                              }}>
+                              <div
+                                className={
+                                  index === 0
+                                    ? 'Data_Table_Icon'
+                                    : 'Data_Table_IconV'
+                                }>
+                                {index !== 0 && <IconV />}
+                              </div>
+                            </div>
+                            <div className='Data_Table_Dotted'></div>
+                          </div>
+                          <div
+                            style={{
+                              display: 'flex',
+                              flexDirection: 'column',
+                              gap: '4px',
+                            }}>
+                            <div>{trace.TraceDesc}</div>
+                            <div>{trace.TraceTime}</div>
+                          </div>
+                        </div>
+                      ))
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className='NoData_Search'>
+              <NoData />
+              <div className='Text_NoData_Search'>
+                Không có thông tin đơn hàng tìm kiếm
+              </div>
+            </div>
+          )}
+        </div>
+      </Page>
+    </>
+  );
+};
+
+export default SearchEcommerce;

@@ -27,3 +27,5 @@ remove:
 docker-compose down
 -------------------------------
 docker-compose up --build
+npm run docker
+npm run build
