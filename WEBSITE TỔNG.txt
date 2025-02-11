@@ -12,3 +12,5 @@ Ngày cập nhật: 10/02/2025
 - solutions:
 	- 1 -> 3.air freight
 	- 
+- mang -> hộp cn
+- mang or m -> tăm bông
