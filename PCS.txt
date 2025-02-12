@@ -1,8 +1,0 @@
-PCS:
-- backend: docker compose up -build (port: 5000)
-- CMS: 	docker compose up -build (port: 4000)
-- global: npm run dev
-
-- theo dõi hành vi người dùng GA4
-
-- 

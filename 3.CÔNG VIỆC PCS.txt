@@ -1,0 +1,35 @@
+CÔNG VIỆC PCS
+-------------
+
+*WEBSITE (FE):
+- làm thông báo realtime (cc)						/ gần
+- edit phần bảo lãnh => đang dịch chuyển sang api lấy theo bank		/ chưa có thông tin
+- giao diện SO (so2)							/ chưa có thông tin
+
+- handle_files								/ đang làm...
+- .env portal								/
+- rà soát lại website tổng: content, UI theo figma			/ đang làm...
+	- bổ sung cuộn lên đầu trang
+	- chữ tiêu đề quá to
+	- navbar: hình ảnh máy bay mĩ -> chưa sửa
+	- search tổng: chưa search được
+	- solutions: số điện thoại có chuẩn?
+	- contact: nút Reset câu trả lời?
+	- contact: dịch					/ sau khi wisdom chốt
+	- about us: phân mục history nhìn khá xấu tròn chứ ko chia 2 7 2
+	- solutions -> detail -> 
+	- check cả các đầu <Link/> nữa
+	- 
+
+- CÁ CẢNH: X cá chọi, 
+- GAME: tổng hợp
+- MANG -> hộp giấy x2
+- MANG -> hộp chữ nhật vừa thuốc
+- MANG or M -> tăm bông 
+- VS máy iphone
+- đòi 50k
+- VLCM 13/02 ?? xem xét
+- 
+
+- M -> 
+

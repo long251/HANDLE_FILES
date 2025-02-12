@@ -1,0 +1,240 @@
+LEARN DOCKER
+------------
+Ngày cập nhật: 13/01/2025
+-------------------------
+
+- Dockerfile
+- Docker Image
+- Docker Container
+
+- cmd / power shell => sd power shell
+- vào docker desktop => view more => chọn 'how do i run a container?' 
+*Bài hướng dẫn:
+	- tạo folder, chuyển từ desk vào cd KHANHVD -> cd sang DOCKER_YOUTUBE
+	- git clone cái ở bước 2 về từ docker desktop
+	- b2: tiếp tục cd vào cd welcome-to-docker
+	- power: gõ lệnh ls xem
+	! Dockerfile ko có phần mở rộng đuôi như .jpg, .png ...
+	- cls: làm sạch dữ liệu
+	- xem nội dung cat .\Dockerfile
+	- hoặc xem nội dung vào trực tiếp file mở ở note pad
+ *Ý nghĩa từng dòng trong dockerfile:
+	- FROM 		(image)
+	- WORKIR /app 	(làm việc thư mục chỉ định)
+	- Copy
+	- Run 		(chạy câu lệnh cài đặt)
+	- EXPOSE 3000 	(mở 1 cổng kết nối)
+	-----------------------------------
+	- CMD		(chạy câu lệnh gì npm start)(1 câu lệnh CMD thôi)
+     	- b3: ý nghĩa từng dòng code Dockerfile
+	- b4: docker build -t welcome-to-docker . (dấu chấm để tìm docker trong câu lệnh hiện tại)
+	- b5: Có port => vào mục Image => chọn thư mục vừa tạo => RUN => chọn options => đặt tên hoặc tự mặc định
+		-> port: 8080 => RUN
+	- 8080 3000 => web
+	- Files => tìm hiểu /app" 
+ *THỰC HÀNH:
+	- vào vscode tạo Dockfile (ko có tên đuôi)
+	- docker hub: nguồn bổ sung các Image của tất cả các hệ điều hành
+	- thì mở ra tìm được cái FROM (tên của nó)
+	- xong từ powerShell cd về cái thư mục đó chạy câu lệnh: docker build -t welcome-to-docker . (đổi tên)
+	- test1 chẳng hạn => 
+ *TRUY XUẤT NGƯỢC:
+	- nhảy vào Docker Container xong lấy được các thư viện cài thành công xong sau đó truy về ngược docker file rồi ghi vào
+	- powerShell: chạy docker run (tên) ko khác
+	- chạy từ bên trong: docker run -it (tên) bash === chế độ tương tác
+	- ls
+	- vào trong xong chạy thử:
+		- apt-get update
+		- vd: apt-get install python3
+	- cài thành công thì copy vào RUN:
+		- apt-get update
+		- apt-get install python3
+	- docker build -t (tên)
+	--------
+	- build xong nếu lỗi ==> thêm ở RUN apt-get -y install python3
+	- docker run -it (tên) bash
+	- thêm WORKIR /src
+	- COPY script vào máy
+	- CMD [""]
+
+================================================================================================================
+*powerShell kiểm tra docker compose:
+- Docker Compose version v2.31.0-desktop.2
+
+Clone dự án:
+- pcs-website-backend
+- pcs-website-cms
+
+tạo .env từ .env.example
+
+b1: vào backend trước:
+	- docker-compose up --build
+	- http://localhost:5000
+b2: vào cms:
+	- docker-compose up --build
+	- http://localhost:4000
+
+! nhớ là chạy khác nhau PORT
+dừng container: docker-compose down
+xem danh sách: docker ps
+xem lỗi: docker-compose logs
+========================================================
+remove:
+docker-compose down --volumes --remove-orphans
+docker network prune -f
+docker volume prune -f
+remove:
+docker-compose down
+-------------------------------
+docker-compose up --build
+npm run docker
+npm run build
+========================================================
+.env website tổng
+PORT=3000
+APP_URL="http://localhost:3000"
+API_URL="https://admin-api.pcs.vn"
+========================================================
+PCS:
+- backend: docker compose up -build (port: 5000)
+- CMS: 	docker compose up -build (port: 4000)
+- global: npm run dev
+
+- theo dõi hành vi người dùng GA4
+==============================================================================================================
+CÂU LỆNH
+--------
+FROM node:16
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+# GPT
+# Sử dụng image Nginx để phục vụ ứng dụng
+FROM nginx:alpine
+
+# Copy build từ bước trước sang thư mục Nginx
+COPY --from=0 /app/build /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+# Khởi chạy Nginx
+CMD ["nginx", "-g", "daemon off;"]
+======================================================
+ko đứng ở test1
+docker build -t react-test1 .
+docker run -p 8080:80 react-test1
+======================================================
+đứng ở test1
+docker build -t react .
+ngoài test1
+docker build -t react ./test1
+======================================================
+docker run -p 8080:80 react
+hoặc đặt tên
+docker run --name my-react-app -p 8080:80 react
+======================================================
+docker run -p 8081:80 react
+CHẠY: http://localhost:8081
+
+
+
+docker run -p 3000:3000 react-app
+http://localhost:3000
+
+
+
+develop: CMD ["npm", "start"]
+product: CMD ["serve", "-s", "build"]
+docker build -t react-app ./test1
+docker run -p 3000:3000 react-app
+
+
+
+docker build -t react-app .
+docker run -p 3000:3000 react-app
+
+
+
+docker ps
+docker stop [CONTAINER_ID]
+docker rm [CONTAINER_ID]
+
+
+
+docker run -p 8080:3000 react-app
+docker build -t react-app .
+
+
+Trường hợp	Lệnh build	Lệnh run
+Chưa cd vào test1	docker build -t react-app ./test1	docker run -p 3000:3000 react-app
+Đang cd vào test1	docker build -t react-app .	docker run -p 3000:3000 react-app
+
+
+
+docker ps -a
+
+
+
+
+/app (đại diện tên)
+/app
+node_modules
+public
+src
+.dockerignore
+.gitignore
+package.json
+package-lock.json
+build (sinh ra sau lệnh npm run build).
+
+
+node_modules
+build
+.git
+*.log
+
+
+
+
+
+
+docker build -t react-app ./test1
+docker build -t react-app .
+docker run -p 3000:3000 react-app
+========================================================
+# Sử dụng Node.js phù hợp (kiểm tra phiên bản)
+FROM node:16
+
+# Đặt thư mục làm việc
+WORKDIR /app
+
+# Copy và cài đặt dependencies với Yarn
+COPY package*.json ./
+RUN yarn install
+
+# Copy toàn bộ mã nguồn (loại trừ theo .dockerignore)
+COPY . .
+
+# Expose cổng 3000 cho môi trường phát triển
+EXPOSE 3000
+
+# Chạy ứng dụng trong môi trường phát triển
+CMD ["yarn", "start"]
+==================================================================================================================
+chạy sang làm pcs-logistics.com:
+- http://localhost:3000/en/about
+- .env:
+	PORT=3000
+	APP_URL="http://localhost:3000"
+- chạy npm install ++ npm run dev
+- chạy nvm list 20
+- px-paddingMobile md:px-paddingDesktop (padding cho moblie và desktop)
