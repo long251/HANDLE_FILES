@@ -6,7 +6,6 @@ CÔNG VIỆC PCS
 - edit phần bảo lãnh => đang dịch chuyển sang api lấy theo bank		/ chưa có thông tin
 - giao diện SO (so2)							/ chưa có thông tin
 
-- handle_files								/ đang làm...
 - .env portal								/
 - rà soát lại website tổng: content, UI theo figma			/ đang làm...
 	- bổ sung cuộn lên đầu trang
@@ -19,7 +18,7 @@ CÔNG VIỆC PCS
 	- about us: phân mục history nhìn khá xấu tròn chứ ko chia 2 7 2
 	- solutions -> detail -> 
 	- check cả các đầu <Link/> nữa
-	- 
+	- contact: phân mục 
 
 - CÁ CẢNH: X cá chọi, 
 - GAME: tổng hợp
@@ -31,5 +30,10 @@ CÔNG VIỆC PCS
 - VLCM 13/02 ?? xem xét
 - 
 
-- M -> 
+*game - fanpage:
+ - a tào đứng lại			/ theo dõi event
+ - tam quốc X				/ server
+ - VLCM					/ server
+ - đại hiệp chạy đi			/ ?
+ - 
 
