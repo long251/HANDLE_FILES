@@ -25,3 +25,17 @@ sửa cả admin.pcs => hỏi lại chị Tình xem là đã làm chưa
 
 - slug 1
 ==================================================================
+*Skype:
+ - C Đào: 
+	- màn solutions -> chỉnh ảnh đúng kích thước, 4 mục nhỏ xin content ngắn gọn
+	- icon home
+	- 
+ - C Tình: up content lên website tổng
+ - a Đạt: chỉnh lại slug
+
+- content: dịch vụ (vi), about us (vi): chưa ghép, img: đổi slug
+- about us: chỉnh respon với ảnh mục history + nhìn tổng quan
+- solutions -> detail -> tự chỉnh sửa ảnh to nhỏ
+- TEXT NOTE
+- navbar: tắt link 4 đầu mục to
+- MANG vở mới
