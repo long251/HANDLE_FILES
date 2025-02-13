@@ -1,0 +1,27 @@
+navbar:
+"ecommerce_solutions": "Ecommerce Solutions",
+
+ "global_fulfillment": "Fulfillment Solutions",
+ "global_warehousing": "Global Fulfillment",
+
+home: solutions:
+
+"global_fulfillment": "Fulfillment Solutions",
+"global_warehousing": "Global Fulfillment",
+
+home: service_guide:
+"domestic": "Ecommerce Solutions Guide",
+"fulfillment": "Fulfillment Solutions Guide"
+
+footer: 
+"global_warehouse": "Fulfillment Solutions Services",
+------------------------
+sửa cả admin.pcs => hỏi lại chị Tình xem là đã làm chưa
+=> do chị đại chưa chốt phải làm lại
+
+==================================================================
+- phải sửa mục 4 sao cho đúng slug
+- 4 và 4.1
+
+- slug 1
+==================================================================

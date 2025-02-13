@@ -19,11 +19,11 @@ CÔNG VIỆC PCS
 	- solutions -> detail -> 
 	- check cả các đầu <Link/> nữa
 	- contact: phân mục 
+	- điều chỉnh các đầu slug
+	- lịch sử sao cho đẹp nhất: còn cái year bên dưới 
 
 - CÁ CẢNH: X cá chọi, 
 - GAME: tổng hợp
-- MANG -> hộp giấy x2
-- MANG -> hộp chữ nhật vừa thuốc
 - MANG or M -> tăm bông 
 - VS máy iphone
 - đòi 50k
