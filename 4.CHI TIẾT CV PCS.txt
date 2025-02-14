@@ -19,19 +19,12 @@ footer:
 sửa cả admin.pcs => hỏi lại chị Tình xem là đã làm chưa
 => do chị đại chưa chốt phải làm lại
 
-==================================================================
-- phải sửa mục 4 sao cho đúng slug
-- 4 và 4.1
-
-- slug 1
-==================================================================
 *Skype:
  - C Đào: 
 	- màn solutions -> chỉnh ảnh đúng kích thước, 4 mục nhỏ xin content ngắn gọn
-	- icon home
 	- 
- - C Tình: up content lên website tổng
- - a Đạt: chỉnh lại slug
+ - C Tình: up content lên website tổng					/ xong
+ - a Đạt: chỉnh lại slug						/ xong
 
 - content: dịch vụ (vi), about us (vi): chưa ghép, img: đổi slug
 - about us: chỉnh respon với ảnh mục history + nhìn tổng quan

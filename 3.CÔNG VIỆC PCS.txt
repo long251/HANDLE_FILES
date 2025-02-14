@@ -5,8 +5,8 @@ CÔNG VIỆC PCS
 - làm thông báo realtime (cc)						/ gần
 - edit phần bảo lãnh => đang dịch chuyển sang api lấy theo bank		/ chưa có thông tin
 - giao diện SO (so2)							/ chưa có thông tin
+- .env portal								/ chưa xin
 
-- .env portal								/
 - rà soát lại website tổng: content, UI theo figma			/ đang làm...
 	- bổ sung cuộn lên đầu trang
 	- chữ tiêu đề quá to
@@ -14,19 +14,16 @@ CÔNG VIỆC PCS
 	- search tổng: chưa search được
 	- solutions: số điện thoại có chuẩn?
 	- contact: nút Reset câu trả lời?
-	- contact: dịch					/ sau khi wisdom chốt
-	- about us: phân mục history nhìn khá xấu tròn chứ ko chia 2 7 2
-	- solutions -> detail -> 
+	- contact: dịch							/ sau khi wisdom chốt (contact)
+	- solutions -> detail -> 				/đẩy content vào r giờ dịch các tiếng
 	- check cả các đầu <Link/> nữa
 	- contact: phân mục 
 	- điều chỉnh các đầu slug
-	- lịch sử sao cho đẹp nhất: còn cái year bên dưới 
 
 - CÁ CẢNH: X cá chọi, 
 - GAME: tổng hợp
 - MANG or M -> tăm bông 
 - VS máy iphone
-- đòi 50k
 - VLCM 13/02 ?? xem xét
 - 
 
