@@ -1,0 +1,35 @@
+WEBSITE TỔNG
+------------
+Ngày cập nhật: 17/02/2025
+-------------------------
+XONG:
+1. điều chỉnh style bài viết dưới solution (solution -> priority-): xong
+- ul li thụt vào 20 hoặc đẹp						/ xong
+- line-height: 1.7 !important						/ xong
+- vid ai frame gì đó dịch margin: p:has(iframe)				/ xong
+- thêm text chú thích ở answer 2 (contact): đảo title			/ xong
+- sửa icon: International Service (Contact)				/ xong
+- ghép lại các câu hỏi (contact)					/ xong
+- thêm text vào từng answer (contact)					/ xong
+-------------------------------------------------------------------------
+- dịch ảnh của we_delivery (about)					/ 
+- dịch lại navbar (navbar)						/
+- đảo vị trí navbar mục 2 và 3 (navbar)					/
+- hover lại trans X quá dài làm F12 bị lỗi (contact)			/ 
+- đã có contact mobile đối chiếu (contact)				/ 
+- about us -> we_delivery: nhỏ ảnh (about)				/ 
+- lang: ngôn ngữ của contact (contact)					/
+- contact cái mục form cuối đang bị nằm trong CSS lại (contact)		/ 
+- form1 số điện thoại thêm cái option vào lấy bản dịch (contact)	/ 
+- cập nhật hình ảnh giải pháp thương mại điện tử (solution -> detail)	/
+- about: sứ mệnh > mở ra 1 tab 
+-------------------------------------------------------------------------
+XIN THÔNG TIN:
+- content > chính sách 							/ nhắn a Khánh bé lấy đường link
+- hướng dẫn dịch vụ > home >						/ nhắn a Khánh bé lấy đường link
+- tiêu đề tổng ở Contact us (contact)					/   chưa xin
+- hover 6 mục home -> hover vào mở mô tả 2 dòng (home)			/   chưa xin content
+-------------------------------------------------------------------------
+ĐANG LÀM...
+* Ghép API Contact us (contact)						/   ok rồi nhưng backend chưa hiện
+- 
