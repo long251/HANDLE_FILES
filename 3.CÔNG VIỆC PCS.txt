@@ -10,7 +10,7 @@ CÔNG VIỆC PCS
 - rà soát lại website tổng: content, UI theo figma			/ đang làm...
 	- bổ sung cuộn lên đầu trang
 	- chữ tiêu đề quá to
-	- navbar: hình ảnh máy bay mĩ -> chưa sửa
+	- navbar: hình ảnh máy bay mĩ -> 				/ xong
 	- search tổng: chưa search được
 	- solutions: số điện thoại có chuẩn?
 	- contact: nút Reset câu trả lời?
