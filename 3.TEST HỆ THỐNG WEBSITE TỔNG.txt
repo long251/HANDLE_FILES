@@ -1,0 +1,58 @@
+TEST HỆ THỐNG WEBSITE TỔNG	M -> giấy mịn vs ip; MANG -> bở mới; MANG -> gen bán nguyệt x2 đi dây 1.5
+--------------------------
+Ngày cập nhật: 19/02/2025
+-------------------------
+link: pcs-logistics.com/en
+--------------------------
+- cc: làm thông báo realtime						/ 
+- acc: edit phần bảo lãnh / nhưng đang chuyển sang lấy api theo bank	/ 
+- so2: giao diện so mới	  / dừng -> do chưa có kế hoạch bên dưới	/ 
+* ngồi lại với a Dũng 4h chiều 19/02					/ nhắn a Dũng	/ 
+--------
+BỔ SUNG:
+ - nút cuộn lên đầu trang				/ hết chỗ	/ dừng
+ - chỉnh chữ title tổng các trang quá to		/ đã phản ánh	/ chờ
+ - search tổng: chưa search được			/ chưa báo cáo	/ chưa báo cáo
+ - solutions: số điện thoại có chuẩn?			/ hỏi lại	/ rà lại sau
+ - solutions > details: 4 mục nhỏ xin content ngắn gọn	/ xem xét	/ hình như ok
+ - bỏ login button vì ko có đăng nhập					/ từ từ
+ - 'chat now' button > event						/ đã trình báo
+ - footer khai 4 đầu solutions chính nhưng chưa có nội dung hoặc xóa	/ trình báo
+ * bài viết: news, detail, còn thiếu bản en và vi			/ đã trình báo
+ - kiểm tra lại toàn bộ ngôn ngữ đã dịch sợ thừa thiếu			/ rà soát sau
+ - check sau cùng khi mà check desk và mobi!				/ 
+ ? hướng dẫn 4 mục đang lấy đúng theo tiêu đề của navbar		/ hỏi lại hoặc chốt sau
+-------------------------------------------------------------------------
+	- chuyển các title to chia đôi thành đen cam			/ xem xét dần
+	- dịch lại navbar và đối chiếu ngôn ngữ				/ đang đối chiếu
+.contact:
+	- làm lại lang contact						/ ĐANG LÀM...(2)
+.about us:
+	- sứ mệnh -> chia lại UI mở ra 3 tab popup			/ ĐANG LÀM...(1)
+_________________________________________________________________________
+XONG:
+ - chỉnh lại slug, các đầu mục lớn ko còn link				/ xong
+ - about us: chỉnh lại phần history và responsive tương ứng		/ xong
+	- sửa lại icon theo pdf sơ đồ step mới				/ xong
+	- thiết kế lại step						/ xong
+	- hover lại trans X quá dài làm F12 bị lỗi (contact)		/ xong
+	- lang: ngôn ngữ của contact (contact)				/ xong
+	- mobi: điều chỉnh answer step nhỏ lại				/ xong
+	- thiết kế form 24/7						/ xong
+	- dịch ảnh we_delivery thì vi=vi còn en và các khác =en		/ xong
+	- about us -> we_delivery: nhỏ ảnh (about)			/ xong
+	- chính sách lấy link bài viết					/ xong
+	- style bài viết dưới detail: ul li, line-height, p:has(iframe)	/ xong
+	- detail: thêm ảnh và hover màu					/ xong
+	- đảo vị trí navbar mục 2 và 3 (navbar)				/ xong
+	- text ảnh 4 mục và ngôn ngữ					/ xong
+	- xóa link> giữa do ko có bài chính				/ xong
+	- title tổng: Chúng tôi cc gì cho bạn		/ đã có nd	/ xong
+	- tại sao chọn pcs				/ đã có nd	/ xong
+	- 6 mục: thêm phần mô tả bên dưới title		/ đã có nd	/ xong
+	- hướng dẫn dịch vụ				/ link news	/ xong
+	- nội dung 2 chỗ bên contact					/ xong
+	t test lại API							/ xong 19/02
+	- form todo list > thêm input mess				/ xong
+	- chuyển các icon mới: home					/ xong
+
