@@ -1,36 +1,28 @@
-TEST HỆ THỐNG WEBSITE TỔNG	M -> giấy mịn vs ip; MANG -> vở mới; MANG -> gen bán nguyệt x2 đi dây 1.5
+TEST HỆ THỐNG WEBSITE TỔNG	M -> giấy mịn vs ip; MANG -> vở mới; MANG -> hóa đơn gen bán nguyệt
 --------------------------
-Ngày cập nhật: 20/02/2025
+Ngày cập nhật: 21/02/2025
 -------------------------
 link: pcs-logistics.com/en
 --------------------------
 - cc: làm thông báo realtime						/ 
 - acc: edit phần bảo lãnh / nhưng đang chuyển sang lấy api theo bank	/ 
 - so2: giao diện so mới	  / dừng -> do chưa có kế hoạch bên dưới	/ 
-* ngồi lại với a Dũng 4h chiều 19/02					/ nhắn a Dũng	/ 
---------
-BỔ SUNG:
- - nút cuộn lên đầu trang				/ hết chỗ	/ dừng
- - chỉnh chữ title tổng các trang quá to		/ đã phản ánh	/ chờ
-
- - solutions: số điện thoại có chuẩn?			/ hỏi lại	/ rà lại sau
- - solutions > details: 4 mục nhỏ xin content ngắn gọn	/ xem xét	/ hình như ok
- - bỏ login button vì ko có đăng nhập					/ từ từ
- - 'chat now' button > event						/ đã trình báo
- - footer khai 4 đầu solutions chính nhưng chưa có nội dung hoặc xóa	/ trình báo
- * bài viết: news, detail, còn thiếu bản en và vi			/ đã trình báo
- - kiểm tra lại toàn bộ ngôn ngữ đã dịch sợ thừa thiếu			/ rà soát sau
- - check sau cùng khi mà check desk và mobi!				/ 
- ? hướng dẫn 4 mục đang lấy đúng theo tiêu đề của navbar		/ hỏi lại hoặc chốt sau
-	- dịch lại navbar và đối chiếu ngôn ngữ				/ đang đối chiếu
-	- chuyển các title to chia đôi thành đen cam			/ rà soát dần dần
 -------------------------------------------------------------------------
-	- padding nội dung và button					/ ĐANG LÀM...	/ đang rà soát cái cũ
-	- nội dung 6 mục home khi vào mobi tăng height lên		/ ĐANG LÀM...
+*HỌP 20/02:
+	 - tạo landing page					/ figma
+	 - footer chia lại hoặc có các đầu mục link2		/ đã đưa ý kiến
+*BỔ SUNG:
+	- trợ giúp help1, 2, 3 từ tra cứu đơn			/ chưa có link dẫn
+	- solutions > detail > mục hướng dẫn: chưa có nd	/ chưa báo cáo vì đang làm lại landing page
+	- thêm video màn nhỏ banner 				/ chưa đưa ra ý kiến
+ 	- nút cuộn lên đầu trang				/ hết chỗ	/ dừng
+ 	- chỉnh chữ title tổng các trang quá to			/ đã phản ánh	/ chờ
+ 	- 'chat now' button > event				/ đã trình báo	/ chờ
+	* bài viết: news, detail, còn thiếu bản en và vi	/ đã trình báo	/ chờ contentTh
 _________________________________________________________________________
 XONG:
- - chỉnh lại slug, các đầu mục lớn ko còn link				/ xong
- - about us: chỉnh lại phần history và responsive tương ứng		/ xong
+ 	- chỉnh lại slug, các đầu mục lớn ko còn link			/ xong
+ 	- about us: chỉnh lại phần history và responsive tương ứng	/ xong
 	- sửa lại icon theo pdf sơ đồ step mới				/ xong
 	- thiết kế lại step						/ xong
 	- hover lại trans X quá dài làm F12 bị lỗi (contact)		/ xong
@@ -60,5 +52,13 @@ XONG:
 	- mobi contact							/ xong
 	- thay đổi solution > express-service	/ chỉnh cái bảng padd 	/ xong
 	- điều chỉnh ảnh khi mobi sẽ căn vào giữa			/ xong
- 	- search tổng: chưa search được		/ chưa báo cáo		/ xong / a Khánh gửi key
+ 	- search tổng: chưa search được					/ xong / a Khánh gửi key
 	- làm button search						/ xong
+	- padding các component khối lớn				/ xong
+	- đổi title navbar nhỏ lại (3 dòng)				/ xong
+	- chỉnh: khả năng see more >> sẽ là chọn cả mục ô luôn		/ xong (đang chọn see more)
+	- nội dung 6 mục home khi vào mobi tăng height lên		/ xong
+	- bỏ login button vì ko có đăng nhập				/ xong
+ 	- kiểm tra lại toàn bộ ngôn ngữ đã dịch sợ thừa thiếu		/ xong 21/02
+	- chuyển các title to chia đôi thành đen cam			/ xong
+
