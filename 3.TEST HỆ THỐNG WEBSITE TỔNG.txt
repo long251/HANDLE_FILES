@@ -4,6 +4,16 @@ Ngày cập nhật: 21/02/2025
 -------------------------
 link: pcs-logistics.com/en
 --------------------------
+3/3/2025 (dương lịch)
+- giờ tốt: dần, mão, tỵ, thân,
+- giờ tốt lịch việt:
+	 dần, mão, tỵ, thân,   ngọ
+ ngoài	 mão, ngọ, dậu, tý
+5, 8, 3, 9
+ngọ tý, thân dần, dậu mão, 
+kết luận: dần, mão, thân, 
+---------------------------
+
 - cc: làm thông báo realtime						/ 
 - acc: edit phần bảo lãnh / nhưng đang chuyển sang lấy api theo bank	/ 
 - so2: giao diện so mới	  / dừng -> do chưa có kế hoạch bên dưới	/ 
@@ -19,6 +29,13 @@ link: pcs-logistics.com/en
  	- chỉnh chữ title tổng các trang quá to			/ đã phản ánh	/ chờ
  	- 'chat now' button > event				/ đã trình báo	/ chờ
 	* bài viết: news, detail, còn thiếu bản en và vi	/ đã trình báo	/ chờ contentTh
+*WORK 24/02:
+	- thiết kế mục 7.landingPage (figma)				/ 
+		- sửa lại các text-7xl (vì nó bị bao cả font-size) 	/ 
+		- 
+<div 
+  className={`py-[48px] flex flex-row gap-[64px] items-center border-t ${index === items.length - 1 ? "border-b border-gray-300" : ""}`}
+>
 _________________________________________________________________________
 XONG:
  	- chỉnh lại slug, các đầu mục lớn ko còn link			/ xong
