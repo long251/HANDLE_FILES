@@ -1,0 +1,116 @@
+Dưới đây là lộ trình học và làm việc với NestJS, được chia thành 3 giai đoạn: Cơ bản, Nâng cao, và Triển khai thực tế.
+
+Giai đoạn 1: Nắm vững cơ bản (1-2 tuần)
+1️⃣ Làm quen với NestJS
+✅ Cài đặt NestJS CLI và tạo dự án đầu tiên.					/ xong
+✅ Hiểu về Module, Controller, Service – 3 thành phần cốt lõi.			/ 
+✅ Làm việc với Routing & Request Handling (GET, POST, PUT, DELETE).
+✅ Dùng DTO (Data Transfer Object) để validate dữ liệu với class-validator.
+
+👉 Bài tập: Tạo API đơn giản (/users) với CRUD cơ bản.
+===============================================================================================================
+Làm việc với CSDL (Database)
+✅ Hiểu cách kết nối với PostgreSQL/MySQL/MongoDB.
+✅ Dùng TypeORM hoặc Prisma để làm việc với DB.
+✅ Xây dựng Migration, Repository Pattern trong NestJS.
+
+👉 Bài tập: Tạo API products với PostgreSQL + TypeORM, gồm các chức năng CRUD.
+===============================================================================================================
+Middleware, Guards, Interceptors
+✅ Viết Middleware để xử lý request trước khi vào Controller.
+✅ Sử dụng Guards để xác thực và phân quyền người dùng.
+✅ Dùng Interceptors để format response hoặc log request.
+
+👉 Bài tập: Tạo Auth Middleware để log request headers.
+________________________________________________________________________________________________________________
+ Giai đoạn 2: Nâng cao & Thực chiến (2-4 tuần)
+4️⃣ Xác thực & Bảo mật
+✅ Tích hợp JWT Authentication với passport-jwt.
+✅ Thêm Roles & Permissions bằng Guards.
+✅ Mã hóa mật khẩu với bcrypt.
+✅ Xây dựng hệ thống đăng nhập bằng Google OAuth2.
+
+👉 Bài tập: Xây dựng hệ thống xác thực JWT với NestJS.
+===============================================================================================================
+ WebSocket & Real-time
+✅ Sử dụng WebSocket Gateway để tạo ứng dụng chat real-time.
+✅ Kết hợp với Redis để quản lý WebSocket connections.
+
+👉 Bài tập: Tạo hệ thống chat cơ bản với NestJS.
+===============================================================================================================
+Testing & Logging
+✅ Viết Unit Test và E2E Test với Jest.
+✅ Sử dụng Winston Logger để lưu logs.
+✅ Làm việc với Swagger để tài liệu hóa API.
+
+👉 Bài tập: Viết Unit Test cho một API trong dự án.
+________________________________________________________________________________________________________________
+Giai đoạn 3: Triển khai thực tế (2-3 tuần)
+7️⃣ Deploy & CI/CD
+✅ Dockerize ứng dụng NestJS.
+✅ Deploy trên AWS/GCP/Vercel.
+✅ Thiết lập CI/CD với GitHub Actions hoặc Jenkins.
+
+👉 Bài tập: Dockerize API NestJS và deploy lên VPS hoặc Railway.
+===============================================================================================================
+Học thêm kiến trúc nâng cao
+✅ Hiểu về Microservices với RabbitMQ hoặc Kafka.
+✅ Xây dựng Event-driven architecture.
+✅ Kết hợp với GraphQL thay vì REST API.
+
+👉 Bài tập: Viết Microservice User Service với NestJS + RabbitMQ.
+===============================================================================================================
+Tổng kết
+🏁 Mới bắt đầu? → Học Module, Controller, Service, Database.
+🔥 Muốn làm dự án thực tế? → Xác thực, WebSocket, Logging, Testing.
+🚀 Muốn thành pro? → Microservices, GraphQL, CI/CD.
+
+Tài liệu khuyến nghị:
+
+🔗 NestJS Docs
+📺 YouTube Traversy Media - NestJS
+📖 Awesome NestJS
+🔥 Bạn có thể học theo lộ trình này từng bước. Nếu cần hướng dẫn chi tiết, cứ nói nhé! 🚀
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Chào bạn! Để hỗ trợ bạn học và làm việc với NestJS bằng tiếng Việt, mình đã tổng hợp một số tài liệu và video hướng dẫn chất lượng từ cộng đồng lập trình Việt Nam. Dưới đây là danh sách các nguồn tài liệu hữu ích:
+
+1. Tài liệu hướng dẫn bằng tiếng Việt
+a. Hướng dẫn về Nest.js
+Mô tả: Tài liệu chi tiết về cách cài đặt và sử dụng NestJS, bao gồm các bước khởi tạo dự án, tạo module, controller, service và xây dựng CRUD.
+Link: https://nbtt.github.io/nestjs-instructions/
+b. Khóa học NestJS trên NextJS Việt Nam
+Mô tả: Chuỗi bài viết chi tiết về NestJS, từ kiến thức nền tảng đến cách sử dụng các module trong hệ sinh thái NestJS, cấu trúc dự án và chia sẻ kinh nghiệm thực tế.
+Link: https://nextjsvietnam.com/post/khoa-hoc-nestjs/
+c. Hướng dẫn NestJS cho người mới bắt đầu
+Mô tả: Bài viết giới thiệu về NestJS, lý do nên sử dụng, cách cài đặt môi trường phát triển, tạo dự án đầu tiên và các khái niệm cơ bản như Modules, Controllers, Services.
+Link: https://lethanhnamwork.com/huong-dan-nestjs-danh-cho-nguoi-moi-bat-dau/
+2. Video hướng dẫn trên YouTube
+a. Giới thiệu khóa học Backend Nest.JS Pro+
+Mô tả: Video giới thiệu về khóa học Backend với NestJS, phù hợp cho những ai muốn tìm hiểu sâu về phát triển backend chuyên nghiệp.
+Link: https://www.youtube.com/watch?v=z0B7I-P7tUs
+b. Thực hành FullStack Next.js/Nest.js (Typescript) Dự Án JWT
+Mô tả: Video hướng dẫn thực hành xây dựng dự án FullStack với Next.js và Nest.js, tập trung vào việc triển khai JWT cho xác thực.
+Link: https://www.youtube.com/watch?v=fthiw89XG4s
+c. Học NestJS Bài 11: Kết nối và xử lý database với TypeORM
+Mô tả: Video hướng dẫn chi tiết về cách kết nối và xử lý cơ sở dữ liệu trong NestJS bằng TypeORM, phù hợp cho những ai muốn làm việc với database trong NestJS.
+Link: https://www.youtube.com/watch?v=4kuVzppwOoI
+3. Khóa học trực tuyến
+a. Khóa học Nest.JS Zero - Xây Dựng Backend Node.JS Chuyên Nghiệp
+Mô tả: Khóa học trực tuyến cung cấp kiến thức từ cơ bản đến nâng cao về NestJS, giúp bạn xây dựng backend Node.js chuyên nghiệp.
+Link: https://hoidanit.vn/khoa-hoc/nestjs-zero-xay-dung-backend-nodejs-chuyen-nghiep-64686ec6fb456bbb90663dd6.html

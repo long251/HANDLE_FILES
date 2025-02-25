@@ -1,0 +1,161 @@
+LỘ TRÌNH HỌC NESTJS
+-------------------
+Ngày bắt đầu: 25/02/2025
+------------------------
+
+Giai đoạn 1: Nắm vững cơ bản (1-2 tuần)
+1️⃣ Làm quen với NestJS
+✅ Cài đặt NestJS CLI và tạo dự án đầu tiên.					/ xong
+✅ Hiểu về Module, Controller, Service – 3 thành phần cốt lõi.			/ (1)
+✅ Làm việc với Routing & Request Handling (GET, POST, PUT, DELETE).
+✅ Dùng DTO (Data Transfer Object) để validate dữ liệu với class-validator.
+
+👉 Bài tập: Tạo API đơn giản (/users) với CRUD cơ bản.
+
+(1):
+ -> NestJS là một framework Modular (tức là mọi thứ được chia thành các module độc lập). Ba thành phần cốt lõi trong NestJS gồm:
+ - Module: 	quản lý và gom nhóm các thành phần liên quan (Controller, service, provider...)
+ - controller: 	nhận yêu cầu (res) từ client và gọi service để xử lý logic
+ - service: 	xử lý logic nghiệp vụ và thao tác db
+=> ví dụ: xây dựng 1 user API:
+		- GET danh sách user
+		- POST tạo user mới
+- Bước 1: Tạo Module (Quản lý các thành phần liên quan)
+		- Tạo module user bằng NestJS CLI:
+		- nest generate module user (nest g mo user)
+			 Lệnh này sẽ tạo file user.module.ts trong thư mục src/user:
+				- @Module() là một decorator giúp định nghĩa module.
+				- controllers: [UserController] đăng ký Controller xử lý request.
+				- providers: [UserService] đăng ký Service để xử lý logic.
+import { Module } from '@nestjs/common';
+import { UserController } from './user.controller';
+import { UserService } from './user.service';
+
+@Module({
+  controllers: [UserController],
+  providers: [UserService],
+})
+export class UserModule {}
+
+
+- Bước 2: Tạo Controller (Xử lý Request từ Client)
+		- nest generate controller user (nest g co user)
+			Lệnh này sẽ tạo file user.controller.ts:
+				- @Controller('user') định nghĩa URL /user.
+				- @Get() xử lý request GET /user.
+				- @Post() xử lý request POST /user.
+				- @Body() lấy dữ liệu từ body của request.
+				- UserService được inject vào Controller để xử lý logic.
+import { Controller, Get, Post, Body } from '@nestjs/common';
+import { UserService } from './user.service';
+
+@Controller('user')
+export class UserController {
+  constructor(private readonly userService: UserService) {}
+
+  @Get()
+  getUsers() {
+    return this.userService.getUsers();
+  }
+
+  @Post()
+  createUser(@Body() body: { name: string }) {
+    return this.userService.createUser(body.name);
+  }
+}
+=> CHI TIẾT:
+	- @GET - xử lý res GET, dùng để định nghĩa 1 HTTP GET
+@Get()
+getUsers() {
+  return this.userService.getUsers();
+}
+Khi client gọi GET /user, phương thức getUsers() sẽ được thực thi.
+	- @POST - res POST, route HTTP POST
+@Post()
+createUser(@Body() body: { name: string }) {
+  return this.userService.createUser(body.name);
+}
+	- @Body - res body, lấy data JSON từ res body gửi lên
+
+
+
+- Bước 3: Tạo Service (Xử lý logic nghiệp vụ)
+		- nest generate service user (nest g s user)
+			Lệnh này sẽ tạo file user.service.ts:
+				- @Injectable() giúp NestJS quản lý service này.
+				- getUsers() trả về danh sách user.
+				- createUser(name) thêm user mới vào danh sách.
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
+export class UserService {
+  private users = [];
+
+  getUsers() {
+    return this.users;
+  }
+
+  createUser(name: string) {
+    const newUser = { id: Date.now(), name };
+    this.users.push(newUser);
+    return newUser;
+  }
+}
+SỬA: private users: { id: number; name: string }[] = [];
+NÊN DÙNG INTERFACE HOẶC TYPE:
+export interface User {
+  id: number;
+  name: string;
+}
+
+@Injectable()
+export class UserService {
+  private users: User[] = [];
+
+  getUsers() {
+    return this.users;
+  }
+
+  createUser(name: string) {
+    const newUser: User = { id: Date.now(), name };
+    this.users.push(newUser);
+    return newUser;
+  }
+}
+DÙNG TYPE:
+type User = {
+  id: number;
+  name: string;
+};
+
+@Injectable()
+export class UserService {
+  private users: User[] = [];
+
+  getUsers() {
+    return this.users;
+  }
+
+  createUser(name: string) {
+    const newUser: User = { id: Date.now(), name };
+    this.users.push(newUser);
+    return newUser;
+  }
+}
+
+
+- Bước 4: Kiểm tra API
+ - chạy server: npm run start
+ - Mở Postman hoặc cURL, gọi API: Lấy danh sách user (GET /user): curl http://localhost:3000/user	[]
+ - curl -X POST http://localhost:3000/user -H "Content-Type: application/json" -d '{"name": "John Doe"}'
+{
+  "id": 1708892123000,
+  "name": "John Doe"
+}
+ - Lấy danh sách user sau khi thêm (GET /user) [{}]
+ - 
+
+Hãy thêm xoá user theo ID (DELETE /user/:id). (bài tập) @Delete()
+TEST:
+ - postman: http://localhost:3000/user
+ - tạo: chuyển POST > chọn: body > raw > JSON; 

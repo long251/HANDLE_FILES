@@ -1,0 +1,50 @@
+NestJS
+------
+
+2. Hot Reload:
+ - ban đầu hello world -> ctrl +S ko thay đổi phải run start lại 
+	-> fix tự động: gõ hot reload:
+		- xong nhập: npm i --save-dev webpack-node-externals run-script-webpack-plugin webpack
+		- sau khi nhập xong tạo 1 file: webpack-hmr.config.js (code ngay dưới)
+		- tiếp: sửa autoRestart là true trong đoạn code đó (gần cuối)
+		- tiếp tục: vào main:
+			- thêm declare, if, 
+		- tiếp nữa: vào package.json:
+			- thêm: "start:dev": "nest build --webpack --webpackPath webpack-hmr.config.js --watch"
+3. Modules:
+ -> App Modules: Product Modules: Module, Controller, Service
+		 Category Modules: Module, Controller, Service
+ - tạo bằng tay: folder: modules:
+			- 2 folder: products & categories
+			- ở product: tạo 3 files: product.controller/mo/s.ts
+			- ở mo: khai @ -> tự import và nhớ export => sử dụng xong: 
+4. Controller:
+ - vào controller, tạo @Controller, cho đường dẫn vào @ đó -> export class ProductController ra;
+ - tạo 5 phương thức:
+	@Get()
+	getProducts(): string {
+		return 'GET LIST PRODUCTS'; }
+
+	@Post()
+	createProduct(): string {
+		return 'POST PRODUCT'; }
+
+	@Get('/:id')
+	detailProduct(): string {
+		return 'DETAIL PRODUCT'; }
+
+	@Put('/:id')
+	updateProduct(): string {
+		return 'UPDATE PRODUCT'; }
+
+	@Delete('/:id')
+	deleteProduct(): string {
+		return 'DELETE PRODUCT'; }
+ - khi tạo xong các phương thức thì quay lại product.mo -> import cái của controller này vào 'ProductModule':
+	-> thêm vào @Mo controllers: [ProductControllder]
+
+5. Provider:
+ - tìm hiểu: product.service:
+ -> controller: nhận các res từ client gửi về server -> response data trả ngược lại client (lấy từ service)
+ -> import Injectable: 
+	- 
