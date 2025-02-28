@@ -3,16 +3,16 @@ Dưới đây là lộ trình học và làm việc với NestJS, được chia 
 Giai đoạn 1: Nắm vững cơ bản (1-2 tuần)
 1️⃣ Làm quen với NestJS
 ✅ Cài đặt NestJS CLI và tạo dự án đầu tiên.					/ xong
-✅ Hiểu về Module, Controller, Service – 3 thành phần cốt lõi.			/ 
-✅ Làm việc với Routing & Request Handling (GET, POST, PUT, DELETE).
-✅ Dùng DTO (Data Transfer Object) để validate dữ liệu với class-validator.
+✅ Hiểu về Module, Controller, Service – 3 thành phần cốt lõi.			/ xong
+✅ Làm việc với Routing & Request Handling (GET, POST, PUT, DELETE).		/ xong
+✅ Dùng DTO (Data Transfer Object) để validate dữ liệu với class-validator.	/ xong
 
-👉 Bài tập: Tạo API đơn giản (/users) với CRUD cơ bản.
+👉 Bài tập: Tạo API đơn giản (/users) với CRUD cơ bản.				/ xong
 ===============================================================================================================
 Làm việc với CSDL (Database)
-✅ Hiểu cách kết nối với PostgreSQL/MySQL/MongoDB.
-✅ Dùng TypeORM hoặc Prisma để làm việc với DB.
-✅ Xây dựng Migration, Repository Pattern trong NestJS.
+✅ Hiểu cách kết nối với PostgreSQL/MySQL/MongoDB.				/ xong (kết nối MySQL)
+✅ Dùng TypeORM hoặc Prisma để làm việc với DB.					/ xong (cấu hình)
+✅ Xây dựng Migration, Repository Pattern trong NestJS.				/ 
 
 👉 Bài tập: Tạo API products với PostgreSQL + TypeORM, gồm các chức năng CRUD.
 ===============================================================================================================
@@ -77,17 +77,6 @@ Tài liệu khuyến nghị:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 Chào bạn! Để hỗ trợ bạn học và làm việc với NestJS bằng tiếng Việt, mình đã tổng hợp một số tài liệu và video hướng dẫn chất lượng từ cộng đồng lập trình Việt Nam. Dưới đây là danh sách các nguồn tài liệu hữu ích:
 
 1. Tài liệu hướng dẫn bằng tiếng Việt
@@ -114,3 +103,31 @@ Link: https://www.youtube.com/watch?v=4kuVzppwOoI
 a. Khóa học Nest.JS Zero - Xây Dựng Backend Node.JS Chuyên Nghiệp
 Mô tả: Khóa học trực tuyến cung cấp kiến thức từ cơ bản đến nâng cao về NestJS, giúp bạn xây dựng backend Node.js chuyên nghiệp.
 Link: https://hoidanit.vn/khoa-hoc/nestjs-zero-xay-dung-backend-nodejs-chuyen-nghiep-64686ec6fb456bbb90663dd6.html
+
+
+
+
+
+
+
+
+- async -> xử lý bất đồng bộ, (do node chạy ko chặn luồng)
+---------------------------------------------------------------------
+Các cách khác ngoài find()
+Ngoài find(), bạn có thể dùng các phương thức sau của TypeORM:
+
+Phương thức	Chức năng
+find()	Lấy tất cả bản ghi
+findOneBy({ id })	Lấy 1 bản ghi theo điều kiện
+findBy({ type: 'Dev' })	Lấy danh sách có điều kiện
+create(data)	Tạo một bản ghi mới nhưng chưa lưu vào DB
+save(data)	Lưu bản ghi vào DB
+update(id, data)	Cập nhật bản ghi theo ID
+delete(id)	Xóa bản ghi theo ID
+---------------------------------------------------------------------
+Partial<T> là một utility type trong TypeScript, giúp tạo ra một phiên bản của kiểu T nhưng tất cả thuộc tính đều là tùy chọn (optional). Nghĩa là departmentData bắt buộc phải có đầy đủ các thuộc tính của Department như id, name, total_member, type, created_date,...
+Nhưng khi tạo mới, ta chưa có id hoặc created_date → Lỗi!
+---------------------------------------------------------------------
+save(entity)	Tự động thêm mới hoặc cập nhật nếu có id
+insert(data)	Chỉ dùng để thêm mới, không cập nhật
+---------------------------------------------------------------------

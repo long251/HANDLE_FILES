@@ -1,19 +1,9 @@
-TEST HỆ THỐNG WEBSITE TỔNG	M -> giấy mịn vs ip; MANG -> vở mới; MANG -> hóa đơn gen bán nguyệt
+TEST HỆ THỐNG WEBSITE TỔNG	M -> giấy mịn vs ip;
 --------------------------
-Ngày cập nhật: 21/02/2025
+Ngày cập nhật: 27/02/2025
 -------------------------
 link: pcs-logistics.com/en
 --------------------------
-3/3/2025 (dương lịch)
-- giờ tốt: dần, mão, tỵ, thân,
-- giờ tốt lịch việt:
-	 dần, mão, tỵ, thân,   ngọ
- ngoài	 mão, ngọ, dậu, tý
-5, 8, 3, 9
-ngọ tý, thân dần, dậu mão, 
-kết luận: dần, mão, thân, 
----------------------------
-
 - cc: làm thông báo realtime						/ 
 - acc: edit phần bảo lãnh / nhưng đang chuyển sang lấy api theo bank	/ 
 - so2: giao diện so mới	  / dừng -> do chưa có kế hoạch bên dưới	/ 

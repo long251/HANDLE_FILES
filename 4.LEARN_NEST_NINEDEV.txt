@@ -1,5 +1,7 @@
 NestJS
 ------
+Ngày cập nhật: 28/02/2025
+-------------------------
 
 2. Hot Reload:
  - ban đầu hello world -> ctrl +S ko thay đổi phải run start lại 
@@ -11,6 +13,7 @@ NestJS
 			- thêm declare, if, 
 		- tiếp nữa: vào package.json:
 			- thêm: "start:dev": "nest build --webpack --webpackPath webpack-hmr.config.js --watch"
+=========================================================================================================
 3. Modules:
  -> App Modules: Product Modules: Module, Controller, Service
 		 Category Modules: Module, Controller, Service
@@ -18,6 +21,7 @@ NestJS
 			- 2 folder: products & categories
 			- ở product: tạo 3 files: product.controller/mo/s.ts
 			- ở mo: khai @ -> tự import và nhớ export => sử dụng xong: 
+=========================================================================================================
 4. Controller:
  - vào controller, tạo @Controller, cho đường dẫn vào @ đó -> export class ProductController ra;
  - tạo 5 phương thức:
@@ -42,9 +46,234 @@ NestJS
 		return 'DELETE PRODUCT'; }
  - khi tạo xong các phương thức thì quay lại product.mo -> import cái của controller này vào 'ProductModule':
 	-> thêm vào @Mo controllers: [ProductControllder]
-
+=========================================================================================================
 5. Provider:
  - tìm hiểu: product.service:
  -> controller: nhận các res từ client gửi về server -> response data trả ngược lại client (lấy từ service)
  -> import Injectable: 
-	- 
+import { Injectable, Module } from "@nestjs/common";
+@Injectable()
+export class ProductService {};
+
+-> bổ sung vào module:
+  controllers: [ProductCOntroller],
+  providers: [ProductService],
+-> controller có bao nhiêu phương thức thì service cũng có từng đấy:
+	- copy từ controller sang rồi xóa hết @Get các kiểu đi
+	- tiếp: quay lại controller khai báo contructor: constructor(private readonly productService: ProductService){}
+	- sử dụng sửa return: this.productService.getProducts();
+=========================================================================================================
+6. Response Data:
+ - tạo folder global > globalClass.ts
+		- export class ResponseData<D> {
+			data: D | D[];
+			statusCode: number;
+			message: string;
+			
+			constructor(data: D | D[], statusCode: number, message: string){
+				this.data = data;
+				this.statusCode = statusCode;
+				this.message = message;
+
+				return this;
+
+ - tạo globalEnum.ts
+		- export enum HTTPStatus {
+			ERROR = 404,
+			SUCCESS = 200,
+		- export enum HTTPMessage {
+			ERROR = 'Server Internal Error'
+			SUCCESS = 'Server Response Success'
+ - vào file productController:
+		- thay đổi :string từ phương thức string -> ResponseData<string> {
+			try catch
+			return ra 1 đối tượng 
+@Get()
+	getProducts(): ResponseData<string> {
+	 try {
+		return new ResponseData<string>(this.productService.getProducts(), HTTPStatus.SUCCESS, HTTPMessage.SUCCESS);
+	 }	catch (error) {
+		return new ResponseData<string>(error, HTTPStatus.ERROR, HTTPMessage.ERROR);
+	 }
+	}
+=========================================================================================================
+7. Get Product List:
+ - ví dụ lấy danh sách 
+ - folder: models > product.model.ts
+ - ex class Product {
+	id?: number;
+	categoryId?: number;
+	productName?: string;
+	price?: number;
+
+	constructor({}){
+		if (id !== null) this.id = id x4
+
+ -> khởi tạo dữ liệu:
+	- về service:
+		- viết
+private products: Product[] = [
+{id: 1, ca...},
+
+ -> string -> Product[]; return this.products
+ -> sang Controller: sửa string thành mảng Product[]
+=========================================================================================================
+8. Get Product Detail:
+ - ở phương thức detailProduct(@Param('id') id:number)
+ - đổi string thành number => lấy được số id
+ -> truyền xuống return cái id, 
+=========================================================================================================
+9. Data Transfer Object (DTO):
+ - để hứng được res từ client lên server thì cần DTO (đơn giản như cục sạc, dây củ cắm ổ điện,... giống cầu nối từ nguồn - dây - điện thoại)
+ - folder: dto: product.dto.ts
+	- tạo ex class ProductDtio {
+		...lấy lại dữ liệu  -> copy 3 fil 
+	- thêm @Body() productDto: ProductDto ; ProductDto
+	- test: 
+=========================================================================================================
+10. Pipes: kiểu validate
+ - cài đặt package: class-validator; class-transformer
+ 1. tạo ở dto import các @ vào
+ - sang controller, viết vào cái tạo @Body(new ValidationPipe)
+ - thêm mess cho nó:   @MinLength(5, { message: 'Description is too short' })
+ - còn tự chỉnh, tự tạo cái validation xong gắn vào main,   app.useGlobalPipes(new ValidationPipe());
+ - sử dụng: xóa ở body đi
+=========================================================================================================
+11. Post request product (tạo mới):
+ - lần trước đã hứng được cái tạo mới, giờ lưu?
+ - productDto -> this.productService.create(proDto) => sang service truyền vào productDto
+ - khởi tạo đối tượng được thêm, cho nó cái id, ...productDto là được
+ - tiếp: xong đó trả thành Product thay vì Dto vì có id
+ - sang controller chỗ return cũng Product, 
+=========================================================================================================
+12. Update Product (cập nhật):
+ - giống như cập nhật nhưng giờ tìm vị trí cái cần sửa, nhưng ở control vẫn p truyền vào id nữa
+ -> tiếp: 	updateProduct(@Body() productDto: ProductDto, @Param('id') id: number)
+updateProduct(productDto: ProductDto, id: number): Product {
+            const index = this.products.findIndex(item => item.id === Number(id));
+            this.products[index].name = productDto.name;
+            this.products[index].price = productDto.price;
+            this.products[index].description = productDto.description;
+            this.products[index].quantity = productDto.quantity;
+                        return this.products[index]; }
+=========================================================================================================
+13. Delete Product (xóa):
+ - truyền param vào delete, xong sang service tìm đến id đó 
+ - xóa 1:      	this.products.splice(index, 1);
+ - xóa n: ?
+deleteProduct(id: number): boolean {
+    const index = this.products.findIndex((item) => item.id === Number(id));
+    if (index !== -1) {
+      this.products.splice(index, 1);
+      return true;
+    } else {
+      return false;
+    }
+  }
+=========================================================================================================14. Cài đặt MySQL trong NestJS
+ - search: Download Xampp -> chọn Apache, MySQL -> start
+ - vào: localhost:8080/phpmyadmin
+ - chọn new => tạo db: 
+(ĐOẠN NÀY NHỜ CHATGPT kết nối)
+
+ - tạo table, 
+=========================================================================================================
+15. Kết nối DB sử dụng TypeORM
+ - cài đặt: npm install --save @nestjs/typeorm mysql2
+ - xong vào AppModule:
+	- cho vào import: lấy cái Type của base MySQL cho vào
+ - khai báo tiếp constructor(private dataSource: DataSource){}
+=========================================================================================================
+16. Tạo Model Entity (Category):
+ - tạo folder entities > categories.entity.ts
+ - import {} from 'typeorm';
+@Entity('categories')
+export class CategoriesEntity extends BaseEntity {
+	@PrimaryGeneratedColumn() (xác định field id là khóa chính)
+	id: number;
+
+	@Column()
+	categoryName: string
+
+	@Column()
+	description: string
+=========================================================================================================
+17. tạo Model Entity
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- Module: 	quản lý và gom nhóm các thành phần liên quan (Controller, service, provider...)
+- controller: 	nhận yêu cầu (res) từ client và gọi service để xử lý logic
+- service: 	xử lý logic nghiệp vụ và thao tác db
+
+1. tạo Module (Quản lý các thành phần liên quan):
+- @Module() là một decorator giúp định nghĩa module.
+- controllers: [UserController] đăng ký Controller xử lý request.
+- providers: [UserService] đăng ký Service để xử lý logic.
+----------------------------------------------------------------------------------------------------------
+2. tạo Controller (Xử lý Request từ Client):
+- @Controller('user') định nghĩa URL /user.
+- @Get() xử lý request GET /user.
+- @Post() xử lý request POST /user.
+- @Body() lấy dữ liệu từ body của request.
+- UserService được inject vào Controller để xử lý logic.
+----------------------------------------------------------------------------------------------------------
+3. tạo Service (Xử lý logic nghiệp vụ):
+- @Injectable() giúp NestJS quản lý service này.
+- getUsers() trả về danh sách user.
+- createUser(name) thêm user mới vào danh sách.
+----------------------------------------------------------------------------------------------------------
+4. Entity:
+	- khởi tạo các entity giống với MySQL
+	- tạo forRoot kết nối MySQL, thêm forFeature tạo repository thao tác DB
+	- tạo service: department, account
+	- tạo module, controller
+5. Kết nối DB:
+	- npm install @nestjs/typeorm typeorm pg
+	- xây dựng cấu hình
+----------------------------------------------------------------------------------------------------------
+XÂY DỰNG UI TEST:
+npx create-vite@latest nest-ui --template react
+cd nest-ui
+npm install
+npm run dev
+
+http://localhost:5173/
+------------------------------------------------
+nest-ui/
+│── src/
+│   ├── components/       # Chứa các component
+│   ├── pages/            # Chứa các trang chính
+│   ├── services/         # Chứa API service để gọi dữ liệu từ NestJS
+│   ├── App.tsx           # Component gốc
+│   ├── main.tsx          # File khởi chạy ứng dụng
+│── public/
+│── package.json
+│── vite.config.ts
+------------------------------------------------
+trước tiên cài axios: npm install axios
+
+services/ => tạo api.ts
+import axios from "axios";
+const API_BASE_URL = "http://localhost:3000"; // Địa chỉ server NestJS
+export const api = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+----------------------------------------------------------------------------------------------------------

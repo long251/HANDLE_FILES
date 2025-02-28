@@ -1,0 +1,285 @@
+1. file department.entity
+-------------------------
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Account } from './account.entity';
+
+@Entity()
+export class Department {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'varchar', length: 50, unique: true })
+  name: string;
+
+  @Column({ type: 'int', unsigned: true, nullable: true })
+  total_member: number;
+
+  @Column({ type: 'enum', enum: ['Dev', 'Test', 'ScrumMaster', 'PM'] })
+  type: 'Dev' | 'Test' | 'ScrumMaster' | 'PM';
+
+  @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
+  created_date: Date;
+
+  @OneToMany(() => Account, (account) => account.department)
+  accounts: Account[];
+}
+==============================================================================================================
+2. account entity
+-----------------
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Department } from './department.entity';
+
+@Entity()
+export class Account {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ unique: true, length: 50 })
+  username: string;
+
+  @ManyToOne(() => Department, (department) => department.accounts, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'department_id' })
+  department: Department;
+
+  @Column({ type: 'enum', enum: ['Male', 'Female', 'LGBT'] })
+  gender: string;
+
+  @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
+  created_date: Date;
+}
+============================================================================================================
+3, department service:
+import { Injectable, NotFoundException, ConflictException, BadRequestException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Department } from 'src/entities/department.entity';
+import { Repository } from 'typeorm';
+import { Account } from 'src/entities/account.entity';
+
+@Injectable()
+export class DepartmentService {
+  constructor(
+    @InjectRepository(Department)
+    private readonly departmentRepository: Repository<Department>,
+    @InjectRepository(Account)
+    private readonly accountRepository: Repository<Account>,
+  ) {}
+
+  // Lấy tất cả phòng ban
+  async getAllDepartments(): Promise<Department[]> {
+    return this.departmentRepository.find();
+  }
+
+  // Lấy chi tiết phòng ban
+  async getDepartmentById(id: number): Promise<Department> {
+    const department = await this.departmentRepository.findOne({ where: { id } });
+    if (!department) {
+      throw new NotFoundException('Không tìm thấy phòng ban!');
+    }
+    return department;
+  }
+
+  // Tạo mới phòng ban
+  async createDepartment(departmentData: Partial<Department>): Promise<Department> {
+    const newDepartment = this.departmentRepository.create(departmentData);
+    return this.departmentRepository.save(newDepartment);
+  }
+
+  // Cập nhật phòng ban
+  async updateDepartment(id: number, updateData: Partial<Department>): Promise<Department> {
+    const department = await this.getDepartmentById(id);
+    if (!department) {
+      throw new NotFoundException('Không tìm thấy phòng ban!');
+    }
+    await this.departmentRepository.update(id, updateData);
+    return this.getDepartmentById(id);
+  }
+
+  async deleteDepartment(id: number): Promise<void> {
+    // Kiểm tra xem phòng ban có tồn tại không
+    const department = await this.getDepartmentById(id);
+    if (!department) {
+      throw new NotFoundException('Không tìm thấy phòng ban!');
+    }
+  
+    // Kiểm tra xem có nhân viên nào thuộc phòng ban không
+    const count = await this.accountRepository.count({ where: { department: { id } } });
+    if (count > 0) {
+      throw new ConflictException('Không thể xóa phòng ban vì vẫn còn nhân viên!');
+    }
+  
+    // Xóa phòng ban
+    await this.departmentRepository.delete(id);
+  }
+  
+
+  //xóa nhiều
+  async deleteMultipleDepartments(ids: number[]): Promise<void> {
+    if (!ids.length) {
+        throw new BadRequestException('Danh sách ID không hợp lệ!');
+    }
+
+    // Kiểm tra từng phòng ban xem có nhân viên không
+    for (const id of ids) {
+        const count = await this.accountRepository.count({ where: { department: { id } } });
+        if (count > 0) {
+            throw new ConflictException(`Không thể xóa phòng ban ${id} vì vẫn còn nhân viên!`);
+        }
+    }
+
+    // Xóa tất cả phòng ban hợp lệ
+    await this.departmentRepository.delete(ids);
+}
+
+}
+======================================================================================================
+4. controller department:
+import { Controller, Get, Post, Put, Delete, Param, Body, NotFoundException } from '@nestjs/common';
+import { DepartmentService } from './department.service';
+import { Department } from 'src/entities/department.entity';
+
+@Controller('departments')
+export class DepartmentController {
+  constructor(private readonly departmentService: DepartmentService) {}
+
+  // Lấy danh sách phòng ban
+  @Get()
+  async getAllDepartments(): Promise<Department[]> {
+    return this.departmentService.getAllDepartments();
+  }
+
+  // Lấy chi tiết phòng ban
+  @Get(':id')
+  async getDepartmentById(@Param('id') id: number): Promise<Department> {
+    const department = await this.departmentService.getDepartmentById(id);
+    if (!department) {
+      throw new NotFoundException('Không tìm thấy phòng ban!');
+    }
+    return department;
+  }
+
+  // Tạo phòng ban mới
+  @Post()
+  async createDepartment(@Body() departmentData: Partial<Department>): Promise<Department> {
+    return this.departmentService.createDepartment(departmentData);
+  }
+
+  // Cập nhật phòng ban
+  @Put(':id')
+  async updateDepartment(@Param('id') id: number, @Body() updateData: Partial<Department>): Promise<Department> {
+    return this.departmentService.updateDepartment(id, updateData);
+  }
+
+  // Xóa phòng ban (chỉ khi không có nhân viên)
+  @Delete(':id')
+  async deleteDepartment(@Param('id') id: number): Promise<{ message: string }> {
+    await this.departmentService.deleteDepartment(id);
+    return { message: 'Xóa phòng ban thành công!' };
+  }
+
+  //xóa nhiều 
+  @Delete()
+  async deleteMultipleDepartments(@Body('ids') ids: number[]): Promise<{ message: string }> {
+    await this.departmentService.deleteMultipleDepartments(ids);
+    return { message: 'Xóa phòng ban thành công!' };
+  }
+}
+==========================================================================================================
+5. file Home.tsx (NestUI):
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const API_URL = 'http://localhost:3000/departments';
+
+const Home = () => {
+  const [departments, setDepartments] = useState([]);
+  const [form, setForm] = useState({ id: null, name: '', total_member: 0, type: '' });
+
+  // 📌 Fetch danh sách department
+  useEffect(() => {
+    fetchDepartments();
+  }, []);
+
+  const fetchDepartments = async () => {
+    try {
+      const res = await axios.get(API_URL);
+      setDepartments(res.data);
+    } catch (error) {
+      console.error('Error fetching departments:', error);
+    }
+  };
+
+  // 📌 Thêm mới / Cập nhật department
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    try {
+      if (form.id) {
+        await axios.put(`${API_URL}/${form.id}`, form);
+      } else {
+        await axios.post(API_URL, form);
+      }
+      setForm({ id: null, name: '', total_member: 0, type: '' }); // Reset form
+      fetchDepartments(); // Reload danh sách
+    } catch (error) {
+      console.error('Error saving department:', error);
+    }
+  };
+
+  // 📌 Xóa department
+  const handleDelete = async (id: number) => {
+    if (!window.confirm('Bạn có chắc muốn xóa?')) return;
+    try {
+      await axios.delete(`${API_URL}/${id}`);
+      fetchDepartments();
+    } catch (error) {
+      console.error('Error deleting department:', error);
+    }
+  };
+
+  // 📌 Lấy thông tin chi tiết để sửa
+  const handleEdit = (department: any) => {
+    setForm(department);
+  };
+
+  return (
+    <div className=''>
+      <h2>Department List</h2>
+
+      {/* Form Thêm / Sửa */}
+      <form onSubmit={handleSubmit}>
+        <input type="text" placeholder="Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
+        <input type="number" placeholder="Total Member" value={form.total_member} onChange={(e) => setForm({ ...form, total_member: Number(e.target.value) })} required />
+        <input type="text" placeholder="Type" value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })} required />
+        <button type="submit">{form.id ? 'Update' : 'Create'}</button>
+      </form>
+
+      {/* Danh sách Departments */}
+      <table style={{ width: '100%' , borderCollapse: 'collapse' , padding: '10px'}}>
+        <thead style={{border: '1px solid black',padding: '10px'}}>
+          <tr style={{border: '1px solid black'}}>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Total Member</th>
+            <th>Type</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody style={{border: '1px solid black'}}>
+          {departments.map((dep: any) => (
+            <tr key={dep.id} style={{border: '1px solid black'}}>
+              <td>{dep.id}</td>
+              <td>{dep.name}</td>
+              <td>{dep.total_member}</td>
+              <td>{dep.type}</td>
+              <td>
+                <button onClick={() => handleEdit(dep)}>Edit</button>
+                <button onClick={() => handleDelete(dep.id)}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default Home;
