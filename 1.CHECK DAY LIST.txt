@@ -1,33 +1,35 @@
 CTY PCS
 -------
-Ngày cập nhật: 17/02/2025
+Ngày cập nhật: 05/03/2025
 -------------------------
-- hộp bánh danisa					/ vài
 - Cốc thuốc:
-	- xịt mũi x1					/ vài
-	- nhỏ mũi x1					/ vài
-	- thuốc đỏ nhỏ x1
-	- âu gâu nhỏ x5
-	- (hồ dán khô x1)
-	- kéo nhỏ x1
-	- bút bi x1
-- chai nước						/ vài
+	- xịt mũi x1					/ hết	-> mang
+	- nhỏ mũi x1					/ hết	-> mang
+	- thuốc đỏ nhỏ x1				/ hỏng	-> mang -> thay
+	- âu gâu nhỏ x5					/ ko thấy -> mang
+	- (hồ dán khô x1)				/
+	- kéo nhỏ x1					/ cho vào balo
+	- bút bi x2					/ 
+	- C sủi						/ vài
+	- rửa kính					/ sắp hết
+	- thước dẻo x1					/
+- chai nước
 - (chai nước ngọt)
 - case máy tính lỏng dây
 - gối cong
 - balo* -> MANG thuốc nâu axit				/ MANG -> nâu tọa
-- kẹo xilytol x1 hộp -> to, xanh lá 52k			/ hết
-- giấy ăn x1 bịch nhỏ					/ +1
+- kẹo xilytol x1 hộp -> to, xanh lá 52k			/ hết			/ trừ
+- giấy ăn x1 bịch nhỏ					/ +2
+- lịch
 - cốc uống nước
-- tai nghe có dây
-- (tai nghe bluetooth)
-- bút bi x1
 - vở ghi						/ 1 vở 7k
 - iphone*
 - Màn PC (PCS) x2
 - chuột công thái học
 - bàn phím rapoo
-- giấy note
+- giấy note									/ trừ
+- tai nghe có dây
+- (tai nghe bluetooth)
 *PC (PCS):
  - [HANDLE_FILES]	-> lưu file (github)
  - [TRANSONLINE-PORTAL] -> thiết kế UI, connect API (gitlab)

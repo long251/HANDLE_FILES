@@ -1,5 +1,5 @@
-1. file department.entity
--------------------------
+department entity
+-----------------
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Account } from './account.entity';
 
@@ -23,33 +23,15 @@ export class Department {
   @OneToMany(() => Account, (account) => account.department)
   accounts: Account[];
 }
-==============================================================================================================
-2. account entity
------------------
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
-import { Department } from './department.entity';
-
-@Entity()
-export class Account {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column({ unique: true, length: 50 })
-  username: string;
-
-  @ManyToOne(() => Department, (department) => department.accounts, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'department_id' })
-  department: Department;
-
-  @Column({ type: 'enum', enum: ['Male', 'Female', 'LGBT'] })
-  gender: string;
-
-  @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
-  created_date: Date;
-}
-============================================================================================================
-3, department service:
-import { Injectable, NotFoundException, ConflictException, BadRequestException } from '@nestjs/common';
+__________________________________________________________________________________________________________________
+department service
+------------------
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Department } from 'src/entities/department.entity';
 import { Repository } from 'typeorm';
@@ -65,13 +47,37 @@ export class DepartmentService {
   ) {}
 
   // Lấy tất cả phòng ban
-  async getAllDepartments(): Promise<Department[]> {
+  async getAllDepartmentsAll(): Promise<Department[]> {
     return this.departmentRepository.find();
+  }
+  async getAllDepartments(
+    page: number = 1,
+    pageSize: number = 5,
+    name?: string,
+  ): Promise<{ data: Department[]; total: number; currentPage: number }> {
+    const query = this.departmentRepository.createQueryBuilder('department');
+
+    if (name) {
+      query.where('department.name LIKE :name', { name: `%${name}%` }); // Tìm kiếm theo tên (có chứa)
+    }
+
+    const [result, total] = await query
+      .skip((page - 1) * pageSize)
+      .take(pageSize)
+      .getManyAndCount();
+
+    return {
+      data: result,
+      total,
+      currentPage: page,
+    };
   }
 
   // Lấy chi tiết phòng ban
   async getDepartmentById(id: number): Promise<Department> {
-    const department = await this.departmentRepository.findOne({ where: { id } });
+    const department = await this.departmentRepository.findOne({
+      where: { id },
+    });
     if (!department) {
       throw new NotFoundException('Không tìm thấy phòng ban!');
     }
@@ -79,13 +85,18 @@ export class DepartmentService {
   }
 
   // Tạo mới phòng ban
-  async createDepartment(departmentData: Partial<Department>): Promise<Department> {
+  async createDepartment(
+    departmentData: Partial<Department>,
+  ): Promise<Department> {
     const newDepartment = this.departmentRepository.create(departmentData);
     return this.departmentRepository.save(newDepartment);
   }
 
   // Cập nhật phòng ban
-  async updateDepartment(id: number, updateData: Partial<Department>): Promise<Department> {
+  async updateDepartment(
+    id: number,
+    updateData: Partial<Department>,
+  ): Promise<Department> {
     const department = await this.getDepartmentById(id);
     if (!department) {
       throw new NotFoundException('Không tìm thấy phòng ban!');
@@ -95,45 +106,59 @@ export class DepartmentService {
   }
 
   async deleteDepartment(id: number): Promise<void> {
-    // Kiểm tra xem phòng ban có tồn tại không
     const department = await this.getDepartmentById(id);
     if (!department) {
       throw new NotFoundException('Không tìm thấy phòng ban!');
     }
-  
-    // Kiểm tra xem có nhân viên nào thuộc phòng ban không
-    const count = await this.accountRepository.count({ where: { department: { id } } });
+
+    const count = await this.accountRepository.count({
+      where: { department: { id } },
+    });
     if (count > 0) {
-      throw new ConflictException('Không thể xóa phòng ban vì vẫn còn nhân viên!');
+      throw new ConflictException(
+        'Không thể xóa phòng ban vì vẫn còn nhân viên!',
+      );
     }
-  
-    // Xóa phòng ban
+
     await this.departmentRepository.delete(id);
   }
-  
 
   //xóa nhiều
   async deleteMultipleDepartments(ids: number[]): Promise<void> {
     if (!ids.length) {
-        throw new BadRequestException('Danh sách ID không hợp lệ!');
+      throw new BadRequestException('Danh sách ID không hợp lệ!');
     }
 
     // Kiểm tra từng phòng ban xem có nhân viên không
     for (const id of ids) {
-        const count = await this.accountRepository.count({ where: { department: { id } } });
-        if (count > 0) {
-            throw new ConflictException(`Không thể xóa phòng ban ${id} vì vẫn còn nhân viên!`);
-        }
+      const count = await this.accountRepository.count({
+        where: { department: { id } },
+      });
+      if (count > 0) {
+        throw new ConflictException(
+          `Không thể xóa phòng ban ${id} vì vẫn còn nhân viên!`,
+        );
+      }
     }
 
     // Xóa tất cả phòng ban hợp lệ
     await this.departmentRepository.delete(ids);
+  }
 }
-
-}
-======================================================================================================
-4. controller department:
-import { Controller, Get, Post, Put, Delete, Param, Body, NotFoundException } from '@nestjs/common';
+________________________________________________________________________________________________________________
+department controller
+---------------------
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+  NotFoundException,
+  Query,
+} from '@nestjs/common';
 import { DepartmentService } from './department.service';
 import { Department } from 'src/entities/department.entity';
 
@@ -143,8 +168,20 @@ export class DepartmentController {
 
   // Lấy danh sách phòng ban
   @Get()
-  async getAllDepartments(): Promise<Department[]> {
-    return this.departmentService.getAllDepartments();
+  async getAllDepartmentsAll(): Promise<Department[]> {
+    return this.departmentService.getAllDepartmentsAll();
+  }
+  @Get()
+  async getAllDepartments(
+    @Query('page') page: number = 1,
+    @Query('pageSize') pageSize: number = 5,
+    @Query('name') name?: string,
+  ) {
+    return this.departmentService.getAllDepartments(
+      Number(page),
+      Number(pageSize),
+      name,
+    );
   }
 
   // Lấy chi tiết phòng ban
@@ -159,55 +196,81 @@ export class DepartmentController {
 
   // Tạo phòng ban mới
   @Post()
-  async createDepartment(@Body() departmentData: Partial<Department>): Promise<Department> {
+  async createDepartment(
+    @Body() departmentData: Partial<Department>,
+  ): Promise<Department> {
     return this.departmentService.createDepartment(departmentData);
   }
 
   // Cập nhật phòng ban
   @Put(':id')
-  async updateDepartment(@Param('id') id: number, @Body() updateData: Partial<Department>): Promise<Department> {
-    return this.departmentService.updateDepartment(id, updateData);
+  async updateDepartment(
+    @Param('id') id: number,
+    @Body() updateData: Partial<Department>,
+  ): Promise<Department> {
+    return this.departmentService.updateDepartment(Number(id), updateData);
   }
 
   // Xóa phòng ban (chỉ khi không có nhân viên)
   @Delete(':id')
-  async deleteDepartment(@Param('id') id: number): Promise<{ message: string }> {
-    await this.departmentService.deleteDepartment(id);
+  async deleteDepartment(
+    @Param('id') id: number,
+  ): Promise<{ message: string }> {
+    await this.departmentService.deleteDepartment(Number(id));
     return { message: 'Xóa phòng ban thành công!' };
   }
 
-  //xóa nhiều 
+  //xóa nhiều
   @Delete()
-  async deleteMultipleDepartments(@Body('ids') ids: number[]): Promise<{ message: string }> {
+  async deleteMultipleDepartments(
+    @Body('ids') ids: number[],
+  ): Promise<{ message: string }> {
     await this.departmentService.deleteMultipleDepartments(ids);
     return { message: 'Xóa phòng ban thành công!' };
   }
 }
-==========================================================================================================
-5. file Home.tsx (NestUI):
+______________________________________________________________________________________________________________
+UI: Home
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import NumberPagination from './NumberPagination';
+import './NumberPagination.css';
 
 const API_URL = 'http://localhost:3000/departments';
 
 const Home = () => {
   const [departments, setDepartments] = useState([]);
   const [form, setForm] = useState({ id: null, name: '', total_member: 0, type: '' });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const pageSize = 5;
+  //filter:
+  const [searchTerm, setSearchTerm] = useState('');
+  //modal 
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // 📌 Fetch danh sách department
   useEffect(() => {
-    fetchDepartments();
-  }, []);
+    fetchDepartments(currentPage , searchTerm);
+  }, [currentPage,searchTerm]);
 
-  const fetchDepartments = async () => {
+  const fetchDepartments = async (page: number, name: string) => {
     try {
-      const res = await axios.get(API_URL);
-      setDepartments(res.data);
+      const res = await axios.get(`${API_URL}?page=${page}&pageSize=${pageSize}&name=${name}`);
+      setDepartments(res.data.data);
+      setTotal(res.data.total);
+      setCurrentPage(res.data.currentPage);
     } catch (error) {
       console.error('Error fetching departments:', error);
     }
   };
 
+  // Xử lý filter theo Name
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1); // Reset về trang 1 khi tìm kiếm
+  };
+  
   // 📌 Thêm mới / Cập nhật department
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -218,7 +281,8 @@ const Home = () => {
         await axios.post(API_URL, form);
       }
       setForm({ id: null, name: '', total_member: 0, type: '' }); // Reset form
-      fetchDepartments(); // Reload danh sách
+      setIsModalOpen(false);
+      fetchDepartments(currentPage, searchTerm); // Reload danh sách
     } catch (error) {
       console.error('Error saving department:', error);
     }
@@ -229,7 +293,8 @@ const Home = () => {
     if (!window.confirm('Bạn có chắc muốn xóa?')) return;
     try {
       await axios.delete(`${API_URL}/${id}`);
-      fetchDepartments();
+      setDepartments((prev) => prev.filter((dep:any) => dep.id !== id));
+      fetchDepartments(currentPage, searchTerm);
     } catch (error) {
       console.error('Error deleting department:', error);
     }
@@ -237,21 +302,46 @@ const Home = () => {
 
   // 📌 Lấy thông tin chi tiết để sửa
   const handleEdit = (department: any) => {
-    setForm(department);
+    setForm({
+      id: department.id, 
+      name: department.name, 
+      total_member: department.total_member, 
+      type: department.type
+    });
+    setIsModalOpen(true);
   };
 
   return (
     <div className=''>
-      <h2>Department List</h2>
-
+      <h2>Department List</h2> <button className="open-modal" onClick={() => setIsModalOpen(true)}>+ Add Department</button>
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>{form.id ? 'Edit Department' : 'Create Department'}</h3>
+            <form onSubmit={handleSubmit}>
+              <input type="text" placeholder="Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
+              <input type="number" placeholder="Total Member" value={form.total_member} onChange={(e) => setForm({ ...form, total_member: Number(e.target.value) })} required />
+              <input type="text" placeholder="Type" value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })} required />
+              <button type="submit">{form.id ? 'Update' : 'Create'}</button>
+              <button type="button" className="close-btn" onClick={() => setIsModalOpen(false)}>Close</button>
+            </form>
+          </div>
+        </div>
+      )}
       {/* Form Thêm / Sửa */}
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
         <input type="number" placeholder="Total Member" value={form.total_member} onChange={(e) => setForm({ ...form, total_member: Number(e.target.value) })} required />
         <input type="text" placeholder="Type" value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })} required />
         <button type="submit">{form.id ? 'Update' : 'Create'}</button>
-      </form>
-
+      </form> */}
+      <input
+        type="text"
+        placeholder="Search by Name..."
+        value={searchTerm}
+        onChange={handleSearch}
+        style={{ marginBottom: '10px', padding: '5px', width: '200px' }}
+      />
       {/* Danh sách Departments */}
       <table style={{ width: '100%' , borderCollapse: 'collapse' , padding: '10px'}}>
         <thead style={{border: '1px solid black',padding: '10px'}}>
@@ -271,13 +361,21 @@ const Home = () => {
               <td>{dep.total_member}</td>
               <td>{dep.type}</td>
               <td>
-                <button onClick={() => handleEdit(dep)}>Edit</button>
-                <button onClick={() => handleDelete(dep.id)}>Delete</button>
+                <button className='edit' onClick={() => handleEdit(dep)}>Edit</button>
+                <button className='delete'onClick={() => handleDelete(dep.id)}>Delete</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {/* phân trang */}
+      <NumberPagination
+        totalItems={total}
+        currentPage={currentPage}
+        goToPage={setCurrentPage}
+        pageSize={pageSize}
+      />
     </div>
   );
 };

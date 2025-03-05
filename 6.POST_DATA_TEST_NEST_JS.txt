@@ -1,0 +1,149 @@
+// NestJS - Account Controller
+import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { AccountService } from './account.service';
+import { Account } from 'src/entities/account.entity';
+
+@Controller('accounts')
+export class AccountController {
+  constructor(private readonly accountService: AccountService) {}
+
+  @Post('/filter')
+  async getAccounts(@Body() filterDto: { page: number, pageSize: number, username?: string, startDate?: string, endDate?: string }) {
+    return this.accountService.getAccounts(filterDto.page, filterDto.pageSize, filterDto.username, filterDto.startDate, filterDto.endDate);
+  }
+
+  @Post()
+  async createAccount(@Body() accountData: Partial<Account>): Promise<Account> {
+    return this.accountService.createAccount(accountData);
+  }
+
+  @Put(':id')
+  async updateAccount(@Param('id') id: number, @Body() updateData: Partial<Account>): Promise<Account> {
+    return this.accountService.updateAccount(id, updateData);
+  }
+
+  @Delete(':id')
+  async deleteAccount(@Param('id') id: number): Promise<{ message: string }> {
+    await this.accountService.deleteAccount(id);
+    return { message: 'Xóa nhân viên thành công!' };
+  }
+}
+
+// React - Account Component
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import NumberPagination from "./NumberPagination";
+
+const API_URL = "http://localhost:3000/accounts";
+
+const Account = () => {
+  const [account, setAccount] = useState([]);
+  const [form, setForm] = useState({ id: null, username: "", department_id: 0, gender: "" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const pageSize = 5;
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  
+  useEffect(() => {
+    fetchAccount();
+  }, []);
+  
+  const fetchAccount = async () => {
+    try {
+      const res = await axios.post(`${API_URL}/filter`, {
+        page: currentPage,
+        pageSize,
+        username: searchTerm,
+        startDate,
+        endDate
+      });
+      setAccount(res.data.data);
+      setTotal(res.data.total);
+      setCurrentPage(res.data.currentPage);
+    } catch (error) {
+      console.error("Error fetching accounts:", error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const accountData = {
+        username: form.username,
+        department: { id: form.department_id },
+        gender: form.gender,
+      };
+
+      if (form.id) {
+        await axios.put(`${API_URL}/${form.id}`, accountData);
+      } else {
+        await axios.post(API_URL, accountData);
+      }
+
+      setForm({ id: null, username: "", department_id: 0, gender: "" });
+      setIsModalOpen(false);
+      fetchAccount();
+    } catch (error) {
+      console.error("Error saving account:", error);
+    }
+  };
+
+  return (
+    <div>
+      <h2>Account List</h2>
+      <button onClick={() => setIsModalOpen(true)}>+ Add Acc</button>
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>{form.id ? "Edit Acc" : "Create Acc"}</h3>
+            <form onSubmit={handleSubmit}>
+              <input type="text" placeholder="Name" value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} required />
+              <input type="number" placeholder="Department ID" value={form.department_id} onChange={(e) => setForm({ ...form, department_id: Number(e.target.value) })} required />
+              <input type="text" placeholder="Type" value={form.gender} onChange={(e) => setForm({ ...form, gender: e.target.value })} required />
+              <button type="submit">{form.id ? "Update" : "Create"}</button>
+              <button type="button" onClick={() => setIsModalOpen(false)}>Close</button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      <input type="text" placeholder="Search by Name..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+      <div style={{ marginBottom: "10px" }}>
+        <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+        <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+        <button onClick={fetchAccount}>Lọc</button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>UserName</th>
+            <th>Department</th>
+            <th>Type</th>
+            <th>Create date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {account.map((acc) => (
+            <tr key={acc.id}>
+              <td>{acc.id}</td>
+              <td>{acc.username}</td>
+              <td>{acc.department ? acc.department.name : "N/A"}</td>
+              <td>{acc.gender}</td>
+              <td>{new Date(acc.created_date).toLocaleDateString()}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <NumberPagination totalItems={total} currentPage={currentPage} goToPage={setCurrentPage} pageSize={pageSize} />
+    </div>
+  );
+};
+
+export default Account;

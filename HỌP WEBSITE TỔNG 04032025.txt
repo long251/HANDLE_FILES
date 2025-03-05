@@ -1,0 +1,50 @@
+HỌP WEBSITE TỔNG 04/03/2025
+---------------------------
+Ngày cập nhật: 04/03/2025
+-------------------------
+ĐANG XỬ LÝ:
+-----------
+Home:
+- icon kính lúp không thôi thay vì tìm kiếm				/ hỏi lại a Đạt, 
+LandingPage:
+- thêm popup mở form thu lead				/ thiết kế đã
+! hình ảnh highlight vừa đủ				/ thiết kế đã
+*responsive						/ responsive sau
+- component
+- thêm lại link vào link lớn các màn			/ ĐANG LÀM...
+- đổi màu hover navbar					/ ĐANG LÀM...
+EFFECT:
+	- ảnh lướt từ trái qua phải	/ ani
+	- số liệu 3000+	tăng dần	/ ani
+	- video cái play sẽ loang	/ ani
+	- 
+RES:
+	- quy trình gửi hàng		/ chưa biến đổi
+	- câu hỏi thg gặp		/ chưa mở rộng, chưa hover button
+	- video avatar			/ bấn button dẹt chuyển câu chuyện
+	- 
+
+form:
+- form -> thêm nút checkbox chính sách					/ báo lại vì cần thêm 1 trang chính sách
+- mã gacha -> ?								/ ??
+- hay nộp xong rồi xuất hiện hình ảnh 'đã nộp form'			/ trao đổi lại a Khánh
+=========================================================================
+XONG
+----
+1.LandingPage:
+- SX lại bố cục, thay đổi các hình ảnh tránh màu tối
+- đồng nhất thiết kế, lồng ghép thông điệp
+- 2 icon live chat đang không bằng nhau căn chỉnh lại			/ đã chỉnh lại vị trí, kích thước 60x60 
+2.Tra cứu:
+- lỗi? 		/ không có lỗi chỉ là ít hình ảnh 
+3.Home:
+- thay 4 hình to theo set , không giảm dung lượng ảnh vì khi mobi bị mờ	/ báo cáo vậy thôi chứ ảnh ít thì đỡ lag
+- khoảng cách giữa các màn hình trang (padding)				/ đang rà soát: Home -> xong
+- shadow (bóng mờ?) thanh navbar sticky					/ xong
+4.form:
+- form thu gọn max-width: 500px						/ xong 670px
+- name => fullName							/ xong
+5.
+
+
+

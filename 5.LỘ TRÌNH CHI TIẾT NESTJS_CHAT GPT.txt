@@ -12,13 +12,13 @@ Giai đoạn 1: Nắm vững cơ bản (1-2 tuần)
 Làm việc với CSDL (Database)
 ✅ Hiểu cách kết nối với PostgreSQL/MySQL/MongoDB.				/ xong (kết nối MySQL)
 ✅ Dùng TypeORM hoặc Prisma để làm việc với DB.					/ xong (cấu hình)
-✅ Xây dựng Migration, Repository Pattern trong NestJS.				/ 
+✅ Xây dựng Migration, Repository Pattern trong NestJS.				/ xong (ko sử dụng Migration)
 
-👉 Bài tập: Tạo API products với PostgreSQL + TypeORM, gồm các chức năng CRUD.
+👉 Bài tập: Tạo API products với PostgreSQL + TypeORM, gồm các chức năng CRUD.	/ xong (kết nối MySQL)
 ===============================================================================================================
 Middleware, Guards, Interceptors
-✅ Viết Middleware để xử lý request trước khi vào Controller.
-✅ Sử dụng Guards để xác thực và phân quyền người dùng.
+✅ Viết Middleware để xử lý request trước khi vào Controller.			/ chưa hiểu
+✅ Sử dụng Guards để xác thực và phân quyền người dùng.				/ xong
 ✅ Dùng Interceptors để format response hoặc log request.
 
 👉 Bài tập: Tạo Auth Middleware để log request headers.
