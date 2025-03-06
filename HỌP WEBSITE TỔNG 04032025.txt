@@ -1,6 +1,6 @@
 HỌP WEBSITE TỔNG 04/03/2025
 ---------------------------
-Ngày cập nhật: 04/03/2025
+Ngày cập nhật: 06/03/2025
 -------------------------
 ĐANG XỬ LÝ:
 -----------
@@ -9,10 +9,9 @@ Home:
 LandingPage:
 - thêm popup mở form thu lead				/ thiết kế đã
 ! hình ảnh highlight vừa đủ				/ thiết kế đã
+
 *responsive						/ responsive sau
 - component
-- thêm lại link vào link lớn các màn			/ ĐANG LÀM...
-- đổi màu hover navbar					/ ĐANG LÀM...
 EFFECT:
 	- ảnh lướt từ trái qua phải	/ ani
 	- số liệu 3000+	tăng dần	/ ani
@@ -23,7 +22,6 @@ RES:
 	- câu hỏi thg gặp		/ chưa mở rộng, chưa hover button
 	- video avatar			/ bấn button dẹt chuyển câu chuyện
 	- 
-
 form:
 - form -> thêm nút checkbox chính sách					/ báo lại vì cần thêm 1 trang chính sách
 - mã gacha -> ?								/ ??
@@ -44,7 +42,22 @@ XONG
 4.form:
 - form thu gọn max-width: 500px						/ xong 670px
 - name => fullName							/ xong
-5.
+5.navbar:
+- thêm lại link vào link lớn các màn			/ xong
+- đổi màu hover navbar					/ xong - chẳng thay đổi?
+=========================================================================
+*LANDING PAGE:
+1.international service:
+ - đầu trang	/ thêm hiệu ứng chữ mượt lên dần dần + button lên cuối, ảnh 800 >600, đỏi bot	/ ok
+ - tại sao?	/ chỉ là flex bình thường	/ đã wrap xuống nhưng 2 hình vẫn hơi nhỏ	/ 2 ảnh nhỏ
+ - cpnc tuyến	/ hình ảnh các nước		/ CSS cho text					/ ok
+ - 
+ - chuyển chuyên tuyến + hình ảnh các nước	/ khi nhỏ đi cái hình ja nó đang vuông trở lại??
+ - chuyển nhanh qte + hình ảnh (ảnh đang nhỏ)	/ sau
+ - những con số ấn tượng			/ số nhảy	/ sau + res
+ - quy trình gửi hàng				/ đang ko ăn mobi
+ - 
+
 
 
 

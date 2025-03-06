@@ -1,0 +1,277 @@
+      
+     
+     
+     
+      
+     
+      
+      
+      
+     
+      {/* Câu chuyện khách hàng */}
+      <div className="px-paddingMobile md:px-paddingDesktop mt-[60px] md:mt-[96px] text-pcsText">
+        <div className="text-pcsText font-light text-[64px]  leading-[68px]  md:leading-normal">
+          <span>Câu chuyện</span>{" "}
+          <span className={"text-pcsMain font-bold"}>khách hàng</span>
+        </div>
+        <div
+          className={
+            "px-paddingDesktop mt-[24px] text-pcsText font-normal text-[16px] grid grid-cols-12"
+          }
+          style={{ lineHeight: "24px" }}
+        >
+          <div className={"md:col-span-6"} />
+          <div className={"col-span-12 md:col-span-6"}>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book.
+          </div>
+        </div>
+        <div className="md:mt-[48px] mt-[24px] px-[208px] flex flex-row justify-center gap-[40px]">
+          <div className="relative">
+            <img src="/images/example/img_priority-international-express_video.png" alt="video"/>
+            <div className="absolute top-[160px] left-[332px]">
+            <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle opacity="0.6" cx="80" cy="80" r="80" fill="#FBDBD6"/>
+<circle opacity="0.6" cx="80" cy="80" r="60" fill="#F17B69"/>
+<circle opacity="0.8" cx="80" cy="80" r="36" fill="white"/>
+<path d="M71 90.1687V69.8313C70.9973 69.4697 71.1351 69.1156 71.3958 68.8142C71.6565 68.5129 72.0283 68.2779 72.4639 68.1392C72.8995 68.0005 73.379 67.9644 73.8415 68.0356C74.3039 68.1067 74.7282 68.2818 75.0603 68.5386L88.3095 78.7164C88.7518 79.0575 89 79.519 89 80C89 80.481 88.7518 80.9425 88.3095 81.2836L75.0603 91.4614C74.7282 91.7182 74.3039 91.8933 73.8415 91.9644C73.379 92.0356 72.8995 91.9995 72.4639 91.8608C72.0283 91.7221 71.6565 91.4871 71.3958 91.1858C71.1351 90.8844 70.9973 90.5303 71 90.1687Z" fill="#ED543E"/>
+</svg>
+            </div>
+          </div>
+          <div className="relative">
+            <img src="/images/example/img_priority-international-express_video_content.png" alt="video content" />
+            <div className="absolute top-[80px] px-[68px]">
+              <div className="text-[24px] font-[700]">Lorem Ipsum is simply dummy text
+              of the printing</div>
+              <div className="text-[16px] mt-[16px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+              <div className="flex flex-row gap-[16px] mt-[56px] justify-end">
+                <div><img src="/images/example/img_priority-international-express_video_ava.png" alt="video avatar" /></div>
+                <div className="flex flex-col gap-[4px]">
+                  <div className="font-[700] text-[16px]">Ông Nguyễn  Tùng Anh</div>
+                  <div>Trường phòng công ty ABC</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      {/* Kết nối cùng PCS */}
+      <div className="px-paddingMobile md:px-paddingDesktop mt-[60px] md:mt-[96px] text-pcsText">
+        <div className="text-pcsText font-light text-[64px]  leading-[68px]  md:leading-normal">
+          <span>Kết nối</span>{" "}
+          <span className={"text-pcsMain font-bold"}>cùng PCS</span>
+        </div>
+         <div className="md:mt-[40px] mt-[0px] grid grid-cols-12 p-[18px] md:p-0">
+                    <div
+                      className="col-span-12 md:col-span-6 flex text-[16px] font-normal lg:pl-[250px] pr-[60px]
+                      flex flex-col md:gap-[56px] gap-[24px] md:mb-[0px] mb-[32px]"
+                      style={{
+                        lineHeight: "24px",
+                      }}
+                    >
+                      <div className="">
+                        {__t("contact_us._content_2", translations)}
+                      </div>
+        
+                      <div className="flex flex-col md:gap-[16px] gap-[8px]">
+                        <div className="font-semibold">
+                          {__t("contact_us.branch_hn", translations)}
+                        </div>
+                        <div>
+                          {__t("contact_us.add_hn", translations)}
+                        </div>
+                        <div className="contact-branch">
+                          <div className="flex flex-row gap-[8px]">
+                            <svg
+                              width="22"
+                              height="22"
+                              viewBox="0 0 22 22"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M21 18.7778V16.949C21 16.0403 20.4468 15.2232 19.6031 14.8857L17.3429 13.9816C16.2698 13.5524 15.0469 14.0174 14.53 15.0511L14.3333 15.4444C14.3333 15.4444 11.5556 14.8889 9.33333 12.6667C7.11111 10.4444 6.55556 7.66667 6.55556 7.66667L6.94891 7.46999C7.98264 6.95312 8.44762 5.73015 8.01838 4.65706L7.11432 2.39691C6.77685 1.55323 5.95971 1 5.05104 1H3.22222C1.99492 1 1 1.99492 1 3.22222C1 13.0406 8.95938 21 18.7778 21C20.0051 21 21 20.0051 21 18.7778Z"
+                                stroke="#ED543E"
+                                stroke-width="1.5"
+                                stroke-linejoin="round"
+                              />
+                            </svg>{" "}
+                            <span>
+                              {__t("contact_us.phone_hn", translations)}
+                            </span>
+                          </div>
+                          <div className="flex flex-row gap-[8px]">
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M6 8L9.7812 10.5208C11.1248 11.4165 12.8752 11.4165 14.2188 10.5208L18 8M6 21H18C20.2091 21 22 19.2091 22 17V7C22 4.79086 20.2091 3 18 3H6C3.79086 3 2 4.79086 2 7V17C2 19.2091 3.79086 21 6 21Z"
+                                stroke="#ED543E"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </svg>{" "}
+                            <span>sales@pcs.vn</span>
+                          </div>
+                        </div>
+                      </div>
+        
+                      <div className="flex flex-col md:gap-[16px] gap-[8px]">
+                        <div className="font-semibold">
+                          {__t("contact_us.branch_hcm", translations)}
+                        </div>
+                        <div>
+                          {__t("contact_us.add_hcm", translations)}
+                        </div>
+                        <div className="contact-branch">
+                          <div className="flex flex-row gap-[8px]">
+                            <svg
+                              width="22"
+                              height="22"
+                              viewBox="0 0 22 22"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M21 18.7778V16.949C21 16.0403 20.4468 15.2232 19.6031 14.8857L17.3429 13.9816C16.2698 13.5524 15.0469 14.0174 14.53 15.0511L14.3333 15.4444C14.3333 15.4444 11.5556 14.8889 9.33333 12.6667C7.11111 10.4444 6.55556 7.66667 6.55556 7.66667L6.94891 7.46999C7.98264 6.95312 8.44762 5.73015 8.01838 4.65706L7.11432 2.39691C6.77685 1.55323 5.95971 1 5.05104 1H3.22222C1.99492 1 1 1.99492 1 3.22222C1 13.0406 8.95938 21 18.7778 21C20.0051 21 21 20.0051 21 18.7778Z"
+                                stroke="#ED543E"
+                                stroke-width="1.5"
+                                stroke-linejoin="round"
+                              />
+                            </svg>{" "}
+                            <span>
+                              {__t("contact_us.phone_hcm", translations)}
+                            </span>
+                          </div>
+                          <div className="flex flex-row gap-[8px]">
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M6 8L9.7812 10.5208C11.1248 11.4165 12.8752 11.4165 14.2188 10.5208L18 8M6 21H18C20.2091 21 22 19.2091 22 17V7C22 4.79086 20.2091 3 18 3H6C3.79086 3 2 4.79086 2 7V17C2 19.2091 3.79086 21 6 21Z"
+                                stroke="#ED543E"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </svg>{" "}
+                            <span>sales@pcs.vn</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {/* form */}
+                    <div className="width-form col-span-12 md:col-span-6 px-[16px] py-[20px] flex flex-col gap-[20px] bg-[#fef3f1] rounded-[16px] justify-start items-start">
+                      <label className="block w-full">
+                        <span className="block">
+                          {__t("contact_us.name", translations)}{" "}
+                          <span className={"text-[red]"}>*</span>
+                        </span>
+                        <input
+                          id={"name_business_sale_priority"}
+                          type="email"
+                          placeholder={__t("contact_us.enter_your_name", translations)}
+                          className="h-[48px] px-[12px] w-full mt-1 border-0 bg-white placeholder:text-[#A0ACBE] rounded-[8px]"
+                        />
+                      </label>
+                      <label className="block w-full">
+                        <span className="block">
+                          {__t("contact_us.email", translations)}{" "}
+                          <span className={"text-[red]"}>*</span>
+                        </span>
+                        <input
+                          id={"email_business_sale_priority"}
+                          type="email"
+                          placeholder={__t("contact_us.enter_your_email", translations)}
+                          className="h-[48px] px-[12px] w-full mt-1 border-0 bg-white placeholder:text-[#A0ACBE] rounded-[8px]"
+                        />
+                      </label>
+                      <label className="block w-full">
+                        <span className="block">
+                          {__t("contact_us.company", translations)}
+                        </span>
+                        <input
+                          id={"company_business_sale_priority"}
+                          placeholder={__t("contact_us.your_company", translations)}
+                          className="h-[48px] px-[12px] w-full mt-1 border-0 bg-white placeholder:text-[#A0ACBE] rounded-[8px]"
+                        />
+                      </label>
+                      <label className="block w-full">
+                        <span className="block">
+                          {__t("contact_us.phone", translations)}{" "}
+                        </span>
+                        <input
+                          id={"phone_business_sale_priority"}
+                          placeholder={__t(
+                            "contact_us.enter_your_phone_number",
+                            translations
+                          )}
+                          className="h-[48px] px-[12px] w-full mt-1 border-0 bg-white placeholder:text-[#A0ACBE] rounded-[8px]"
+                        />
+                      </label>
+                      <label className="block w-full">
+                        <span className="block">
+                          {__t("contact_us.note", translations)}
+                        </span>
+                        <textarea
+                          id={"note_business_sale_priority"}
+                          placeholder={__t("contact_us.enter_your_note", translations)}
+                          className="p-[12px] w-full mt-1 border-0 bg-white placeholder:text-[#A0ACBE] min-h-[160px] rounded-[8px]"
+                        />
+                      </label>
+                      <button
+                        onClick={() => {
+                          handleSubmitFormBusinessSale();
+                        }}
+                        className={
+                          "w-full rounded-[8px] hover-gradient flex items-center justify-center gap-2 bg-pcsMain text-white h-[52px] mt-[4px]"
+                        }
+                      >
+                        {loadingSubmit ? (
+                          <svg
+                            className="w-5 h-5 text-white animate-spin"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            ></circle>
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8v8h8a8 8 0 11-16 0z"
+                            ></path>
+                          </svg>
+                        ) : (
+                          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M5.82115 4.60583L15.379 1.41988C19.6682 -0.00986175 21.9986 2.33176 20.5801 6.62098L17.3942 16.1789C15.2552 22.6071 11.7428 22.6071 9.60377 16.1789L8.65812 13.3419L5.82115 12.3962C-0.60705 10.2572 -0.60705 6.75607 5.82115 4.60583Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M8.8728 12.8577L12.9031 8.81616" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                          
+                        )}{" "}
+                        <span className="font-semibold text-[16px]">
+                          {__t("contact_us.send", translations)}{" "}
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+      </div>
+      
