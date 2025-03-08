@@ -4,59 +4,59 @@ Ngày cập nhật: 06/03/2025
 -------------------------
 ĐANG XỬ LÝ:
 -----------
-Home:
-- icon kính lúp không thôi thay vì tìm kiếm				/ hỏi lại a Đạt, 
-LandingPage:
+1.LandingPage:
 - thêm popup mở form thu lead				/ thiết kế đã
 ! hình ảnh highlight vừa đủ				/ thiết kế đã
-
-*responsive						/ responsive sau
-- component
-EFFECT:
-	- ảnh lướt từ trái qua phải	/ ani
-	- số liệu 3000+	tăng dần	/ ani
-	- video cái play sẽ loang	/ ani
-	- 
-RES:
-	- quy trình gửi hàng		/ chưa biến đổi
-	- câu hỏi thg gặp		/ chưa mở rộng, chưa hover button
-	- video avatar			/ bấn button dẹt chuyển câu chuyện
-	- 
-form:
+2.form:
 - form -> thêm nút checkbox chính sách					/ báo lại vì cần thêm 1 trang chính sách
 - mã gacha -> ?								/ ??
 - hay nộp xong rồi xuất hiện hình ảnh 'đã nộp form'			/ trao đổi lại a Khánh
+3.EFFECT:
+	- ảnh lướt từ trái qua phải	/ ani	chưa cần
+	- số liệu 3000+	tăng dần	/ xong
+	- video cái play sẽ loang	/ xong
+
 =========================================================================
 XONG
 ----
 1.LandingPage:
-- SX lại bố cục, thay đổi các hình ảnh tránh màu tối
-- đồng nhất thiết kế, lồng ghép thông điệp
+- SX lại bố cục, thay đổi các hình ảnh tránh màu tối			/ 
+- đồng nhất thiết kế, lồng ghép thông điệp				/ 
 - 2 icon live chat đang không bằng nhau căn chỉnh lại			/ đã chỉnh lại vị trí, kích thước 60x60 
 2.Tra cứu:
-- lỗi? 		/ không có lỗi chỉ là ít hình ảnh 
+- lỗi? 									/ không có lỗi chỉ là ít hình ảnh 
 3.Home:
 - thay 4 hình to theo set , không giảm dung lượng ảnh vì khi mobi bị mờ	/ báo cáo vậy thôi chứ ảnh ít thì đỡ lag
 - khoảng cách giữa các màn hình trang (padding)				/ đang rà soát: Home -> xong
 - shadow (bóng mờ?) thanh navbar sticky					/ xong
+- icon kính lúp không thôi thay vì tìm kiếm				/ hỏi lại a Đạt, xong ko thay
 4.form:
 - form thu gọn max-width: 500px						/ xong 670px
 - name => fullName							/ xong
 5.navbar:
-- thêm lại link vào link lớn các màn			/ xong
-- đổi màu hover navbar					/ xong - chẳng thay đổi?
+- thêm lại link vào link lớn các màn					/ xong
+- đổi màu hover navbar							/ xong - chẳng thay đổi?
 =========================================================================
 *LANDING PAGE:
+KHÁC:
+- cái button support lên trên cái 'chat live'
+------------------------
 1.international service:
- - đầu trang	/ thêm hiệu ứng chữ mượt lên dần dần + button lên cuối, ảnh 800 >600, đỏi bot	/ ok
- - tại sao?	/ chỉ là flex bình thường	/ đã wrap xuống nhưng 2 hình vẫn hơi nhỏ	/ 2 ảnh nhỏ
- - cpnc tuyến	/ hình ảnh các nước		/ CSS cho text					/ ok
+- title tổng quá to ở màn mobile			/ xin kích thước khi nhỏ xuống
+- tại sao chọn?						/ ảnh 4 số liệu nhỏ quá, xin ảnh to hơn và ảnh tiếng anh ko thì phải code lại 4 mục nhỏ này
+- loang play video					/ nhìn khá ok nhưng cứ hỏi lại
+- video câu chuyện					/ chưa có dữ liệu để lướt
+- form thu lead: chỉnh lại toàn bộ  				/ xong nhìn hơi trống
+- câu hỏi => khi bấm trắng sẽ thành đỏ và thêm 1 câu nữa thành 5	/
+- 
+-------
+ *xong:
+- con số ấn tượng: khi mà số chạy icon bị rung lắc		/ xử lý bằng max-width
+- đồng hành: icon khi hover vào sẽ to ra chút và đổ bóng nhẹ, có thêm cả dữ liệu khác hàng nhấn lướt qua
+--------------------
+2. domestic Express:
  - 
- - chuyển chuyên tuyến + hình ảnh các nước	/ khi nhỏ đi cái hình ja nó đang vuông trở lại??
- - chuyển nhanh qte + hình ảnh (ảnh đang nhỏ)	/ sau
- - những con số ấn tượng			/ số nhảy	/ sau + res
- - quy trình gửi hàng				/ đang ko ăn mobi
- - 
+
 
 
 
