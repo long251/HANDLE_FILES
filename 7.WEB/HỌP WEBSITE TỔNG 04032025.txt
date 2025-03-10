@@ -55,6 +55,7 @@ KHÁC:
 - đồng hành: icon khi hover vào sẽ to ra chút và đổ bóng nhẹ, có thêm cả dữ liệu khác hàng nhấn lướt qua
 --------------------
 2. domestic Express:
+ CHUNG: chỉnh lại các padding 16px hay 40px nhìn tổng thể sau này
  - 
 
 
