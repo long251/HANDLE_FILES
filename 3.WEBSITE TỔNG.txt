@@ -1,0 +1,27 @@
+WEBSITE TỔNG
+------------
+Ngày cập nhật: 11/03/2025
+-------------------------
+
+WISDOM
+------
+- land 		/ thêm popup mở form thu lead 
+- form		/ thêm checkbox chính sách
+- contact form	/ điều chỉnh giống các landingPage => ko làm theo wisdom		/ sau khi xong land 1,2
+-----------------------------------------------------------------------------------------
+CHUNG
+-----
+- land		/ các tiêu đề ở màn mobi quá lớn => báo cáo nhỏ lại			/ chưa báo
+- land 1	/ thêm button chuyển button dẹt						/ chưa có dữ liệu thật
+- land 2	/ chỉnh lại padding 16px hay 40px và leading (line-height)		/ sau
+- iconData	/ dữ liệu đang lớn hơn 500KB => giảm dung lượng				/ ĐANG LÀM...
+- nav mobi	/ thêm link đầu mục lớn vào Navbar				/ 1103	/ chưa có y/c
+*11/03/2025:
+ - navbar, land 1 padd, text, chuông câu hỏi, 						/ tách
+-----------------------------------------------------------------------------------------
+*XONG:
+- link footer	/ đưa các đầu mục vào link to bên dưới					/ xong
+- land 1	/ tại sao chọn?	-> chỉnh lại chia bằng tay ko lấy hình img +		/ xong
+- live chat	/ chuyển live chat từ contact sang phải lên trên talkto			/ xong
+- land 1	/ mục câu hỏi khi bấm chọn trắng sẽ đổi thành đỏ thay vì mở xuống	/ xong
+- land 2	/ mục câu hỏi khi bấm chọn trắng sẽ đổi thành đỏ thay vì mở xuống	/ xong

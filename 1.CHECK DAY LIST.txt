@@ -1,16 +1,16 @@
 CTY PCS
 -------
-Ngày cập nhật: 05/03/2025
+Ngày cập nhật: 11/03/2025
 -------------------------
 - Cốc thuốc:
-	- xịt mũi x1					/ hết	-> mang
-	- nhỏ mũi x1					/ hết	-> mang
-	- thuốc đỏ nhỏ x1				/ hỏng	-> mang -> thay
-	- âu gâu nhỏ x5					/ ko thấy -> mang
+	- xịt mũi x1					/ hết	-> mang			/
+	- nhỏ mũi x1					/ hết	-> mang			/
+	- thuốc đỏ nhỏ x1				/ hỏng	-> mang -> thay		/
+	- âu gâu nhỏ x5					/ ko thấy -> mang		/
 	- (hồ dán khô x1)				/
-	- kéo nhỏ x1					/ cho vào balo
+	- kéo nhỏ x1					/ cho vào balo			/
 	- bút bi x2					/ 
-	- C sủi						/ vài
+	- C sủi						/ vài				/ 2
 	- rửa kính					/ sắp hết
 	- thước dẻo x1					/
 - chai nước
@@ -18,31 +18,18 @@ Ngày cập nhật: 05/03/2025
 - case máy tính lỏng dây
 - gối cong
 - balo* -> MANG thuốc nâu axit				/ MANG -> nâu tọa
-- kẹo xilytol x1 hộp -> to, xanh lá 52k			/ hết			/ trừ
-- giấy ăn x1 bịch nhỏ					/ +2
+- kẹo xilytol x1 hộp -> to, xanh lá 52k			/ hết			/ trừ	/
+- giấy ăn x1 bịch nhỏ					/ +1				/ +1
 - lịch
 - cốc uống nước
 - vở ghi						/ 1 vở 7k
-- iphone*
+- iphone x2
 - Màn PC (PCS) x2
 - chuột công thái học
 - bàn phím rapoo
-- giấy note									/ trừ
+- giấy note									/ hết
 - tai nghe có dây
 - (tai nghe bluetooth)
-*PC (PCS):
- - [HANDLE_FILES]	-> lưu file (github)
- - [TRANSONLINE-PORTAL] -> thiết kế UI, connect API (gitlab)
- - [PO] 		-> tham khảo cho PORTAL mới
- - [Pictures] -> [Screenshots] -> xóa ảnh chụp 1 ngày / lần
- - *Skype:
-	- gửi anh Dũng báo cáo hàng tuần vào chiều tối thứ 7 (nhắc nhở báo thức)
- - Cốc cốc:
-	- [gmail] -> check thư điện tử hàng ngày!
-     *[KHÁC]
-	- [alagod cá] 	-> check đồ mới hàng ngày!				 -> thỉnh thoảng
-	- [ITSM] 	-> check lỗi, cập nhật hàng ngày!
-	- [gitlab] 	-> check a Khánh FE cập nhật. Tự Merge lên UAT
 -----------------------------------------------------------------------------------------------------------------
 *TRIỂN KHAI:
 - MANG	-> bánh kẹo lên cty		x vài		/ xong
