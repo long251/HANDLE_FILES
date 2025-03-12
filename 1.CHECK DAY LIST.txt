@@ -1,44 +1,33 @@
 CTY PCS
 -------
-Ngày cập nhật: 11/03/2025
+Ngày cập nhật: 12/03/2025
 -------------------------
 - Cốc thuốc:
-	- xịt mũi x1					/ hết	-> mang			/
-	- nhỏ mũi x1					/ hết	-> mang			/
-	- thuốc đỏ nhỏ x1				/ hỏng	-> mang -> thay		/
-	- âu gâu nhỏ x5					/ ko thấy -> mang		/
-	- (hồ dán khô x1)				/
-	- kéo nhỏ x1					/ cho vào balo			/
-	- bút bi x2					/ 
-	- C sủi						/ vài				/ 2
+	- xịt mũi x1					/ +1 đầy
+	- nhỏ mũi x1					/ +1 đầy
+	- thuốc đỏ nhỏ x1				/ hỏng -> mang -> thay		/ chưa
+	- âu gâu nhỏ x5					/ ko thấy -> mang		/ chưa
+	- (hồ dán khô x1)				/ +1
+	- kéo nhỏ x1					/ cho vào balo
+	- bút bi x2					/ +2
+	- C sủi						/ sắp hết			/ 1v
 	- rửa kính					/ sắp hết
-	- thước dẻo x1					/
+	- thước dẻo x1					/ 
 - chai nước
 - (chai nước ngọt)
 - case máy tính lỏng dây
 - gối cong
-- balo* -> MANG thuốc nâu axit				/ MANG -> nâu tọa
-- kẹo xilytol x1 hộp -> to, xanh lá 52k			/ hết			/ trừ	/
-- giấy ăn x1 bịch nhỏ					/ +1				/ +1
-- lịch
+- balo* -> MANG thuốc nâu axit
+- giấy ăn x1 bịch nhỏ					/ sắp hết -> mang +2		/ mang +2
+- lịch 2025
 - cốc uống nước
-- vở ghi						/ 1 vở 7k
-- iphone x2
+- vở ghi						/ +1 nháp
+- iphone* x2
 - Màn PC (PCS) x2
 - chuột công thái học
 - bàn phím rapoo
-- giấy note									/ hết
+- giấy note										/ hết -> ra bảng lấy
 - tai nghe có dây
-- (tai nghe bluetooth)
------------------------------------------------------------------------------------------------------------------
-*TRIỂN KHAI:
-- MANG	-> bánh kẹo lên cty		x vài		/ xong
-- MANG	-> bịch giấy ăn			x 2		/ 	+1
-- MANG	-> quyển vở			x 1		/ 	+1
------------------------------------------------------------------------------------------------------------------
-*WORK:
-- THAY	-> xịt mũi: ql1, cty				/ xong / xong
-- THAY	-> nhỏ mũi: cty					/ xong
 -----------------------------------------------------------------------------------------------------------------
 *KARAOKE:
 - ngồi bên em (phan đình tùng)
@@ -48,16 +37,11 @@ Ngày cập nhật: 11/03/2025
 - 1 thời đã xa (phương thanh)
 - dĩ vãng nhạt nhòa (lân nhã)
 - e sẽ là ng ra đi (cẩm ly)
-- 
------------------------------------------------------------------------------------------------------------------
 - ngỡ
 - từng cho nhau (đường hưng)
 - nửa vầng trăng
-- 
------------------------------------------------------------------------------------------------------------------
 - anh yêu vội thế
 - ai chung tình được mãi
 - trăm năm ko quên		?
 - anh đau từ lúc em đi		ok
 - hóa giải bằng nc mắt
-- 

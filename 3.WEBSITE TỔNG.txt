@@ -14,10 +14,12 @@ CHUNG
 - land		/ các tiêu đề ở màn mobi quá lớn => báo cáo nhỏ lại			/ chưa báo
 - land 1	/ thêm button chuyển button dẹt						/ chưa có dữ liệu thật
 - land 2	/ chỉnh lại padding 16px hay 40px và leading (line-height)		/ sau
-- iconData	/ dữ liệu đang lớn hơn 500KB => giảm dung lượng				/ ĐANG LÀM...
-- nav mobi	/ thêm link đầu mục lớn vào Navbar				/ 1103	/ chưa có y/c
+- iconData	/ dữ liệu đang lớn hơn 500KB => giảm dung lượng				/ sau
+- nav mobi	/ thêm link đầu mục lớn vào Navbar				/ 1103	/ collap vào mũi tên ĐANG...
 *11/03/2025:
- - navbar, land 1 padd, text, chuông câu hỏi, 						/ tách
+ - navbar, land 1 padd, text, chuông câu hỏi, 						/ tách nv
+*12/03/2025:
+ - 
 -----------------------------------------------------------------------------------------
 *XONG:
 - link footer	/ đưa các đầu mục vào link to bên dưới					/ xong
