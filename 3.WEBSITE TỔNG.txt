@@ -2,48 +2,59 @@ WEBSITE TỔNG
 ------------
 Ngày cập nhật: 14/03/2025
 -------------------------
+ẨN
+--
++ font-light text-[64px] leading-[68px]  md:leading-normal
+- băng iconBank	/ 2 màn -> khi mà ko kéo xuống mà cho chạy hết bị giật mặc dù đặt lên x3 map rồi/ 
+- dữ liệu quá lớn chưa giải nén (iconBank)(iconData)
+- navbar: thêm link đầu mục lớn vào, collap thu phóng vào cái mũi tên sổ xuống			/ mở cái khác thì cuộn chứ cái đấy nhỏ tính sau
+-------------------------------------------------------------------------------------------------
+CHƯA XONG
+---------
+C đào:
+- land 1	/ câu chuyện gán content + tự chuyển 5s + có button bên dưới dẹt/ (3)		/ (3)
+- land 2	/ các đầu giải pháp giảm 4 dòng nhưng đây là content mà		/ sau		/ vì do content nữa
+- land 2	/ hình tiến quy trình gửi hàng 3 mục sẽ cho content ngắn	/ sau		/ vì do content nữa
+- land 2	/ câu chuyện tự chuyển mục avatar						/
+- land 2	/ 5 mục ô tô sẽ vẹt ngang và khi màn nhỏ (xem cả tele để check)			/ SAU vì dài
+- land 1	/ tại sao 4 cái ô kia cho nó ra sát ngoài chút					/ ĐANG LÀM...
+- land 1	/ mục câu hỏi thêm 1 câu vào thành 5c						/ ĐANG LÀM...
+- chung: form	/ xem lại place_holder								/ ĐANG LÀM...
+- chung: chuyện	/ những chỗ avatar chuyển 5s							/ 
+- chung: câu hỏi/ 2 mục câu thêm +1 vào								/
+- land 3	/ 5 mục ở video chỉnh lại căn giữa						/ ĐANG LÀM...
+- land 3	/ ảnh 24/7 cô gái dãn thêm khoảng cách chữ để gần mới người			/ ĐANG LÀM...
+- land 3	/ button nhận báo giá -> sai kt -> chỉnh lại					/ ĐANG LÀM...
+- land 3	/ chỉ số đang bị kéo height bị dãn ảnh, thêm cái di chuột vào sẽ phóng to lên	/ ĐANG LÀM...
+- land 3	/ button đối tác chiến lược 16px -> 20px					/ ĐANG LÀM...
+- land 3	/ chỉnh lại thứ tự như figma							/ ĐANG LÀM...
+- 
+
+
+- tra cứu	/ đổi title và fix ô trắng dữ liệu				/ xong		/ chưa đổi lang
+- land 1	/ chưa có dữ liệu, ảnh câu chuyện						/ chưa
+- land 1	/ thêm content									/ chưa
+- land 2	/ các giải pháp -> 1024px điều chỉnh làm cuộn button chọn			/ chưa
+- chung: title	/ title quá lớn						/ mới đưa ý kiến	/ chưa
+- chung: ảnh	/ giảm kích thước, size ảnh nhỏ xuống chút cho nội dung lên			/ chưa
+- land4: wrapper/ ảnh wrapper lấy lại					/ chưa
+- land1: câu chuyện	/ chưa có dữ liệu khách + tự chuyển 3s + button dẹt			/ 
+- land2: câu chuyện	/ chuyển ảnh khi màn to bị vỡ						/
+-------------------------------------------------------------------------------------------------
+XONG
+----
+C đào:
+- những con số ấn tượng màn 1, chia lại padding 2 bên					/ xong
 
 - home		/ customer support center -> 2 ảnh lấy cứng kt nên khi ở màn 2448px bị vỡ ảnh	/ tăng height ảnh
 - home		/ lấy đầu link của 4 landingPage gán vào					/ xong
-- tra cứu	/ đổi title và fix ô trắng dữ liệu				/ xong		/ chưa đổi lang
-- land 1	/ chưa có dữ liệu, ảnh câu chuyện						/ 
-- land 1	/ thêm content									/ chưa
-- land 2	/ các giải pháp -> 1024px điều chỉnh làm cuộn button chọn			/ 
+- navbar: login chỉnh lại như cũ							/ xong, lấy từ component
+- cuộn bị dôi ra do đặt sai w-[full] => đúng: w-full	; fix căn giữa banner		/ xong, 2 màn tăng cuộn arr
+- wrapper tăng tốc độ băng truyền 25s -> 20s						/ xong
+-------------------------------------------------------------------------------------------------
 
 
 
 
 
-*thuộc tính ẩn:
- - cuộn 1 lúc ở domestic hoặc ecommerce thì nó giật 1 phát do hết array
- + font-light text-[64px] leading-[68px]  md:leading-normal
- - mở popup video: chưa có video
- - iconData dữ liệu quá lớn chưa giải nén
- - navbar: thêm link đầu mục lớn vào, collap thu phóng vào cái mũi tên sổ xuống
-------------------------------------------------------------------------------------------
-*họp sáng 14/03:
- - title quá lớn									/ chung
- - giảm size kích thước ảnh							/ sau
-*4 trang landingPage:
-1.international service:
- - câu chuyện: chưa có dữ liệu khách; thêm tự chuyển 3s; button dẹt		/ chờ content
-2.domestic express:
- - ảnh câu chuyện mà có chuyển khi màn to bị vỡ
- - chỉnh lại cái mục kia ở màn 1488 đang lệch xuống (desktop)
- - cái có 6 phương thức thì lấy 4 dòng text
- - quy trình gửi hàng 4 dòng
- - câu chuyện khách hàng tự chuyển
- - các giải pháp: lướt sang; có nên bỏ border nhìn vỡ ảnh khi dưới màn bé hoặc tự điểu chính
-
-4.fulfillment:
- - wrapper: chưa xử lý được ảnh
-
-3. ecommerce:
- - wrapper: lấy lại ảnh
-___________________________________________________________________________________________
-XONG:
- - những con số ấn tượng màn 1, chia lại padding 2 bên					/ xong
- - navbar: login chỉnh lại như cũ							/ xong, lấy từ component
- - cuộn bị dôi ra do đặt sai w-[full] => đúng: w-full	; fix căn giữa banner		/ xong, 2 màn tăng cuộn arr
- - wrapper tăng tốc độ băng truyền 25s -> 20s						/ xong
 
