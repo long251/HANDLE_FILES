@@ -1,0 +1,66 @@
+WEBSITE TỔNG
+------------
+Ngày cập nhật: 17/03/2025
+-------------------------
+ẨN
+--
++ font-light text-[64px] leading-[68px]  md:leading-normal
+- băng iconBank	/ 2 màn -> khi mà ko kéo xuống mà cho chạy hết bị giật mặc dù đặt lên x3 map rồi/ chưa biết
+- navbar: thêm link đầu mục lớn vào, collap thu phóng vào cái mũi tên sổ xuống			/ mở cái khác thì cuộn chứ cái đấy nhỏ tính sau
+-------------------------------------------------------------------------------------------------
+CHƯA XONG
+---------
+C đào:
+- 1 cái ảnh trải nghiệm hay câu chuyện nào đó lên màn to là bị vỡ ảnh				/ xem xét kĩ từ 1->4
+
+- land 1	/ câu chuyện gán content + tự chuyển 5s + có button bên dưới dẹt/ (3)		/ xong	/
+- land 2	/ các đầu giải pháp giảm 4 dòng nhưng đây là content mà		/ sau		/ xong
+- land 2	/ hình tiến quy trình gửi hàng 3 mục sẽ cho content ngắn	/ sau		/ xong
+- land 2	/ câu chuyện tự chuyển mục avatar						/ xong
+- land 2	/ 5 mục ô tô sẽ vẹt ngang và khi màn nhỏ (xem cả tele để check)			/ xong
+- land 1	/ tại sao 4 cái ô kia cho nó ra sát ngoài chút		/ đã thử nhưng ko đc	/ xong	/
+- land 1	/ mục câu hỏi thêm 1 câu vào thành 5c						/ xong	/
+- chung: form	/ xem lại place_holder								/ xong
+- chung: chuyện	/ những chỗ avatar chuyển 5s							/ xong
+- chung: câu hỏi/ 2 mục câu thêm +1 vào								/ xong
+- land 3	/ 5 mục ở video chỉnh lại căn giữa						/ xong
+- land 3	/ ảnh 24/7 cô gái dãn thêm khoảng cách chữ để gần mới người			/ xong
+- land 3	/ button nhận báo giá -> sai kt -> chỉnh lại					/ xong
+- land 3	/ chỉ số đang bị kéo height bị dãn ảnh, thêm cái di chuột vào sẽ phóng to lên	/ xong
+- land 3	/ button đối tác chiến lược 16px -> 20px					/ xong
+- land 3	/ chỉnh lại thứ tự như figma							/ xong
+- land4: wrapper/ ảnh wrapper lấy lại								/ xong
+- land4		/ hoàn thiện land 4								/ xong
+
+- tra cứu	/ đổi title và fix ô trắng dữ liệu				/ xong		/ chưa đổi lang khác
+- chung: title	/ title quá lớn						/ mới đưa ý kiến	/ chưa
+- chung: ảnh	/ giảm kích thước, size ảnh nhỏ xuống chút cho nội dung lên			/ chưa
+-------------------------------------------------------------------------------------------------
+XONG
+----
+C đào:
+- những con số ấn tượng màn 1, chia lại padding 2 bên					/ xong
+- home		/ customer support center -> 2 ảnh lấy cứng kt nên khi ở màn 2448px bị vỡ ảnh	/ tăng height ảnh
+- home		/ lấy đầu link của 4 landingPage gán vào					/ xong
+- navbar: login chỉnh lại như cũ							/ xong, lấy từ component
+- cuộn bị dôi ra do đặt sai w-[full] => đúng: w-full	; fix căn giữa banner		/ xong, 2 màn tăng cuộn arr
+- wrapper tăng tốc độ băng truyền 25s -> 20s						/ xong
+-------------------------------------------------------------------------------------------------
+Ngày 17/03/2025:
+- navbar icon search mobile								/ xong
+- padding pl										/ xong
+- ảnh cao										/ 584 -> 420 xong
+
+- title các màn						/ từ 64 -> 48 (sau content 1)	/ sau content 1
+- collap vào nút mũi tên xuống								/ sau content 2
+- chỉnh sửa lại 5 mục giải pháp text 2 dòng và căn đều hơn 2 bên thêm left, right	/ sau content 1
+- câu chuyện hay trải nghiệm mà có ấy ấy thì xem lại xem chuyển nội dung? mượt?		/ sau content 1 + mobi
+- 300+							/ nổi 1 cái đầu			/ 
+
+- những chỗ nào _content hay gì á thêm cho tôi dấu chấm cuối câu			/ bổ sung sau
+xong:
+- bổ sung lang: home, lan 1: international service, lan 2: domestic express		/ xong
+- 
+	
+- dữ liệu quá lớn chưa giải nén (iconBank)(iconData)						/ sau đi
+
