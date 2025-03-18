@@ -64,3 +64,49 @@ xong:
 	
 - dữ liệu quá lớn chưa giải nén (iconBank)(iconData)						/ sau đi
 
+-----------------------------------------------------------------------------------------
+WEBSITE PCS TỔNG
+----------------
+Ngày cập nhật: 18/03/2025
+-------------------------
+THUỘC TÍNH ẨN
+-------------
++ font-light text-[64px] leading-[68px]  md:leading-normal
+- băng iconBank 	-> đang bị chạy lại giật mặc dù đặt x3 lần list			/ chưa biết
+- navbar 			-> khi muốn thu gọn chọn mũi tên xuống					/ sau
+- tra cứu 			-> title chưa đổi lang en								/ sau
+- chung: title		-> title từng phần =48; content =14 khi màn nhỏ			/ ĐANG LÀM...
+- iconData			-> chỉnh lại thành hình ảnh cho đỡ nặng giờ >500KB		/ sau 
+- L1 international	-> 4 đầu mục số liệu viết lại							/ ĐANG LÀM...
+- L1 international	-> thay hình ảnh sao cho đều 2 bên						/ đợi ý kiến wisdom
+- băng cuộn			-> thêm 2 icon nhà may vào 								/ ĐANG LÀM... x2
+- navbar			-> đổi tên: Ecommerce Shipping Solutions và xóa 2 top	/ ĐANG LÀM 
+- 6 ảnh phương thức	-> căn lại sao cho đều									/ ĐANG LÀM
+- responsive		-> 
+- link đầu mục		-> chỉnh lại theo chị Ngọc								/ content 
+- L4 ảnh wrapper	-> điều chỉnh lại cụm 3 ảnh kia, trans lại ảnh to theo	/ 
+- L2 domestic		-> 5 button giải pháp khi ở màn nhỏ dịch chút			/
+- L2 domestic		-> 5 button khi nhấn vào cái nào focus cái đó ra giữa	/
+- L2 domestic		-> 5 button đang sai cái bg	mặc dù lấy theo figma ra	/
+- L1 international	-> why pcs -> cân web 									/
+- L1 L2 câu hỏi		-> cân lại 5 câu đều bên kia hơn						/ 
+
+
+
+
+WORK:
+-----
++ font-light text-[64px] leading-[68px]  md:leading-normal
+- băng iconBank 	-> đang bị chạy lại giật mặc dù đặt x3 lần list			/ chưa biết
+- navbar 			-> khi muốn thu gọn chọn mũi tên xuống					/ sau
+- chung: resp 768px	-> 														/ sau 
+- iconData			-> chỉnh lại thành hình ảnh cho đỡ nặng giờ >500KB		/ sau 
+----------------------
+- 6 ảnh phương thức	-> căn lại sao cho đều									/ ĐANG LÀM...
+- responsive		-> 														/ sau
+- link đầu mục		-> chỉnh lại theo chị Ngọc								/ ĐANG LÀM...
+- L4 ảnh wrapper	-> điều chỉnh lại cụm 3 ảnh kia, trans lại ảnh to theo	/  khó
+- L2 domestic		-> 5 button giải pháp khi ở màn nhỏ dịch chút cách trái	/  khó
+- L2 domestic		-> 5 button khi nhấn vào cái nào focus cái đó ra giữa	/  khó
+- L2 domestic		-> 5 button đang sai cái bg	mặc dù lấy theo figma ra	/ ??
+- live chat 		-> khi ở màn nhỏ lệch liên tục							/ responsive khó
