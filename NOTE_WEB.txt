@@ -110,3 +110,30 @@ WORK:
 - L2 domestic		-> 5 button khi nhấn vào cái nào focus cái đó ra giữa	/  khó
 - L2 domestic		-> 5 button đang sai cái bg	mặc dù lấy theo figma ra	/ ??
 - live chat 		-> khi ở màn nhỏ lệch liên tục							/ responsive khó
+
+
+
+
+
+
+solutions.fulfillment-solutions.experience_3_company
+
+
+
+{__t("solutions.ecommerce-solutions.banner", translations)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,24 +1,22 @@
 CTY PCS
 -------
-Ngày cập nhật: 12/03/2025
+Ngày cập nhật: 20/03/2025
 -------------------------
 - Cốc thuốc:
 	- xịt mũi x1					/ +1 đầy
-	- nhỏ mũi x1					/ +1 đầy
+	- nhỏ mũi x1					/ +1 đầy			
 	- thuốc đỏ nhỏ x1				/ hỏng -> mang -> thay		/ chưa
-	- âu gâu nhỏ x5					/ ko thấy -> mang		/ chưa
+	- âu gâu nhỏ x5					/ + vài
 	- (hồ dán khô x1)				/ +1
-	- kéo nhỏ x1					/ cho vào balo
+	- kéo nhỏ x1					/ cho vào balo 
 	- bút bi x2					/ +2
-	- C sủi						/ sắp hết			/ 1v
-	- rửa kính					/ sắp hết
-	- thước dẻo x1					/ 
+	- rửa kính					/ sắp hết			/ sắp hết
 - chai nước
 - (chai nước ngọt)
 - case máy tính lỏng dây
 - gối cong
 - balo* -> MANG thuốc nâu axit
-- giấy ăn x1 bịch nhỏ					/ sắp hết -> mang +2		/ mang +2
+- giấy ăn x1 bịch nhỏ					/ sắp hết -> mang +2		/ hết
 - lịch 2025
 - cốc uống nước
 - vở ghi						/ +1 nháp
@@ -26,7 +24,7 @@ Ngày cập nhật: 12/03/2025
 - Màn PC (PCS) x2
 - chuột công thái học
 - bàn phím rapoo
-- giấy note										/ hết -> ra bảng lấy
+- giấy note						/ hết -> ra bảng lấy		/ hết ở bảng ko có
 - tai nghe có dây
 -----------------------------------------------------------------------------------------------------------------
 *KARAOKE:
