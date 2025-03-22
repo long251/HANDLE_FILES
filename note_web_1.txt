@@ -1,0 +1,50 @@
+WEBSITE TỔNG RESPONSIVE
+-----------------------
+Ngày cập nhật: 21/03/2025
+-------------------------
+sm:640	-	md:768	-	lg:1024	-	xl:1280	-	2xl:1536	-	cuộn từ từ + màn 375	 =>		ĐANG LÀM...
+*CÁC ĐẦU MỤC:
+ * home 					/ xong 														/ xong
+ - lang 					/ xong														/ xong 
+ - contact us 				/ xong 	(điều hướng 'chat now')			/ đợi c ngọc		/ xong
+	- track 				/ xong 														/  còn help center (content)
+	* solutions 											/ điểu chỉnh chi tiết...
+	- news					/ xong (chỉnh lại title to nhất)							/ xong 
+	- about					/ xong														/  còn thông tin lãnh đạo (content)
+- search					/ xong 														/ xong
+_________________________________________________________________________________________
+1./home:
+ - live chat lệch ở 768		/ căn ở min-[834px]											/ xong 
+ - lệch button navbar ở 1024/ làm lệch đi ở 768 >					/đã fix theo lang	/ xong 
+ + link:
+	- track					/ test nhập 1 -> enter -> chuyển đến track ok các màn		/ xong 
+	- 4 đầu mục to nhỏ, about, customer sp -> contact us; new, 
+	- footer				/ 
+	- nhữnb bài new			/ điều lại title về 64 48									/ xong
+-----------------------------------------------------------------------------------------
+2./solutions (4 bài landingPage và những bài nhỏ):
+2.1. 
+khác:
+- điều chỉnh ảnh máy bay	/ do h-[450px] md:h-[500px] -> tạm xóa						/ xong
+- điều chỉnh thanh cuộn x2	/ 2 màn domestic, ecommerce bỏ padding 2 bên 20 đi			/ xong 
+- các câu hỏi chưa đều		/ flex justify content		/ đặt gap 24, 1024 xuống 1 cột	/ xong 
+- điều chỉnh giải pháp 		/ ful và ecomerce			/ gap-80, md:mt-56 32 button 	/ xong 
+- call 247					/ content bỏ font-bold										/ xong 
+- video + 5 mục giải pháp	/ giảm h xuống 800, dưới 1400 = 400; 5 mục dưới đều 1280	/ xong 
+- thêm content quy trình	/ title, content do viết sai lệnh fulfillment-solutions		/ xong 
+- đổi vị trí icon đối tác	/															/ xong 
+- banner ecommerce			/ title 20px content 48px button							/ xong 
+- banner ecommerce cuộn		/ xong														/ xong 
+- sửa phân mục Ec, solutions/ button chuyển , câu chuyện cắt ngắn lại theo content		/ chưa sửa...
+- amazon có đổ bóng			/ fulfillment-solutions										/ xong 
+- ful number				/ hover vào 2 số kia sẽ có đổ bóng thêm						/ xong 
+- check lại các màn do là chưa cân đâu!									/ responsive tiếp
+
+MOBI:
+	Màn tra cứu -> ko vào link đc
+	◦	Banner ecommer -> to quá
+	◦	Quy trình ePacket -> chưa sửa nó vẫn là 6 mục nhỏ nhỏ kia
+	◦	Ful -> ảnh chuyển bị tròn vuông ko đều
+	◦	Ful -> number màn bé chưa shadow
+	◦	Ful -> trải nghiệm => câu chuyện khách hàng + bị vuông tròn
+	◦	Ful -> form 2 b => chỉnh lại padding 16px
