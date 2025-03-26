@@ -1,0 +1,46 @@
+              <a
+                href="#contact-form"
+                title={__t(
+                  "solutions.international-service.get_a_quote",
+                  translations
+                )}
+                onClick={(e) => {
+                  e.preventDefault(); // Ngăn chặn hành vi mặc định
+
+                  const formElement = document.getElementById("contact-form");
+                  if (formElement) {
+                    const yOffset = -100; // Thêm khoảng cách 100px
+                    const targetPosition =
+                      formElement.getBoundingClientRect().top +
+                      window.scrollY +
+                      yOffset;
+                    const startPosition = window.scrollY;
+                    const distance = targetPosition - startPosition;
+                    let startTime: any = null;
+
+                    function smoothScroll(currentTime: any) {
+                      if (!startTime) startTime = currentTime;
+                      const timeElapsed = currentTime - startTime;
+                      const duration = 800; // Thời gian cuộn (ms)
+                      const easeInOutQuad = (t: any) =>
+                        t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+
+                      const run =
+                        startPosition +
+                        distance * easeInOutQuad(timeElapsed / duration);
+                      window.scrollTo(0, run);
+
+                      if (timeElapsed < duration)
+                        requestAnimationFrame(smoothScroll);
+                    }
+
+                    requestAnimationFrame(smoothScroll);
+                  }
+                }}
+                className="px-[48px] py-[16px] bg-pcsMain rounded-[8px] font-bold text-[16px] hover-gradient inline-block text-center"
+              >
+                {__t(
+                  "solutions.international-service.get_a_quote",
+                  translations
+                )}
+              </a>
