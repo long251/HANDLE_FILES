@@ -1,0 +1,46 @@
+WEB TỔNG
+--------
+Ngày cập nhật: 25/03/2025
+-------------------------
++ chung			- 			? task 
+res: 1728-1440-768-430
+LỖI CHUNG:
+- icon live chat chưa thẳng hàng
+- 
+1. home:
++ img wrapper đang lấy 576px
+? điều chỉnh content 6 mục kia ngắn lại / khá ok tiếng việt, tiếng anh									/ xong
++ tiêu chuẩn: pc: px 40, mobi 16 ; có ảnh mà text đi kèm ở mobi thì cx 16, text sau title thì px 40
+---------------------------------------------------------------------------------------------------------
+2. track:
+? đường link help 1 2 3					/ bỏ đi															/ xong
+---------------------------------------------------------------------------------------------------------
+3. about:
+? link									/ nhưng bài chỉ có tiếng việt chưa có tiếng anh					/ xong
+? tắt intro lãnh đạo do chưa có content	/ tạm ẩn														/ xong 
+---------------------------------------------------------------------------------------------------------
+4. contact us:
+? link									/ đưa về live chat nhưng bị đẩy lên đầu trang rất bực			/ xong
+- các button đang fix cứng ~352px, hover/ lỗi hover chuyển mượt, lỗi width cố định thì màn nhỏ bị dôi
+- form các kiểu 						/ đây cũng khác landingPage ko đồng nhất
+---------------------------------------------------------------------------------------------------------
+5. news:
+- đầu mục 48 -> 40 bỏ 16 15																				/ xong 
+---------------------------------------------------------------------------------------------------------
+6. solution detail:
+- chỉnh 3 đầu mục 48 -> 40 bỏ 16 15																		/ xong 
+---------------------------------------------------------------------------------------------------------
+cuối. landingPage x4
+1. L1 international service:
+? link																									/ check lại
++ đổi vị trí theo content
++ điều chỉnh content chuyên tuyến quốc tế, khác 
+- những con số ấn tượng
+---------------------------------------------------------------------------------------------------------
+*thêm 26/03:
+- 
+ảnh 25/3
+--------
+- 1		/ chỉ khi > 768 mới có shadow, shadow-lg 
+- 2		/ 
+
