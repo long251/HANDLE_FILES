@@ -1,0 +1,213 @@
+
+
+1. UI (giao diện) dispatch action (ví dụ bbgCusBillsRequest(payload))
+2. saga.js trong checkin-redux lắng nghe BBG_CUS_BILLS_REQUEST và gọi API từ checkinService.
+3. Kết quả trả về sẽ được put() thành bbgCusBillsSuccess(...), gửi tới reducer.
+4. reducer.js sẽ cập nhật lại state.
+5. selectors.js dùng để lấy state từ store cho UI.
+
+REDUXS-SAGA:
+I. src > reduxs > checkin-redux >
+------------
+1. action.js:
+import { createFormAction } from 'redux-form-saga'
+export const FORM_KEY = 'CHECK_IN_FORM'
+export const CheckinFormAction = createFormAction(FORM_KEY)
+
+export const CREATE_BILL_RETURN_FORM_KEY = 'CREATE_BILL_RETURN_FORM_KEY'
+export const CreateReturnFormAction = createFormAction(CREATE_BILL_RETURN_FORM_KEY)
+--------------
+2. reducer.js:
+export const bbgCusBillsRequest = createAction('BBG_CUS_BILLS_REQUEST');
+// - Initial State
+....
+// - Reducers
+const reducer = handleActions({
+  [bbgCusBillsRequest]: (state) => ({
+    ...state, fetchingBbgCusBills: true,
+  }),
+--------------
+3. saga.js:
+export function* fetchBBGCusBills({ payload }) {
+  try {
+    const { Result } = yield call(checkinService.fetchBBGCusBills, payload);
+    if (Result.Data) {
+      const { Data, Pagination } = Result
+      yield put(bbgCusBillsSuccess({ bbgCusBills: Data, pagination: Pagination }));
+    } else {
+      yield put(bbgCusBillsSuccess({ bbgCusBills: [], pagination: { Total: 0, Size: 0, Offset: 0 } }));
+    }
+  } catch (error) {
+    yield put(bbgCusBillsSuccess({ bbgCusBills: [], pagination: { Total: 0, Size: 0, Offset: 0 } }));
+  }
+}
+....
+export default [  takeLatest('BBG_CUS_BILLS_REQUEST', fetchBBGCusBills),
+------------------
+4. selectors.js:
+... code khác
+....
+const selectBBGBills = () => createSelector(
+  stateCheckin,
+  ({ bbgBills }) => bbgBills
+);
+
+const selectBBGBillsPagination = () => createSelector(
+  stateCheckin,
+  ({ bbgBillsPagination }) => bbgBillsPagination
+);
+
+const selectFetchingBbgBills = () => createSelector(
+  stateCheckin,
+  ({ fetchingBbgBills }) => fetchingBbgBills
+);
+
+const selectBbgMessage = () => createSelector(
+  stateCheckin,
+  ({ bbgMessage }) => bbgMessage
+);
+
+const selectBBGCusBills = () => createSelector(
+  stateCheckin,
+  ({ bbgCusBills }) => bbgCusBills
+);
+
+const selectBBGCusBillsPagination = () => createSelector(
+  stateCheckin,
+  ({ bbgCusBillsPagination }) => bbgCusBillsPagination
+);
+
+const selectFetchingBbgCusBills = () => createSelector(
+  stateCheckin,
+  ({ fetchingBbgCusBills }) => fetchingBbgCusBills
+);
+
+const selectCheckinNoDelivery = () => createSelector(
+  stateCheckin,
+  ({ checkinNoDelivery }) => checkinNoDelivery
+)
+const selectCheckinNoDeliveryPagination = () => createSelector(
+  stateCheckin,
+  ({ checkinNoDeliveryPagination }) => checkinNoDeliveryPagination
+)
+
+export {
+  stateCheckin,
+  selectCheckins,
+  selectListCheckins,
+  selectCheckinExtra,
+  selectReCheckins,
+  selectPagination,
+  selectLoading,
+  selectListPaylateCheckins,
+  selectFetchingPaylateCheckins,
+  selectPaylateCheckinsPagination,
+  selectBBGCheckins,
+  selectBBGCheckinsPagination,
+  selectFetchingBBGCheckins,
+  selectBBGBills,
+  selectBBGBillsPagination,
+  selectFetchingBbgBills,
+  selectBbgMessage,
+  selectBBGCusBills,
+  selectBBGCusBillsPagination,
+  selectFetchingBbgCusBills,
+  selectCheckinNoDelivery,
+  selectCheckinNoDeliveryPagination,
+};
+----------------------------------
+5. src > reduxs > reducers.js:
+import { reducer as notifReducer } from '../notif-msg-modules/src/modules';
+
+export default (history, injectedReducers) => combineReducers({
+  form: formReducer,
+  router: connectRouter(history),
+	..... code khác
+-----------------------------------
+6. src > reduxs > saga.js:
+export default function* rootSaga(getState) {
+  yield all([
+    ...authSaga,
+    ...userSaga,
+    ...utilitySaga,
+	.... code khác
+-----------------------------------
+7. src > reduxs > store.js:
+import { createStore, applyMiddleware, compose } from 'redux';
+import { routerMiddleware } from 'connected-react-router';
+import createSagaMiddleware from 'redux-saga';
+import formActionSaga from 'redux-form-saga';
+import { createLogger } from 'redux-logger';
+import createReducer from './reducers';
+import notificationSaga from '../notif-msg-modules/src/modules/notification/reducer/rootSaga';
+import rootSaga from "./sagas";
+
+
+import history from '../utils/history';
+import { loadUser } from "redux-oidc";
+import userManager from "../utils/userManager";
+
+const loggerMiddleware = createLogger()
+
+const initialState = {};
+
+function configureStore(initialState = {}, history) {
+  let composeEnhancers = compose;
+  const reduxSagaMonitorOptions = {};
+
+  // If Redux Dev Tools and Saga Dev Tools Extensions are installed, enable them
+  /* istanbul ignore next */
+  if (process.env.REACT_APP_ENV !== 'production' && typeof window === 'object') {
+    /* eslint-disable no-underscore-dangle */
+    if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__)
+      composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({});
+  }
+
+  const bindMiddleware = middleware => {
+    if (process.env.REACT_APP_ENV !== 'production') {
+      //middleware.push(loggerMiddleware)
+      return composeEnhancers(applyMiddleware(...middleware))
+    }
+    return applyMiddleware(...middleware)
+  }
+
+  const sagaMiddleware = createSagaMiddleware(reduxSagaMonitorOptions);
+
+  const store = createStore(
+    createReducer(history),
+    initialState,
+    bindMiddleware([sagaMiddleware, routerMiddleware(history)])
+  )
+  //Load user
+  loadUser(store, userManager);
+  // Extensions
+  sagaMiddleware.run(rootSaga);
+  sagaMiddleware.run(formActionSaga);
+  sagaMiddleware.run(notificationSaga);
+  store.injectedReducers = {}; // Reducer registry
+  store.injectedSagas = {}; // Saga registry
+
+
+
+  // Make reducers hot reloadable, see http://mxs.is/googmo
+  /* istanbul ignore next */
+  if (module.hot) {
+    module.hot.accept('./reducers', () => {
+      store.replaceReducer(createReducer(history, store.injectedReducers));
+    });
+  }
+
+  return store;
+}
+
+export default configureStore(initialState, history);
+++++++++++++++++++++++++
+src > services > checkin-service.js:
+export const fetchBBGCusBills = async (params) => {
+  try {
+    const { data } = await axios.get('/api/op/check-in/list-cus-bbgbill-success-to-return', { params });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

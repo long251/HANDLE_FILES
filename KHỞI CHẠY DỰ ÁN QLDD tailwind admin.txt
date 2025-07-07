@@ -1,0 +1,391 @@
+KHỞI CHẠY DỰ ÁN TAILADMIN
+-------------------------
+
+Dự án "quản lý địa danh"
+------------------------
+1. search: free tailwind admin >  chọn React > tự động tải về file name: free-react-tailwind-admin-dashboard-main
+2. vào VSCode chạy đến project > npm install > npm run dev để khởi chạy lần đầu 5173
+3. dựng khung:
+	- <ListIcon/> Quản lý địa danh
+	- viết Route: App.tsx > <Route index path="/data-location" element={<DataLocation/>}/> (DataLocation nằm trong pages > pagesNew > DataLocation.tsx
+	- bên trong khai:
+		export default function DataLocation() {
+  		return (
+    		<div>
+      		<PageMeta
+        	title="Quản lý địa danh"
+        	description="Quản lý địa danh"
+      		/>
+      		<PageBreadcrumb pageTitle="Data Location" />
+      		<div className="">
+        	<LocationManagement/>
+      		</div>
+    		</div>
+  		);
+		}
+	- bên trong LocationManagement < componentsNew < components:
+		export default function LocationManagement() {
+    		return(
+       		 <>
+       			 1
+        	</>
+    		)
+		}
+4. CSS:
+@utility menu-item-icon-inactive {
+  @apply text-[#140402] group-hover:text-[#140402] dark:text-gray-400 dark:group-hover:text-gray-300;
+}
+@utility menu-item-icon-active {
+  @apply text-[#ED543E] dark:text-[#ED543E];
+}
+@utility menu-item-active {
+  /* @apply bg-brand-50 text-brand-500 dark:bg-brand-500/[0.12] dark:text-brand-400; */
+  @apply bg-[#FEF3F1] text-[#ED543E]
+}
+AppSidebar.tsx:
+  ? "rotate-180 text-[#ED543E]" //text-brand-500
+                      : "text-[#140402]"
+@utility menu-dropdown-item-active {
+  @apply bg-[#EFF1F4] text-[#140402] dark:bg-[#ED543E]/[0.12] dark:text-[#ED543E];
+}
+@utility menu-dropdown-item-inactive {
+  /* @apply text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5; */
+  @apply text-[#140402] hover:bg-[#EFF1F4] dark:text-gray-300 dark:hover:bg-white/5;
+}
+@utility menu-item-inactive {
+  /* @apply text-gray-700 hover:bg-gray-100 group-hover:text-gray-700 dark:text-gray-300 dark:hover:bg-white/5 dark:hover:text-gray-300; */
+  @apply text-[#140402] hover:bg-gray-100 group-hover:text-gray-700 dark:text-gray-300 dark:hover:bg-white/5 dark:hover:text-gray-300;
+}
+<HorizontaLDots className="size-6"/>
+
+5. xây dựng Auth:
+- index.html > thêm title; chuyển sang /src/main.tsx => Bọc BrowserRouter (định tuyến routing) kết hợp Route, Link...
+	npm install react-router-dom
+	import { BrowserRouter } from 'react-router-dom';
+	> Provider: React Redux cung cấp Redux store giúp bki useSelector lấy state, dispatch action:
+	npm install @reduxjs/toolkit react-redux
+	import { Provider } from "react-redux";
+- viết folder store ngang hàng với các phần trong src/
+-> reducers, sagas, store.ts
+5.1 reducers:
+	AuthReducer > index.ts: 
+	- khai báo AuthState: loading, error, token, user, (permissions)
+	> rootReducer.ts:
+	- khai báo Auth:
+		import { AuthReducer } from "./AuthReducer";
+		const rootReducer = {
+    		Auth: AuthReducer,
+		}
+		export default rootReducer
+5.2 sagas:
+	> cài: npm install @reduxjs/toolkit react-redux redux-saga axios (bao gồm cả axios)
+	> ở đây sử dụng thêm env và buildAuthUrl > tạo folder config: auth.ts và env.ts
+	> trong buildAuthUrl thì có các callback, hàm ren mã ngẫu nhiên, tạo thêm file > helpers > string.ts
+	> thì có env.ts phải có thêm file .env nữa:
+	>> tạo thêm file: rootSaga:
+		import { all } from "redux-saga/effects";
+		import { AuthSaga } from "./AuthSaga";
+		export default function* rootSaga(){
+    		yield all([
+        		AuthSaga(),
+    		])
+		}
+5.3 store:
+	import { configureStore } from '@reduxjs/toolkit';
+import createSagaMiddleware from 'redux-saga';
+import rootReducer from './reducers/rootReducer';
+import rootSaga from './sagas/sagas';
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(sagaMiddleware),
+});
+
+sagaMiddleware.run(rootSaga);
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+export default store;
+
+5.4 quay lại main.tsx và import store vào!
+
+5.5 Vào App sửa App: App lúc này sẽ được thêm 1 vòng nữa:
+CẮT:
+import { BrowserRouter as Router, Routes, Route } from "react-router";
+import SignIn from "./pages/AuthPages/SignIn";
+import SignUp from "./pages/AuthPages/SignUp";
+import NotFound from "./pages/OtherPage/NotFound";
+import UserProfiles from "./pages/UserProfiles";
+import Videos from "./pages/UiElements/Videos";
+import Images from "./pages/UiElements/Images";
+import Alerts from "./pages/UiElements/Alerts";
+import Badges from "./pages/UiElements/Badges";
+import Avatars from "./pages/UiElements/Avatars";
+import Buttons from "./pages/UiElements/Buttons";
+import LineChart from "./pages/Charts/LineChart";
+import BarChart from "./pages/Charts/BarChart";
+import Calendar from "./pages/Calendar";
+import BasicTables from "./pages/Tables/BasicTables";
+import FormElements from "./pages/Forms/FormElements";
+import Blank from "./pages/Blank";
+import AppLayout from "./layout/AppLayout";
+import { ScrollToTop } from "./components/common/ScrollToTop";
+import Home from "./pages/Dashboard/Home";
+import LocationManagement from "./components/componentsNew/LocationManagement";
+import DataLocation from "./pages/PagesNew/DataLocation";
+
+export default function App() {
+  return (
+    <>
+      <Router>
+        <ScrollToTop />
+        <Routes>
+          {/* Dashboard Layout */}
+          <Route element={<AppLayout />}>
+            <Route index path="/" element={<Home />} />
+
+            {/* Data Location */}
+            <Route index path="/data-location" element={<DataLocation/>}/>
+            
+            {/* Others Page */}
+            <Route path="/profile" element={<UserProfiles />} />
+            <Route path="/calendar" element={<Calendar />} />
+            <Route path="/blank" element={<Blank />} />
+
+            {/* Forms */}
+            <Route path="/form-elements" element={<FormElements />} />
+
+            {/* Tables */}
+            <Route path="/basic-tables" element={<BasicTables />} />
+
+            {/* Ui Elements */}
+            <Route path="/alerts" element={<Alerts />} />
+            <Route path="/avatars" element={<Avatars />} />
+            <Route path="/badge" element={<Badges />} />
+            <Route path="/buttons" element={<Buttons />} />
+            <Route path="/images" element={<Images />} />
+            <Route path="/videos" element={<Videos />} />
+
+            {/* Charts */}
+            <Route path="/line-chart" element={<LineChart />} />
+            <Route path="/bar-chart" element={<BarChart />} />
+          </Route>
+
+          {/* Auth Layout */}
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+
+          {/* Fallback Route */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
+    </>
+  );
+}
+==> 1 Callback, 1 MainLayout
+==> src > callback > index.tsx:
+import React, { useEffect } from "react";
+
+const Callback: React.FC = () => {
+  useEffect(() => {
+    const url = new URL(location.href);
+    const hash = url.hash;
+    const hashArr = hash.split("&");
+    const token = hashArr[1].replace("access_token=", "");
+    localStorage.setItem("token", token);
+    const idToken = hashArr[0].replace("#id_token=", "");
+    localStorage.setItem("id_token", idToken);
+    location.href = "/home";
+  }, []);
+
+  return (
+    <div></div>
+  );
+};
+
+export default Callback;
+==> src > MainLayout.tsx:
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import AppLayout from "./layout/AppLayout";
+import Home from "./pages/Dashboard/Home";
+import { AppDispatch, RootState } from "./store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { VITE_REQUIRED_AUTH } from "./config/env";
+import { buildAuthUrl } from "./config/auth";
+import { AuthAction } from "./store/reducers/AuthReducer";
+
+const MainLayout: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const authState = useSelector((state: RootState) => state.Auth);
+  
+  const initialAuth = (token: string) => {
+    dispatch(AuthAction.fetchLogin({ token: token }));
+  };
+  console.log('au', authState.user);
+  
+  // code url
+  useEffect(() => {
+    if (VITE_REQUIRED_AUTH) {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        if (!location.pathname.includes("/callback")) {
+          // nếu không có token và đường dẫn không chứa /callback thì sẽ redirect về trang id.shipquocte.com, cố gọi callback sẽ ra trang trắng; ko phải thì đợi nhận token từ hệ thống!
+          window.location.href = `${buildAuthUrl()}`;
+        }
+      } else {
+        // còn nếu có token thì sẽ gọi hàm dispatch từ store để truyền token về và lấy ra user data từ redux saga và lưu trữ trong store
+          initialAuth(token);
+      }
+    } else {
+      // cái này dành cho trường hợp không có auth thì sẽ tạo dữ liệu mẫu đẩy thẳng về store
+      dispatch(
+        AuthAction.fetchLoginSuccess({
+          token: "development",
+          user: {
+            customer: {
+              fullname: "Tung My",
+              // email: 'development@pcs.vn',
+            },
+          },
+          permissions: [],
+        })
+      );
+    }
+  }, []);
+
+  if (authState.loading) {
+    return (
+      <div className="fixed inset-0 flex justify-center items-center">
+        <div role="status">
+    <svg aria-hidden="true" className="w-[60px] h-[60px] text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+    </svg>
+    <span className="sr-only">Loading...</span>
+</div>
+      </div>
+    );
+  }
+  const renderCode = () => {
+    if (authState.token) {
+      return (
+        <div>
+              {/* <ScrollToTop /> */}
+          <Routes>
+            {/* Home */}
+            <Route element={<AppLayout />}>
+              <Route path="/home" element={<Home />} />
+              {/* Tables */}
+            </Route>
+            {/* Fallback Route */}
+            {/* <Route path="*" element={<NotFound />} /> */}
+            <Route path='*' element={<Navigate to='/home' />} />
+          </Routes>
+        </div>
+      );
+    } else {
+      return <div></div>;
+    }
+  };
+  
+  return <>{renderCode()}</>;
+}
+export default MainLayout;
+
+
+trước khi test bổ sung các phần:
+- src > page > NumberPage.tsx
+- src > utils > api.ts:
+import axios, { AxiosInstance } from 'axios';
+import { VITE_BASE_API, } from '../config/env';
+
+export const apiClient: AxiosInstance = axios.create({
+  baseURL: VITE_BASE_API,
+  timeout: 30000,
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+});
+- src > utils > funcLogOut.tsx:
+// src/utils/auth.ts
+import { buildLogoutUrl } from "../config/auth";
+
+export const handleLogout = () => {
+  const token = localStorage.getItem("token");
+  const idToken = localStorage.getItem("id_token");
+  if (token) {
+    localStorage.removeItem("token");
+    localStorage.removeItem("id_token");
+    window.location.href = `${buildLogoutUrl(idToken)}`;
+  }
+};
+
+5.6 thêm .env và pm2.config.cjs vào trong .gitignore:
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+.env
+pm2.config.cjs
+
+6. Báo cáo phần biến môi trường cho BE:
+- cấp thêm 1 cổng 4001
+- tại sao ko chạy được local 4001 mà 5173
+=> sửa file vite.config.ts:
+- cài thêm: npm install @vitejs/plugin-react-swc --save-dev
+(tự dưng đủ chạy được luôn)
+
+7. cập nhật thêm userDropDown:
+- Vào: UserMetaCard.tsx: 
+-   // lấy dữ liệu user
+  const user = useSelector((state: RootState) => state.Auth.user);
+- <img src="/images/user/avatar_user.png" alt="User" />
+<span className="mr-3 overflow-hidden rounded-full h-11 w-11">
+          {/* <img src="/images/user/owner.jpg" alt="User" /> */}
+          <img src="/images/user/avatar_user.png" alt="User" />
+        </span>
+
+        <span className="block mr-1 font-medium text-theme-sm">
+          {user?.shortname || "User"}
+        </span>
+
+8. bổ sung icon favicon nhỏ trên tab web && thêm lại font chữ:
+=> public > font > San...
+=> sau đó import file này vào index.css:
+ @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap")
+layer(base);
+
+=> favicon.ico => thêm vào index.html
+
+
+9. vào thiết kế khung quản lý địa danh:
+-  transition-all duration-200 hover:border-[#ED543E] hover:bg-[#FEF3F1] active:border-[#ED543E] active:bg-[#FEF3F1]
+- 

@@ -1,0 +1,444 @@
+TỈNH THÀNH PHỐ CẬP NHẬT
+-----------------------
+! một phần thị xã => thị xã
+	TÊN CŨ		status	không tìm thấy
+34 - Vĩnh Long
+----------------
+1. tp vĩnh long		xong	ko thấy phường 1
+2. thị xã bình minh	xong	ko phg đông thành, 
+3. huyện bình tân	xong	ko thấy thị trấn tân quới
+4. huyện long hồ	xong	
+5. huyện mang thít	xong
+6. huyện tam bình	xong	ko có xã hậu lộc
+7. huyện trà ôn		xong
+8. huyện vũng liêm	xong
+9. tp bến che		xong
+10. huyện 3 chi		xong	ko tiệm tôm, phước ngãi, 
+11. huyện bình đại	xong
+12. huyện châu thành	xong	ko tt tiên thủy, 
+13. huyện chợ lách	xong
+14. huyện giồng trôm	xong
+15. huyện mỏ cày bắc	xong
+16. huyện mỏ cày nam	xong	ko xđ đông tây bình khánh: mới-xã đồng khởi 
+17. huyện thạnh phú	xong
+18. tp trà vinh		xong
+19. thị xã duyên hải	xong
+20. huyện càng long	xong
+21. huyện cầu kè	xong	ko có mới-hòa tân
+22. h cầu ngang		hết
+23. h châu thành	còn
+24. h duyên hải		hết
+25. h tiểu cần		hết
+26. h trà cú		hết
+=================================================
+
+33 - Tuyên Quang
+----------------
+chưa cập nhật
+=================================================
+
+32 - Thái Nguyên
+------------------
+1. tp thái nguyên
+2. tp phổ yên
+3. tp sông công
+4. h đại từ
+5. h định hóa
+6. h đồng hỷ
+7. h phú bình
+8. h phú lương
+9. h võ nhai
+...
+chưa cập nhật
+=================================================
+
+31 - Thanh Hóa
+---------------
+chưa cập nhật
+=================================================
+
+30 - Tây Ninh
+--------------
+1. tp tây ninh		hết	ko có p tây ninh
+2. tx hòa tân		hết
+3. tx trảng bàng	hết
+4. h gò dầu		hết
+5. h dương minh châu	...
+6. h tân châu		hết
+7. h tân biên		hết
+8. h châu thành		hết
+9. h bến cầu		hết
+10. tp tân an		hết
+11. tx kiến tường	hết
+12. bến lức		hết
+13. h cần đước		hết
+14. h cần giuộc		hết
+15. h châu thành	hết
+16. đức hòa		hết
+17. đức huệ		hết
+18. mộc hóa		hết
+19. tân hưng		hết
+20. tân thạnh		hết
+21. tân trụ		hết
+22. thạnh hóa		hết
+23. thủ thừa		hết
+24. vĩnh hưng		hết
+
+
+29 - Sơn La
+-------------
+chưa cập nhật
+=================================================
+
+28 - Quảng Trị
+---------------
+1. tp đông hà
+2. tx quảng trị
+3. h cam lộ
+4. h dakrong
+5. h Gio linh
+6. h hải lăng
+7. h hướng hóa
+8. h triệu phong
+9. h vĩnh linh
+
+10. tp đồng hới		hết
+11. tx ba đồn		hết
+12. h bố trạch		hết
+13. h lệ thủy		hết
+14. h minh hóa		hết
+15. h quảng ninh	hết
+16. h quảng trạch	hết
+17. h tuyên hóa		hết
+=================================================
+
+27 - Quảng Ninh
+----------------
+1. tp hạ long
+2. tp cẩm phả
+3. đông triều
+4. móng cái
+5. uông bí
+6. quảng yên
+7. ba chẽ
+8. bình liêu
+9. cô tô		hết
+10. đầm hà
+11. hải hà
+12. tiên yên
+13. vân đồn		hết
+=================================================
+
+26 - Quảng Ngãi
+---------------
+1. quảng ngãi
+2. tx đức phổ
+3. ba tơ
+4. bình sơn
+5. lý sơn		hết 	đặc khu lý sơn
+6. minh long
+7. mộ đức
+8. nghĩa hành
+9. sơn hà
+10. sơn tây
+11. sơn tịnh
+12. trà bồng
+13. tư nghĩa
+14. tp kon tum		hết
+15. Đăk Glei, Đăk Hà, Đăk Tô, Ia H'Drai, Kon Plông, Kon Rẫy, Ngọc Hồi,Sa Thầy, Tu Mơ Rông
+=====================================================
+
+25 - Phú thọ
+------------
+1. ... các tỉnh từ việt trì đến Yên lập
+2. vĩnh yên		hết
+3. phúc yên		hết
+4. bình xuyên		hết
+5. lập thạch		hết
+6. sông lô		hết
+7. tam đảo		ko thấy
+8. tam dương		hết
+9. vĩnh tường		dài, hết
+10. yên lạc		hết
+11. tp hòa bình, cao phong, đà bắc, kim bôi, lạc sơn, lạc thủy, lương sơn, mai châu, tân lạc, yên thủy
+=====================================================
+
+24 - Ninh bình
+--------------
+chưa cập nhật
+=====================================================
+
+23 - Nghệ An
+------------
+1.tp vinh		hết
+2. các tp khác
+=====================================================
+
+22 - Lâm Đồng
+-------------
+1. đà lạt, bảo lộc... lâm hà
+2. gia nghĩa		hết
+3. cư juts		hết
+4. đắk glong		hết
+5. đắk mil		hết
+6. đắk rlap		ko thấy
+7. đắk song		hết
+8. krông nô		hết
+9. tuy đức		hết
+10. phan thiết		hết
+11. la gi		ko thấy
+12. bắc bình		ko thấy
+13. đức linh		hết
+14. hàm tân		hết
+15. hàm thuận bắc	ko thấy
+16. hàm thuận nam	hết
+17. phú quý		ko thấy
+18. tánh linh		hết
+19. tuy phong
+=====================================================
+
+21 - Lạng Sơn
+-------------
+chưa cập nhật
+=====================================================
+
+20 - Lào Cai
+------------
+chưa cập nhật
+=====================================================
+
+19 - Lai Châu
+-------------
+chưa cập nhật
+=====================================================
+
+18 - Khánh Hòa
+--------------
+1. nha trang		hết
+2. cam ranh		hết
+3. ninh hòa		hết		
+4. cam lâm		hết
+5. diên khánh		hết
+6. khánh sơn		hết
+7. khánh vĩnh		hết
+8. trường sa		ko thấy
+9. vạn ninh		ko thấy có mỗi kcn
+10. phan ranh-t chàm	hết
+11. bác ái		ko thấy
+12. ninh hải		ko thấy có mỗi 1 kcn
+13. ninh phước		ko
+14. ninh sơn		ko
+15. thuận bắc		ko
+16. thuận nam		ko
+=====================================================
+
+17 - Hưng Yên
+-------------
+chưa cập nhật
+=====================================================
+
+16 - Hà Tĩnh
+------------
+chưa cập nhật
+=====================================================
+
+15 - Gia Lai
+------------
+1. pleiku		hết	
+2. an khê		hết
+3. ayun pa		hết
+4. chư pah		ko thấy
+5. chư prong		hết
+6. chu puh		hết
+7. chư sê		hết	
+8. đăk đoa		hết
+9. đăk pơ		ko thấy
+10. đức cơ		hết
+11. La Grai		hết
+12. La Pa		hết
+13. Kbang		hết
+14. Kông Chro		hết
+15. Krông pa		hết
+16. mang yang		hết
+17. phú thiện		ko thấy
+18. tp quy nhơn*	hết
+19. an nhơn		hết
+20. hoài nhơn		tam quan -> hoài nhơn 6 (kco)
+21. an lão		hết
+22. hoài ân		hoài ân 2
+23. phù cát		ko thấy
+24. phù mỹ		ko thấy
+25. tây sơn		ko thấy
+26. tuy phước		ko thấy
+27. vân canh		ko thấy
+29. vĩnh thạnh		ko thấy
+=====================================================
+
+14 - Đồng tháp
+--------------
+1. cao lãnh... hồng ngự
+2. lai vung		hết
+3. lấp vò		hết
+4. tam nông			chưa có
+5. tân hồng			chưa có
+6. thanh bình			chưa có
+7. tháp 10			chưa có
+8. tp mỹ tho		hết
+9. gò công		hết
+10. cai lậy		hết
+11. cái bè		hết
+12. h cai lậy		hết
+13. châu thành		hết
+14. chợ gạo		ko thấy
+15. gò công đông	hết
+16. gò công tây		ko thấy
+17. tân phú đông	hết
+18. tân phước		hết
+=====================================================
+
+13 - Đồng Nai
+-------------
+1. biên hòa		hết
+2. long khánh		hết
+3. cẩm mỹ		ko thấy
+4. định quán		ko
+5. long thành		h
+6. nhơn trạch		h
+7. tân phú		h
+8. thống nhất		h
+9. trảng bom		h
+10. vĩnh cửu		h
+11. xuân lộc		h
+12. đồng xoài		ko
+13. bình long		ko
+14. chơn thành		ko
+15. phước long		h
+16. bù đăng		h
+17. bù đốp		ko
+18. bù gia mập		h
+19. đồng phú		h
+20. hớn quản		h
+21. lộc ninh		ko
+22. phú riềng		h
+=====================================================
+
+12 - Điện Biên
+--------------
+1. điện biên phủ	
+2. mường lay
+3. điện biên
+4. điện biên đông
+5. Mường áng... Tuần giáo
+=> đã cập nhật hết
+=====================================================
+
+11 - Đăk Lăk
+------------
+1. buôn ma thuột	h
+2. buôn hồ		chưa
+3. buôn đôn		h
+4. cư kuin		h
+5. cư m'gar		h
+6. ea hleo		h
+7. ea kar		h
+8. ea súp		h
+9. krong ana		chưa
+10. krong bông		chưa
+11. krong buk		chưa
+12. krông năng		chưa
+13. krông pắc		h
+14. lăk			-> krông nô
+15. mDrak		h
+16. tuy hòa		ko có tp tuy hòa
+17. Đông hòa		ko có đông hòa
+18. Sông cầu		ko
+19. Đồng xuân		ko
+20. Phú hòa		ko
+21. Sơn hòa		ko
+22. Sông hinh		ko
+23. tây hòa		ko
+24. tuy an		ko
+=====================================================
+
+10 - Cà Mau
+-----------
+1. tp cà mau	k
+2. cái nước	k
+3. đầm dơi	k
+4. năm căn	k
+5. ngọc hiển	k
+6. phú tân	k
+7. thới bình	k	hồ thị kỷ
+8. trần văn thơik
+9. u minh	k
+10. bạc liêu	
+11. giá rai	
+12. đông hải
+13. hòa bình
+14. hồng dân
+15. phước long
+16. vĩnh lợi
+=> đã cập nhật hết
+=====================================================
+
+9 - Cao Bằng
+------------
+=> đã cập nhật hết
+=====================================================
+
+8 - Bắc Ninh
+------------
+=> đã cập nhật hết
+=====================================================
+
+7 - An Giang
+------------
+=> đã cập nhật hết
+=====================================================
+
+6 - Huế
+-------
+a Khánh lớn
+=====================================================
+
+5 - TP Hồ chí minh
+------------------
+1. quận 1	k có p tân định
+2. quận 3	
+3. quận 4
+4. quận 5
+5. quận 6
+6. quận 7
+7. quận 8
+8. quận 10
+9. quận 11
+10. quận 12
+11. quận bình tân
+12. bình thạnh
+13. gò vấp
+14. phú nhuận
+15. tân bình
+16. tân phú
+17. thủ đức
+18. bình chánh
+19. cần giờ
+20. củ chi
+21. hóc môn
+22. nhà bè
+23. bà rịa
+24. vũng tàu
+25. phú mỹ
+26. châu đức
+27. côn đảo
+28. long đất
+29. xuyên mộc
+30. thủ dầu 1
+31. bến cát
+32. dĩ an
+33. tân uyên
+34. thuận an
+35. bàu bàng
+36. bắc tân uyên
+37. dầu tiếng
+38. phú giáo 
+=====================================================

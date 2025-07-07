@@ -1,0 +1,126 @@
+LUỒNG:
+1. checkinConfirm-service.js:
+import axios from "../utils/axiosInstance";
+
+export const scanBBGBillsConfirm = async (params) => {
+  try {
+    const { data } = await axios.get("/api/op/check-in/scan-bbg-bill-received", { params });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+===============================
+2. tạo checkinConfirm-redux:
+1. reducer.js:
+import { createAction, handleActions } from "redux-actions";
+// - Actions
+export const scanBBGBillsConfirmRequest = createAction("SCAN_BBG_BILLS_CONFIRM_REQUEST");
+export const scanBBGBillsConfirmSuccess = createAction("SCAN_BBG_BILLS_CONFIRM_SUCCESS");
+
+export const failure = createAction("SCAN_BBG_BILLS_CONFIRM_FAILURE");
+
+// - Initial State
+export const initialState = {
+  bbgbills_confirm_data: [],
+
+  loading: false,
+  error: null,
+};
+
+// - Reducers
+const reducer = handleActions(
+  {
+    [scanBBGBillsConfirmRequest]: (state) => ({
+      ...state,
+      loading: true,
+    }),
+    [scanBBGBillsConfirmSuccess]: (state, { payload: { bbgbills_confirm_data } }) => ({
+      ...state,
+      bbgbills_confirm_data: bbgbills_confirm_data,
+    }),
+
+    [failure]: (state, action) => ({
+      ...state,
+      loading: false,
+      error: action.error,
+    }),
+  },
+  initialState
+);
+
+export default reducer;
+-------------
+2. saga.js:
+import { call, put, takeLatest } from "redux-saga/effects";
+import * as checkinService from "../../services/checkinConfirm-service";
+
+import { scanBBGBillsConfirmSuccess } from "./reducer";
+
+export function* scanBBGBillsConfirm({ payload }) {
+  try {
+    const { Result } = yield call(checkinService.scanBBGBillsConfirm, payload);
+    if (Result.Data) {
+      const { Data } = Result;
+      yield put(scanBBGBillsConfirmSuccess({ bbgbills_confirm_data: Result }));
+    } else {
+      yield put(scanBBGBillsConfirmSuccess({ bbgCusBills: [] }));
+    }
+  } catch (error) {
+    yield put(scanBBGBillsConfirmSuccess({ bbgCusBills: [] }));
+  }
+}
+
+export default [takeLatest("SCAN_BBG_BILLS_CONFIRM_REQUEST", scanBBGBillsConfirm)];
+------------------
+3. selectors.js:
+ import { createSelector } from "reselect";
+import { initialState } from "./reducer";
+const stateCheckinConfirm = (state) => state.scanBBGBillsConfirm || initialState;
+
+const selectCheckinConfirm = () =>
+  createSelector(stateCheckinConfirm, ({ bbgbills_confirm_data }) => bbgbills_confirm_data);
+
+export { stateCheckinConfirm, selectCheckinConfirm };
+===============================================
+3. BbgConfirmVM.js: (component cha):
+export function mapDispatchToProps(dispatch) {
+return {
+  getCheckinsConfirm: (params) => dispatch(scanBBGBillsConfirmRequest(params)),
+  };
+}
+const mapStateToProps = createStructuredSelector({
+ dataCheckinsConfirm: selectCheckinConfirm(),
+});
+export default recompose(
+  withConnect,
+  withState("params", "setParams", {
+    Offset: 1,
+    Size: 50,
+    StaffCode: "",
+    StartTime: moment().subtract(30, "days"),
+    EndTime: moment(),
+  }),
+  withState("selectKeys", "setSelectKeys", []),
+  withState("selectRows", "setSelectRows", []),
+  withState("tmpBills", "setTmpBills", []),
+  withState("selects", "setSelects", ({ billBatch }) => billBatch || []),
+  withState("saving", "setSaving", false),
+  withState("scaning", "setScaning", false),
+  withState("openStaff", "setOpenStaff", false),
+  withState("allowBill", "setAllowBill", false),
+withHandlers({
+    fetchCheckinsConfirm:
+      ({ getCheckinsConfirm, dataCheckinsConfirm }) =>
+      (HAWB_NO) => {
+        const { ResultCode, ResultMessage, Success } = dataCheckinsConfirm;
+        console.log(ResultMessage)
+        console.log(ResultCode)
+        console.log(Success)
+
+        getCheckinsConfirm({ HawbNo: HAWB_NO });
+        if(ResultCode != 1 && Success != true) {
+          message.error(ResultMessage)
+        }
+      },
+  }),

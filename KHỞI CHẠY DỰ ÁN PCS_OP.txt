@@ -1,0 +1,22 @@
+KHỞI CHẠY DỰ ÁN PCS_OP
+----------------------
+
+*. tạo 1 folder PCS-OP
+1. đăng nhập gitlab: 172.16.10.55/post/pcs-op
+2. Clone: SSH: git@172.16.10.55:post/pcs-op.git
+3. chạy vào pcs-op
+4. chuyển sang nhánh mới longddq
+5. vào VSCode
+6. navbar: src > notif: bên trong gồm src, modules...
+7. git submodules > update
+8. npm run build
+9. npm run start
+*. xong
+
+tk đăng nhập: 000546
+
+
+
+
+
+

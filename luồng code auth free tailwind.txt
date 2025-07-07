@@ -1,0 +1,193 @@
+ban đầu 1 dự án, bạn xem cho tôi cách khắc phục điều trên hay tôi đang lấy theo 1 token cố định trong saga để test api? ngay đây bạn hãy nói lại luồng đơn giản dễ hiểu của quá trình auth chạy từ index.html > main.tsx > App:
+export default function App() {
+  return (<div className='App'>
+  <Routes>
+    {/* nếu url  */}
+    <Route path='/callback' element={<Callback />} />
+    <Route path='*' element={<MainLayout />} />
+  </Routes>
+</div>);
+}
+từ App > Callback hoặc MainLayout:
+1. Callback:
+import React, { useEffect } from 'react';
+
+const Callback: React.FC = () => {
+  useEffect(() => {
+    const url = new URL(location.href);
+    const hash = url.hash;
+    const hashArr = hash.split('&');
+    const token = hashArr[1].replace('access_token=', '');
+    localStorage.setItem('token', token);
+    const idToken = hashArr[0].replace('#id_token=', '');
+    localStorage.setItem('id_token', idToken);
+    location.href = "/home";
+  }, []);
+
+  return <div style={{textAlign: 'center', fontSize: '20px'}}>Loading</div>;
+};
+
+export default Callback;
+2. MainLayout:
+ const dispatch = useDispatch<AppDispatch>();
+  const authState = useSelector((state: RootState) => state.Auth);
+  // code url
+  const initialAuth = (token: string) => {
+    dispatch(AuthAction.fetchLogin({ token: token }));
+  };
+  // code url
+  useEffect(() => {
+    if (VITE_REQUIRED_AUTH) {
+      const token = localStorage.getItem("token");
+      // const authError = sessionStorage.getItem('auth_error');
+      if (!token) {
+        if (!location.pathname.includes("/callback")) {
+          // nếu không có token và đường dẫn không chứa /callback thì sẽ redirect về trang id.shipquocte.com, cố gọi callback sẽ ra trang trắng; ko phải thì đợi nhận token từ hệ thống!
+          window.location.href = `${buildAuthUrl()}`;
+        }
+      } else {
+        // còn nếu có token thì sẽ gọi hàm dispatch từ store để truyền token về và lấy ra user data từ redux saga và lưu trữ trong store
+        // initialAuth(token);
+        // if (!authError) {
+          initialAuth(token);
+        // } else {
+        //   console.warn('Detected previous auth error. Skipping login.');
+        // }
+      }
+    } else {
+      // cái này dành cho trường hợp không có auth thì sẽ tạo dữ liệu mẫu đẩy thẳng về store
+      dispatch(
+        AuthAction.fetchLoginSuccess({
+          token: "development",
+          user: {
+            customer: {
+              fullname: "Long My",
+              // email: 'development@pcs.vn',
+            },
+          },
+          permissions: [],
+        })
+      );
+    }
+  }, []);
+.env:
+VITE_ENV="development"
+VITE_PORT=4000
+VITE_REQUIRED_AUTH=true
+VITE_BASE_API="https://so-api.shipquocte.com"
+VITE_LOGIN_URL="https://id.pcs.vn"
+VITE_LOGIN_SCOPE="profile openid crm_api.read_only"
+VITE_LOGIN_CLIENT_ID="pcs-admin"
+VITE_LOGIN_REDIRECT_URI="http://localhost:$VITE_PORT/callback"
+VITE_LOGOUT_REDIRECT_URI="http://localhost:$VITE_PORT/signout-callback-oidc"
+
+VITE_CHAT_API="https://apichat.shipquocte.com"
+VITE_SOCKET_API="https://socket.shipquocte.com"
+4. authSaga:
+import { PayloadAction } from '@reduxjs/toolkit';
+import { call, put, retry, takeLatest } from 'redux-saga/effects';
+import axios, { AxiosResponse } from 'axios';
+import { AuthAction } from '../../reducers/AuthReducer';
+import { VITE_LOGIN_URL } from '../../../config/env';
+import { apiClient } from '../../../utils/api';
+
+function* fetchLogin({ payload }: PayloadAction<any>) {
+  // const token = "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkUxNzYwODA4QTNGMUY5NzNERkUyRDdGODY5QTFBM0Q5MTY4OUUxNTMiLCJ0eXAiOiJhdCtqd3QiLCJ4NXQiOiI0WFlJQ0tQeC1YUGY0dGY0YWFHajJSYUo0Vk0ifQ.eyJuYmYiOjE3NDY0MTQ1ODMsImV4cCI6MTc0NjQ1MDU4MywiaXNzIjoiaHR0cHM6Ly9pZC5wY3Mudm4iLCJhdWQiOiJjcm1fYXBpIiwiY2xpZW50X2lkIjoib3AtbXZjLXByb2R1Y3Rpb24iLCJzdWIiOiIwMDA1NDYiLCJhdXRoX3RpbWUiOjE3NDY0MTQ1ODMsImlkcCI6ImxvY2FsIiwidXNlcm5hbWUiOiIwMDA1NDYiLCJlbWFpbCI6ImhpZXB2YkBwY3Mudm4iLCJzdGFmZkNvZGUiOiIwMDA1NDYiLCJ1c2VySWQiOiIzODciLCJmdWxsTmFtZSI6IlN1cHBlciBJVCIsInNob3J0bmFtZSI6IlN1cHBlciBJVCIsInJvbGUiOlsicGNzX3VzZXIiLCJzcGVjaWFsIiwiZXhwX3RvX2NzIiwiZXhwX3RvX2FjYyIsImFkbWluIl0sInBlcm1pc3Npb24iOlsicmVhZF9vbmx5IiwiZnVsbF9hY2Nlc3MiXSwic2NvcGUiOlsib3BlbmlkIiwicHJvZmlsZSIsImNybV9hcGkucmVhZF9vbmx5Il0sImFtciI6WyJwd2QiXX0.N-n3OptZ4gD7W_oCcG6ck-r3HVKKCwOryhX2hfdAMTxDhzgBcvb7N4rz7UaSaFZZrHP8F2rc6EC6KedwuSLos4-IB9eF7IV9o0i2h5UgiEgOjTZoVChBal8vJ36e36MtDSRgCCbQRVol15LBKPBcp10ap-U5SqnqzqIZztxD5vvFt0GBAQGG6rE4tiRSjA8T1Yy6AfQiYoTx-E7EEdTTTpfIpWpfxHACpyb9paFWH8O2FfsCFxCmx8jZkSqOVeZ33eXsEno6OMp6g_b3Kk9OIwA8jC--acSEcESqwqre1WJ4dJS4puSHcfFpJ15KSpODE603emZQ2VvcyL86TCPWzg"
+    try {
+    // Đặt trạng thái loading
+    yield put(AuthAction.setLoading(true));
+
+    // Gọi API lấy thông tin user
+    const response: AxiosResponse = yield call(
+      axios.get,
+      `${VITE_LOGIN_URL}/connect/userinfo`, // URL của API
+      {
+        headers: {
+          Authorization: `Bearer ${payload.token}`,
+          // Authorization: token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    if(response.data != null) {
+      // Nếu lấy được dữ liệu, lưu vào Redux store
+      const userData = response.data;
+
+      let permissions: string[] = [];
+      const permissionResponse: AxiosResponse = yield apiClient.get(
+        '/api/Access/GetResourcesCC',
+      );
+      if (permissionResponse.data.status) {
+        const permissionArr = permissionResponse.data.data;
+        if (Array.isArray(permissionArr)) {
+          for (let i = 0; i < permissionArr.length; i++) {
+            if (permissionArr[i]['actions'] == 'ACCESS') {
+              permissions.push(permissionArr[i]['code']);
+            }
+          }
+        }
+      }
+
+      yield put(
+        AuthAction.fetchLoginSuccess({
+          token: payload.token,
+          user: userData,
+          permissions: permissions,
+        }),
+      );   
+    } else {
+      AuthAction.fetchLoginSuccess({
+        token: "development",
+        user: {
+          customer: {
+            fullname: "Long My",
+            // email: 'development@pcs.vn',
+          },
+        },
+        permissions: [],
+      })
+    }
+  } catch (error) {
+    // Khi có lỗi, lưu trạng thái lỗi và kết thúc loading
+    // yield put(AuthAction.fetchLoginFailed());
+    // const token = localStorage.getItem('token');
+    // const idToken = localStorage.getItem('id_token');
+    // if (token || idToken) {
+    //   localStorage.removeItem('token');
+    //   localStorage.removeItem('id_token');
+    // }
+    // window.location.href = '/error';
+    console.log('Error Saga: ', error);
+
+    // let permissions: string[] = [];
+    // const permissionResponse: AxiosResponse = yield apiClient.get(
+    //   '/api/Access/GetResourcesCC',
+    // );
+    // if (permissionResponse.data.status) {
+    //   const permissionArr = permissionResponse.data.data;
+    //   if (Array.isArray(permissionArr)) {
+    //     for (let i = 0; i < permissionArr.length; i++) {
+    //       if (permissionArr[i]['actions'] == 'ACCESS') {
+    //         permissions.push(permissionArr[i]['code']);
+    //       }
+    //     }
+    //   }
+    // }
+
+    yield put(
+      AuthAction.fetchLoginSuccess({
+        token: payload.token,
+        user: "",
+        permissions: [],
+      }),
+    ); 
+  } finally {
+    yield put(AuthAction.setLoading(false));
+  }
+}
+
+export function* AuthSaga() {
+  yield takeLatest(AuthAction.fetchLogin.type, fetchLogin);
+}

@@ -1,0 +1,79 @@
+import { PayloadAction } from '@reduxjs/toolkit';
+import { call, put, retry, takeLatest } from 'redux-saga/effects';
+import axios, { AxiosResponse } from 'axios';
+import { AuthAction } from '../../reducers/AuthReducer';
+import { VITE_LOGIN_URL } from '../../../config/env';
+import { apiClient } from '../../../utils/api';
+
+function* fetchLogin({ payload }: PayloadAction<any>) {
+  // const token = "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkUxNzYwODA4QTNGMUY5NzNERkUyRDdGODY5QTFBM0Q5MTY4OUUxNTMiLCJ0eXAiOiJhdCtqd3QiLCJ4NXQiOiI0WFlJQ0tQeC1YUGY0dGY0YWFHajJSYUo0Vk0ifQ.eyJuYmYiOjE3NDY0MTQ1ODMsImV4cCI6MTc0NjQ1MDU4MywiaXNzIjoiaHR0cHM6Ly9pZC5wY3Mudm4iLCJhdWQiOiJjcm1fYXBpIiwiY2xpZW50X2lkIjoib3AtbXZjLXByb2R1Y3Rpb24iLCJzdWIiOiIwMDA1NDYiLCJhdXRoX3RpbWUiOjE3NDY0MTQ1ODMsImlkcCI6ImxvY2FsIiwidXNlcm5hbWUiOiIwMDA1NDYiLCJlbWFpbCI6ImhpZXB2YkBwY3Mudm4iLCJzdGFmZkNvZGUiOiIwMDA1NDYiLCJ1c2VySWQiOiIzODciLCJmdWxsTmFtZSI6IlN1cHBlciBJVCIsInNob3J0bmFtZSI6IlN1cHBlciBJVCIsInJvbGUiOlsicGNzX3VzZXIiLCJzcGVjaWFsIiwiZXhwX3RvX2NzIiwiZXhwX3RvX2FjYyIsImFkbWluIl0sInBlcm1pc3Npb24iOlsicmVhZF9vbmx5IiwiZnVsbF9hY2Nlc3MiXSwic2NvcGUiOlsib3BlbmlkIiwicHJvZmlsZSIsImNybV9hcGkucmVhZF9vbmx5Il0sImFtciI6WyJwd2QiXX0.N-n3OptZ4gD7W_oCcG6ck-r3HVKKCwOryhX2hfdAMTxDhzgBcvb7N4rz7UaSaFZZrHP8F2rc6EC6KedwuSLos4-IB9eF7IV9o0i2h5UgiEgOjTZoVChBal8vJ36e36MtDSRgCCbQRVol15LBKPBcp10ap-U5SqnqzqIZztxD5vvFt0GBAQGG6rE4tiRSjA8T1Yy6AfQiYoTx-E7EEdTTTpfIpWpfxHACpyb9paFWH8O2FfsCFxCmx8jZkSqOVeZ33eXsEno6OMp6g_b3Kk9OIwA8jC--acSEcESqwqre1WJ4dJS4puSHcfFpJ15KSpODE603emZQ2VvcyL86TCPWzg"
+    try {
+    // Đặt trạng thái loading
+    yield put(AuthAction.setLoading(true));
+    // Gọi API lấy thông tin user
+    const response: AxiosResponse = yield call(
+      axios.get,
+      `${VITE_LOGIN_URL}/connect/userinfo`,
+      {
+        headers: {
+          Authorization: `Bearer ${payload.token}`,
+          // Authorization: token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    if(response.data != null) {
+      // Nếu lấy được dữ liệu, lưu vào Redux store
+      const userData = response.data;
+      // let permissions: string[] = [];
+      // const permissionResponse: AxiosResponse = yield apiClient.get(
+      //   '/api/Access/GetResourcesCC',
+      // );
+      // if (permissionResponse.data.status) {
+      //   const permissionArr = permissionResponse.data.data;
+      //   if (Array.isArray(permissionArr)) {
+      //     for (let i = 0; i < permissionArr.length; i++) {
+      //       if (permissionArr[i]['actions'] == 'ACCESS') {
+      //         permissions.push(permissionArr[i]['code']);
+      //       }
+      //     }
+      //   }
+      // }
+      yield put(
+        AuthAction.fetchLoginSuccess({
+          token: payload.token,
+          user: userData,
+          // permissions: permissions,
+          permissions: [],
+        }),
+      );   
+    } else {
+      AuthAction.fetchLoginSuccess({
+        token: "development",
+        user: {
+          customer: {
+            fullname: "Long My",
+            // email: 'development@pcs.vn',
+          },
+        },
+        permissions: [],
+      })
+    }
+  } catch (error) {
+    console.log('Error Saga: ', error);
+    yield put(
+      AuthAction.fetchLoginSuccess({
+        token: payload.token,
+        user: "",
+        permissions: [],
+      }),
+    ); 
+  } finally {
+    yield put(AuthAction.setLoading(false));
+  }
+}
+
+export function* AuthSaga() {
+  yield takeLatest(AuthAction.fetchLogin.type, fetchLogin);
+}
