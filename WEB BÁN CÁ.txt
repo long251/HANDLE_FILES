@@ -1,0 +1,12 @@
+WEB BÁN CÁ
+----------
+
+chia bố cục:
+1. header:
+- toggle thu/phóng sidebar 			ok
+- search theo mã đơn hoặc keyword		id, nameItem
+...
+- icon thông báo				socket		chưa
+- 	
+sidebar:
+- home

@@ -1,0 +1,28 @@
+HỌC DATA BASE
+-------------
+KHÓA HỌC SQL Server
+-------------------
+
+*16/07/2025 15h:
+bài 1: Hướng dẫn cài đặt SQL Server 2022:
+- trình duyệt -> SQL server download -> của micro -> kéo xuống: free -> express
+- lưu vào thư mục phù hợp, yes -> chọn Basic -> cứ next -> đến install SSMS
+-------------------------------------------------------------------------------------------
+bài 2: cài SQL server management studio (SSMS):
+- giao diện, quản lý câu lệnh...	->	nhấn install SSMS
+- https://aka.ms/ssmsfullsetup
+-> chuyển đến trang download -> free -> save file -> mở ra install, (mở lên khá nặng)
+- để full mặc định ko thay đổi gì cả
+-------------------------------------------------------------------------------------------
+bài 3: cbi CSDL thực hành SQL:
+- northwind db
+- tải file schemat_short về học từ file github dưới mô tải
+- tải 3 file: northwnd, northwnd_log.ldf, schemat_short.doc
+- lần đầu search: SSMS > phải chuột chạy quyền admin
+- lần đầu vào UI:
+	- sidebar có folder: Database: chuột phải chọn attach
+	- truy cập đến vị trí -> Add -> ok
+-------------------------------------------------------------------------------------------
+bài 4: câu lệnh SELECT__FROM__
+* SELECT col1,col2,... FROM table_name;
+- 
