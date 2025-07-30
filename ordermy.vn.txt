@@ -1,0 +1,39 @@
+ordermy.vn
+----------
+
+Template:
+1: trang chủ
+2: về chúng tôi
+3: Dịch vụ
+4: 
+- Gửi hàng từ Mỹ về VN
+- Mua hộ hàng Mỹ
+- Đấu giá - Offer ebay.com
+5:
+- Biểu phí dịch vụ
+- Phí vận chuyển quốc tế Mỹ Việt
+6:
+- Phương thức thanh toán
+- Phương pháp tính giá vận chuyển
+- Chính sách bảo mật
+- Chính sách hỗ trợ khiếu nại
+- Chính sách giao dịch
+- Câu hỏi thg gặp
+- Hàng cấm mua nhập khẩu
+- Quy trình mua hàng
+- Quy trình mua hộ hàng Mỹ
+- Quy trình ký gửi hàng Mỹ
+
+7: Ước tính giá
+8: Liên hệ 
+9: Đăng kí
+10: Đăng nhập 
+11:
+- Khuyến mại
+- Tin tức
+- Kinh nghiệm 
+12: Tra cứu
+
+Chức năng chủ đạo: tra cứu đơn hàng, form thu lead
+---------------------------------------------------
+Tổng: 12 templates, 34 trang con nội dung khác nhau

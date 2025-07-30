@@ -1,0 +1,1480 @@
+import MainLayout from "@/components/main-layout";
+import { SiteHeader } from "@/components/site-header";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Card, CardContent } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
+import type { RootState } from "@/store";
+import {
+  deselectAllDomesticBills,
+  deselectDomesticBill,
+  exportDomesticBillsStart,
+  fetchDomesticBillsStart,
+  selectAllDomesticBills,
+  selectDomesticBill,
+} from "@/store/slices/domesticBillSlice";
+import { fetchAddressesStart } from "@/store/slices/warehouseSlice";
+import type {
+  DomesticBillRequestParams,
+  TransformedDomesticBill,
+} from "@/types/domesticBill";
+import {
+  DOMESTIC_BILL_STATUS_MAP,
+  type DomesticBillStatusKey,
+} from "@/types/domesticBill";
+import {
+  IconChevronLeft,
+  IconChevronRight,
+  IconChevronsLeft,
+  IconChevronsRight,
+} from "@tabler/icons-react";
+import { format } from "date-fns";
+import {
+  CalendarIcon,
+  ChevronDown,
+  Eye,
+  FileDown,
+  FileUp,
+  Link2,
+  MoreHorizontal,
+  Pencil,
+  Printer,
+  Repeat,
+  Trash,
+  Truck,
+} from "lucide-react";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
+import CancelConfirmModal from "./components/CancelConfirmModal";
+import Detail from "./components/Detail";
+import PrintConfirmModal from "./components/PrintConfirmModal";
+import ReturnRequestModal from "./components/ReturnRequestModal";
+import TraceTrace from "./components/TraceTrace";
+import { Link } from "react-router-dom";
+import IconFunctionDate from "@/components/ui/IconFunction/IconFunctionDate";
+import { InputSearchButton } from "@/components/ui/input-search-button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+
+/* Add this at the top of the file or in your global CSS */
+/* Ultra-thin custom scrollbar for tab bar */
+
+export default function ListBill() {
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  // Redux state - only data, pagination, loading, error
+  const {
+    domesticBills,
+    loading,
+    error,
+    pagination,
+    group,
+    selectedDomesticBills,
+    exportLoading,
+  } = useSelector((state: RootState) => state.domesticBill);
+
+  const { addresses: warehouses } = useSelector(
+    (state: RootState) => state.warehouse
+  );
+
+  // Local filter state
+  const [startDate, setStartDate] = useState<Date>(() => {
+    return new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+  });
+  const [endDate, setEndDate] = useState<Date>(() => {
+    return new Date();
+  });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
+  const [statusFilter, setStatusFilter] =
+    useState<DomesticBillStatusKey>("all");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [warehouseFilter, setWarehouseFilter] = useState<number | null>(null);
+  const [paymentStatusFilter, setPaymentStatusFilter] = useState("all");
+
+  // Local UI state
+  const [trackTraceOpen, setTrackTraceOpen] = useState(false);
+  const [trackTraceBill, setTrackTraceBill] = useState(
+    null as null | TransformedDomesticBill
+  );
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [detailsBill, setDetailsBill] = useState(
+    null as null | TransformedDomesticBill
+  );
+  const [printModalOpen, setPrintModalOpen] = useState(false);
+  const [printingBillIds, setPrintingBillIds] = useState<number[]>([]);
+  const [cancelModalOpen, setCancelModalOpen] = useState(false);
+  const [cancelingBillIds, setCancelingBillIds] = useState<string[]>([]);
+  const [returnModalOpen, setReturnModalOpen] = useState(false);
+  const [returningBillId, setReturningBillId] = useState<string | null>(null);
+
+  // Status tabs with dynamic counts from API
+  const statusTabs = [
+    {
+      label: "Tất cả",
+      value: "all",
+      count: group
+        ? Object.values(group).reduce((a: number, b: number) => a + b, 0)
+        : 0,
+    },
+    { label: "Mới tạo", value: "new", count: group?.NEW || 0 },
+    {
+      label: "Chờ lấy hàng",
+      value: "waiting",
+      count: group?.WAITING_FOR_PICKUP || 0,
+    },
+    { label: "Đã lấy hàng", value: "picked", count: group?.PICKED_UP || 0 },
+    {
+      label: "Đang vận chuyển",
+      value: "shipping",
+      count: group?.BEING_TRANSPORTED || 0,
+    },
+    {
+      label: "Đang giao hàng",
+      value: "delivering",
+      count: group?.ON_DELIVERY || 0,
+    },
+    {
+      label: "Giao thành công",
+      value: "delivered",
+      count: group?.SUCCESSFUL_DELIVERY || 0,
+    },
+    { label: "Đang hoàn", value: "returning", count: group?.RETURNING || 0 },
+    { label: "Đã hoàn", value: "returned", count: group?.RETURNED || 0 },
+    { label: "Chưa gửi", value: "not_sent", count: group?.DRAFT || 0 },
+    { label: "Đã gửi", value: "sent", count: group?.PRINTED || 0 },
+    { label: "Đã huỷ", value: "cancelled", count: group?.CANCELLED || 0 },
+  ];
+
+  // Function to build filter parameters
+  const buildFilter = (
+    changedValues: Partial<{
+      startDate: Date;
+      endDate: Date;
+      currentPage: number;
+      pageSize: number;
+      statusFilter: DomesticBillStatusKey;
+      searchTerm: string;
+      warehouseFilter: number | null;
+      paymentStatusFilter: string;
+    }>
+  ) => {
+    const params: DomesticBillRequestParams = {
+      StartTime: format(changedValues.startDate || startDate, "yyyy-MM-dd"),
+      EndTime: format(changedValues.endDate || endDate, "yyyy-MM-dd"),
+      Offset: changedValues.currentPage || currentPage,
+      Size: changedValues.pageSize || pageSize,
+    };
+
+    // Add status filter if not 'all'
+    const statusToUse = changedValues.statusFilter || statusFilter;
+    if (statusToUse !== "all") {
+      const statusValue = DOMESTIC_BILL_STATUS_MAP[statusToUse];
+      if (statusValue) {
+        params.Status = statusValue;
+      }
+    }
+
+    // Add search filters - only when searchTerm is provided
+    const searchToUse = changedValues.searchTerm || searchTerm;
+    if (searchToUse && searchToUse.trim() !== "") {
+      params.Note = searchToUse.trim();
+      params.ConsigneeName = searchToUse.trim();
+      params.ConsigneeAdd = searchToUse.trim();
+      params["Filter[ORDER_NUMBER]"] = searchToUse.trim();
+      params["Filter[CONSIGNEE_PHONE_NUMBER]"] = searchToUse.trim();
+    }
+
+    // Add warehouse filter
+    const warehouseToUse =
+      changedValues.warehouseFilter !== undefined
+        ? changedValues.warehouseFilter
+        : warehouseFilter;
+    if (warehouseToUse !== null) {
+      params["Filter[WARE_HOUSE]"] = warehouseToUse;
+    }
+
+    // Add payment status filter
+    const paymentToUse =
+      changedValues.paymentStatusFilter || paymentStatusFilter;
+    if (paymentToUse !== "all") {
+      params["Filter[IS_PAID]"] = paymentToUse === "paid";
+    }
+
+    return params;
+  };
+
+  // Function to fetch domestic bills
+  const fetchDomesticBills = (filter?: DomesticBillRequestParams) => {
+    const params = filter || buildFilter({});
+    dispatch(fetchDomesticBillsStart(params));
+  };
+
+  // Initial fetch on mount
+  useEffect(() => {
+    fetchDomesticBills();
+    dispatch(fetchAddressesStart());
+  }, []);
+
+  // Handle tab change
+  const handleTabChange = (value: string) => {
+    const newStatusFilter = value as DomesticBillStatusKey;
+    setStatusFilter(newStatusFilter);
+    setCurrentPage(1); // Reset to first page
+    dispatch(deselectAllDomesticBills());
+    const filter = buildFilter({
+      statusFilter: newStatusFilter,
+      currentPage: 1,
+    });
+    fetchDomesticBills(filter);
+  };
+
+  // Handle date changes
+  const handleStartDateChange = (date: Date | undefined) => {
+    const validDate =
+      date || new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+    setStartDate(validDate);
+    setCurrentPage(1); // Reset to first page
+    dispatch(deselectAllDomesticBills());
+    const filter = buildFilter({ startDate: validDate, currentPage: 1 });
+    fetchDomesticBills(filter);
+  };
+
+  const handleEndDateChange = (date: Date | undefined) => {
+    const validDate = date || new Date();
+    setEndDate(validDate);
+    setCurrentPage(1); // Reset to first page
+    dispatch(deselectAllDomesticBills());
+    const filter = buildFilter({ endDate: validDate, currentPage: 1 });
+    fetchDomesticBills(filter);
+  };
+
+  // Handle warehouse change
+  const handleWarehouseChange = (value: string) => {
+    const warehouseId = value === "all" ? null : parseInt(value);
+    setWarehouseFilter(warehouseId);
+    setCurrentPage(1); // Reset to first page
+    dispatch(deselectAllDomesticBills());
+    const filter = buildFilter({
+      warehouseFilter: warehouseId,
+      currentPage: 1,
+    });
+    fetchDomesticBills(filter);
+  };
+
+  // Handle search
+  const handleSearch = () => {
+    setCurrentPage(1); // Reset to first page
+    dispatch(deselectAllDomesticBills());
+    const filter = buildFilter({ searchTerm, currentPage: 1 });
+    fetchDomesticBills(filter);
+  };
+
+  // Handle page change
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    dispatch(deselectAllDomesticBills());
+    const filter = buildFilter({ currentPage: page });
+    fetchDomesticBills(filter);
+  };
+
+  // Handle page size change
+  const handlePageSizeChange = (size: string) => {
+    const newSize = Number(size);
+    setPageSize(newSize);
+    setCurrentPage(1);
+    dispatch(deselectAllDomesticBills());
+    const filter = buildFilter({ pageSize: newSize, currentPage: 1 });
+    fetchDomesticBills(filter);
+  };
+
+  // Handle payment status change
+  const handlePaymentStatusChange = (value: string) => {
+    setPaymentStatusFilter(value);
+    setCurrentPage(1);
+    dispatch(deselectAllDomesticBills());
+    const filter = buildFilter({ paymentStatusFilter: value, currentPage: 1 });
+    fetchDomesticBills(filter);
+  };
+
+  // Handle Excel export
+  const handleExportExcel = () => {
+    const filter = buildFilter({});
+    dispatch(exportDomesticBillsStart(filter));
+  };
+
+  // Handle bill selection
+  const handleBillSelection = (billId: string, checked: boolean) => {
+    if (checked) {
+      dispatch(selectDomesticBill(billId));
+    } else {
+      dispatch(deselectDomesticBill(billId));
+    }
+  };
+
+  // Handle select all
+  const handleSelectAll = (checked: boolean) => {
+    if (checked) {
+      dispatch(selectAllDomesticBills());
+    } else {
+      dispatch(deselectAllDomesticBills());
+    }
+  };
+
+  const openCancelModal = (billIds: string[]) => {
+    setCancelingBillIds(billIds);
+    setCancelModalOpen(true);
+  };
+
+  //giới hạn cho tabs hiển thị
+  const VISIBLE_TABS_COUNT = 6;
+
+  return (
+    // priority
+    <MainLayout>
+      <SiteHeader
+        breadcrumbs={[
+          { title: "Trang chủ", link: "/" },
+          {
+            title: (
+              <>
+                <span className="hidden md:inline">
+                  Quản lý vận đơn nội địa
+                </span>
+                <span className="md:hidden">Vận đơn nội địa</span>
+              </>
+            ),
+            link: "",
+          },
+        ]}
+      />
+      <div className="p-2 sm:p-4 space-y-4 bg-[#EFF1F4]">
+        <div className="flex flex-row items-center justify-between gap-[20px] flex-wrap">
+          <div className="flex flex-col gap-[4px]">
+            <h2 className="text-[20px] font-[700] flex items-center gap-2 text-[#140402]">
+              Quản lý vận đơn nội địa
+            </h2>
+
+            <div className="text-[#808080] text-[14px] ">
+              <span>
+                <Link to={"/"} className="hover:underline">
+                  Home
+                </Link>
+              </span>{" "}
+              /{" "}
+              <Link to={"/domestic/list-bill"} className="hover:underline">
+                Domestic Shipping
+              </Link>{" "}
+              / <span className="text-[#140402]">Shipment List</span>
+            </div>
+          </div>
+          {/* button navigate create order */}
+          <button className="inline-flex gap-[8px] items-center py-[12px] px-[16px] bg-[#ED543E] rounded-[8px] cursor-pointer select-none">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11 7V15M15 11H7M11 21C16.5228 21 21 16.5228 21 11C21 5.47715 16.5228 1 11 1C5.47715 1 1 5.47715 1 11C1 16.5228 5.47715 21 11 21Z"
+                stroke="white"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+              />
+            </svg>
+
+            <span className="text-white text-[14px]">Create new Shipment</span>
+          </button>
+        </div>
+        {/* Error message */}
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+            {error}
+          </div>
+        )}
+
+        {/* Filters and Actions */}
+        <Card className="bg-white border-none shadow-none py-[24px] px-[16px]">
+          <CardContent className="flex flex-col gap-4 p-0">
+            <div className="flex flex-col gap-[24px] md:flex-row md:flex-wrap md:items-end">
+              {/* <div className="flex flex-col gap-1 w-full md:w-auto">
+                <label className="text-md font-medium">Time</label>
+                <div className="flex flex-col sm:flex-row gap-2 w-full">
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "w-full sm:w-36 justify-start text-left font-normal",
+                          !startDate && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="h-4 w-4" />
+                        {startDate
+                          ? format(startDate, "dd/MM/yyyy")
+                          : "Từ ngày"}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={startDate}
+                        onSelect={handleStartDateChange}
+                        initialFocus
+                        className="rounded-lg border-none"
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <span className="self-center hidden sm:inline">-</span>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "w-full sm:w-36 justify-start text-left font-normal",
+                          !endDate && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="h-4 w-4" />
+                        {endDate ? format(endDate, "dd/MM/yyyy") : "Đến ngày"}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={endDate}
+                        onSelect={handleEndDateChange}
+                        initialFocus
+                        className="rounded-lg border-none"
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+              </div> */}
+              {/* lịch gộp mới theo figma */}
+              <div className="flex flex-col gap-2 w-full md:w-auto">
+                <label className="text-[14px] text-[#140402]">Time</label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className={cn(
+                        "w-full min-w-[240px] h-[40px] justify-between text-left font-normal !pr-0 pl-4 rounded-lg border focus-visible:ring-2 focus-visible:ring-blue-500 hover:bg-transparent cursor-pointer",
+                        (!startDate || !endDate) && "text-muted-foreground"
+                      )}
+                    >
+                      <span>
+                        {startDate && endDate
+                          ? `${format(startDate, "dd.MM.yyyy")} - ${format(
+                              endDate,
+                              "dd.MM.yyyy"
+                            )}`
+                          : "Chọn thời gian"}
+                      </span>
+                      <IconFunctionDate className="w-10 h-10 size-auto opacity-80" />
+                    </Button>
+                  </PopoverTrigger>
+
+                  <PopoverContent
+                    className="w-auto px-2 py-4 flex gap-4"
+                    align="start"
+                  >
+                    <div className="flex flex-col items-center">
+                      <p className="text-sm mb-2 font-medium">Từ ngày</p>
+                      <Calendar
+                        mode="single"
+                        selected={startDate}
+                        onSelect={handleStartDateChange}
+                        initialFocus
+                        className="rounded-lg border-none"
+                      />
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <p className="text-sm mb-2 font-medium">Đến ngày</p>
+                      <Calendar
+                        mode="single"
+                        selected={endDate}
+                        onSelect={handleEndDateChange}
+                        initialFocus
+                        className="rounded-lg border-none"
+                      />
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
+
+              <div className="flex flex-col gap-2 w-full md:w-auto">
+                <label className="text-[14px] text-[#140402]">Kho hàng</label>
+                <Select
+                  value={warehouseFilter ? String(warehouseFilter) : "all"}
+                  onValueChange={handleWarehouseChange}
+                >
+                  <SelectTrigger className="w-full md:w-60 !h-[40px]">
+                    <SelectValue
+                      className="text-[#808080]"
+                      placeholder="Tất cả các kho gửi hàng"
+                    />
+                  </SelectTrigger>
+                  <SelectContent className="max-w-[300px]">
+                    <SelectItem value="all">Tất cả các kho gửi hàng</SelectItem>
+                    {warehouses.map((warehouse) => (
+                      <SelectItem
+                        key={warehouse.id}
+                        value={String(warehouse.id)}
+                      >
+                        {warehouse.name} - {warehouse.address}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex flex-col gap-2 w-full md:w-auto">
+                <label className="text-[14px] text-[#140402]">
+                  Trạng thái thanh toán
+                </label>
+                <Select
+                  value={paymentStatusFilter}
+                  onValueChange={handlePaymentStatusChange}
+                >
+                  <SelectTrigger className="w-full md:w-60 !h-[40px]">
+                    <SelectValue
+                      className="text-[#808080]"
+                      placeholder="Tất cả"
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Tất cả</SelectItem>
+                    <SelectItem value="paid">Đã thanh toán</SelectItem>
+                    <SelectItem value="unpaid">Chưa thanh toán</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex flex-col gap-2 w-full min-w-[200px] flex-1">
+                <label className="text-[14px] text-[#140402]">Tìm kiếm</label>
+                <div className="flex gap-2 w-full !h-[40px]">
+                  <InputSearchButton
+                    placeholder="Tìm đơn hàng, số điện thoại, người nhận..."
+                    className="w-full !h-[40px]"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onKeyPress={(e) => e.key === "Enter" && handleSearch()}
+                  />
+                  {/* <Button
+                    variant="outline"
+                    className="w-24 min-w-fit cursor-pointer h-[40px]"
+                    onClick={handleSearch}
+                  >
+                    Tìm kiếm
+                  </Button> */}
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* <Separator className="my-0" /> */}
+
+        {/* Tabs */}
+        <div className="px-[16px] py-[20px] bg-white rounded-lg">
+          <Tabs value={statusFilter} onValueChange={handleTabChange}>
+            {/* ban đầu */}
+            <div className="overflow-x-auto w-full tab-scrollbar">
+              <TabsList className="inline-flex h-10 gap-1 bg-gray-50 p-1 rounded-lg whitespace-nowrap scrollbar-thin scrollbar-thumb-gray-200 w-max">
+                {statusTabs.map((t) => (
+                  <TabsTrigger
+                    key={t.value}
+                    value={t.value}
+                    className="relative px-3 py-4 whitespace-nowrap rounded-md transition-all duration-200 font-medium text-md
+                  data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:border-none data-[state=active]:shadow-none
+                  hover:bg-primary/10 hover:text-primary focus-visible:ring-2 focus-visible:ring-primary/20 border-none shadow-none cursor-pointer"
+                  >
+                    {t.label}
+                    {t.count > 0 && (
+                      <Badge
+                        variant="secondary"
+                        className="ml-1 bg-primary/10 text-primary border-none"
+                      >
+                        {t.count}
+                      </Badge>
+                    )}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
+
+            {/* mới */}
+            <div className="flex items-center gap-2 overflow-x-auto tab-scrollbar max-w-full">
+              {/* Hiển thị tab đầu */}
+              <TabsList className="inline-flex h-10 gap-1 bg-gray-50 p-1 rounded-lg whitespace-nowrap">
+                {statusTabs.slice(0, VISIBLE_TABS_COUNT).map((t) => (
+                  <TabsTrigger
+                    key={t.value}
+                    value={t.value}
+                    className="relative px-3 py-4 rounded-md text-md font-medium transition-all hover:bg-primary/10 hover:text-primary data-[state=active]:bg-primary/10 data-[state=active]:text-primary cursor-pointer"
+                  >
+                    {t.label}
+                    {t.count > 0 && (
+                      <Badge
+                        variant="secondary"
+                        className="ml-1 bg-primary/10 text-primary border-none"
+                      >
+                        {t.count}
+                      </Badge>
+                    )}
+                  </TabsTrigger>
+                ))}
+
+                {/* Các tab dư cho vào popup */}
+                {statusTabs.length > VISIBLE_TABS_COUNT && (
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="px-3 py-2 rounded-md text-md font-medium hover:bg-primary/10 hover:text-primary cursor-pointer"
+                      >
+                        Khác <ChevronDown className="ml-1 w-4 h-4" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-48 p-1">
+                      {statusTabs.slice(VISIBLE_TABS_COUNT).map((t) => (
+                        <div
+                          key={t.value}
+                          onClick={() => handleTabChange(t.value)}
+                          className={cn(
+                            "flex justify-between items-center px-3 py-2 rounded-md cursor-pointer text-sm",
+                            statusFilter === t.value
+                              ? "bg-primary/10 text-primary font-medium"
+                              : "hover:bg-gray-100 hover:text-gray-900 text-gray-700"
+                          )}
+                        >
+                          <span>{t.label}</span>
+                          {t.count > 0 && (
+                            <span className="bg-primary/10 text-primary rounded-full px-2 text-xs">
+                              {t.count}
+                            </span>
+                          )}
+                        </div>
+                      ))}
+                    </PopoverContent>
+                  </Popover>
+                )}
+              </TabsList>
+            </div>
+
+            <Separator className="mt-[16px] mb-[20px]" />
+
+            <TabsContent value={statusFilter} className="">
+              <div className="hidden md:block overflow-x-auto rounded-lg bg-white">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-8 text-center">
+                        <Checkbox
+                          checked={
+                            selectedDomesticBills.length ===
+                              domesticBills.length && domesticBills.length > 0
+                          }
+                          onCheckedChange={handleSelectAll}
+                        />
+                      </TableHead>
+                      <TableHead className="min-w-[220px] max-w-[280px]">
+                        THÔNG TIN ĐƠN HÀNG
+                      </TableHead>
+                      <TableHead className="min-w-[220px] max-w-[300px]">
+                        THÔNG TIN GỬI & NHẬN
+                      </TableHead>
+                      <TableHead className="min-w-[120px] max-w-[180px]">
+                        THÔNG TIN SẢN PHẨM
+                      </TableHead>
+                      <TableHead className="min-w-[180px] max-w-[220px]">
+                        THÔNG TIN TÀI CHÍNH
+                      </TableHead>
+                      <TableHead className="text-center sticky right-0 bg-white shadow-[-8px_0_16px_-6px_rgba(0,0,0,0.1)]">
+                        ACTION
+                      </TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {loading ? (
+                      <TableRow>
+                        <TableCell colSpan={6} className="text-center py-12">
+                          <div className="flex flex-col items-center justify-center space-y-3">
+                            <div className="relative">
+                              <div className="w-6 h-6 border-2 border-gray-200 rounded-full"></div>
+                              <div className="absolute top-0 left-0 w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                            </div>
+                            <span className="text-sm text-muted-foreground font-medium">
+                              Đang tải dữ liệu...
+                            </span>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ) : domesticBills.length === 0 ? (
+                      <TableRow>
+                        <TableCell
+                          colSpan={6}
+                          className="text-center py-8 text-muted-foreground"
+                        >
+                          Không có dữ liệu
+                        </TableCell>
+                      </TableRow>
+                    ) : (
+                      domesticBills.map((bill) => {
+                        const isSelected = selectedDomesticBills.includes(
+                          `${bill.orderId}`
+                        );
+                        return (
+                          <TableRow
+                            key={bill.id}
+                            data-state={isSelected ? "selected" : undefined}
+                            className="hover:bg-gray-50 data-[state=selected]:bg-primary/5 transition-colors"
+                          >
+                            <TableCell className="w-8 text-center">
+                              <Checkbox
+                                checked={isSelected}
+                                onCheckedChange={(checked) =>
+                                  handleBillSelection(
+                                    `${bill.orderId}`,
+                                    !!checked
+                                  )
+                                }
+                              />
+                            </TableCell>
+                            <TableCell className="align-top min-w-[220px] max-w-[280px] whitespace-normal">
+                              <div className="flex items-center gap-2 break-words">
+                                <div
+                                  className=" font-semibold text-primary cursor-pointer hover:underline"
+                                  onClick={() => {
+                                    toast.success(
+                                      `Đã sao chép mã vận đơn ${bill.id}`
+                                    );
+                                    navigator.clipboard.writeText(bill.id);
+                                  }}
+                                >
+                                  {bill.id}
+                                </div>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <div
+                                      onClick={() => {
+                                        let trackUrl = `https://pcs-logistics.com/en/track-trace?code=${bill.id}`;
+                                        navigator.clipboard.writeText(trackUrl);
+                                        toast.success(
+                                          `Đã sao chép ${trackUrl}`
+                                        );
+                                      }}
+                                      className="rounded-full hover:bg-primary hover:text-white p-[4px] flex items-center justify-center cursor-pointer transition-all duration-200"
+                                    >
+                                      <Link2
+                                        className="w-[14px] h-[14px] font-semibold"
+                                        color="currentColor"
+                                      />
+                                    </div>
+                                  </TooltipTrigger>
+                                  <TooltipContent side="top">
+                                    Click để sao chép đường dẫn tra cứu trạng
+                                    thái vận đơn
+                                  </TooltipContent>
+                                </Tooltip>
+                              </div>
+                              <div className="text-xs break-words">
+                                <span className="font-semibold">
+                                  Trạng thái:
+                                </span>{" "}
+                                <span>{bill.status}</span>
+                              </div>
+                              <div className="text-xs break-words">
+                                <span className="font-semibold">Dịch vụ:</span>{" "}
+                                {bill.service}
+                              </div>
+                              <div className="text-xs break-words">
+                                <span className="font-semibold">
+                                  Thời gian tạo:
+                                </span>{" "}
+                                {bill.createdAt}
+                              </div>
+                              <div className="text-xs break-words">
+                                <span className="font-semibold">
+                                  T.Gian lập BK:
+                                </span>{" "}
+                                <span className="text-gray-600">
+                                  Chưa có bảng kê
+                                </span>
+                              </div>
+                              <div className="text-xs font-semibold text-gray-600 mt-1 break-words">
+                                {bill.printStatus}
+                              </div>
+                            </TableCell>
+                            <TableCell className="align-top min-w-[220px] max-w-[300px] whitespace-normal">
+                              <div className="text-xs break-words">
+                                <span className="font-semibold">
+                                  Người gửi:
+                                </span>{" "}
+                                <span className="font-normal">
+                                  {bill.sender.name}
+                                </span>
+                              </div>
+                              <div className="text-xs break-words">
+                                <span className="font-semibold">SĐT:</span>{" "}
+                                {bill.sender.phone}
+                              </div>
+                              <div className="text-xs break-words">
+                                <span className="font-semibold">
+                                  Địa chỉ gửi:
+                                </span>{" "}
+                                <span className="break-words">
+                                  {bill.sender.address}
+                                </span>
+                              </div>
+                              <div className="mt-2 text-xs break-words">
+                                <span className="font-semibold">
+                                  Người nhận:
+                                </span>{" "}
+                                <span className="font-normal">
+                                  {bill.receiver.name}
+                                </span>
+                              </div>
+                              <div className="text-xs break-words">
+                                <span className="font-semibold">SĐT:</span>{" "}
+                                {bill.receiver.phone}
+                              </div>
+                              <div className="text-xs break-words">
+                                <span className="font-semibold">
+                                  Địa chỉ nhận:
+                                </span>{" "}
+                                <span className="break-words">
+                                  {bill.receiver.address}
+                                </span>
+                              </div>
+                            </TableCell>
+                            <TableCell className="align-top min-w-[120px] max-w-[180px] whitespace-normal">
+                              <div className="text-xs break-words">
+                                <span className="font-semibold">
+                                  Loại hàng:
+                                </span>{" "}
+                                <span className="font-medium">
+                                  {bill.product.type}
+                                </span>
+                              </div>
+                              <div className="text-xs break-words">
+                                <span className="font-semibold">Số kiện:</span>{" "}
+                                {bill.product.quantity}
+                              </div>
+                              <div className="text-xs break-words">
+                                <span className="font-semibold">
+                                  Trọng lượng:
+                                </span>{" "}
+                                {bill.product.weight} kg
+                              </div>
+                              <div className="text-xs break-words">
+                                <span className="font-semibold">
+                                  TL Thực Tế:
+                                </span>{" "}
+                                {bill.product.realWeight} kg
+                              </div>
+                            </TableCell>
+                            <TableCell className="align-top min-w-[180px] max-w-[220px] whitespace-normal">
+                              <div className="text-xs break-words">
+                                <span className="font-semibold">
+                                  Người trả cước:
+                                </span>{" "}
+                                {bill.financial.payer}
+                              </div>
+                              <div className="text-xs break-words">
+                                <span className="font-semibold">
+                                  Giá trị hàng:
+                                </span>{" "}
+                                {bill.financial.value.toLocaleString()} đ
+                              </div>
+                              <div className="text-xs break-words">
+                                <span className="font-semibold">Tiền COD:</span>{" "}
+                                {bill.financial.cod.toLocaleString()} đ
+                              </div>
+                              <div className="text-xs break-words">
+                                <span className="font-semibold">
+                                  Cước tạm tính:
+                                </span>{" "}
+                                {bill.financial.tempFee.toLocaleString()} đ
+                              </div>
+                              <div className="text-xs break-words">
+                                <span className="font-semibold">
+                                  Cước khai thác:
+                                </span>{" "}
+                                {bill.financial.exploitFee.toLocaleString()} đ
+                              </div>
+                              <div className="text-xs break-words">
+                                <span className="font-semibold">
+                                  Tổng cộng:
+                                </span>{" "}
+                                {(
+                                  bill.financial.tempFee +
+                                  bill.financial.exploitFee
+                                ).toLocaleString()}{" "}
+                                đ
+                              </div>
+                            </TableCell>
+                            <TableCell className="align-top min-w-[90px] text-center sticky right-0 bg-white shadow-[-8px_0_16px_-6px_rgba(0,0,0,0.1)]">
+                              <div className="flex flex-wrap gap-x-2 gap-y-1 justify-center w-[90px]">
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      size="icon"
+                                      className="rounded-md cursor-pointer w-7 h-7 p-0 bg-primary hover:bg-primary/90"
+                                      onClick={() => {
+                                        setPrintingBillIds([bill.orderId]);
+                                        setPrintModalOpen(true);
+                                      }}
+                                    >
+                                      <Printer className="w-4 h-4 text-white" />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent side="top">In</TooltipContent>
+                                </Tooltip>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      size="icon"
+                                      className="rounded-md cursor-pointer w-7 h-7 p-0 bg-blue-500 hover:bg-blue-600"
+                                    >
+                                      <Pencil className="w-4 h-4 text-white" />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent side="top">
+                                    Sửa
+                                  </TooltipContent>
+                                </Tooltip>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      size="icon"
+                                      className="rounded-md cursor-pointer w-7 h-7 p-0 bg-red-500 hover:bg-red-600"
+                                      onClick={() => {
+                                        setTrackTraceBill(bill);
+                                        setTrackTraceOpen(true);
+                                      }}
+                                    >
+                                      <Truck className="w-4 h-4 text-white" />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent side="bottom">
+                                    Xem Track Trace đơn hàng
+                                  </TooltipContent>
+                                </Tooltip>
+                                <Popover>
+                                  <PopoverTrigger asChild>
+                                    <Button
+                                      size="icon"
+                                      className="rounded-md cursor-pointer w-7 h-7 p-0 bg-zinc-500 hover:bg-zinc-600"
+                                    >
+                                      <MoreHorizontal className="w-4 h-4 text-white" />
+                                    </Button>
+                                  </PopoverTrigger>
+                                  <PopoverContent
+                                    side="left"
+                                    className="w-44 p-1"
+                                  >
+                                    <button
+                                      className="flex items-center w-full gap-2 px-3 py-2 rounded hover:bg-accent text-sm transition-colors cursor-pointer"
+                                      onClick={() => {
+                                        setDetailsBill(bill);
+                                        setDetailsOpen(true);
+                                      }}
+                                    >
+                                      <Eye className="w-4 h-4" />
+                                      <span>Xem chi tiết</span>
+                                    </button>
+                                    <button
+                                      className="flex items-center w-full gap-2 px-3 py-2 rounded hover:bg-accent text-sm transition-colors cursor-pointer"
+                                      onClick={() => {
+                                        setReturningBillId(bill.id);
+                                        setReturnModalOpen(true);
+                                      }}
+                                    >
+                                      <Repeat className="w-4 h-4" />
+                                      <span>Yêu cầu hoàn đơn</span>
+                                    </button>
+                                    <button
+                                      className="flex items-center w-full gap-2 px-3 py-2 rounded hover:bg-accent text-sm transition-colors cursor-pointer text-red-500 hover:text-red-600"
+                                      onClick={() => openCancelModal([bill.id])}
+                                    >
+                                      <Trash className="w-4 h-4" />
+                                      <span>Huỷ đơn hàng</span>
+                                    </button>
+                                  </PopoverContent>
+                                </Popover>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })
+                    )}
+                  </TableBody>
+                </Table>
+              </div>
+
+              <div className="md:hidden space-y-4">
+                {loading ? (
+                  <div className="flex flex-col items-center justify-center py-12 space-y-3">
+                    <div className="relative">
+                      <div className="w-6 h-6 border-2 border-gray-200 rounded-full"></div>
+                      <div className="absolute top-0 left-0 w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                    <span className="text-sm text-muted-foreground font-medium">
+                      Đang tải dữ liệu...
+                    </span>
+                  </div>
+                ) : domesticBills.length === 0 ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    Không có dữ liệu
+                  </div>
+                ) : (
+                  domesticBills.map((bill) => (
+                    <div
+                      key={bill.id}
+                      className="rounded-xl bg-white p-4 flex flex-col gap-3 border"
+                    >
+                      {/* Order Info Section */}
+                      <div className="flex items-center gap-2 mb-1">
+                        <div
+                          onClick={() => {
+                            toast.success(`Đã sao chép mã vận đơn ${bill.id}`);
+                            navigator.clipboard.writeText(bill.id);
+                          }}
+                          className="font-semibold text-primary cursor-pointer hover:underline text-base"
+                        >
+                          {bill.id}
+                        </div>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <div
+                              onClick={() => {
+                                let trackUrl = `https://pcs-logistics.com/en/track-trace?code=${bill.id}`;
+                                navigator.clipboard.writeText(trackUrl);
+                                toast.success(`Đã sao chép ${trackUrl}`);
+                              }}
+                              className="rounded-full hover:bg-primary hover:text-white p-[4px] flex items-center justify-center cursor-pointer transition-all duration-200"
+                            >
+                              <Link2
+                                className="w-[14px] h-[14px] font-semibold"
+                                color="currentColor"
+                              />
+                            </div>
+                          </TooltipTrigger>
+                        </Tooltip>
+                        <div className="flex-1" />
+                        <Checkbox
+                          checked={selectedDomesticBills.includes(
+                            `${bill.orderId}`
+                          )}
+                          onCheckedChange={(checked) =>
+                            handleBillSelection(`${bill.orderId}`, !!checked)
+                          }
+                        />
+                      </div>
+                      <div className="text-xs space-y-1">
+                        <div>
+                          <span className="font-semibold">Trạng thái:</span>{" "}
+                          <span>{bill.status}</span>
+                        </div>
+                        <div>
+                          <span className="font-semibold">Dịch vụ:</span>{" "}
+                          {bill.service}
+                        </div>
+                        <div>
+                          <span className="font-semibold">Thời gian tạo:</span>{" "}
+                          {bill.createdAt}
+                        </div>
+                        <div>
+                          <span className="font-semibold">T.Gian lập BK:</span>{" "}
+                          <span className="text-gray-600">Chưa có bảng kê</span>
+                        </div>
+                        <div className="font-semibold text-gray-600">
+                          {bill.printStatus}
+                        </div>
+                      </div>
+
+                      <Separator className="my-2" />
+
+                      {/* Sender/Receiver Info Section */}
+                      <div className="text-xs space-y-1">
+                        <div className="font-semibold text-base mb-1">
+                          THÔNG TIN GỬI & NHẬN
+                        </div>
+                        <div>
+                          <span className="font-semibold">Người gửi:</span>{" "}
+                          <span className="font-normal">
+                            {bill.sender.name}
+                          </span>
+                        </div>
+                        <div className="text-xs break-words">
+                          <span className="font-semibold">SĐT:</span>{" "}
+                          {bill.sender.phone}
+                        </div>
+                        <div className="text-xs break-words">
+                          <span className="font-semibold">Địa chỉ gửi:</span>{" "}
+                          <span className="break-words">
+                            {bill.sender.address}
+                          </span>
+                        </div>
+                        <div className="mt-2">
+                          <span className="font-semibold">Người nhận:</span>{" "}
+                          <span className="font-normal">
+                            {bill.receiver.name}
+                          </span>
+                        </div>
+                        <div className="text-xs break-words">
+                          <span className="font-semibold">SĐT:</span>{" "}
+                          {bill.receiver.phone}
+                        </div>
+                        <div className="text-xs break-words">
+                          <span className="font-semibold">Địa chỉ nhận:</span>{" "}
+                          <span className="break-words">
+                            {bill.receiver.address}
+                          </span>
+                        </div>
+                      </div>
+
+                      <Separator className="my-2" />
+
+                      {/* Product Info Section */}
+                      <div className="text-xs space-y-1">
+                        <div className="font-semibold text-base mb-1">
+                          THÔNG TIN SẢN PHẨM
+                        </div>
+                        <div>
+                          <span className="font-semibold">Loại hàng:</span>{" "}
+                          <span className="font-medium">
+                            {bill.product.type}
+                          </span>
+                        </div>
+                        <div className="text-xs break-words">
+                          <span className="font-semibold">Số kiện:</span>{" "}
+                          {bill.product.quantity}
+                        </div>
+                        <div className="text-xs break-words">
+                          <span className="font-semibold">Trọng lượng:</span>{" "}
+                          {bill.product.weight} kg
+                        </div>
+                        <div className="text-xs break-words">
+                          <span className="font-semibold">TL Thực Tế:</span>{" "}
+                          {bill.product.realWeight} kg
+                        </div>
+                      </div>
+
+                      <Separator className="my-2" />
+
+                      {/* Financial Info Section */}
+                      <div className="text-xs space-y-1">
+                        <div className="font-semibold text-base mb-1">
+                          THÔNG TIN TÀI CHÍNH
+                        </div>
+                        <div>
+                          <span className="font-semibold">Người trả cước:</span>{" "}
+                          {bill.financial.payer}
+                        </div>
+                        <div>
+                          <span className="font-semibold">Giá trị hàng:</span>{" "}
+                          {bill.financial.value.toLocaleString()} đ
+                        </div>
+                        <div>
+                          <span className="font-semibold">Tiền COD:</span>{" "}
+                          {bill.financial.cod.toLocaleString()} đ
+                        </div>
+                        <div>
+                          <span className="font-semibold">Cước tạm tính:</span>{" "}
+                          {bill.financial.tempFee.toLocaleString()} đ
+                        </div>
+                        <div>
+                          <span className="font-semibold">Cước khai thác:</span>{" "}
+                          {bill.financial.exploitFee.toLocaleString()} đ
+                        </div>
+                        <div>
+                          <span className="font-semibold">Tổng cộng:</span>{" "}
+                          {(
+                            bill.financial.tempFee + bill.financial.exploitFee
+                          ).toLocaleString()}{" "}
+                          đ
+                        </div>
+                      </div>
+
+                      <Separator className="my-2" />
+
+                      {/* Action Buttons */}
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              size="icon"
+                              className="rounded-md cursor-pointer w-7 h-7 p-0 bg-primary hover:bg-primary/90"
+                              onClick={() => {
+                                setPrintingBillIds([bill.orderId]);
+                                setPrintModalOpen(true);
+                              }}
+                            >
+                              <Printer className="w-4 h-4 text-white" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">In</TooltipContent>
+                        </Tooltip>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              size="icon"
+                              className="rounded-md cursor-pointer w-7 h-7 p-0 bg-blue-500 hover:bg-blue-600"
+                            >
+                              <Pencil className="w-4 h-4 text-white" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">Sửa</TooltipContent>
+                        </Tooltip>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              size="icon"
+                              className="rounded-md cursor-pointer w-7 h-7 p-0 bg-red-500 hover:bg-red-600"
+                              onClick={() => {
+                                setTrackTraceBill(bill);
+                                setTrackTraceOpen(true);
+                              }}
+                            >
+                              <Truck className="w-4 h-4 text-white" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent side="bottom">
+                            Xem Track Trace đơn hàng
+                          </TooltipContent>
+                        </Tooltip>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              size="icon"
+                              className="rounded-md cursor-pointer w-7 h-7 p-0 bg-zinc-500 hover:bg-zinc-600"
+                            >
+                              <MoreHorizontal className="w-4 h-4 text-white" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent side="left" className="w-44 p-1">
+                            <button
+                              className="flex items-center w-full gap-2 px-3 py-2 rounded hover:bg-accent text-sm transition-colors cursor-pointer"
+                              onClick={() => {
+                                setDetailsBill(bill);
+                                setDetailsOpen(true);
+                              }}
+                            >
+                              <Eye className="w-4 h-4" />
+                              <span>Xem chi tiết</span>
+                            </button>
+                            <button
+                              className="flex items-center w-full gap-2 px-3 py-2 rounded hover:bg-accent text-sm transition-colors cursor-pointer"
+                              onClick={() => {
+                                setReturningBillId(bill.id);
+                                setReturnModalOpen(true);
+                              }}
+                            >
+                              <Repeat className="w-4 h-4" />
+                              <span>Yêu cầu hoàn đơn</span>
+                            </button>
+                            <button
+                              className="flex items-center w-full gap-2 px-3 py-2 rounded hover:bg-accent text-sm transition-colors cursor-pointer text-red-500 hover:text-red-600"
+                              onClick={() => openCancelModal([bill.id])}
+                            >
+                              <Trash className="w-4 h-4" />
+                              <span>Huỷ đơn hàng</span>
+                            </button>
+                          </PopoverContent>
+                        </Popover>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              {/* Pagination */}
+              {pagination && (
+                <div className="flex items-center justify-between mt-4">
+                  <div className="text-muted-foreground hidden flex-1 text-sm lg:flex">
+                    {t("common.pagination.selected", {
+                      selected: selectedDomesticBills.length,
+                      total: pagination.Total,
+                    })}
+                  </div>
+                  <div className="flex w-full items-center gap-8 lg:w-fit">
+                    <div className="hidden items-center gap-2 lg:flex">
+                      <Label
+                        htmlFor="rows-per-page"
+                        className="text-sm font-medium"
+                      >
+                        {t("common.pagination.display")}
+                      </Label>
+                      <Select
+                        value={String(pageSize)}
+                        onValueChange={handlePageSizeChange}
+                      >
+                        <SelectTrigger
+                          size="sm"
+                          className="w-20"
+                          id="rows-per-page"
+                        >
+                          <SelectValue placeholder={String(pageSize)} />
+                        </SelectTrigger>
+                        <SelectContent side="top">
+                          {[10, 20, 50].map((size) => (
+                            <SelectItem key={size} value={String(size)}>
+                              {size}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <span className="text-sm font-medium">
+                        {t("common.pagination.rowsPerPage")}
+                      </span>
+                    </div>
+                    <div className="flex w-fit items-center justify-center text-sm font-medium">
+                      {t("common.pagination.page", {
+                        current: pagination.Offset,
+                        total: Math.ceil(pagination.Total / pagination.Size),
+                      })}
+                    </div>
+                    <div className="ml-auto flex items-center gap-2 lg:ml-0">
+                      <Button
+                        variant="outline"
+                        className="hidden h-8 w-8 p-0 lg:flex"
+                        onClick={() => handlePageChange(1)}
+                        disabled={pagination.Offset === 1}
+                      >
+                        <span className="sr-only">
+                          {t("common.pagination.goToFirst")}
+                        </span>
+                        <IconChevronsLeft className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className="size-8"
+                        size="icon"
+                        onClick={() => handlePageChange(pagination.Offset - 1)}
+                        disabled={pagination.Offset === 1}
+                      >
+                        <span className="sr-only">
+                          {t("common.pagination.goToPrevious")}
+                        </span>
+                        <IconChevronLeft className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className="size-8"
+                        size="icon"
+                        onClick={() => handlePageChange(pagination.Offset + 1)}
+                        disabled={
+                          pagination.Offset >=
+                          Math.ceil(pagination.Total / pagination.Size)
+                        }
+                      >
+                        <span className="sr-only">
+                          {t("common.pagination.goToNext")}
+                        </span>
+                        <IconChevronRight className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className="hidden size-8 lg:flex"
+                        size="icon"
+                        onClick={() =>
+                          handlePageChange(
+                            Math.ceil(pagination.Total / pagination.Size)
+                          )
+                        }
+                        disabled={
+                          pagination.Offset >=
+                          Math.ceil(pagination.Total / pagination.Size)
+                        }
+                      >
+                        <span className="sr-only">
+                          {t("common.pagination.goToLast")}
+                        </span>
+                        <IconChevronsRight className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </TabsContent>
+          </Tabs>
+        </div>
+      </div>
+      <TraceTrace
+        open={trackTraceOpen}
+        onOpenChange={setTrackTraceOpen}
+        trackTraceBill={trackTraceBill}
+      />
+      <Detail
+        open={detailsOpen}
+        onOpenChange={setDetailsOpen}
+        detailsBill={detailsBill}
+      />
+      <PrintConfirmModal
+        open={printModalOpen}
+        onOpenChange={setPrintModalOpen}
+        billIds={printingBillIds}
+      />
+      <CancelConfirmModal
+        open={cancelModalOpen}
+        onOpenChange={setCancelModalOpen}
+        billIds={cancelingBillIds}
+        onSuccess={() => {
+          setCancelModalOpen(false);
+          setCancelingBillIds([]);
+          fetchDomesticBills(buildFilter({ currentPage }));
+        }}
+      />
+      <ReturnRequestModal
+        open={returnModalOpen}
+        onOpenChange={setReturnModalOpen}
+        billId={returningBillId}
+        onSuccess={() => {
+          setReturnModalOpen(false);
+          setReturningBillId(null);
+          fetchDomesticBills(buildFilter({ currentPage }));
+        }}
+      />
+    </MainLayout>
+  );
+}
